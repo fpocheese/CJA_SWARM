@@ -1,0 +1,1 @@
+tensorboard --logdir=/home/uav/00gao_xueshu/togsy_2025/0620septimedone/on-policy-main/onpolicy/scripts/results/MPE/simple_world_comm/rmappo/check/logs

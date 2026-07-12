@@ -1,0 +1,78 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+=== MC weiyang_ta/caseB_seed50042_torch1: n=1000 workers=4 out=/tmp/v71_mc_selected_methods_1000_reuse_parallel/weiyang_ta_caseB_seed50042_torch1_mc1000 ===
+weiyang_ta/caseB_seed50042_torch1 done=1/1000 succ=0 rate=0.000 best_min=1513.81m
+weiyang_ta/caseB_seed50042_torch1 done=2/1000 succ=0 rate=0.000 best_min=1513.81m
+weiyang_ta/caseB_seed50042_torch1 done=3/1000 succ=0 rate=0.000 best_min=1513.81m
+weiyang_ta/caseB_seed50042_torch1 done=4/1000 succ=0 rate=0.000 best_min=1513.81m
+weiyang_ta/caseB_seed50042_torch1 done=5/1000 succ=0 rate=0.000 best_min=1513.81m
+weiyang_ta/caseB_seed50042_torch1 done=25/1000 succ=0 rate=0.000 best_min=1508.61m
+weiyang_ta/caseB_seed50042_torch1 done=50/1000 succ=0 rate=0.000 best_min=1463.56m
+weiyang_ta/caseB_seed50042_torch1 done=75/1000 succ=0 rate=0.000 best_min=1463.56m
+weiyang_ta/caseB_seed50042_torch1 done=100/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=125/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=150/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=175/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=200/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=225/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=250/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=275/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=300/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=325/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=350/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=375/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=400/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=425/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=450/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=475/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=500/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=525/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=550/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=575/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=600/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=625/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=650/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=675/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=700/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=725/1000 succ=0 rate=0.000 best_min=5.38m
+weiyang_ta/caseB_seed50042_torch1 done=750/1000 succ=0 rate=0.000 best_min=5.27m
+weiyang_ta/caseB_seed50042_torch1 done=775/1000 succ=0 rate=0.000 best_min=5.27m
+weiyang_ta/caseB_seed50042_torch1 done=800/1000 succ=0 rate=0.000 best_min=5.27m
+weiyang_ta/caseB_seed50042_torch1 done=825/1000 succ=0 rate=0.000 best_min=5.27m
+weiyang_ta/caseB_seed50042_torch1 done=850/1000 succ=0 rate=0.000 best_min=5.27m
+weiyang_ta/caseB_seed50042_torch1 done=875/1000 succ=0 rate=0.000 best_min=5.27m
+weiyang_ta/caseB_seed50042_torch1 done=900/1000 succ=0 rate=0.000 best_min=5.27m
+weiyang_ta/caseB_seed50042_torch1 done=925/1000 succ=0 rate=0.000 best_min=5.27m
+weiyang_ta/caseB_seed50042_torch1 done=950/1000 succ=0 rate=0.000 best_min=5.27m
+weiyang_ta/caseB_seed50042_torch1 done=975/1000 succ=0 rate=0.000 best_min=5.27m
+weiyang_ta/caseB_seed50042_torch1 done=1000/1000 succ=0 rate=0.000 best_min=5.27m
+{
+  "method": "weiyang_ta",
+  "case": "caseB_seed50042_torch1",
+  "n_episodes": 1000,
+  "workers": 4,
+  "success_count": 0,
+  "success_rate": 0.0,
+  "hit_count_mean": 0.0,
+  "best_hvt_distance_mean_m": 1545.1225483604753,
+  "best_hvt_distance_median_m": 1555.4533828739231,
+  "best_hvt_distance_min_m": 5.273820684771396,
+  "best_hvt_distance_p05_m": 1503.913854444887,
+  "best_hvt_distance_p95_m": 1602.6090810537144,
+  "final_time_mean_s": 20.087799999999998,
+  "success_time_mean_s": null,
+  "done_reason_counts": {
+    "all_killed": 1000
+  },
+  "elapsed_s": 5770.490741252899,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}
+summary_all=/tmp/v71_mc_selected_methods_1000_reuse_parallel/summary_all.json

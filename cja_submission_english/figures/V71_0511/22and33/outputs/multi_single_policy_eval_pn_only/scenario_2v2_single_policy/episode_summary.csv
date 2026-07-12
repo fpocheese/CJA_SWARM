@@ -1,0 +1,9 @@
+scenario,seed,done_reason,success_any,success_all,hit_count,mean_min_dist_hvt,best_min_dist_hvt,offensive_alive_final,defensive_alive_final,attacker0_hit,attacker0_status,attacker1_hit,attacker1_status
+scenario_2v2_single_policy,300,all_killed,0,0,0,3689.3406338736713,3258.1845482306057,0,0,0,killed,0,killed
+scenario_2v2_single_policy,301,partial_success,1,0,1,1655.476203977477,5.05367949523185,1,1,0,killed,1,hit_hvt
+scenario_2v2_single_policy,302,timeout,1,0,1,57.11586326846996,2.038474213941821,2,2,1,hit_hvt,0,alive_timeout
+scenario_2v2_single_policy,303,all_killed,0,0,0,3709.2231455448045,3218.4151427622023,0,0,0,killed,0,killed
+scenario_2v2_single_policy,304,timeout,0,0,0,1731.8211230638508,127.45424985918427,1,1,0,killed,0,alive_timeout
+scenario_2v2_single_policy,305,partial_success,1,0,1,1883.6189100281345,4.297831901330615,1,1,1,hit_hvt,0,killed
+scenario_2v2_single_policy,306,timeout,0,0,0,1702.7846043239924,119.35990563124756,1,1,0,killed,0,alive_timeout
+scenario_2v2_single_policy,307,partial_success,1,0,1,1946.0254472049528,0.5389059609917304,1,1,1,hit_hvt,0,killed

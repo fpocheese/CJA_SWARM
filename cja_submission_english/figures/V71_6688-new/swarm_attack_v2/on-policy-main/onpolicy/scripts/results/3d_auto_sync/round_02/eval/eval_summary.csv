@@ -1,0 +1,3 @@
+case,model,episodes,attack_success_rate,target_success_rate,sync_success_rate,all_sync_rate,mean_target_time
+case1,/home/a2rl/000000GSY_mutiUAV/swarm_attack_v2/on-policy-main/onpolicy/scripts/results/3d_auto_sync/round_02/train_case_case1/MAPPO/seed1/models/MAPPO_2606_241941,20,0.0,0.0,0.0,0.0,nan
+case2,/home/a2rl/000000GSY_mutiUAV/swarm_attack_v2/on-policy-main/onpolicy/scripts/results/3d_auto_sync/round_02/train_case_case2/MAPPO/seed1/models/MAPPO_2606_241943,20,0.0,0.0,0.0,0.0,nan

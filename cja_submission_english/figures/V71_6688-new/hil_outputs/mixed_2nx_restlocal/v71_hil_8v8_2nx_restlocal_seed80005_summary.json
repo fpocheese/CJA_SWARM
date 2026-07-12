@@ -1,0 +1,34 @@
+{
+  "case": "8v8",
+  "episodes": 1,
+  "success_count": 0,
+  "success_rate": 0.0,
+  "elapsed_s": 91.58511114120483,
+  "summaries": [
+    {
+      "seed": 80005,
+      "episode": 0,
+      "success": false,
+      "hit_count": 0,
+      "hit_indices": [],
+      "done_reason": "timeout",
+      "final_step": 8000,
+      "final_time_s": 80.0,
+      "offensive_alive": 1,
+      "defensive_alive": 1,
+      "best_agent": 4,
+      "best_min_dist_m": 89.31739783568527,
+      "best_min_step": 6006,
+      "min_dist_per_agent_m": [
+        1574.662,
+        1626.493,
+        1703.456,
+        1518.996,
+        89.317,
+        1726.166,
+        1618.381,
+        1619.097
+      ]
+    }
+  ]
+}

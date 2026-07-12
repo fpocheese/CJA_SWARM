@@ -1,0 +1,28 @@
+{
+  "method": "hetero_guard",
+  "case": "caseB_seed50042_torch1",
+  "n_episodes": 1000,
+  "workers": 6,
+  "success_count": 404,
+  "success_rate": 0.404,
+  "hit_count_mean": 0.404,
+  "best_hvt_distance_mean_m": 727.6401104713829,
+  "best_hvt_distance_median_m": 605.9308918718399,
+  "best_hvt_distance_min_m": 4.500243280996138,
+  "best_hvt_distance_p05_m": 4.57064073703228,
+  "best_hvt_distance_p95_m": 1574.4967777640306,
+  "final_time_mean_s": 38.44535,
+  "success_time_mean_s": 54.200940594059404,
+  "done_reason_counts": {
+    "success": 404,
+    "all_killed": 596
+  },
+  "elapsed_s": 3933.1588201522827,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}

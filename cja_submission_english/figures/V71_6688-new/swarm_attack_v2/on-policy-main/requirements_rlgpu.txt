@@ -1,0 +1,21 @@
+# MARL Algorithm Comparison - Requirements
+# Python 3.8+ recommended
+# Conda environment: rlgpu
+
+# Core Deep Learning
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Scientific Computing
+numpy>=1.24.0,<2.0.0
+scipy>=1.10.0
+
+# Reinforcement Learning
+gym==0.20.0
+
+# Visualization
+matplotlib>=3.7.0
+
+# Utilities
+cloudpickle>=3.0.0
+pyglet>=1.5.0,<2.0.0

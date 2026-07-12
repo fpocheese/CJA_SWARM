@@ -1,0 +1,29 @@
+[
+  {
+    "case": "caseB_seed50042_torch1",
+    "env_seed": 50042,
+    "torch_seed": 1,
+    "best_dist": 4.7327816989890765,
+    "hitter": 1,
+    "hit_step": 5014,
+    "out_dir": "/tmp/v71_figs/caseB_seed50042_torch1"
+  },
+  {
+    "case": "caseA_seed50015_torch1",
+    "env_seed": 50015,
+    "torch_seed": 1,
+    "best_dist": 4.901505109470989,
+    "hitter": 0,
+    "hit_step": 4683,
+    "out_dir": "/tmp/v71_figs/caseA_seed50015_torch1"
+  },
+  {
+    "case": "caseC_seed50034_torch7",
+    "env_seed": 50034,
+    "torch_seed": 7,
+    "best_dist": 4.886026622450353,
+    "hitter": 0,
+    "hit_step": 4707,
+    "out_dir": "/tmp/v71_figs/caseC_seed50034_torch7"
+  }
+]

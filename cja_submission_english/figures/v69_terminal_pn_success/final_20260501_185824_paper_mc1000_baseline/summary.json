@@ -1,0 +1,32 @@
+{
+  "best_min_dist_m": 4.501045818990658,
+  "complete": true,
+  "episodes_completed": 1000,
+  "expected_episodes": 1000,
+  "failure_count": 277,
+  "mean_best_min_dist_m": 49.40168164059291,
+  "mean_final_step": 6422.68,
+  "median_best_min_dist_m": 4.856374307321633,
+  "median_final_step": 5881.0,
+  "scenario_case": "baseline",
+  "seed_max": 30999,
+  "seed_min": 30000,
+  "shard_dirs": [
+    "outputs/v69_monte_carlo/20260501_172352_paper_mc1000_fork64_baseline",
+    "outputs/v69_monte_carlo/20260501_173239_paper_mc1000_fork32_hi_baseline",
+    "outputs/v69_monte_carlo/20260501_173454_paper_mc1000_fork24_mid_baseline"
+  ],
+  "success_count": 723,
+  "success_rate": 0.723,
+  "success_rate_ci95_normal": [
+    0.6952626411927884,
+    0.7507373588072116
+  ],
+  "success_rate_ci95_wilson": [
+    0.6944492173416589,
+    0.749843985888811
+  ],
+  "timestamp": "2026-05-01T19:00:31",
+  "total_hits": 723,
+  "unique_seed_count": 1000
+}

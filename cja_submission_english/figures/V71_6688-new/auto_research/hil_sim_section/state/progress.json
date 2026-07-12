@@ -1,0 +1,12 @@
+{
+  "iteration": 191,
+  "total_findings": 197,
+  "status": "active",
+  "stale_count": 0,
+  "last_seen": "2026-07-02T20:48:01",
+  "last_update": "2026-07-02T20:48:01",
+  "current_focus": "Residual HIL trajectory and defense-response causal wording moderation blocked by escalation quota",
+  "updated_at": "2026-07-02T20:48:01",
+  "last_updated": "2026-07-02T19:18:30+0800",
+  "last_validation": "not_run_by_instruction"
+}

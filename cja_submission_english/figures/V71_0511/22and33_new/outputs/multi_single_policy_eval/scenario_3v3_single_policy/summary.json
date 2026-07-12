@@ -1,0 +1,194 @@
+{
+  "scenario": "scenario_3v3_single_policy",
+  "n_offensive": 3,
+  "n_defensive": 3,
+  "episodes": [
+    {
+      "scenario": "scenario_3v3_single_policy",
+      "seed": 400,
+      "done_reason": "partial_success",
+      "success_any": 1,
+      "success_all": 0,
+      "hit_count": 2,
+      "mean_min_dist_hvt": 1026.0205279860495,
+      "best_min_dist_hvt": 1.3116997996900397,
+      "offensive_alive_final": 2,
+      "defensive_alive_final": 2,
+      "attacker_hit_flags": [
+        0,
+        1,
+        1
+      ],
+      "attacker_final_status": [
+        "killed",
+        "hit_hvt",
+        "hit_hvt"
+      ]
+    },
+    {
+      "scenario": "scenario_3v3_single_policy",
+      "seed": 401,
+      "done_reason": "partial_success",
+      "success_any": 1,
+      "success_all": 0,
+      "hit_count": 1,
+      "mean_min_dist_hvt": 2398.017705729866,
+      "best_min_dist_hvt": 0.03389458391259178,
+      "offensive_alive_final": 0,
+      "defensive_alive_final": 1,
+      "attacker_hit_flags": [
+        0,
+        0,
+        1
+      ],
+      "attacker_final_status": [
+        "killed",
+        "killed",
+        "hit_hvt"
+      ]
+    },
+    {
+      "scenario": "scenario_3v3_single_policy",
+      "seed": 402,
+      "done_reason": "partial_success",
+      "success_any": 1,
+      "success_all": 0,
+      "hit_count": 1,
+      "mean_min_dist_hvt": 2396.333578485675,
+      "best_min_dist_hvt": 3.875224785382412,
+      "offensive_alive_final": 1,
+      "defensive_alive_final": 1,
+      "attacker_hit_flags": [
+        0,
+        0,
+        1
+      ],
+      "attacker_final_status": [
+        "killed",
+        "killed",
+        "hit_hvt"
+      ]
+    },
+    {
+      "scenario": "scenario_3v3_single_policy",
+      "seed": 403,
+      "done_reason": "partial_success",
+      "success_any": 1,
+      "success_all": 0,
+      "hit_count": 1,
+      "mean_min_dist_hvt": 2409.6439082461193,
+      "best_min_dist_hvt": 3.969812677555629,
+      "offensive_alive_final": 1,
+      "defensive_alive_final": 1,
+      "attacker_hit_flags": [
+        0,
+        0,
+        1
+      ],
+      "attacker_final_status": [
+        "killed",
+        "killed",
+        "hit_hvt"
+      ]
+    },
+    {
+      "scenario": "scenario_3v3_single_policy",
+      "seed": 404,
+      "done_reason": "partial_success",
+      "success_any": 1,
+      "success_all": 0,
+      "hit_count": 2,
+      "mean_min_dist_hvt": 1362.9789422413444,
+      "best_min_dist_hvt": 3.687705543376389,
+      "offensive_alive_final": 2,
+      "defensive_alive_final": 2,
+      "attacker_hit_flags": [
+        1,
+        1,
+        0
+      ],
+      "attacker_final_status": [
+        "hit_hvt",
+        "hit_hvt",
+        "killed"
+      ]
+    },
+    {
+      "scenario": "scenario_3v3_single_policy",
+      "seed": 405,
+      "done_reason": "all_killed",
+      "success_any": 0,
+      "success_all": 0,
+      "hit_count": 0,
+      "mean_min_dist_hvt": 3779.009543098948,
+      "best_min_dist_hvt": 3068.4925550647185,
+      "offensive_alive_final": 0,
+      "defensive_alive_final": 0,
+      "attacker_hit_flags": [
+        0,
+        0,
+        0
+      ],
+      "attacker_final_status": [
+        "killed",
+        "killed",
+        "killed"
+      ]
+    },
+    {
+      "scenario": "scenario_3v3_single_policy",
+      "seed": 406,
+      "done_reason": "partial_success",
+      "success_any": 1,
+      "success_all": 0,
+      "hit_count": 2,
+      "mean_min_dist_hvt": 991.1180603930383,
+      "best_min_dist_hvt": 0.6928788599058591,
+      "offensive_alive_final": 2,
+      "defensive_alive_final": 2,
+      "attacker_hit_flags": [
+        0,
+        1,
+        1
+      ],
+      "attacker_final_status": [
+        "killed",
+        "hit_hvt",
+        "hit_hvt"
+      ]
+    },
+    {
+      "scenario": "scenario_3v3_single_policy",
+      "seed": 407,
+      "done_reason": "partial_success",
+      "success_any": 1,
+      "success_all": 0,
+      "hit_count": 2,
+      "mean_min_dist_hvt": 1361.9385002869005,
+      "best_min_dist_hvt": 0.23114005925571024,
+      "offensive_alive_final": 2,
+      "defensive_alive_final": 2,
+      "attacker_hit_flags": [
+        1,
+        0,
+        1
+      ],
+      "attacker_final_status": [
+        "hit_hvt",
+        "killed",
+        "hit_hvt"
+      ]
+    }
+  ],
+  "team_any_hit_rate": 0.875,
+  "team_all_hit_rate": 0.0,
+  "mean_hit_count": 1.375,
+  "best_episode_seed": 406,
+  "best_episode_done_reason": "partial_success",
+  "best_episode_hit_count": 2,
+  "hitter": 1,
+  "hit_step": 882,
+  "hit_time_s": 88.2,
+  "best_hvt_distance_m": 0.6928788599058591,
+  "hitter_locked_by_count_max": 1
+}

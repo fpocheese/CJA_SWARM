@@ -1,0 +1,406 @@
+{
+  "6v6": [
+    {
+      "seed": 60015,
+      "rc": 0,
+      "success": false,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60015_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60015_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60015_result.png",
+      "item": {
+        "seed": 60015,
+        "episode": 0,
+        "success": false,
+        "hit_count": 0,
+        "hit_indices": [],
+        "done_reason": "all_killed",
+        "final_step": 5070,
+        "final_time_s": 50.7,
+        "offensive_alive": 0,
+        "defensive_alive": 0,
+        "best_agent": 2,
+        "best_min_dist_m": 170.58593508348795,
+        "best_min_step": 5070,
+        "min_dist_per_agent_m": [
+          1431.812,
+          1619.168,
+          170.586,
+          1434.367,
+          1711.473,
+          1679.897
+        ]
+      }
+    },
+    {
+      "seed": 60024,
+      "rc": 0,
+      "success": false,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60024_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60024_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60024_result.png",
+      "item": {
+        "seed": 60024,
+        "episode": 0,
+        "success": false,
+        "hit_count": 0,
+        "hit_indices": [],
+        "done_reason": "all_killed",
+        "final_step": 2755,
+        "final_time_s": 27.55,
+        "offensive_alive": 0,
+        "defensive_alive": 0,
+        "best_agent": 0,
+        "best_min_dist_m": 1399.4969545572874,
+        "best_min_step": 1669,
+        "min_dist_per_agent_m": [
+          1399.497,
+          1677.108,
+          1601.149,
+          1588.576,
+          1447.741,
+          1712.979
+        ]
+      }
+    },
+    {
+      "seed": 60030,
+      "rc": 0,
+      "success": false,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60030_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60030_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60030_result.png",
+      "item": {
+        "seed": 60030,
+        "episode": 0,
+        "success": false,
+        "hit_count": 0,
+        "hit_indices": [],
+        "done_reason": "timeout",
+        "final_step": 8000,
+        "final_time_s": 80.0,
+        "offensive_alive": 1,
+        "defensive_alive": 1,
+        "best_agent": 4,
+        "best_min_dist_m": 154.05927662520514,
+        "best_min_step": 5913,
+        "min_dist_per_agent_m": [
+          1613.134,
+          1651.286,
+          1576.591,
+          1561.418,
+          154.059,
+          1659.773
+        ]
+      }
+    },
+    {
+      "seed": 60031,
+      "rc": 0,
+      "success": true,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60031_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60031_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60031_result.png",
+      "item": {
+        "seed": 60031,
+        "episode": 0,
+        "success": true,
+        "hit_count": 1,
+        "hit_indices": [
+          4
+        ],
+        "done_reason": "success",
+        "final_step": 5637,
+        "final_time_s": 56.370000000000005,
+        "offensive_alive": 1,
+        "defensive_alive": 1,
+        "best_agent": 4,
+        "best_min_dist_m": 4.829653500749692,
+        "best_min_step": 5637,
+        "min_dist_per_agent_m": [
+          1399.557,
+          1739.689,
+          1706.66,
+          1694.526,
+          4.83,
+          1566.163
+        ]
+      }
+    }
+  ],
+  "8v8": [
+    {
+      "seed": 80002,
+      "rc": 0,
+      "success": false,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80002_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80002_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80002_result.png",
+      "item": {
+        "seed": 80002,
+        "episode": 0,
+        "success": false,
+        "hit_count": 0,
+        "hit_indices": [],
+        "done_reason": "timeout",
+        "final_step": 8000,
+        "final_time_s": 80.0,
+        "offensive_alive": 1,
+        "defensive_alive": 2,
+        "best_agent": 2,
+        "best_min_dist_m": 42.995499838924296,
+        "best_min_step": 5296,
+        "min_dist_per_agent_m": [
+          1562.426,
+          1597.632,
+          42.995,
+          810.261,
+          1709.191,
+          1673.412,
+          1638.731,
+          1579.982
+        ]
+      }
+    },
+    {
+      "seed": 80003,
+      "rc": 0,
+      "success": false,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80003_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80003_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80003_result.png",
+      "item": {
+        "seed": 80003,
+        "episode": 0,
+        "success": false,
+        "hit_count": 0,
+        "hit_indices": [],
+        "done_reason": "all_killed",
+        "final_step": 2408,
+        "final_time_s": 24.080000000000002,
+        "offensive_alive": 0,
+        "defensive_alive": 0,
+        "best_agent": 0,
+        "best_min_dist_m": 1539.4786063071379,
+        "best_min_step": 1545,
+        "min_dist_per_agent_m": [
+          1539.479,
+          1653.306,
+          1585.936,
+          1573.566,
+          1686.584,
+          1548.617,
+          1703.082,
+          1657.474
+        ]
+      }
+    },
+    {
+      "seed": 80005,
+      "rc": 0,
+      "success": false,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80005_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80005_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80005_result.png",
+      "item": {
+        "seed": 80005,
+        "episode": 0,
+        "success": false,
+        "hit_count": 0,
+        "hit_indices": [],
+        "done_reason": "timeout",
+        "final_step": 8000,
+        "final_time_s": 80.0,
+        "offensive_alive": 1,
+        "defensive_alive": 1,
+        "best_agent": 4,
+        "best_min_dist_m": 89.31739783568527,
+        "best_min_step": 6006,
+        "min_dist_per_agent_m": [
+          1574.662,
+          1626.493,
+          1703.456,
+          1518.996,
+          89.317,
+          1726.166,
+          1618.381,
+          1619.097
+        ]
+      }
+    },
+    {
+      "seed": 80006,
+      "rc": 0,
+      "success": false,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80006_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80006_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80006_result.png",
+      "item": {
+        "seed": 80006,
+        "episode": 0,
+        "success": false,
+        "hit_count": 0,
+        "hit_indices": [],
+        "done_reason": "all_killed",
+        "final_step": 2943,
+        "final_time_s": 29.43,
+        "offensive_alive": 0,
+        "defensive_alive": 0,
+        "best_agent": 0,
+        "best_min_dist_m": 1410.9264853870873,
+        "best_min_step": 1763,
+        "min_dist_per_agent_m": [
+          1410.926,
+          1703.525,
+          1726.178,
+          1564.443,
+          1476.183,
+          1656.853,
+          1680.501,
+          1572.824
+        ]
+      }
+    },
+    {
+      "seed": 80009,
+      "rc": 0,
+      "success": true,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80009_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80009_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_8v8_2nx_restlocal_seed80009_result.png",
+      "item": {
+        "seed": 80009,
+        "episode": 0,
+        "success": true,
+        "hit_count": 1,
+        "hit_indices": [
+          3
+        ],
+        "done_reason": "success",
+        "final_step": 5165,
+        "final_time_s": 51.65,
+        "offensive_alive": 1,
+        "defensive_alive": 1,
+        "best_agent": 3,
+        "best_min_dist_m": 4.728007448318394,
+        "best_min_step": 5165,
+        "min_dist_per_agent_m": [
+          1560.01,
+          1573.845,
+          1576.974,
+          4.728,
+          542.23,
+          1717.767,
+          1629.89,
+          1643.032
+        ]
+      }
+    }
+  ],
+  "10v10": [
+    {
+      "seed": 100007,
+      "rc": 0,
+      "success": false,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_10v10_2nx_restlocal_seed100007_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_10v10_2nx_restlocal_seed100007_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_10v10_2nx_restlocal_seed100007_result.png",
+      "item": {
+        "seed": 100007,
+        "episode": 0,
+        "success": false,
+        "hit_count": 0,
+        "hit_indices": [],
+        "done_reason": "timeout",
+        "final_step": 8000,
+        "final_time_s": 80.0,
+        "offensive_alive": 1,
+        "defensive_alive": 1,
+        "best_agent": 5,
+        "best_min_dist_m": 76.44002316903126,
+        "best_min_step": 5664,
+        "min_dist_per_agent_m": [
+          1501.757,
+          1604.43,
+          1614.74,
+          1624.211,
+          1473.776,
+          76.44,
+          1742.348,
+          1599.049,
+          1682.701,
+          1628.143
+        ]
+      }
+    },
+    {
+      "seed": 100013,
+      "rc": 0,
+      "success": false,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_10v10_2nx_restlocal_seed100013_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_10v10_2nx_restlocal_seed100013_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_10v10_2nx_restlocal_seed100013_result.png",
+      "item": {
+        "seed": 100013,
+        "episode": 0,
+        "success": false,
+        "hit_count": 0,
+        "hit_indices": [],
+        "done_reason": "timeout",
+        "final_step": 8000,
+        "final_time_s": 80.0,
+        "offensive_alive": 1,
+        "defensive_alive": 1,
+        "best_agent": 4,
+        "best_min_dist_m": 122.54546689036299,
+        "best_min_step": 5966,
+        "min_dist_per_agent_m": [
+          1605.265,
+          1709.048,
+          1669.3,
+          1556.898,
+          122.545,
+          1660.149,
+          1588.327,
+          1511.563,
+          1679.182,
+          1688.041
+        ]
+      }
+    },
+    {
+      "seed": 100015,
+      "rc": 0,
+      "success": false,
+      "summary": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_10v10_2nx_restlocal_seed100015_summary.json",
+      "trajectory": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_10v10_2nx_restlocal_seed100015_trajectory.npz",
+      "figure": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_10v10_2nx_restlocal_seed100015_result.png",
+      "item": {
+        "seed": 100015,
+        "episode": 0,
+        "success": false,
+        "hit_count": 0,
+        "hit_indices": [],
+        "done_reason": "all_killed",
+        "final_step": 2198,
+        "final_time_s": 21.98,
+        "offensive_alive": 0,
+        "defensive_alive": 0,
+        "best_agent": 0,
+        "best_min_dist_m": 1476.161372502203,
+        "best_min_step": 1619,
+        "min_dist_per_agent_m": [
+          1476.161,
+          1685.978,
+          1564.901,
+          1637.741,
+          1621.713,
+          1675.191,
+          1617.206,
+          1643.885,
+          1787.581,
+          1647.761
+        ]
+      }
+    }
+  ]
+}

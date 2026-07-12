@@ -1,0 +1,271 @@
+{
+  "elapsed_s": 2143.9946234226227,
+  "episodes_per_condition": 25,
+  "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+  "hidden": 256,
+  "layer_n": 3,
+  "variants": [
+    "full",
+    "no_threat_margin",
+    "no_team_pen_hit"
+  ],
+  "variant_notes": {
+    "full": "Full RTA-MAPPO observation prior",
+    "no_threat_margin": "Zero top-K threat and primary-locker safety-margin channels",
+    "no_team_pen_hit": "Zero team drawing-fire, penetration and hit-prior channels"
+  },
+  "cases": [
+    "6v6",
+    "8v8",
+    "10v10"
+  ],
+  "summaries": {
+    "full_6v6": {
+      "variant": "full",
+      "variant_note": "Full RTA-MAPPO observation prior",
+      "case": "6v6",
+      "n_episodes": 25,
+      "workers": 12,
+      "success_count": 16,
+      "success_rate": 0.64,
+      "best_hvt_distance_mean_m": 270.45512866387753,
+      "best_hvt_distance_median_m": 4.857667066242483,
+      "best_hvt_distance_min_m": 4.544262999742053,
+      "best_hvt_distance_p05_m": 4.546179374602584,
+      "best_hvt_distance_p95_m": 1132.0732664318862,
+      "final_time_mean_s": 54.79120000000001,
+      "success_time_mean_s": 51.86125,
+      "done_reason_counts": {
+        "success": 16,
+        "": 9
+      },
+      "elapsed_s": 173.68550038337708,
+      "jitter": {
+        "pos_xy_m": 5.0,
+        "pos_z_m": 1.0,
+        "heading_rad": 0.005,
+        "gamma_rad": 0.002,
+        "speed_frac": 0.002
+      }
+    },
+    "full_8v8": {
+      "variant": "full",
+      "variant_note": "Full RTA-MAPPO observation prior",
+      "case": "8v8",
+      "n_episodes": 25,
+      "workers": 12,
+      "success_count": 25,
+      "success_rate": 1.0,
+      "best_hvt_distance_mean_m": 4.73747851659215,
+      "best_hvt_distance_median_m": 4.7771911507544935,
+      "best_hvt_distance_min_m": 4.520739082046663,
+      "best_hvt_distance_p05_m": 4.52659442678474,
+      "best_hvt_distance_p95_m": 4.98774450582494,
+      "final_time_mean_s": 51.3,
+      "success_time_mean_s": 51.3,
+      "done_reason_counts": {
+        "success": 25
+      },
+      "elapsed_s": 266.75042033195496,
+      "jitter": {
+        "pos_xy_m": 5.0,
+        "pos_z_m": 1.0,
+        "heading_rad": 0.005,
+        "gamma_rad": 0.002,
+        "speed_frac": 0.002
+      }
+    },
+    "full_10v10": {
+      "variant": "full",
+      "variant_note": "Full RTA-MAPPO observation prior",
+      "case": "10v10",
+      "n_episodes": 25,
+      "workers": 12,
+      "success_count": 25,
+      "success_rate": 1.0,
+      "best_hvt_distance_mean_m": 4.776151246722348,
+      "best_hvt_distance_median_m": 4.820486543944371,
+      "best_hvt_distance_min_m": 4.521132999360917,
+      "best_hvt_distance_p05_m": 4.54927121483763,
+      "best_hvt_distance_p95_m": 4.952742527532482,
+      "final_time_mean_s": 51.227999999999994,
+      "success_time_mean_s": 51.227999999999994,
+      "done_reason_counts": {
+        "success": 25
+      },
+      "elapsed_s": 314.5589141845703,
+      "jitter": {
+        "pos_xy_m": 5.0,
+        "pos_z_m": 1.0,
+        "heading_rad": 0.005,
+        "gamma_rad": 0.002,
+        "speed_frac": 0.002
+      }
+    },
+    "no_threat_margin_6v6": {
+      "variant": "no_threat_margin",
+      "variant_note": "Zero top-K threat and primary-locker safety-margin channels",
+      "case": "6v6",
+      "n_episodes": 25,
+      "workers": 12,
+      "success_count": 5,
+      "success_rate": 0.2,
+      "best_hvt_distance_mean_m": 16.806584845795808,
+      "best_hvt_distance_median_m": 18.031804007043633,
+      "best_hvt_distance_min_m": 4.592767659694048,
+      "best_hvt_distance_p05_m": 4.68154335556476,
+      "best_hvt_distance_p95_m": 30.10976547264204,
+      "final_time_mean_s": 57.672000000000004,
+      "success_time_mean_s": 48.36,
+      "done_reason_counts": {
+        "success": 5,
+        "": 20
+      },
+      "elapsed_s": 175.00358843803406,
+      "jitter": {
+        "pos_xy_m": 5.0,
+        "pos_z_m": 1.0,
+        "heading_rad": 0.005,
+        "gamma_rad": 0.002,
+        "speed_frac": 0.002
+      }
+    },
+    "no_threat_margin_8v8": {
+      "variant": "no_threat_margin",
+      "variant_note": "Zero top-K threat and primary-locker safety-margin channels",
+      "case": "8v8",
+      "n_episodes": 25,
+      "workers": 12,
+      "success_count": 18,
+      "success_rate": 0.72,
+      "best_hvt_distance_mean_m": 253.6036858409347,
+      "best_hvt_distance_median_m": 4.851059382572942,
+      "best_hvt_distance_min_m": 4.574172026902598,
+      "best_hvt_distance_p05_m": 4.708520374916646,
+      "best_hvt_distance_p95_m": 1529.3074108381936,
+      "final_time_mean_s": 53.534,
+      "success_time_mean_s": 51.01944444444445,
+      "done_reason_counts": {
+        "success": 18,
+        "": 7
+      },
+      "elapsed_s": 216.33190536499023,
+      "jitter": {
+        "pos_xy_m": 5.0,
+        "pos_z_m": 1.0,
+        "heading_rad": 0.005,
+        "gamma_rad": 0.002,
+        "speed_frac": 0.002
+      }
+    },
+    "no_threat_margin_10v10": {
+      "variant": "no_threat_margin",
+      "variant_note": "Zero top-K threat and primary-locker safety-margin channels",
+      "case": "10v10",
+      "n_episodes": 25,
+      "workers": 12,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "best_hvt_distance_mean_m": 1283.5419904023124,
+      "best_hvt_distance_median_m": 1511.267345076391,
+      "best_hvt_distance_min_m": 30.64579278497003,
+      "best_hvt_distance_p05_m": 64.00109477672648,
+      "best_hvt_distance_p95_m": 1545.3839514129766,
+      "final_time_mean_s": 60.0,
+      "success_time_mean_s": null,
+      "done_reason_counts": {
+        "": 25
+      },
+      "elapsed_s": 288.7570767402649,
+      "jitter": {
+        "pos_xy_m": 5.0,
+        "pos_z_m": 1.0,
+        "heading_rad": 0.005,
+        "gamma_rad": 0.002,
+        "speed_frac": 0.002
+      }
+    },
+    "no_team_pen_hit_6v6": {
+      "variant": "no_team_pen_hit",
+      "variant_note": "Zero team drawing-fire, penetration and hit-prior channels",
+      "case": "6v6",
+      "n_episodes": 25,
+      "workers": 12,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "best_hvt_distance_mean_m": 1086.5697752938752,
+      "best_hvt_distance_median_m": 1137.2547377172282,
+      "best_hvt_distance_min_m": 769.7120289885241,
+      "best_hvt_distance_p05_m": 820.8252404589208,
+      "best_hvt_distance_p95_m": 1157.1178603282265,
+      "final_time_mean_s": 60.0,
+      "success_time_mean_s": null,
+      "done_reason_counts": {
+        "": 25
+      },
+      "elapsed_s": 164.41520404815674,
+      "jitter": {
+        "pos_xy_m": 5.0,
+        "pos_z_m": 1.0,
+        "heading_rad": 0.005,
+        "gamma_rad": 0.002,
+        "speed_frac": 0.002
+      }
+    },
+    "no_team_pen_hit_8v8": {
+      "variant": "no_team_pen_hit",
+      "variant_note": "Zero team drawing-fire, penetration and hit-prior channels",
+      "case": "8v8",
+      "n_episodes": 25,
+      "workers": 12,
+      "success_count": 0,
+      "success_rate": 0.0,
+      "best_hvt_distance_mean_m": 1472.2628671820103,
+      "best_hvt_distance_median_m": 1472.124628767468,
+      "best_hvt_distance_min_m": 1465.1091876266369,
+      "best_hvt_distance_p05_m": 1467.8451487087298,
+      "best_hvt_distance_p95_m": 1476.2266846709485,
+      "final_time_mean_s": 60.0,
+      "success_time_mean_s": null,
+      "done_reason_counts": {
+        "": 25
+      },
+      "elapsed_s": 251.43738460540771,
+      "jitter": {
+        "pos_xy_m": 5.0,
+        "pos_z_m": 1.0,
+        "heading_rad": 0.005,
+        "gamma_rad": 0.002,
+        "speed_frac": 0.002
+      }
+    },
+    "no_team_pen_hit_10v10": {
+      "variant": "no_team_pen_hit",
+      "variant_note": "Zero team drawing-fire, penetration and hit-prior channels",
+      "case": "10v10",
+      "n_episodes": 25,
+      "workers": 12,
+      "success_count": 24,
+      "success_rate": 0.96,
+      "best_hvt_distance_mean_m": 65.46504765460647,
+      "best_hvt_distance_median_m": 4.632456920650742,
+      "best_hvt_distance_min_m": 4.500626219183184,
+      "best_hvt_distance_p05_m": 4.516827538038555,
+      "best_hvt_distance_p95_m": 4.978998648017792,
+      "final_time_mean_s": 51.56,
+      "success_time_mean_s": 51.208333333333336,
+      "done_reason_counts": {
+        "success": 24,
+        "": 1
+      },
+      "elapsed_s": 293.04168796539307,
+      "jitter": {
+        "pos_xy_m": 5.0,
+        "pos_z_m": 1.0,
+        "heading_rad": 0.005,
+        "gamma_rad": 0.002,
+        "speed_frac": 0.002
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+scenario,seed,done_reason,success_any,success_all,hit_count,mean_min_dist_hvt,best_min_dist_hvt,offensive_alive_final,defensive_alive_final,attacker0_hit,attacker0_status,attacker1_hit,attacker1_status,attacker2_hit,attacker2_status
+scenario_3v3_single_policy,400,partial_success,1,0,2,1026.0205279860495,1.3116997996900397,2,2,0,killed,1,hit_hvt,1,hit_hvt
+scenario_3v3_single_policy,401,partial_success,1,0,1,2398.017705729866,0.03389458391259178,0,1,0,killed,0,killed,1,hit_hvt
+scenario_3v3_single_policy,402,partial_success,1,0,1,2396.333578485675,3.875224785382412,1,1,0,killed,0,killed,1,hit_hvt
+scenario_3v3_single_policy,403,partial_success,1,0,1,2409.6439082461193,3.969812677555629,1,1,0,killed,0,killed,1,hit_hvt
+scenario_3v3_single_policy,404,partial_success,1,0,2,1362.9789422413444,3.687705543376389,2,2,1,hit_hvt,1,hit_hvt,0,killed
+scenario_3v3_single_policy,405,all_killed,0,0,0,3779.009543098948,3068.4925550647185,0,0,0,killed,0,killed,0,killed
+scenario_3v3_single_policy,406,partial_success,1,0,2,991.1180603930383,0.6928788599058591,2,2,0,killed,1,hit_hvt,1,hit_hvt
+scenario_3v3_single_policy,407,partial_success,1,0,2,1361.9385002869005,0.23114005925571024,2,2,1,hit_hvt,0,killed,1,hit_hvt

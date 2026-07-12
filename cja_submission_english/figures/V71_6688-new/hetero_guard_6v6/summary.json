@@ -1,0 +1,45 @@
+{
+  "case": "hetero_guard_6v6",
+  "source_case": "6v6",
+  "method": "hetero_guard",
+  "seed": 60015,
+  "n_offensive": 6,
+  "n_defensive": 6,
+  "success": true,
+  "hit_count": 1,
+  "hit_indices": [
+    2
+  ],
+  "hit_step": {
+    "2": 5456
+  },
+  "death_step": {
+    "0": 1693,
+    "1": 1729,
+    "3": 2199,
+    "4": 1739,
+    "5": 1547
+  },
+  "done_reason": "success",
+  "final_step": 5456,
+  "final_time_s": 54.56,
+  "offensive_alive": 1,
+  "defensive_alive": 1,
+  "best_agent": 2,
+  "best_hvt_distance_m": 4.536265490139606,
+  "min_dist_per_agent_m": [
+    1563.4404335525544,
+    1493.1989966794802,
+    4.536265490139606,
+    1537.0700865448434,
+    1599.5773933258936,
+    1634.7596472431899
+  ],
+  "elapsed_s": 24.746432542800903,
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ],
+  "method_notes": "Heterogeneous cooperative attacker target-guarding policy: high-weight strikers plus low-weight decoys."
+}

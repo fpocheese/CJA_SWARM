@@ -1,0 +1,4 @@
+label,scenario_case,episodes,success_episodes,success_rate,total_hits,best_min_dist_m,mean_hit_time_s,model_dir,eval_dir
+Nominal 4v4,baseline,3,3,1.0,3,4.681910276094874,62.44333333333333,outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run3/models_hit3_hourly_20260501_145607_snapshot,/home/a2rl/000000GSY_mutiUAV/swarm_attack_v2/outputs/v69_scenario_suite/20260501_155906_paper
+Stronger 4v4,strong_defense,3,3,1.0,3,4.636201913148421,56.586666666666666,outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run3/models_hit3_hourly_20260501_145607_snapshot,/home/a2rl/000000GSY_mutiUAV/swarm_attack_v2/outputs/v69_scenario_suite/20260501_160251_paper
+Six defenders,six_defenders,3,1,0.3333333333333333,1,4.98205997364458,54.57,outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run3/models_hit3_hourly_20260501_145607_snapshot,/home/a2rl/000000GSY_mutiUAV/swarm_attack_v2/outputs/v69_scenario_suite/20260501_160632_paper

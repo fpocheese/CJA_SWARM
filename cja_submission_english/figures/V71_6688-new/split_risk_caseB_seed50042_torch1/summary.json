@@ -1,0 +1,38 @@
+{
+  "case": "split_risk_caseB_seed50042_torch1",
+  "source_case": "caseB_seed50042_torch1",
+  "method": "split_risk",
+  "seed": 50042,
+  "n_offensive": 4,
+  "n_defensive": 4,
+  "success": false,
+  "hit_count": 0,
+  "hit_indices": [],
+  "hit_step": {},
+  "death_step": {
+    "0": 1508,
+    "1": 3294,
+    "2": 1825,
+    "3": 2365
+  },
+  "done_reason": "all_killed",
+  "final_step": 3294,
+  "final_time_s": 32.94,
+  "offensive_alive": 0,
+  "defensive_alive": 0,
+  "best_agent": 1,
+  "best_hvt_distance_m": 978.0575338807489,
+  "min_dist_per_agent_m": [
+    1611.458480773083,
+    978.0575338807489,
+    1570.0728442375528,
+    1345.7939994139585
+  ],
+  "elapsed_s": 12.923507928848267,
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ],
+  "method_notes": "Aerial-swarm risk-taking/risk-averse split attack pattern adapted to HVT penetration."
+}

@@ -1,0 +1,27 @@
+{
+  "method": "weiyang_ta",
+  "case": "8v8",
+  "n_episodes": 1000,
+  "workers": 4,
+  "success_count": 0,
+  "success_rate": 0.0,
+  "hit_count_mean": 0.0,
+  "best_hvt_distance_mean_m": 1512.531942257569,
+  "best_hvt_distance_median_m": 1549.3320662777874,
+  "best_hvt_distance_min_m": 5.111167113704001,
+  "best_hvt_distance_p05_m": 1497.6205840084897,
+  "best_hvt_distance_p95_m": 1589.4443422153029,
+  "final_time_mean_s": 21.09533,
+  "success_time_mean_s": null,
+  "done_reason_counts": {
+    "all_killed": 1000
+  },
+  "elapsed_s": 11866.513679265976,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}

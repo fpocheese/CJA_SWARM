@@ -1,0 +1,28 @@
+{
+  "method": "hetero_guard",
+  "case": "6v6",
+  "n_episodes": 1000,
+  "workers": 6,
+  "success_count": 600,
+  "success_rate": 0.6,
+  "hit_count_mean": 0.6,
+  "best_hvt_distance_mean_m": 356.4448063339905,
+  "best_hvt_distance_median_m": 4.916505452239076,
+  "best_hvt_distance_min_m": 4.503085261371292,
+  "best_hvt_distance_p05_m": 4.5413778245990315,
+  "best_hvt_distance_p95_m": 1544.4036441551295,
+  "final_time_mean_s": 46.19473,
+  "success_time_mean_s": 53.72304999999999,
+  "done_reason_counts": {
+    "all_killed": 400,
+    "success": 600
+  },
+  "elapsed_s": 6518.138503551483,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}

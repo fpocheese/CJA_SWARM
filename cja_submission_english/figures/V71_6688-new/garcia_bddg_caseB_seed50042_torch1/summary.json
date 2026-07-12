@@ -1,0 +1,41 @@
+{
+  "case": "garcia_bddg_caseB_seed50042_torch1",
+  "source_case": "caseB_seed50042_torch1",
+  "method": "garcia_bddg",
+  "seed": 50042,
+  "n_offensive": 4,
+  "n_defensive": 4,
+  "success": true,
+  "hit_count": 1,
+  "hit_indices": [
+    0
+  ],
+  "hit_step": {
+    "0": 5259
+  },
+  "death_step": {
+    "1": 1825,
+    "2": 1721,
+    "3": 2080
+  },
+  "done_reason": "success",
+  "final_step": 5259,
+  "final_time_s": 52.59,
+  "offensive_alive": 1,
+  "defensive_alive": 1,
+  "best_agent": 0,
+  "best_hvt_distance_m": 4.713310790939684,
+  "min_dist_per_agent_m": [
+    4.713310790939684,
+    1563.5267992646848,
+    1760.290544615007,
+    1573.9349137401352
+  ],
+  "elapsed_s": 16.644020318984985,
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ],
+  "method_notes": "Apollonius aimpoint state feedback adapted from N-vs-M BDDG to an HVT-centered border frame."
+}

@@ -1,0 +1,16 @@
+metric,algorithm,display_name,final_mean,seeds
+Reward,Advanced-MAPPO,ART-MAPPO (Ours),7.68452036,5
+Reward,MAPPO,MAPPO,4.42834960,5
+Reward,IPPO,IPPO,5.92067009,5
+Reward,IA2C,IA2C,4.84395371,5
+Reward,IQL,IQL,4.51706589,5
+Critic loss,Advanced-MAPPO,ART-MAPPO (Ours),0.01813876,5
+Critic loss,MAPPO,MAPPO,0.02898646,5
+Critic loss,IPPO,IPPO,0.03237960,5
+Critic loss,IA2C,IA2C,0.04017947,5
+Critic loss,IQL,IQL,0.16623060,5
+Entropy,Advanced-MAPPO,ART-MAPPO (Ours),1.82021622,5
+Entropy,MAPPO,MAPPO,1.79699542,5
+Entropy,IPPO,IPPO,1.80778326,5
+Entropy,IA2C,IA2C,1.87657985,5
+Entropy,IQL,IQL,1.85249266,5

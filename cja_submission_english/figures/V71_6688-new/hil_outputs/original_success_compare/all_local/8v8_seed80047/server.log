@@ -1,0 +1,11 @@
+[server] listening on 127.0.0.1:5520, waiting for 8 policy nodes
+[server] agent 2 connected from ('127.0.0.1', 44082), hello={'type': 'hello', 'agent_id': 2, 'source_agent': 2, 'pid': 70684}
+[server] agent 1 connected from ('127.0.0.1', 44080), hello={'type': 'hello', 'agent_id': 1, 'source_agent': 1, 'pid': 70683}
+[server] agent 5 connected from ('127.0.0.1', 44094), hello={'type': 'hello', 'agent_id': 5, 'source_agent': 1, 'pid': 70687}
+[server] agent 7 connected from ('127.0.0.1', 44106), hello={'type': 'hello', 'agent_id': 7, 'source_agent': 3, 'pid': 70689}
+[server] agent 0 connected from ('127.0.0.1', 44108), hello={'type': 'hello', 'agent_id': 0, 'source_agent': 0, 'pid': 70682}
+[server] agent 3 connected from ('127.0.0.1', 44124), hello={'type': 'hello', 'agent_id': 3, 'source_agent': 3, 'pid': 70685}
+[server] agent 6 connected from ('127.0.0.1', 44128), hello={'type': 'hello', 'agent_id': 6, 'source_agent': 2, 'pid': 70688}
+[server] agent 4 connected from ('127.0.0.1', 44136), hello={'type': 'hello', 'agent_id': 4, 'source_agent': 0, 'pid': 70686}
+[server] episode=0 seed=80047 success=1 reason=success best=4.52m
+[server] wrote /home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/original_success_compare/all_local/8v8_seed80047/server_wrapper.json

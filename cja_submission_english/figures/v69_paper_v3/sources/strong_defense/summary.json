@@ -1,0 +1,495 @@
+{
+  "timestamp": "20260502_161844",
+  "tag": "paper20",
+  "model_dir": "outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run3/models_hit3_hourly_20260501_145607_snapshot",
+  "reward_profile": "v68strictpnfix",
+  "obs_mask": "v65_strict_los",
+  "terminal_guidance": "pn_los",
+  "terminal_pn_gain": 8.0,
+  "terminal_pn_max_action": 0.8,
+  "scenario_case": "strong_defense",
+  "scenario_label": "4v4 with strengthened defender maneuver envelope",
+  "scenario_info": {
+    "case": "strong_defense",
+    "label": "4v4 with strengthened defender maneuver envelope",
+    "n_offensive": 4,
+    "n_defensive": 4,
+    "defender_maneuver": "strengthened 7g, v=60 m/s",
+    "geometry": "30-deg crossing, defenders forward-pushed and laterally offset (+250 m y)"
+  },
+  "seeds": [
+    1000,
+    1001,
+    1002,
+    1003,
+    1004,
+    1005,
+    1006,
+    1007,
+    1008,
+    1009,
+    1010,
+    1011,
+    1012,
+    1013,
+    1014,
+    1015,
+    1016,
+    1017,
+    1018,
+    1019
+  ],
+  "episodes": [
+    {
+      "seed": 1000,
+      "hit_count": 0,
+      "hit_indices": [],
+      "final_step": 8000,
+      "done_reason": "timeout",
+      "min_dist_per_agent_m": [
+        68.01373356499566,
+        1656.5586166322869,
+        244.89197031379334,
+        1803.0157249238146
+      ],
+      "min_step_per_agent": [
+        4934,
+        2868,
+        7889,
+        2509
+      ],
+      "best_min_dist_m": 68.01373356499566,
+      "success": false
+    },
+    {
+      "seed": 1001,
+      "hit_count": 0,
+      "hit_indices": [],
+      "final_step": 8000,
+      "done_reason": "timeout",
+      "min_dist_per_agent_m": [
+        33.36946088106218,
+        1768.990063789245,
+        502.14846798096676,
+        1728.8465659449378
+      ],
+      "min_step_per_agent": [
+        4963,
+        2647,
+        5360,
+        2457
+      ],
+      "best_min_dist_m": 33.36946088106218,
+      "success": false
+    },
+    {
+      "seed": 1002,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5639,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        29.572682800921477,
+        1763.5997100468057,
+        4.750322199148547,
+        29.220684327397517
+      ],
+      "min_step_per_agent": [
+        5053,
+        2479,
+        5639,
+        5314
+      ],
+      "best_min_dist_m": 4.750322199148547,
+      "success": true
+    },
+    {
+      "seed": 1003,
+      "hit_count": 1,
+      "hit_indices": [
+        0
+      ],
+      "final_step": 6331,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        4.878156942559089,
+        1729.7830353866443,
+        118.56707078137964,
+        40.554220636213046
+      ],
+      "min_step_per_agent": [
+        6331,
+        2483,
+        5764,
+        5275
+      ],
+      "best_min_dist_m": 4.878156942559089,
+      "success": true
+    },
+    {
+      "seed": 1004,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5818,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        38.95261408092299,
+        112.5421646401334,
+        4.875840529560368,
+        54.65500441112459
+      ],
+      "min_step_per_agent": [
+        5179,
+        5818,
+        5818,
+        5233
+      ],
+      "best_min_dist_m": 4.875840529560368,
+      "success": true
+    },
+    {
+      "seed": 1005,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5738,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        24.194290816866637,
+        1768.493598617752,
+        4.9947388680418685,
+        66.94099414492104
+      ],
+      "min_step_per_agent": [
+        4816,
+        2689,
+        5738,
+        5701
+      ],
+      "best_min_dist_m": 4.9947388680418685,
+      "success": true
+    },
+    {
+      "seed": 1006,
+      "hit_count": 0,
+      "hit_indices": [],
+      "final_step": 8000,
+      "done_reason": "timeout",
+      "min_dist_per_agent_m": [
+        53.7957651223061,
+        944.3753969389201,
+        43.52191390419622,
+        1718.1361136603537
+      ],
+      "min_step_per_agent": [
+        4892,
+        4233,
+        5485,
+        2550
+      ],
+      "best_min_dist_m": 43.52191390419622,
+      "success": false
+    },
+    {
+      "seed": 1007,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5472,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        30.928685917203172,
+        1810.2560631838983,
+        4.570495092352616,
+        1609.9428363043685
+      ],
+      "min_step_per_agent": [
+        4924,
+        2618,
+        5472,
+        1702
+      ],
+      "best_min_dist_m": 4.570495092352616,
+      "success": true
+    },
+    {
+      "seed": 1008,
+      "hit_count": 1,
+      "hit_indices": [
+        0
+      ],
+      "final_step": 6291,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        4.603983853878561,
+        1781.788809241487,
+        139.1978218056053,
+        72.42362383445416
+      ],
+      "min_step_per_agent": [
+        6291,
+        2591,
+        5529,
+        5326
+      ],
+      "best_min_dist_m": 4.603983853878561,
+      "success": true
+    },
+    {
+      "seed": 1009,
+      "hit_count": 1,
+      "hit_indices": [
+        0
+      ],
+      "final_step": 7632,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        4.920308200187551,
+        1655.548829040778,
+        146.42305580012288,
+        1435.5386999674295
+      ],
+      "min_step_per_agent": [
+        7632,
+        2681,
+        7516,
+        3121
+      ],
+      "best_min_dist_m": 4.920308200187551,
+      "success": true
+    },
+    {
+      "seed": 1010,
+      "hit_count": 0,
+      "hit_indices": [],
+      "final_step": 8000,
+      "done_reason": "timeout",
+      "min_dist_per_agent_m": [
+        1284.4915027525935,
+        1683.3835619204829,
+        134.41855142081184,
+        1652.3233613309083
+      ],
+      "min_step_per_agent": [
+        2435,
+        2723,
+        7416,
+        2533
+      ],
+      "best_min_dist_m": 134.41855142081184,
+      "success": false
+    },
+    {
+      "seed": 1011,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5856,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        1284.3224424020366,
+        1854.023514357694,
+        4.971563181663016,
+        93.40742469555902
+      ],
+      "min_step_per_agent": [
+        2372,
+        2437,
+        5856,
+        5818
+      ],
+      "best_min_dist_m": 4.971563181663016,
+      "success": true
+    },
+    {
+      "seed": 1012,
+      "hit_count": 1,
+      "hit_indices": [
+        0
+      ],
+      "final_step": 6569,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        4.792759153831064,
+        931.2192902404444,
+        184.81267228565594,
+        1474.912751382329
+      ],
+      "min_step_per_agent": [
+        6569,
+        4545,
+        5940,
+        2504
+      ],
+      "best_min_dist_m": 4.792759153831064,
+      "success": true
+    },
+    {
+      "seed": 1013,
+      "hit_count": 1,
+      "hit_indices": [
+        0
+      ],
+      "final_step": 6391,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        4.504429763185942,
+        1667.004883246973,
+        9.780654281152803,
+        1598.019200059955
+      ],
+      "min_step_per_agent": [
+        6391,
+        2934,
+        5791,
+        2889
+      ],
+      "best_min_dist_m": 4.504429763185942,
+      "success": true
+    },
+    {
+      "seed": 1014,
+      "hit_count": 0,
+      "hit_indices": [],
+      "final_step": 8000,
+      "done_reason": "timeout",
+      "min_dist_per_agent_m": [
+        35.774807988918425,
+        1720.950953223355,
+        120.56379959806159,
+        1477.4028419581412
+      ],
+      "min_step_per_agent": [
+        5061,
+        2416,
+        8000,
+        2978
+      ],
+      "best_min_dist_m": 35.774807988918425,
+      "success": false
+    },
+    {
+      "seed": 1015,
+      "hit_count": 0,
+      "hit_indices": [],
+      "final_step": 8000,
+      "done_reason": "timeout",
+      "min_dist_per_agent_m": [
+        5.932629910756557,
+        1744.5912892131917,
+        130.58773153156355,
+        37.306311663902015
+      ],
+      "min_step_per_agent": [
+        7619,
+        2367,
+        7473,
+        6825
+      ],
+      "best_min_dist_m": 5.932629910756557,
+      "success": false
+    },
+    {
+      "seed": 1016,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5769,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        50.118081553940335,
+        1703.3023979789698,
+        4.721335737363891,
+        32.54016436139697
+      ],
+      "min_step_per_agent": [
+        4796,
+        2733,
+        5769,
+        5131
+      ],
+      "best_min_dist_m": 4.721335737363891,
+      "success": true
+    },
+    {
+      "seed": 1017,
+      "hit_count": 0,
+      "hit_indices": [],
+      "final_step": 8000,
+      "done_reason": "timeout",
+      "min_dist_per_agent_m": [
+        12.186475202647692,
+        1797.3361527792067,
+        31.5178026592465,
+        1219.1385521605503
+      ],
+      "min_step_per_agent": [
+        6624,
+        2372,
+        5794,
+        2949
+      ],
+      "best_min_dist_m": 12.186475202647692,
+      "success": false
+    },
+    {
+      "seed": 1018,
+      "hit_count": 1,
+      "hit_indices": [
+        0
+      ],
+      "final_step": 6387,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        4.654793250605577,
+        55.476731211090204,
+        139.45739897190302,
+        38.49617750102485
+      ],
+      "min_step_per_agent": [
+        6387,
+        5513,
+        5740,
+        5346
+      ],
+      "best_min_dist_m": 4.654793250605577,
+      "success": true
+    },
+    {
+      "seed": 1019,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5611,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        31.866111628158368,
+        84.9389734957453,
+        4.76157430732911,
+        37.523606748780644
+      ],
+      "min_step_per_agent": [
+        5094,
+        5611,
+        5611,
+        5135
+      ],
+      "best_min_dist_m": 4.76157430732911,
+      "success": true
+    }
+  ],
+  "success_episodes": 13,
+  "total_hits": 13,
+  "hit_rate": 0.65,
+  "best_min_dist_m": 4.504429763185942,
+  "figures": []
+}

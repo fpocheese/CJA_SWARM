@@ -1,0 +1,37 @@
+{
+  "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+  "n_episodes": 50,
+  "seed_base": 60000,
+  "max_steps": 8000,
+  "n_workers": 10,
+  "success_count": 4,
+  "success_rate": 0.08,
+  "success_seeds": [
+    60015,
+    60024,
+    60030,
+    60031
+  ],
+  "hit_counts": [
+    1,
+    1,
+    1,
+    1
+  ],
+  "best_min_dist_m": 4.575465121722543,
+  "best_episode": {
+    "seed": 60015,
+    "success": true,
+    "hit_count": 1,
+    "hit_indices": "4",
+    "done_reason": "success",
+    "final_step": 4952,
+    "offensive_alive": 2,
+    "defensive_alive": 2,
+    "best_min_dist_m": 4.575465121722543,
+    "best_agent": 4,
+    "best_min_step": 4952,
+    "min_dist_per_agent_m": "[1470.096, 1583.604, 2234.169, 2252.092, 4.575, 1682.363]"
+  },
+  "elapsed_s": 357.56936740875244
+}

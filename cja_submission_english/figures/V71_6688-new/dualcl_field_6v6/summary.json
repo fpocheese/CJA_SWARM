@@ -1,0 +1,42 @@
+{
+  "case": "dualcl_field_6v6",
+  "source_case": "6v6",
+  "method": "dualcl_field",
+  "seed": 60015,
+  "n_offensive": 6,
+  "n_defensive": 6,
+  "success": false,
+  "hit_count": 0,
+  "hit_indices": [],
+  "hit_step": {},
+  "death_step": {
+    "0": 2707,
+    "1": 6179,
+    "2": 6172,
+    "3": 2968,
+    "4": 7450,
+    "5": 2680
+  },
+  "done_reason": "all_killed",
+  "final_step": 7450,
+  "final_time_s": 74.5,
+  "offensive_alive": 0,
+  "defensive_alive": 4,
+  "best_agent": 4,
+  "best_hvt_distance_m": 45.16541458612379,
+  "min_dist_per_agent_m": [
+    1729.9878810760054,
+    636.3756652230369,
+    693.996094141209,
+    1331.5473216521143,
+    45.16541458612379,
+    1481.9257854592454
+  ],
+  "elapsed_s": 53.494492530822754,
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ],
+  "method_notes": "Recent multi-UAV PE potential-field evader component adapted to HVT attraction and defender repulsion."
+}

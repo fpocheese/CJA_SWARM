@@ -1,0 +1,28 @@
+{
+  "method": "garcia_bddg",
+  "case": "caseB_seed50042_torch1",
+  "n_episodes": 1000,
+  "workers": 4,
+  "success_count": 513,
+  "success_rate": 0.513,
+  "hit_count_mean": 0.513,
+  "best_hvt_distance_mean_m": 561.6503960436218,
+  "best_hvt_distance_median_m": 4.987261569616005,
+  "best_hvt_distance_min_m": 4.50131643372767,
+  "best_hvt_distance_p05_m": 4.545652133063707,
+  "best_hvt_distance_p95_m": 1572.5335121573676,
+  "final_time_mean_s": 43.74722,
+  "success_time_mean_s": 56.238986354775825,
+  "done_reason_counts": {
+    "all_killed": 487,
+    "success": 513
+  },
+  "elapsed_s": 8330.036752223969,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}

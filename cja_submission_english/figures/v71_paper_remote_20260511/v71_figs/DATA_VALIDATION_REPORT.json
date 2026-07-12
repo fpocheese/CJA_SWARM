@@ -1,0 +1,480 @@
+{
+  "timestamp": "2026-05-11T22:59:49.096441",
+  "summary": {
+    "total_cases": 5,
+    "all_valid": true,
+    "validation_time": "2026-05-11T22:59:49.151259"
+  },
+  "cases": {
+    "caseA_seed50015_torch1": {
+      "hit_step": 4683,
+      "hvt_position": {
+        "x": 1200.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "closest_attacker": {
+        "index": 0,
+        "distance_m": 4.901505109470989,
+        "alive": 1
+      },
+      "all_attackers": {
+        "off_d_hvt": [
+          4.901505109470989,
+          1703.549143168733,
+          3333.153187000918,
+          2722.4980076937645
+        ],
+        "hvt_rho": [
+          0.0,
+          0.0,
+          3333.153187000918,
+          2722.4980076937645
+        ],
+        "off_alive": [
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      "files": {
+        "trajectory_data.npz": 1918154,
+        "summary.json": 330,
+        "game_data.npz": 896380
+      },
+      "fields": {
+        "trajectory_fields": [
+          "steps",
+          "time",
+          "off_x",
+          "off_y",
+          "off_z",
+          "off_v",
+          "off_heading",
+          "off_gamma",
+          "off_an_pitch",
+          "off_an_yaw",
+          "off_lbc",
+          "off_alive",
+          "off_hit",
+          "off_d_hvt",
+          "def_x",
+          "def_y",
+          "def_z",
+          "def_v",
+          "def_an",
+          "def_lmode",
+          "def_initial_target",
+          "def_assigned_target",
+          "def_ltgt",
+          "def_alive",
+          "assign_cost",
+          "fov_sat",
+          "hvt_x",
+          "hvt_y",
+          "hvt_z",
+          "hit_count"
+        ],
+        "game_fields": [
+          "decoy_Phi",
+          "decoy_role_decoy",
+          "decoy_role_pen",
+          "decoy_role_stealth",
+          "decoy_lock_pressure",
+          "pen_N_eff",
+          "pen_P_pen",
+          "esc_Gamma_mean",
+          "esc_Xi_mean",
+          "esc_E_esc",
+          "hvt_P_hit",
+          "hvt_rho",
+          "hvt_closing",
+          "def_lmode",
+          "def_ltgt"
+        ]
+      },
+      "validation": {
+        "all_files_present": true,
+        "hit_step_in_range": true,
+        "closest_distance_under_10m": true
+      }
+    },
+    "caseB_seed50042_torch1": {
+      "hit_step": 5014,
+      "hvt_position": {
+        "x": 1200.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "closest_attacker": {
+        "index": 1,
+        "distance_m": 4.7327816989890765,
+        "alive": 1
+      },
+      "all_attackers": {
+        "off_d_hvt": [
+          1461.1032200164366,
+          4.7327816989890765,
+          3259.7533846054384,
+          2785.682040729937
+        ],
+        "hvt_rho": [
+          0.0,
+          0.0,
+          0.0,
+          2785.682040729937
+        ],
+        "off_alive": [
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      "files": {
+        "trajectory_data.npz": 1985888,
+        "summary.json": 346,
+        "game_data.npz": 922567
+      },
+      "fields": {
+        "trajectory_fields": [
+          "steps",
+          "time",
+          "off_x",
+          "off_y",
+          "off_z",
+          "off_v",
+          "off_heading",
+          "off_gamma",
+          "off_an_pitch",
+          "off_an_yaw",
+          "off_lbc",
+          "off_alive",
+          "off_hit",
+          "off_d_hvt",
+          "def_x",
+          "def_y",
+          "def_z",
+          "def_v",
+          "def_an",
+          "def_lmode",
+          "def_initial_target",
+          "def_assigned_target",
+          "def_ltgt",
+          "def_alive",
+          "assign_cost",
+          "fov_sat",
+          "hvt_x",
+          "hvt_y",
+          "hvt_z",
+          "hit_count"
+        ],
+        "game_fields": [
+          "decoy_Phi",
+          "decoy_role_decoy",
+          "decoy_role_pen",
+          "decoy_role_stealth",
+          "decoy_lock_pressure",
+          "pen_N_eff",
+          "pen_P_pen",
+          "esc_Gamma_mean",
+          "esc_Xi_mean",
+          "esc_E_esc",
+          "hvt_P_hit",
+          "hvt_rho",
+          "hvt_closing",
+          "def_lmode",
+          "def_ltgt"
+        ]
+      },
+      "validation": {
+        "all_files_present": true,
+        "hit_step_in_range": true,
+        "closest_distance_under_10m": true
+      }
+    },
+    "caseC_seed50034_torch7": {
+      "hit_step": 4707,
+      "hvt_position": {
+        "x": 1200.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "closest_attacker": {
+        "index": 0,
+        "distance_m": 4.886026622450353,
+        "alive": 1
+      },
+      "all_attackers": {
+        "off_d_hvt": [
+          4.886026622450353,
+          1618.928297008244,
+          3521.8606327168854,
+          2616.818485555329
+        ],
+        "hvt_rho": [
+          0.0,
+          0.0,
+          3521.8606327168854,
+          2616.818485555329
+        ],
+        "off_alive": [
+          1,
+          0,
+          1,
+          1
+        ]
+      },
+      "files": {
+        "trajectory_data.npz": 1929034,
+        "summary.json": 330,
+        "game_data.npz": 896557
+      },
+      "fields": {
+        "trajectory_fields": [
+          "steps",
+          "time",
+          "off_x",
+          "off_y",
+          "off_z",
+          "off_v",
+          "off_heading",
+          "off_gamma",
+          "off_an_pitch",
+          "off_an_yaw",
+          "off_lbc",
+          "off_alive",
+          "off_hit",
+          "off_d_hvt",
+          "def_x",
+          "def_y",
+          "def_z",
+          "def_v",
+          "def_an",
+          "def_lmode",
+          "def_initial_target",
+          "def_assigned_target",
+          "def_ltgt",
+          "def_alive",
+          "assign_cost",
+          "fov_sat",
+          "hvt_x",
+          "hvt_y",
+          "hvt_z",
+          "hit_count"
+        ],
+        "game_fields": [
+          "decoy_Phi",
+          "decoy_role_decoy",
+          "decoy_role_pen",
+          "decoy_role_stealth",
+          "decoy_lock_pressure",
+          "pen_N_eff",
+          "pen_P_pen",
+          "esc_Gamma_mean",
+          "esc_Xi_mean",
+          "esc_E_esc",
+          "hvt_P_hit",
+          "hvt_rho",
+          "hvt_closing",
+          "def_lmode",
+          "def_ltgt"
+        ]
+      },
+      "validation": {
+        "all_files_present": true,
+        "hit_step_in_range": true,
+        "closest_distance_under_10m": true
+      }
+    },
+    "caseD_seed50042_torch7": {
+      "hit_step": 4888,
+      "hvt_position": {
+        "x": 1200.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "closest_attacker": {
+        "index": 1,
+        "distance_m": 4.580271234518253,
+        "alive": 1
+      },
+      "all_attackers": {
+        "off_d_hvt": [
+          1462.3069245387455,
+          4.580271234518253,
+          3026.3774699013725,
+          2673.2992155935763
+        ],
+        "hvt_rho": [
+          0.0,
+          0.0,
+          0.0,
+          2673.2992155935763
+        ],
+        "off_alive": [
+          0,
+          1,
+          0,
+          1
+        ]
+      },
+      "files": {
+        "trajectory_data.npz": 1913705,
+        "summary.json": 345,
+        "game_data.npz": 893288
+      },
+      "fields": {
+        "trajectory_fields": [
+          "steps",
+          "time",
+          "off_x",
+          "off_y",
+          "off_z",
+          "off_v",
+          "off_heading",
+          "off_gamma",
+          "off_an_pitch",
+          "off_an_yaw",
+          "off_lbc",
+          "off_alive",
+          "off_hit",
+          "off_d_hvt",
+          "def_x",
+          "def_y",
+          "def_z",
+          "def_v",
+          "def_an",
+          "def_lmode",
+          "def_initial_target",
+          "def_assigned_target",
+          "def_ltgt",
+          "def_alive",
+          "assign_cost",
+          "fov_sat",
+          "hvt_x",
+          "hvt_y",
+          "hvt_z",
+          "hit_count"
+        ],
+        "game_fields": [
+          "decoy_Phi",
+          "decoy_role_decoy",
+          "decoy_role_pen",
+          "decoy_role_stealth",
+          "decoy_lock_pressure",
+          "pen_N_eff",
+          "pen_P_pen",
+          "esc_Gamma_mean",
+          "esc_Xi_mean",
+          "esc_E_esc",
+          "hvt_P_hit",
+          "hvt_rho",
+          "hvt_closing",
+          "def_lmode",
+          "def_ltgt"
+        ]
+      },
+      "validation": {
+        "all_files_present": true,
+        "hit_step_in_range": true,
+        "closest_distance_under_10m": true
+      }
+    },
+    "caseE_seed50015_torch8": {
+      "hit_step": 4944,
+      "hvt_position": {
+        "x": 1200.0,
+        "y": 0.0,
+        "z": 0.0
+      },
+      "closest_attacker": {
+        "index": 0,
+        "distance_m": 4.603691383662663,
+        "alive": 1
+      },
+      "all_attackers": {
+        "off_d_hvt": [
+          4.603691383662663,
+          60.61409990332583,
+          2580.1999270523224,
+          2829.4049984179205
+        ],
+        "hvt_rho": [
+          0.0,
+          60.61409990332583,
+          0.0,
+          2829.4049984179205
+        ],
+        "off_alive": [
+          1,
+          1,
+          0,
+          1
+        ]
+      },
+      "files": {
+        "trajectory_data.npz": 2177758,
+        "summary.json": 330,
+        "game_data.npz": 1020556
+      },
+      "fields": {
+        "trajectory_fields": [
+          "steps",
+          "time",
+          "off_x",
+          "off_y",
+          "off_z",
+          "off_v",
+          "off_heading",
+          "off_gamma",
+          "off_an_pitch",
+          "off_an_yaw",
+          "off_lbc",
+          "off_alive",
+          "off_hit",
+          "off_d_hvt",
+          "def_x",
+          "def_y",
+          "def_z",
+          "def_v",
+          "def_an",
+          "def_lmode",
+          "def_initial_target",
+          "def_assigned_target",
+          "def_ltgt",
+          "def_alive",
+          "assign_cost",
+          "fov_sat",
+          "hvt_x",
+          "hvt_y",
+          "hvt_z",
+          "hit_count"
+        ],
+        "game_fields": [
+          "decoy_Phi",
+          "decoy_role_decoy",
+          "decoy_role_pen",
+          "decoy_role_stealth",
+          "decoy_lock_pressure",
+          "pen_N_eff",
+          "pen_P_pen",
+          "esc_Gamma_mean",
+          "esc_Xi_mean",
+          "esc_E_esc",
+          "hvt_P_hit",
+          "hvt_rho",
+          "hvt_closing",
+          "def_lmode",
+          "def_ltgt"
+        ]
+      },
+      "validation": {
+        "all_files_present": true,
+        "hit_step_in_range": true,
+        "closest_distance_under_10m": true
+      }
+    }
+  }
+}

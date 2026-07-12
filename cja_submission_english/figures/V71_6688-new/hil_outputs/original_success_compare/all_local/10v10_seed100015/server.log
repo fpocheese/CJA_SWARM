@@ -1,0 +1,13 @@
+[server] listening on 127.0.0.1:5520, waiting for 10 policy nodes
+[server] agent 9 connected from ('127.0.0.1', 43648), hello={'type': 'hello', 'agent_id': 9, 'source_agent': 1, 'pid': 71085}
+[server] agent 8 connected from ('127.0.0.1', 43650), hello={'type': 'hello', 'agent_id': 8, 'source_agent': 0, 'pid': 71084}
+[server] agent 7 connected from ('127.0.0.1', 43664), hello={'type': 'hello', 'agent_id': 7, 'source_agent': 3, 'pid': 71083}
+[server] agent 3 connected from ('127.0.0.1', 43678), hello={'type': 'hello', 'agent_id': 3, 'source_agent': 3, 'pid': 71079}
+[server] agent 6 connected from ('127.0.0.1', 43680), hello={'type': 'hello', 'agent_id': 6, 'source_agent': 2, 'pid': 71082}
+[server] agent 1 connected from ('127.0.0.1', 43694), hello={'type': 'hello', 'agent_id': 1, 'source_agent': 1, 'pid': 71077}
+[server] agent 0 connected from ('127.0.0.1', 43696), hello={'type': 'hello', 'agent_id': 0, 'source_agent': 0, 'pid': 71076}
+[server] agent 2 connected from ('127.0.0.1', 43714), hello={'type': 'hello', 'agent_id': 2, 'source_agent': 2, 'pid': 71078}
+[server] agent 5 connected from ('127.0.0.1', 43720), hello={'type': 'hello', 'agent_id': 5, 'source_agent': 1, 'pid': 71081}
+[server] agent 4 connected from ('127.0.0.1', 43736), hello={'type': 'hello', 'agent_id': 4, 'source_agent': 0, 'pid': 71080}
+[server] episode=0 seed=100015 success=1 reason=success best=4.51m
+[server] wrote /home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/original_success_compare/all_local/10v10_seed100015/server_wrapper.json

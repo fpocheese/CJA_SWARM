@@ -1,0 +1,49 @@
+{
+  "case": "six_defenders",
+  "n_offensive": 4,
+  "n_defensive": 6,
+  "seeds_rendered": [
+    1000,
+    1002,
+    1009,
+    1010,
+    1011
+  ],
+  "episodes": [
+    {
+      "seed": 1000,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.5342030421746085,
+      "final_step": 5943
+    },
+    {
+      "seed": 1002,
+      "success": false,
+      "hit_count": 0,
+      "best_min_dist_m": 44.43541997619307,
+      "final_step": 8000
+    },
+    {
+      "seed": 1009,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.878730236365807,
+      "final_step": 5752
+    },
+    {
+      "seed": 1010,
+      "success": false,
+      "hit_count": 0,
+      "best_min_dist_m": 46.530192273457835,
+      "final_step": 8000
+    },
+    {
+      "seed": 1011,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.787633593196853,
+      "final_step": 5896
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+case,model,episodes,attack_success_rate,target_success_rate,mean_target_time
+case2,on-policy-main/onpolicy/scripts/results/3d_case2_mappo_retrain_20260622/MAPPO/seed1/models/MAPPO_2606_221137,20,0.0,0.0,nan

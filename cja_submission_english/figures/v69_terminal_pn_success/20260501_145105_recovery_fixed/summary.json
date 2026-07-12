@@ -1,0 +1,98 @@
+{
+  "timestamp": "20260501_145105",
+  "tag": "recovery_fixed",
+  "model_dir": "outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run1/models_hit3_verified_snapshot",
+  "reward_profile": "v68strictpnfix",
+  "obs_mask": "v65_strict_los",
+  "terminal_guidance": "pn_los",
+  "terminal_pn_gain": 8.0,
+  "terminal_pn_max_action": 0.8,
+  "seeds": [
+    1000,
+    1001,
+    1002
+  ],
+  "episodes": [
+    {
+      "seed": 1000,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5867,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        65.08011396961967,
+        1645.3585342742244,
+        4.966480179709975,
+        1773.9007153863436
+      ],
+      "min_step_per_agent": [
+        4899,
+        2499,
+        5867,
+        2391
+      ],
+      "best_min_dist_m": 4.966480179709975,
+      "success": true
+    },
+    {
+      "seed": 1001,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5432,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        32.90353738009263,
+        1756.2633503310453,
+        4.535587493533079,
+        1680.2175933390756
+      ],
+      "min_step_per_agent": [
+        4931,
+        2701,
+        5432,
+        2422
+      ],
+      "best_min_dist_m": 4.535587493533079,
+      "success": true
+    },
+    {
+      "seed": 1002,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 7353,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        13.761762679284352,
+        1754.9136398478847,
+        4.903597094966276,
+        764.1352810137056
+      ],
+      "min_step_per_agent": [
+        6397,
+        2513,
+        7353,
+        3892
+      ],
+      "best_min_dist_m": 4.903597094966276,
+      "success": true
+    }
+  ],
+  "success_episodes": 3,
+  "total_hits": 3,
+  "hit_rate": 1.0,
+  "best_min_dist_m": 4.535587493533079,
+  "figures": [
+    "fig01_trajectory_3d",
+    "fig02_distance_phase",
+    "fig03_speed_heading_accel",
+    "fig04_los_guidance",
+    "fig05_game_metrics",
+    "fig06_breach_geometry"
+  ]
+}

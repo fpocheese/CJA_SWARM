@@ -1,0 +1,42 @@
+{
+  "case": "weiyang_ta_6v6",
+  "source_case": "6v6",
+  "method": "weiyang_ta",
+  "seed": 60015,
+  "n_offensive": 6,
+  "n_defensive": 6,
+  "success": false,
+  "hit_count": 0,
+  "hit_indices": [],
+  "hit_step": {},
+  "death_step": {
+    "0": 1561,
+    "1": 1444,
+    "2": 2058,
+    "3": 1901,
+    "4": 1750,
+    "5": 1576
+  },
+  "done_reason": "all_killed",
+  "final_step": 2058,
+  "final_time_s": 20.580000000000002,
+  "offensive_alive": 0,
+  "defensive_alive": 0,
+  "best_agent": 2,
+  "best_hvt_distance_m": 1562.6598931739723,
+  "min_dist_per_agent_m": [
+    1594.1833983403246,
+    1575.696811211624,
+    1562.6598931739723,
+    1665.8988087689697,
+    1593.4662063593091,
+    1619.9203394963577
+  ],
+  "elapsed_s": 17.587378978729248,
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ],
+  "method_notes": "Multi-attacker/one-target encirclement guidance with tracker/interceptor role split and terminal collapse."
+}

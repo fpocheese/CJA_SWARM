@@ -1,0 +1,40 @@
+{
+  "cases": [
+    {
+      "label": "Nominal 4v4",
+      "scenario_case": "baseline",
+      "episodes": 3,
+      "success_episodes": 3,
+      "success_rate": 1.0,
+      "total_hits": 3,
+      "best_min_dist_m": 4.681910276094874,
+      "mean_hit_time_s": 62.44333333333333,
+      "model_dir": "outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run3/models_hit3_hourly_20260501_145607_snapshot",
+      "eval_dir": "/home/a2rl/000000GSY_mutiUAV/swarm_attack_v2/outputs/v69_scenario_suite/20260501_155906_paper"
+    },
+    {
+      "label": "Stronger 4v4",
+      "scenario_case": "strong_defense",
+      "episodes": 3,
+      "success_episodes": 3,
+      "success_rate": 1.0,
+      "total_hits": 3,
+      "best_min_dist_m": 4.636201913148421,
+      "mean_hit_time_s": 56.586666666666666,
+      "model_dir": "outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run3/models_hit3_hourly_20260501_145607_snapshot",
+      "eval_dir": "/home/a2rl/000000GSY_mutiUAV/swarm_attack_v2/outputs/v69_scenario_suite/20260501_160251_paper"
+    },
+    {
+      "label": "Six defenders",
+      "scenario_case": "six_defenders",
+      "episodes": 3,
+      "success_episodes": 1,
+      "success_rate": 0.3333333333333333,
+      "total_hits": 1,
+      "best_min_dist_m": 4.98205997364458,
+      "mean_hit_time_s": 54.57,
+      "model_dir": "outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run3/models_hit3_hourly_20260501_145607_snapshot",
+      "eval_dir": "/home/a2rl/000000GSY_mutiUAV/swarm_attack_v2/outputs/v69_scenario_suite/20260501_160632_paper"
+    }
+  ]
+}

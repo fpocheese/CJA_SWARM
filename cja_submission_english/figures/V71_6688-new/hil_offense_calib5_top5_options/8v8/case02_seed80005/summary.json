@@ -1,0 +1,98 @@
+{
+  "case": "8v8",
+  "seed": 80005,
+  "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+  "clone_map": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 0,
+    "5": 1,
+    "6": 2,
+    "7": 3
+  },
+  "n_offensive": 8,
+  "n_defensive": 8,
+  "hil_config": {
+    "sensor_sample_steps": 1,
+    "sensor_delay_steps": 4,
+    "sensor_jitter_steps": 2,
+    "sensor_dropout_prob": 0.0,
+    "obs_noise_std": 0.0015,
+    "obs_bias_std": 0.0003,
+    "obs_bias_rw_std": 3e-06,
+    "obs_quant_step": 0.001,
+    "policy_sample_steps": 1,
+    "command_delay_steps": 0,
+    "command_jitter_steps": 0,
+    "command_dropout_prob": 0.0,
+    "action_quant_step": 0.001,
+    "actuator_tau_s": 0.0,
+    "action_rate_limit_per_s": 0.0,
+    "enable_defense_hil": false,
+    "defense_sample_steps": 5,
+    "defense_delay_steps": 10,
+    "defense_jitter_steps": 5,
+    "defense_dropout_prob": 0.03,
+    "defense_pos_noise_m": 8.0,
+    "defense_vel_noise_mps": 2.0,
+    "defense_pos_quant_m": 1.0,
+    "defense_vel_quant_mps": 0.1,
+    "defense_fov_false_negative_prob": 0.04,
+    "max_steps": 7000
+  },
+  "hil_stats": {
+    "sensor_generated": 5307,
+    "sensor_delivered": 5302,
+    "sensor_dropped": 0,
+    "command_generated": 5307,
+    "command_delivered": 5307,
+    "command_dropped": 0,
+    "sensor_latency_steps": {
+      "mean": 4.997927265875259,
+      "p95": 6.0,
+      "max": 6
+    },
+    "command_latency_steps": {
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0
+    }
+  },
+  "defense_hil_stats": {
+    "enabled": false
+  },
+  "success": true,
+  "hit_count": 1,
+  "hit_indices": [
+    4
+  ],
+  "done_reason": "success",
+  "final_step": 5307,
+  "final_time_s": 53.07,
+  "offensive_alive": 4,
+  "defensive_alive": 4,
+  "best_agent": 4,
+  "best_hvt_distance_m": 4.71793961124737,
+  "best_min_step": 5307,
+  "min_dist_per_agent_m": [
+    1573.408,
+    1646.834,
+    2195.014,
+    2002.476,
+    4.718,
+    1818.046,
+    2002.295,
+    1878.59
+  ],
+  "hit_step": {
+    "4": 5307
+  },
+  "death_step": {
+    "0": 1544,
+    "1": 1500,
+    "5": 2012,
+    "6": 3465
+  }
+}

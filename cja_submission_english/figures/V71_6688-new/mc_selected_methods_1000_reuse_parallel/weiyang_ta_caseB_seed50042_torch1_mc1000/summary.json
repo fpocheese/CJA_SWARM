@@ -1,0 +1,27 @@
+{
+  "method": "weiyang_ta",
+  "case": "caseB_seed50042_torch1",
+  "n_episodes": 1000,
+  "workers": 4,
+  "success_count": 0,
+  "success_rate": 0.0,
+  "hit_count_mean": 0.0,
+  "best_hvt_distance_mean_m": 1545.1225483604753,
+  "best_hvt_distance_median_m": 1555.4533828739231,
+  "best_hvt_distance_min_m": 5.273820684771396,
+  "best_hvt_distance_p05_m": 1503.913854444887,
+  "best_hvt_distance_p95_m": 1602.6090810537144,
+  "final_time_mean_s": 20.087799999999998,
+  "success_time_mean_s": null,
+  "done_reason_counts": {
+    "all_killed": 1000
+  },
+  "elapsed_s": 5770.490741252899,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}

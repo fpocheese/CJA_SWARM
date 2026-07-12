@@ -1,0 +1,49 @@
+{
+  "case": "strong_defense",
+  "n_offensive": 4,
+  "n_defensive": 4,
+  "seeds_rendered": [
+    1003,
+    1005,
+    1013,
+    1018,
+    1019
+  ],
+  "episodes": [
+    {
+      "seed": 1003,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.878156942559089,
+      "final_step": 6331
+    },
+    {
+      "seed": 1005,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.9947388680418685,
+      "final_step": 5738
+    },
+    {
+      "seed": 1013,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.504429763185942,
+      "final_step": 6391
+    },
+    {
+      "seed": 1018,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.654793250605577,
+      "final_step": 6387
+    },
+    {
+      "seed": 1019,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.76157430732911,
+      "final_step": 5611
+    }
+  ]
+}

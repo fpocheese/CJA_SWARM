@@ -1,0 +1,40 @@
+{
+  "elapsed_s": 15178.076946496964,
+  "episodes_per_condition": 1000,
+  "methods": [
+    "garcia_bddg"
+  ],
+  "cases": [
+    "8v8"
+  ],
+  "summaries": {
+    "garcia_bddg_8v8": {
+      "method": "garcia_bddg",
+      "case": "8v8",
+      "n_episodes": 1000,
+      "workers": 4,
+      "success_count": 795,
+      "success_rate": 0.795,
+      "hit_count_mean": 0.796,
+      "best_hvt_distance_mean_m": 105.9200449507218,
+      "best_hvt_distance_median_m": 4.812057471172143,
+      "best_hvt_distance_min_m": 4.500400593738072,
+      "best_hvt_distance_p05_m": 4.53327917364093,
+      "best_hvt_distance_p95_m": 652.7179791096951,
+      "final_time_mean_s": 54.215880000000006,
+      "success_time_mean_s": 55.89753459119496,
+      "done_reason_counts": {
+        "success": 795,
+        "all_killed": 205
+      },
+      "elapsed_s": 15178.07081747055,
+      "jitter": {
+        "pos_xy_m": 35.0,
+        "pos_z_m": 8.0,
+        "heading_rad": 0.06,
+        "gamma_rad": 0.015,
+        "speed_frac": 0.035
+      }
+    }
+  }
+}

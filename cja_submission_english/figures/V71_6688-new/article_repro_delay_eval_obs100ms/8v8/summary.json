@@ -1,0 +1,59 @@
+{
+  "case": "8v8",
+  "seed": 80047,
+  "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+  "clone_map": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3,
+    "4": 0,
+    "5": 1,
+    "6": 2,
+    "7": 3
+  },
+  "n_offensive": 8,
+  "n_defensive": 8,
+  "delay_model": {
+    "obs_delay_steps": 10,
+    "obs_delay_s": 0.1,
+    "action_delay_steps": 2,
+    "action_delay_s": 0.02,
+    "obs_noise_std": 0.005
+  },
+  "success": true,
+  "hit_count": 1,
+  "hit_indices": [
+    4
+  ],
+  "hit_step": {
+    "4": 5128
+  },
+  "death_step": {
+    "0": 1349,
+    "1": 1715,
+    "5": 2228
+  },
+  "done_reason": "success",
+  "final_step": 5128,
+  "final_time_s": 51.28,
+  "offensive_alive": 5,
+  "defensive_alive": 5,
+  "best_agent": 4,
+  "best_hvt_distance_m": 4.761956344921439,
+  "min_dist_per_agent_m": [
+    1526.2859032979684,
+    1500.4547909682622,
+    2192.01494147809,
+    2064.215533096981,
+    4.761956344921439,
+    1669.6104795935314,
+    2165.953762928134,
+    1763.221242813533
+  ],
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ]
+}

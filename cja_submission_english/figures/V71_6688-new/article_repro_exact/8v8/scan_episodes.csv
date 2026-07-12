@@ -1,0 +1,2 @@
+case,seed,success,hit_count,hit_indices,done_reason,final_step,offensive_alive,defensive_alive,best_min_dist_m,best_agent,best_min_step,min_dist_per_agent_m
+8v8,80047,True,1,4,success,5128,5,5,4.521777695626188,4,5128,"[1526.248, 1500.737, 2193.506, 2066.633, 4.522, 1669.691, 2167.593, 1764.92]"

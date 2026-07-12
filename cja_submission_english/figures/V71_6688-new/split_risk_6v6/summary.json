@@ -1,0 +1,44 @@
+{
+  "case": "split_risk_6v6",
+  "source_case": "6v6",
+  "method": "split_risk",
+  "seed": 60015,
+  "n_offensive": 6,
+  "n_defensive": 6,
+  "success": true,
+  "hit_count": 1,
+  "hit_indices": [
+    2
+  ],
+  "hit_step": {
+    "2": 5182
+  },
+  "death_step": {
+    "0": 1930,
+    "1": 1592,
+    "4": 1828,
+    "5": 1722
+  },
+  "done_reason": "success",
+  "final_step": 5182,
+  "final_time_s": 51.82,
+  "offensive_alive": 2,
+  "defensive_alive": 2,
+  "best_agent": 2,
+  "best_hvt_distance_m": 4.723795443962467,
+  "min_dist_per_agent_m": [
+    1439.788759469369,
+    1531.701036931575,
+    4.723795443962467,
+    30.383491657939356,
+    1612.09436289057,
+    1595.67685149701
+  ],
+  "elapsed_s": 28.333638906478882,
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ],
+  "method_notes": "Aerial-swarm risk-taking/risk-averse split attack pattern adapted to HVT penetration."
+}

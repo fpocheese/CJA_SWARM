@@ -1,0 +1,79 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+=== MC garcia_bddg/8v8: n=1000 workers=4 out=/tmp/v71_mc_selected_methods_1000_reuse_parallel/garcia_bddg_8v8_mc1000 ===
+garcia_bddg/8v8 done=1/1000 succ=1 rate=1.000 best_min=4.54m
+garcia_bddg/8v8 done=2/1000 succ=2 rate=1.000 best_min=4.54m
+garcia_bddg/8v8 done=3/1000 succ=2 rate=0.667 best_min=4.54m
+garcia_bddg/8v8 done=4/1000 succ=2 rate=0.500 best_min=4.54m
+garcia_bddg/8v8 done=5/1000 succ=2 rate=0.400 best_min=4.54m
+garcia_bddg/8v8 done=25/1000 succ=21 rate=0.840 best_min=4.53m
+garcia_bddg/8v8 done=50/1000 succ=44 rate=0.880 best_min=4.51m
+garcia_bddg/8v8 done=75/1000 succ=60 rate=0.800 best_min=4.51m
+garcia_bddg/8v8 done=100/1000 succ=81 rate=0.810 best_min=4.51m
+garcia_bddg/8v8 done=125/1000 succ=102 rate=0.816 best_min=4.51m
+garcia_bddg/8v8 done=150/1000 succ=121 rate=0.807 best_min=4.51m
+garcia_bddg/8v8 done=175/1000 succ=140 rate=0.800 best_min=4.51m
+garcia_bddg/8v8 done=200/1000 succ=165 rate=0.825 best_min=4.51m
+garcia_bddg/8v8 done=225/1000 succ=184 rate=0.818 best_min=4.51m
+garcia_bddg/8v8 done=250/1000 succ=201 rate=0.804 best_min=4.50m
+garcia_bddg/8v8 done=275/1000 succ=221 rate=0.804 best_min=4.50m
+garcia_bddg/8v8 done=300/1000 succ=239 rate=0.797 best_min=4.50m
+garcia_bddg/8v8 done=325/1000 succ=259 rate=0.797 best_min=4.50m
+garcia_bddg/8v8 done=350/1000 succ=278 rate=0.794 best_min=4.50m
+garcia_bddg/8v8 done=375/1000 succ=294 rate=0.784 best_min=4.50m
+garcia_bddg/8v8 done=400/1000 succ=310 rate=0.775 best_min=4.50m
+garcia_bddg/8v8 done=425/1000 succ=331 rate=0.779 best_min=4.50m
+garcia_bddg/8v8 done=450/1000 succ=352 rate=0.782 best_min=4.50m
+garcia_bddg/8v8 done=475/1000 succ=372 rate=0.783 best_min=4.50m
+garcia_bddg/8v8 done=500/1000 succ=392 rate=0.784 best_min=4.50m
+garcia_bddg/8v8 done=525/1000 succ=414 rate=0.789 best_min=4.50m
+garcia_bddg/8v8 done=550/1000 succ=433 rate=0.787 best_min=4.50m
+garcia_bddg/8v8 done=575/1000 succ=452 rate=0.786 best_min=4.50m
+garcia_bddg/8v8 done=600/1000 succ=470 rate=0.783 best_min=4.50m
+garcia_bddg/8v8 done=625/1000 succ=487 rate=0.779 best_min=4.50m
+garcia_bddg/8v8 done=650/1000 succ=508 rate=0.782 best_min=4.50m
+garcia_bddg/8v8 done=675/1000 succ=527 rate=0.781 best_min=4.50m
+garcia_bddg/8v8 done=700/1000 succ=549 rate=0.784 best_min=4.50m
+garcia_bddg/8v8 done=725/1000 succ=568 rate=0.783 best_min=4.50m
+garcia_bddg/8v8 done=750/1000 succ=589 rate=0.785 best_min=4.50m
+garcia_bddg/8v8 done=775/1000 succ=611 rate=0.788 best_min=4.50m
+garcia_bddg/8v8 done=800/1000 succ=633 rate=0.791 best_min=4.50m
+garcia_bddg/8v8 done=825/1000 succ=653 rate=0.792 best_min=4.50m
+garcia_bddg/8v8 done=850/1000 succ=673 rate=0.792 best_min=4.50m
+garcia_bddg/8v8 done=875/1000 succ=694 rate=0.793 best_min=4.50m
+garcia_bddg/8v8 done=900/1000 succ=714 rate=0.793 best_min=4.50m
+garcia_bddg/8v8 done=925/1000 succ=734 rate=0.794 best_min=4.50m
+garcia_bddg/8v8 done=950/1000 succ=752 rate=0.792 best_min=4.50m
+garcia_bddg/8v8 done=975/1000 succ=772 rate=0.792 best_min=4.50m
+garcia_bddg/8v8 done=1000/1000 succ=795 rate=0.795 best_min=4.50m
+{
+  "method": "garcia_bddg",
+  "case": "8v8",
+  "n_episodes": 1000,
+  "workers": 4,
+  "success_count": 795,
+  "success_rate": 0.795,
+  "hit_count_mean": 0.796,
+  "best_hvt_distance_mean_m": 105.9200449507218,
+  "best_hvt_distance_median_m": 4.812057471172143,
+  "best_hvt_distance_min_m": 4.500400593738072,
+  "best_hvt_distance_p05_m": 4.53327917364093,
+  "best_hvt_distance_p95_m": 652.7179791096951,
+  "final_time_mean_s": 54.215880000000006,
+  "success_time_mean_s": 55.89753459119496,
+  "done_reason_counts": {
+    "success": 795,
+    "all_killed": 205
+  },
+  "elapsed_s": 15178.07081747055,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}
+summary_all=/tmp/v71_mc_selected_methods_1000_reuse_parallel/summary_all.json

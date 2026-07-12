@@ -1,0 +1,4 @@
+# Skip heavy artifacts
+figures/
+*.pdf
+*.PDF

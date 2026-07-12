@@ -1,0 +1,38 @@
+{
+  "case": "weiyang_ta_caseB_seed50042_torch1",
+  "source_case": "caseB_seed50042_torch1",
+  "method": "weiyang_ta",
+  "seed": 50042,
+  "n_offensive": 4,
+  "n_defensive": 4,
+  "success": false,
+  "hit_count": 0,
+  "hit_indices": [],
+  "hit_step": {},
+  "death_step": {
+    "0": 1356,
+    "1": 1676,
+    "2": 1758,
+    "3": 1892
+  },
+  "done_reason": "all_killed",
+  "final_step": 1892,
+  "final_time_s": 18.92,
+  "offensive_alive": 0,
+  "defensive_alive": 0,
+  "best_agent": 1,
+  "best_hvt_distance_m": 1579.673475382075,
+  "min_dist_per_agent_m": [
+    1646.144827749205,
+    1579.673475382075,
+    1605.5398058740832,
+    1583.6942204437094
+  ],
+  "elapsed_s": 9.692257165908813,
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ],
+  "method_notes": "Multi-attacker/one-target encirclement guidance with tracker/interceptor role split and terminal collapse."
+}

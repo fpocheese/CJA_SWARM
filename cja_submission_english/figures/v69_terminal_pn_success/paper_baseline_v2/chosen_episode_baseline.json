@@ -1,0 +1,11 @@
+{
+  "case": "baseline",
+  "seed": 1000,
+  "hit_count": 1,
+  "hit_indices": [
+    2
+  ],
+  "best_min_dist_m": 4.681910276094874,
+  "final_step": 5869,
+  "source": "/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/v69_terminal_pn_success/20260501_155906_paper"
+}

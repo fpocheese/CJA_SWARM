@@ -1,0 +1,19 @@
+{
+  "case": "caseD_seed50042_torch7",
+  "episode": 44,
+  "seed": 50042,
+  "torch_seed": 7,
+  "hit_count": 1,
+  "hitter": 1,
+  "hit_step": 4888,
+  "hit_time_s": 48.88,
+  "best_hvt_distance_m": 4.580271234518253,
+  "hitter_locked_by_count_max": 0,
+  "death_step": {
+    "0": 1748,
+    "2": 3918
+  },
+  "hit_step_by_attacker": {
+    "1": 4888
+  }
+}

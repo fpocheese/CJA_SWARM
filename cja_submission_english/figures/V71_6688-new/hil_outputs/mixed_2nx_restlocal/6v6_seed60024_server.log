@@ -1,0 +1,9 @@
+[server] listening on 192.168.47.92:5500, waiting for 6 policy nodes
+[server] agent 5 connected from ('192.168.47.92', 35490), hello={'type': 'hello', 'agent_id': 5, 'source_agent': 1, 'pid': 56841}
+[server] agent 3 connected from ('192.168.47.92', 35506), hello={'type': 'hello', 'agent_id': 3, 'source_agent': 3, 'pid': 56839}
+[server] agent 2 connected from ('192.168.47.92', 35510), hello={'type': 'hello', 'agent_id': 2, 'source_agent': 2, 'pid': 56838}
+[server] agent 4 connected from ('192.168.47.92', 35512), hello={'type': 'hello', 'agent_id': 4, 'source_agent': 0, 'pid': 56840}
+[server] agent 0 connected from ('192.168.47.101', 54048), hello={'type': 'hello', 'agent_id': 0, 'source_agent': 0, 'pid': 5228}
+[server] agent 1 connected from ('192.168.47.103', 45104), hello={'type': 'hello', 'agent_id': 1, 'source_agent': 1, 'pid': 5279}
+[server] episode=0 seed=60024 success=0 reason=all_killed best=1399.50m
+[server] wrote /home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/mixed_2nx_restlocal/v71_hil_6v6_2nx_restlocal_seed60024_summary.json

@@ -1,0 +1,85 @@
+{
+  "case": "4v4",
+  "seed": 90543,
+  "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+  "clone_map": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3
+  },
+  "n_offensive": 4,
+  "n_defensive": 4,
+  "hil_config": {
+    "sensor_sample_steps": 1,
+    "sensor_delay_steps": 4,
+    "sensor_jitter_steps": 2,
+    "sensor_dropout_prob": 0.0,
+    "obs_noise_std": 0.0015,
+    "obs_bias_std": 0.0003,
+    "obs_bias_rw_std": 3e-06,
+    "obs_quant_step": 0.001,
+    "policy_sample_steps": 1,
+    "command_delay_steps": 0,
+    "command_jitter_steps": 0,
+    "command_dropout_prob": 0.0,
+    "action_quant_step": 0.001,
+    "actuator_tau_s": 0.0,
+    "action_rate_limit_per_s": 0.0,
+    "enable_defense_hil": false,
+    "defense_sample_steps": 5,
+    "defense_delay_steps": 10,
+    "defense_jitter_steps": 5,
+    "defense_dropout_prob": 0.03,
+    "defense_pos_noise_m": 8.0,
+    "defense_vel_noise_mps": 2.0,
+    "defense_pos_quant_m": 1.0,
+    "defense_vel_quant_mps": 0.1,
+    "defense_fov_false_negative_prob": 0.04,
+    "max_steps": 7000
+  },
+  "hil_stats": {
+    "sensor_generated": 4456,
+    "sensor_delivered": 4452,
+    "sensor_dropped": 0,
+    "command_generated": 4456,
+    "command_delivered": 4456,
+    "command_dropped": 0,
+    "sensor_latency_steps": {
+      "mean": 5.00875224416517,
+      "p95": 6.0,
+      "max": 6
+    },
+    "command_latency_steps": {
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0
+    }
+  },
+  "defense_hil_stats": {
+    "enabled": false
+  },
+  "success": true,
+  "hit_count": 1,
+  "hit_indices": [
+    0
+  ],
+  "done_reason": "success",
+  "final_step": 4456,
+  "final_time_s": 44.56,
+  "offensive_alive": 4,
+  "defensive_alive": 4,
+  "best_agent": 0,
+  "best_hvt_distance_m": 4.580597963634412,
+  "best_min_step": 4456,
+  "min_dist_per_agent_m": [
+    4.581,
+    468.144,
+    2192.188,
+    1834.021
+  ],
+  "hit_step": {
+    "0": 4456
+  },
+  "death_step": {}
+}

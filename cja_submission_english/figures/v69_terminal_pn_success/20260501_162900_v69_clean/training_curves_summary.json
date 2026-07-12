@@ -1,0 +1,12 @@
+{
+  "tb_root": "/home/a2rl/000000GSY_mutiUAV/swarm_attack_v2/outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn",
+  "runs": [
+    "run1",
+    "run3"
+  ],
+  "num_records": 1422,
+  "figures": [
+    "fig11_training_reward_loss_curves",
+    "fig12_policy_entropy_curves"
+  ]
+}

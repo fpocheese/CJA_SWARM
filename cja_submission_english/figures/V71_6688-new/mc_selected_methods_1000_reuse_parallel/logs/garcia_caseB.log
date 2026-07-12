@@ -1,0 +1,79 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+=== MC garcia_bddg/caseB_seed50042_torch1: n=1000 workers=4 out=/tmp/v71_mc_selected_methods_1000_reuse_parallel/garcia_bddg_caseB_seed50042_torch1_mc1000 ===
+garcia_bddg/caseB_seed50042_torch1 done=1/1000 succ=0 rate=0.000 best_min=1565.38m
+garcia_bddg/caseB_seed50042_torch1 done=2/1000 succ=0 rate=0.000 best_min=1488.36m
+garcia_bddg/caseB_seed50042_torch1 done=3/1000 succ=1 rate=0.333 best_min=4.83m
+garcia_bddg/caseB_seed50042_torch1 done=4/1000 succ=2 rate=0.500 best_min=4.83m
+garcia_bddg/caseB_seed50042_torch1 done=5/1000 succ=3 rate=0.600 best_min=4.73m
+garcia_bddg/caseB_seed50042_torch1 done=25/1000 succ=14 rate=0.560 best_min=4.72m
+garcia_bddg/caseB_seed50042_torch1 done=50/1000 succ=27 rate=0.540 best_min=4.53m
+garcia_bddg/caseB_seed50042_torch1 done=75/1000 succ=38 rate=0.507 best_min=4.53m
+garcia_bddg/caseB_seed50042_torch1 done=100/1000 succ=54 rate=0.540 best_min=4.51m
+garcia_bddg/caseB_seed50042_torch1 done=125/1000 succ=68 rate=0.544 best_min=4.51m
+garcia_bddg/caseB_seed50042_torch1 done=150/1000 succ=78 rate=0.520 best_min=4.51m
+garcia_bddg/caseB_seed50042_torch1 done=175/1000 succ=88 rate=0.503 best_min=4.51m
+garcia_bddg/caseB_seed50042_torch1 done=200/1000 succ=97 rate=0.485 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=225/1000 succ=113 rate=0.502 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=250/1000 succ=123 rate=0.492 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=275/1000 succ=137 rate=0.498 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=300/1000 succ=150 rate=0.500 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=325/1000 succ=162 rate=0.498 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=350/1000 succ=175 rate=0.500 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=375/1000 succ=187 rate=0.499 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=400/1000 succ=201 rate=0.502 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=425/1000 succ=215 rate=0.506 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=450/1000 succ=226 rate=0.502 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=475/1000 succ=238 rate=0.501 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=500/1000 succ=253 rate=0.506 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=525/1000 succ=264 rate=0.503 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=550/1000 succ=278 rate=0.505 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=575/1000 succ=289 rate=0.503 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=600/1000 succ=301 rate=0.502 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=625/1000 succ=310 rate=0.496 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=650/1000 succ=324 rate=0.498 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=675/1000 succ=336 rate=0.498 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=700/1000 succ=350 rate=0.500 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=725/1000 succ=365 rate=0.503 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=750/1000 succ=379 rate=0.505 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=775/1000 succ=393 rate=0.507 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=800/1000 succ=407 rate=0.509 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=825/1000 succ=418 rate=0.507 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=850/1000 succ=432 rate=0.508 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=875/1000 succ=443 rate=0.506 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=900/1000 succ=459 rate=0.510 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=925/1000 succ=472 rate=0.510 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=950/1000 succ=482 rate=0.507 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=975/1000 succ=494 rate=0.507 best_min=4.50m
+garcia_bddg/caseB_seed50042_torch1 done=1000/1000 succ=513 rate=0.513 best_min=4.50m
+{
+  "method": "garcia_bddg",
+  "case": "caseB_seed50042_torch1",
+  "n_episodes": 1000,
+  "workers": 4,
+  "success_count": 513,
+  "success_rate": 0.513,
+  "hit_count_mean": 0.513,
+  "best_hvt_distance_mean_m": 561.6503960436218,
+  "best_hvt_distance_median_m": 4.987261569616005,
+  "best_hvt_distance_min_m": 4.50131643372767,
+  "best_hvt_distance_p05_m": 4.545652133063707,
+  "best_hvt_distance_p95_m": 1572.5335121573676,
+  "final_time_mean_s": 43.74722,
+  "success_time_mean_s": 56.238986354775825,
+  "done_reason_counts": {
+    "all_killed": 487,
+    "success": 513
+  },
+  "elapsed_s": 8330.036752223969,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}
+summary_all=/tmp/v71_mc_selected_methods_1000_reuse_parallel/summary_all.json

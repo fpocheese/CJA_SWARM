@@ -1,0 +1,46 @@
+{
+  "case": "predictive_mpc_8v8",
+  "source_case": "8v8",
+  "method": "predictive_mpc",
+  "seed": 80047,
+  "n_offensive": 8,
+  "n_defensive": 8,
+  "success": false,
+  "hit_count": 0,
+  "hit_indices": [],
+  "hit_step": {},
+  "death_step": {
+    "0": 1341,
+    "1": 1474,
+    "2": 1696,
+    "3": 1985,
+    "4": 1984,
+    "5": 2172,
+    "6": 1904,
+    "7": 1480
+  },
+  "done_reason": "all_killed",
+  "final_step": 2172,
+  "final_time_s": 21.72,
+  "offensive_alive": 0,
+  "defensive_alive": 0,
+  "best_agent": 0,
+  "best_hvt_distance_m": 1542.1688337453961,
+  "min_dist_per_agent_m": [
+    1542.1688337453961,
+    1580.555656965971,
+    1657.5184241424517,
+    1605.0952788313784,
+    1585.4309174121277,
+    1585.7635748365672,
+    1597.0407631591145,
+    1596.5939368050679
+  ],
+  "elapsed_s": 38.70645332336426,
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ],
+  "method_notes": "Recent online-planning PE idea adapted as a deterministic candidate-rollout attacker controller."
+}

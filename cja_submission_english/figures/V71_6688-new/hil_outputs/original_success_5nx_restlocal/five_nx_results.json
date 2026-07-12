@@ -1,0 +1,234 @@
+[
+  {
+    "case": "6v6",
+    "seed": 60015,
+    "episode": 0,
+    "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+    "clone_map": {
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 0,
+      "5": 1
+    },
+    "n_offensive": 6,
+    "n_defensive": 6,
+    "success": true,
+    "hit_count": 1,
+    "hit_indices": [
+      4
+    ],
+    "done_reason": "success",
+    "final_step": 4956,
+    "final_time_s": 49.56,
+    "offensive_alive": 2,
+    "defensive_alive": 2,
+    "best_agent": 4,
+    "best_min_dist_m": 4.599779213868396,
+    "best_hvt_distance_m": 4.599779213868396,
+    "best_min_step": 4956,
+    "min_dist_per_agent_m": [
+      1470.0956716361593,
+      1583.603543955581,
+      2234.169016373804,
+      2252.0921140295113,
+      4.599779213868396,
+      1682.36287087867
+    ],
+    "hit_step": {
+      "4": 4956
+    },
+    "death_step": {
+      "0": 1839,
+      "1": 1545,
+      "2": 4163,
+      "5": 1787
+    },
+    "files": [
+      "game_data.npz",
+      "summary.json",
+      "trajectory_data.npz"
+    ],
+    "deployment": {
+      "nx_agents": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "nx_ips": [
+        "192.168.47.101",
+        "192.168.47.103",
+        "192.168.47.104",
+        "192.168.47.105",
+        "192.168.47.106"
+      ],
+      "local_agents": [
+        5
+      ]
+    }
+  },
+  {
+    "case": "8v8",
+    "seed": 80047,
+    "episode": 0,
+    "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+    "clone_map": {
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 0,
+      "5": 1,
+      "6": 2,
+      "7": 3
+    },
+    "n_offensive": 8,
+    "n_defensive": 8,
+    "success": true,
+    "hit_count": 1,
+    "hit_indices": [
+      4
+    ],
+    "done_reason": "success",
+    "final_step": 5128,
+    "final_time_s": 51.28,
+    "offensive_alive": 5,
+    "defensive_alive": 5,
+    "best_agent": 4,
+    "best_min_dist_m": 4.521745547947481,
+    "best_hvt_distance_m": 4.521745547947481,
+    "best_min_step": 5128,
+    "min_dist_per_agent_m": [
+      1526.2482526595406,
+      1500.7372463022336,
+      2193.506199134486,
+      2066.633234279343,
+      4.521745547947481,
+      1670.779450250931,
+      2167.5925788830446,
+      1764.9203015661137
+    ],
+    "hit_step": {
+      "4": 5128
+    },
+    "death_step": {
+      "0": 1349,
+      "1": 1715,
+      "5": 2226
+    },
+    "files": [
+      "game_data.npz",
+      "summary.json",
+      "trajectory_data.npz"
+    ],
+    "deployment": {
+      "nx_agents": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "nx_ips": [
+        "192.168.47.101",
+        "192.168.47.103",
+        "192.168.47.104",
+        "192.168.47.105",
+        "192.168.47.106"
+      ],
+      "local_agents": [
+        5,
+        6,
+        7
+      ]
+    }
+  },
+  {
+    "case": "10v10",
+    "seed": 100015,
+    "episode": 0,
+    "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+    "clone_map": {
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 0,
+      "5": 1,
+      "6": 2,
+      "7": 3,
+      "8": 0,
+      "9": 1
+    },
+    "n_offensive": 10,
+    "n_defensive": 10,
+    "success": true,
+    "hit_count": 1,
+    "hit_indices": [
+      8
+    ],
+    "done_reason": "success",
+    "final_step": 4978,
+    "final_time_s": 49.78,
+    "offensive_alive": 4,
+    "defensive_alive": 4,
+    "best_agent": 8,
+    "best_min_dist_m": 4.5127029000411305,
+    "best_hvt_distance_m": 4.5127029000411305,
+    "best_min_step": 4978,
+    "min_dist_per_agent_m": [
+      1527.5688935236117,
+      1685.5773583625635,
+      2169.5479713303657,
+      2113.978174635758,
+      1492.0970199782514,
+      1652.6863231043853,
+      2186.8052884331773,
+      2047.028464258372,
+      4.5127029000411305,
+      1612.950825907994
+    ],
+    "hit_step": {
+      "8": 4978
+    },
+    "death_step": {
+      "0": 1513,
+      "1": 1716,
+      "2": 3733,
+      "4": 1961,
+      "5": 2199,
+      "9": 1335
+    },
+    "files": [
+      "game_data.npz",
+      "summary.json",
+      "trajectory_data.npz"
+    ],
+    "deployment": {
+      "nx_agents": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "nx_ips": [
+        "192.168.47.101",
+        "192.168.47.103",
+        "192.168.47.104",
+        "192.168.47.105",
+        "192.168.47.106"
+      ],
+      "local_agents": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    }
+  }
+]

@@ -1,0 +1,100 @@
+{
+  "case": "4v4",
+  "seed": 92195,
+  "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+  "clone_map": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3
+  },
+  "n_offensive": 4,
+  "n_defensive": 4,
+  "hil_config": {
+    "sensor_sample_steps": 1,
+    "sensor_delay_steps": 4,
+    "sensor_jitter_steps": 2,
+    "sensor_dropout_prob": 0.0,
+    "obs_noise_std": 0.0015,
+    "obs_bias_std": 0.0003,
+    "obs_bias_rw_std": 3e-06,
+    "obs_quant_step": 0.001,
+    "policy_sample_steps": 1,
+    "command_delay_steps": 0,
+    "command_jitter_steps": 0,
+    "command_dropout_prob": 0.0,
+    "action_quant_step": 0.001,
+    "actuator_tau_s": 0.0,
+    "action_rate_limit_per_s": 0.0,
+    "enable_defense_hil": false,
+    "defense_sample_steps": 5,
+    "defense_delay_steps": 10,
+    "defense_jitter_steps": 5,
+    "defense_dropout_prob": 0.03,
+    "defense_pos_noise_m": 8.0,
+    "defense_vel_noise_mps": 2.0,
+    "defense_pos_quant_m": 1.0,
+    "defense_vel_quant_mps": 0.1,
+    "defense_fov_false_negative_prob": 0.04,
+    "max_steps": 7000
+  },
+  "hil_stats": {
+    "sensor_generated": 4689,
+    "sensor_delivered": 4684,
+    "sensor_dropped": 0,
+    "command_generated": 4689,
+    "command_delivered": 4689,
+    "command_dropped": 0,
+    "sensor_latency_steps": {
+      "mean": 5.011729579867776,
+      "p95": 6.0,
+      "max": 6
+    },
+    "command_latency_steps": {
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0
+    }
+  },
+  "defense_hil_stats": {
+    "enabled": false
+  },
+  "success": true,
+  "hit_count": 1,
+  "hit_indices": [
+    0
+  ],
+  "done_reason": "success",
+  "final_step": 4689,
+  "final_time_s": 46.89,
+  "offensive_alive": 3,
+  "defensive_alive": 3,
+  "best_agent": 0,
+  "best_hvt_distance_m": 4.620493117935655,
+  "best_min_step": 4689,
+  "min_dist_per_agent_m": [
+    4.62,
+    1628.917,
+    2231.835,
+    1905.576
+  ],
+  "hit_step": {
+    "0": 4689
+  },
+  "death_step": {
+    "1": 1961
+  },
+  "case_dir": "/tmp/v71_shape_final_current/4v4_candidates/seed92195",
+  "hitter": 0,
+  "target_key": "def_current_attack_target",
+  "early_hitter_selected": true,
+  "early_hitter_share": 1.0,
+  "early_hitter_max_defenders": 2,
+  "first_hitter_selected_time_s": 0.01,
+  "max_main_unassigned_while_others_targeted_s": 0.0,
+  "mid_main_unassigned_while_others_targeted_share": 0.0,
+  "mid_other_target_count_mean": 2.2095238095238097,
+  "late_hitter_selected": true,
+  "late_hitter_selected_share": 1.0,
+  "shape_score": 135.05756826524066
+}

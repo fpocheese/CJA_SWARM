@@ -1,0 +1,79 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+=== MC hetero_guard/8v8: n=1000 workers=6 out=/tmp/v71_mc_hetero_guard_1000_reuse/hetero_guard_8v8_mc1000 ===
+hetero_guard/8v8 done=1/1000 succ=1 rate=1.000 best_min=4.61m
+hetero_guard/8v8 done=2/1000 succ=1 rate=0.500 best_min=4.61m
+hetero_guard/8v8 done=3/1000 succ=1 rate=0.333 best_min=4.61m
+hetero_guard/8v8 done=4/1000 succ=1 rate=0.250 best_min=4.61m
+hetero_guard/8v8 done=5/1000 succ=2 rate=0.400 best_min=4.61m
+hetero_guard/8v8 done=25/1000 succ=14 rate=0.560 best_min=4.50m
+hetero_guard/8v8 done=50/1000 succ=32 rate=0.640 best_min=4.50m
+hetero_guard/8v8 done=75/1000 succ=48 rate=0.640 best_min=4.50m
+hetero_guard/8v8 done=100/1000 succ=67 rate=0.670 best_min=4.50m
+hetero_guard/8v8 done=125/1000 succ=87 rate=0.696 best_min=4.50m
+hetero_guard/8v8 done=150/1000 succ=103 rate=0.687 best_min=4.50m
+hetero_guard/8v8 done=175/1000 succ=120 rate=0.686 best_min=4.50m
+hetero_guard/8v8 done=200/1000 succ=141 rate=0.705 best_min=4.50m
+hetero_guard/8v8 done=225/1000 succ=157 rate=0.698 best_min=4.50m
+hetero_guard/8v8 done=250/1000 succ=176 rate=0.704 best_min=4.50m
+hetero_guard/8v8 done=275/1000 succ=190 rate=0.691 best_min=4.50m
+hetero_guard/8v8 done=300/1000 succ=206 rate=0.687 best_min=4.50m
+hetero_guard/8v8 done=325/1000 succ=221 rate=0.680 best_min=4.50m
+hetero_guard/8v8 done=350/1000 succ=236 rate=0.674 best_min=4.50m
+hetero_guard/8v8 done=375/1000 succ=255 rate=0.680 best_min=4.50m
+hetero_guard/8v8 done=400/1000 succ=268 rate=0.670 best_min=4.50m
+hetero_guard/8v8 done=425/1000 succ=285 rate=0.671 best_min=4.50m
+hetero_guard/8v8 done=450/1000 succ=301 rate=0.669 best_min=4.50m
+hetero_guard/8v8 done=475/1000 succ=319 rate=0.672 best_min=4.50m
+hetero_guard/8v8 done=500/1000 succ=337 rate=0.674 best_min=4.50m
+hetero_guard/8v8 done=525/1000 succ=355 rate=0.676 best_min=4.50m
+hetero_guard/8v8 done=550/1000 succ=370 rate=0.673 best_min=4.50m
+hetero_guard/8v8 done=575/1000 succ=388 rate=0.675 best_min=4.50m
+hetero_guard/8v8 done=600/1000 succ=404 rate=0.673 best_min=4.50m
+hetero_guard/8v8 done=625/1000 succ=424 rate=0.678 best_min=4.50m
+hetero_guard/8v8 done=650/1000 succ=444 rate=0.683 best_min=4.50m
+hetero_guard/8v8 done=675/1000 succ=457 rate=0.677 best_min=4.50m
+hetero_guard/8v8 done=700/1000 succ=475 rate=0.679 best_min=4.50m
+hetero_guard/8v8 done=725/1000 succ=491 rate=0.677 best_min=4.50m
+hetero_guard/8v8 done=750/1000 succ=506 rate=0.675 best_min=4.50m
+hetero_guard/8v8 done=775/1000 succ=524 rate=0.676 best_min=4.50m
+hetero_guard/8v8 done=800/1000 succ=542 rate=0.677 best_min=4.50m
+hetero_guard/8v8 done=825/1000 succ=559 rate=0.678 best_min=4.50m
+hetero_guard/8v8 done=850/1000 succ=576 rate=0.678 best_min=4.50m
+hetero_guard/8v8 done=875/1000 succ=593 rate=0.678 best_min=4.50m
+hetero_guard/8v8 done=900/1000 succ=611 rate=0.679 best_min=4.50m
+hetero_guard/8v8 done=925/1000 succ=626 rate=0.677 best_min=4.50m
+hetero_guard/8v8 done=950/1000 succ=644 rate=0.678 best_min=4.50m
+hetero_guard/8v8 done=975/1000 succ=661 rate=0.678 best_min=4.50m
+hetero_guard/8v8 done=1000/1000 succ=674 rate=0.674 best_min=4.50m
+{
+  "method": "hetero_guard",
+  "case": "8v8",
+  "n_episodes": 1000,
+  "workers": 6,
+  "success_count": 674,
+  "success_rate": 0.674,
+  "hit_count_mean": 0.674,
+  "best_hvt_distance_mean_m": 261.9145967239921,
+  "best_hvt_distance_median_m": 4.886097160824699,
+  "best_hvt_distance_min_m": 4.500199425015813,
+  "best_hvt_distance_p05_m": 4.5369785831694305,
+  "best_hvt_distance_p95_m": 1513.5853614363577,
+  "final_time_mean_s": 47.89597,
+  "success_time_mean_s": 53.06362017804155,
+  "done_reason_counts": {
+    "success": 674,
+    "all_killed": 326
+  },
+  "elapsed_s": 7835.299870729446,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}
+summary_all=/tmp/v71_mc_hetero_guard_1000_reuse/summary_all.json

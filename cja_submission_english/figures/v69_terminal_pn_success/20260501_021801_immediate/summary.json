@@ -1,0 +1,97 @@
+{
+  "timestamp": "20260501_021801",
+  "tag": "immediate",
+  "model_dir": "outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run1/models",
+  "reward_profile": "v68strictpnfix",
+  "obs_mask": "v65_strict_los",
+  "terminal_guidance": "pn_los",
+  "terminal_pn_gain": 8.0,
+  "terminal_pn_max_action": 0.8,
+  "seeds": [
+    1000,
+    1001,
+    1002
+  ],
+  "episodes": [
+    {
+      "seed": 1000,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5871,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        69.44009654866596,
+        1652.9266018208002,
+        4.522069084915939,
+        1784.9560609739267
+      ],
+      "min_step_per_agent": [
+        4907,
+        2499,
+        5871,
+        2356
+      ],
+      "best_min_dist_m": 4.522069084915939,
+      "success": true
+    },
+    {
+      "seed": 1001,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5443,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        37.139469228668915,
+        1767.6999675699108,
+        4.991682083907807,
+        1691.3124697656997
+      ],
+      "min_step_per_agent": [
+        4945,
+        2649,
+        5443,
+        2389
+      ],
+      "best_min_dist_m": 4.991682083907807,
+      "success": true
+    },
+    {
+      "seed": 1002,
+      "hit_count": 1,
+      "hit_indices": [
+        0
+      ],
+      "final_step": 7904,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        4.597940759943442,
+        1762.809473118497,
+        1804.829660678135,
+        868.7944800914556
+      ],
+      "min_step_per_agent": [
+        7904,
+        2471,
+        1838,
+        3770
+      ],
+      "best_min_dist_m": 4.597940759943442,
+      "success": true
+    }
+  ],
+  "success_episodes": 3,
+  "total_hits": 3,
+  "hit_rate": 1.0,
+  "best_min_dist_m": 4.522069084915939,
+  "figures": [
+    "fig01_trajectory_3d",
+    "fig02_distance_phase",
+    "fig03_speed_heading_accel",
+    "fig04_los_guidance",
+    "fig05_game_metrics"
+  ]
+}

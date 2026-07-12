@@ -1,0 +1,34 @@
+{
+  "case": "6v6",
+  "episodes": 1,
+  "success_count": 1,
+  "success_rate": 1.0,
+  "elapsed_s": 63.32522225379944,
+  "summaries": [
+    {
+      "seed": 60031,
+      "episode": 0,
+      "success": true,
+      "hit_count": 1,
+      "hit_indices": [
+        4
+      ],
+      "done_reason": "success",
+      "final_step": 5637,
+      "final_time_s": 56.370000000000005,
+      "offensive_alive": 1,
+      "defensive_alive": 1,
+      "best_agent": 4,
+      "best_min_dist_m": 4.829653500749692,
+      "best_min_step": 5637,
+      "min_dist_per_agent_m": [
+        1399.557,
+        1739.689,
+        1706.66,
+        1694.526,
+        4.83,
+        1566.163
+      ]
+    }
+  ]
+}

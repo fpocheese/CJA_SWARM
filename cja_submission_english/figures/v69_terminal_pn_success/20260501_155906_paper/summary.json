@@ -1,0 +1,109 @@
+{
+  "timestamp": "20260501_155906",
+  "tag": "paper",
+  "model_dir": "outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run3/models_hit3_hourly_20260501_145607_snapshot",
+  "reward_profile": "v68strictpnfix",
+  "obs_mask": "v65_strict_los",
+  "terminal_guidance": "pn_los",
+  "terminal_pn_gain": 8.0,
+  "terminal_pn_max_action": 0.8,
+  "scenario_case": "baseline",
+  "scenario_label": "Nominal 4v4 defense",
+  "scenario_info": {
+    "case": "baseline",
+    "label": "Nominal 4v4 defense",
+    "n_offensive": 4,
+    "n_defensive": 4,
+    "defender_maneuver": "nominal 5g, v=55 m/s"
+  },
+  "seeds": [
+    1000,
+    1001,
+    1002
+  ],
+  "episodes": [
+    {
+      "seed": 1000,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5869,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        65.85978893212372,
+        1647.0715771396285,
+        4.681910276094874,
+        1777.3736828198885
+      ],
+      "min_step_per_agent": [
+        4901,
+        2499,
+        5869,
+        2380
+      ],
+      "best_min_dist_m": 4.681910276094874,
+      "success": true
+    },
+    {
+      "seed": 1001,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5435,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        33.76818710861321,
+        1758.9070002337892,
+        4.727479433312317,
+        1683.7002427645289
+      ],
+      "min_step_per_agent": [
+        4934,
+        2690,
+        5435,
+        2412
+      ],
+      "best_min_dist_m": 4.727479433312317,
+      "success": true
+    },
+    {
+      "seed": 1002,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 7429,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        15.742523529303536,
+        1757.0407013207032,
+        4.7563616077320745,
+        796.4969440424568
+      ],
+      "min_step_per_agent": [
+        6433,
+        2502,
+        7429,
+        3849
+      ],
+      "best_min_dist_m": 4.7563616077320745,
+      "success": true
+    }
+  ],
+  "success_episodes": 3,
+  "total_hits": 3,
+  "hit_rate": 1.0,
+  "best_min_dist_m": 4.681910276094874,
+  "figures": [
+    "fig01_trajectory_3d",
+    "fig02_distance_phase",
+    "fig03_speed_heading_accel",
+    "fig04_los_guidance",
+    "fig05_game_metrics",
+    "fig06_breach_geometry",
+    "fig07_breach_moment_detail",
+    "fig08_strike_interceptor_range"
+  ]
+}

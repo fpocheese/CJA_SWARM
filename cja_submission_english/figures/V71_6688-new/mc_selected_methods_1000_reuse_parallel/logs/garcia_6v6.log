@@ -1,0 +1,79 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+=== MC garcia_bddg/6v6: n=1000 workers=4 out=/tmp/v71_mc_selected_methods_1000_reuse_parallel/garcia_bddg_6v6_mc1000 ===
+garcia_bddg/6v6 done=1/1000 succ=0 rate=0.000 best_min=1568.57m
+garcia_bddg/6v6 done=2/1000 succ=1 rate=0.500 best_min=4.81m
+garcia_bddg/6v6 done=3/1000 succ=2 rate=0.667 best_min=4.80m
+garcia_bddg/6v6 done=4/1000 succ=3 rate=0.750 best_min=4.74m
+garcia_bddg/6v6 done=5/1000 succ=4 rate=0.800 best_min=4.74m
+garcia_bddg/6v6 done=25/1000 succ=18 rate=0.720 best_min=4.53m
+garcia_bddg/6v6 done=50/1000 succ=34 rate=0.680 best_min=4.53m
+garcia_bddg/6v6 done=75/1000 succ=53 rate=0.707 best_min=4.50m
+garcia_bddg/6v6 done=100/1000 succ=69 rate=0.690 best_min=4.50m
+garcia_bddg/6v6 done=125/1000 succ=89 rate=0.712 best_min=4.50m
+garcia_bddg/6v6 done=150/1000 succ=112 rate=0.747 best_min=4.50m
+garcia_bddg/6v6 done=175/1000 succ=131 rate=0.749 best_min=4.50m
+garcia_bddg/6v6 done=200/1000 succ=154 rate=0.770 best_min=4.50m
+garcia_bddg/6v6 done=225/1000 succ=172 rate=0.764 best_min=4.50m
+garcia_bddg/6v6 done=250/1000 succ=190 rate=0.760 best_min=4.50m
+garcia_bddg/6v6 done=275/1000 succ=204 rate=0.742 best_min=4.50m
+garcia_bddg/6v6 done=300/1000 succ=218 rate=0.727 best_min=4.50m
+garcia_bddg/6v6 done=325/1000 succ=236 rate=0.726 best_min=4.50m
+garcia_bddg/6v6 done=350/1000 succ=254 rate=0.726 best_min=4.50m
+garcia_bddg/6v6 done=375/1000 succ=271 rate=0.723 best_min=4.50m
+garcia_bddg/6v6 done=400/1000 succ=288 rate=0.720 best_min=4.50m
+garcia_bddg/6v6 done=425/1000 succ=303 rate=0.713 best_min=4.50m
+garcia_bddg/6v6 done=450/1000 succ=317 rate=0.704 best_min=4.50m
+garcia_bddg/6v6 done=475/1000 succ=338 rate=0.712 best_min=4.50m
+garcia_bddg/6v6 done=500/1000 succ=359 rate=0.718 best_min=4.50m
+garcia_bddg/6v6 done=525/1000 succ=374 rate=0.712 best_min=4.50m
+garcia_bddg/6v6 done=550/1000 succ=394 rate=0.716 best_min=4.50m
+garcia_bddg/6v6 done=575/1000 succ=412 rate=0.717 best_min=4.50m
+garcia_bddg/6v6 done=600/1000 succ=430 rate=0.717 best_min=4.50m
+garcia_bddg/6v6 done=625/1000 succ=446 rate=0.714 best_min=4.50m
+garcia_bddg/6v6 done=650/1000 succ=463 rate=0.712 best_min=4.50m
+garcia_bddg/6v6 done=675/1000 succ=479 rate=0.710 best_min=4.50m
+garcia_bddg/6v6 done=700/1000 succ=494 rate=0.706 best_min=4.50m
+garcia_bddg/6v6 done=725/1000 succ=517 rate=0.713 best_min=4.50m
+garcia_bddg/6v6 done=750/1000 succ=536 rate=0.715 best_min=4.50m
+garcia_bddg/6v6 done=775/1000 succ=555 rate=0.716 best_min=4.50m
+garcia_bddg/6v6 done=800/1000 succ=572 rate=0.715 best_min=4.50m
+garcia_bddg/6v6 done=825/1000 succ=586 rate=0.710 best_min=4.50m
+garcia_bddg/6v6 done=850/1000 succ=605 rate=0.712 best_min=4.50m
+garcia_bddg/6v6 done=875/1000 succ=621 rate=0.710 best_min=4.50m
+garcia_bddg/6v6 done=900/1000 succ=637 rate=0.708 best_min=4.50m
+garcia_bddg/6v6 done=925/1000 succ=656 rate=0.709 best_min=4.50m
+garcia_bddg/6v6 done=950/1000 succ=672 rate=0.707 best_min=4.50m
+garcia_bddg/6v6 done=975/1000 succ=686 rate=0.704 best_min=4.50m
+garcia_bddg/6v6 done=1000/1000 succ=705 rate=0.705 best_min=4.50m
+{
+  "method": "garcia_bddg",
+  "case": "6v6",
+  "n_episodes": 1000,
+  "workers": 4,
+  "success_count": 705,
+  "success_rate": 0.705,
+  "hit_count_mean": 0.705,
+  "best_hvt_distance_mean_m": 224.48627407409458,
+  "best_hvt_distance_median_m": 4.851720003811344,
+  "best_hvt_distance_min_m": 4.500420414664356,
+  "best_hvt_distance_p05_m": 4.536768400507725,
+  "best_hvt_distance_p95_m": 1520.7393429123465,
+  "final_time_mean_s": 51.642,
+  "success_time_mean_s": 56.21083687943263,
+  "done_reason_counts": {
+    "all_killed": 295,
+    "success": 705
+  },
+  "elapsed_s": 12458.324338436127,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}
+summary_all=/tmp/v71_mc_selected_methods_1000_reuse_parallel/summary_all.json

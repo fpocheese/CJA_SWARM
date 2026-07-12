@@ -1,0 +1,28 @@
+{
+  "method": "garcia_bddg",
+  "case": "6v6",
+  "n_episodes": 1000,
+  "workers": 4,
+  "success_count": 705,
+  "success_rate": 0.705,
+  "hit_count_mean": 0.705,
+  "best_hvt_distance_mean_m": 224.48627407409458,
+  "best_hvt_distance_median_m": 4.851720003811344,
+  "best_hvt_distance_min_m": 4.500420414664356,
+  "best_hvt_distance_p05_m": 4.536768400507725,
+  "best_hvt_distance_p95_m": 1520.7393429123465,
+  "final_time_mean_s": 51.642,
+  "success_time_mean_s": 56.21083687943263,
+  "done_reason_counts": {
+    "all_killed": 295,
+    "success": 705
+  },
+  "elapsed_s": 12458.324338436127,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}

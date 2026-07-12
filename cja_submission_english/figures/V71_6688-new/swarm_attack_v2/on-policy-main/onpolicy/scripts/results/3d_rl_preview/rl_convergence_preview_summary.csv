@@ -1,0 +1,6 @@
+metric,value
+episodes,4
+initial_reward,24.66986607760191
+final_reward,22.76411186903715
+best_reward,24.66986607760191
+last_window_mean,23.51173711940646

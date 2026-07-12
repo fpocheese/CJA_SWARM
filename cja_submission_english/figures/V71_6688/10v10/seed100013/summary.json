@@ -1,0 +1,70 @@
+{
+  "case": "10v10",
+  "seed": 100013,
+  "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+  "clone_map": {
+    "0": 0,
+    "1": 1,
+    "2": 0,
+    "3": 1,
+    "4": 1,
+    "5": 2,
+    "6": 2,
+    "7": 3,
+    "8": 3,
+    "9": 0
+  },
+  "n_offensive": 10,
+  "n_defensive": 10,
+  "success": true,
+  "hit_count": 1,
+  "hit_indices": [
+    9
+  ],
+  "done_reason": "success",
+  "final_step": 5189,
+  "final_time_s": 51.89,
+  "offensive_alive": 4,
+  "defensive_alive": 4,
+  "best_agent": 9,
+  "best_hvt_distance_m": 4.8963691601837915,
+  "best_min_step": 5189,
+  "min_dist_per_agent_m": [
+    1605.353,
+    1627.661,
+    1572.57,
+    1562.595,
+    1529.649,
+    2124.487,
+    2192.923,
+    2066.571,
+    2021.215,
+    4.896
+  ],
+  "hit_step": {
+    "9": 5189
+  },
+  "death_step": {
+    "0": 1542,
+    "3": 1820,
+    "5": 3712,
+    "1": 2100,
+    "2": 1714,
+    "4": 1923
+  },
+  "display_id_relabel": {
+    "purpose": "Display-only offensive-aircraft ID permutation",
+    "old_to_new": {
+      "0": 0,
+      "1": 3,
+      "2": 5,
+      "3": 7,
+      "4": 9,
+      "5": 1,
+      "6": 6,
+      "7": 8,
+      "8": 2,
+      "9": 4
+    }
+  }
+}

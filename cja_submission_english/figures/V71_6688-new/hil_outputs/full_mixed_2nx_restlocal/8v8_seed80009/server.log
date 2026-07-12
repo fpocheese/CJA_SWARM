@@ -1,0 +1,11 @@
+[server] listening on 192.168.47.92:5500, waiting for 8 policy nodes
+[server] agent 7 connected from ('192.168.47.92', 47540), hello={'type': 'hello', 'agent_id': 7, 'source_agent': 3, 'pid': 65508}
+[server] agent 3 connected from ('192.168.47.92', 47536), hello={'type': 'hello', 'agent_id': 3, 'source_agent': 3, 'pid': 65502}
+[server] agent 4 connected from ('192.168.47.92', 47550), hello={'type': 'hello', 'agent_id': 4, 'source_agent': 0, 'pid': 65504}
+[server] agent 5 connected from ('192.168.47.92', 47564), hello={'type': 'hello', 'agent_id': 5, 'source_agent': 1, 'pid': 65506}
+[server] agent 2 connected from ('192.168.47.92', 47580), hello={'type': 'hello', 'agent_id': 2, 'source_agent': 2, 'pid': 65501}
+[server] agent 6 connected from ('192.168.47.92', 47596), hello={'type': 'hello', 'agent_id': 6, 'source_agent': 2, 'pid': 65507}
+[server] agent 1 connected from ('192.168.47.103', 43752), hello={'type': 'hello', 'agent_id': 1, 'source_agent': 1, 'pid': 7219}
+[server] agent 0 connected from ('192.168.47.101', 43854), hello={'type': 'hello', 'agent_id': 0, 'source_agent': 0, 'pid': 7170}
+[server] episode=0 seed=80009 success=1 reason=success best=4.73m
+[server] wrote /home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/V71_6688-new/hil_outputs/full_mixed_2nx_restlocal/8v8_seed80009/server_wrapper.json

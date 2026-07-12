@@ -1,0 +1,49 @@
+{
+  "case": "4v4",
+  "seed": 90019,
+  "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+  "clone_map": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3
+  },
+  "n_offensive": 4,
+  "n_defensive": 4,
+  "delay_model": {
+    "obs_delay_steps": 10,
+    "obs_delay_s": 0.1,
+    "action_delay_steps": 2,
+    "action_delay_s": 0.02,
+    "obs_noise_std": 0.005
+  },
+  "success": true,
+  "hit_count": 1,
+  "hit_indices": [
+    0
+  ],
+  "hit_step": {
+    "0": 4658
+  },
+  "death_step": {
+    "1": 2091
+  },
+  "done_reason": "success",
+  "final_step": 4658,
+  "final_time_s": 46.58,
+  "offensive_alive": 3,
+  "defensive_alive": 3,
+  "best_agent": 0,
+  "best_hvt_distance_m": 4.839700365175912,
+  "min_dist_per_agent_m": [
+    4.839700365175912,
+    1580.204729682106,
+    2107.7142727451574,
+    1947.1409210204
+  ],
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ]
+}

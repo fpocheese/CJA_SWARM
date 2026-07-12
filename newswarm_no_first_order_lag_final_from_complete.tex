@@ -1,0 +1,2099 @@
+% !TEX root = newswarm_main.tex
+\begin{abstract}
+
+
+防空拦截能力不断提升使进攻飞行器面临更加严峻的生存威胁，集群协同突防对突破复杂防御系统具有重要价值。
+针对协同拦截条件下进攻飞行器集群生存率低、突防难的问题，提出了一种考虑拦截器探测视场限制的集群任务动态重构智能协同机动突防方法。
+首先，根据拦截器的探测范围与攻防相对运动关系，构建了多拦截器视场覆盖下的安全裕度评估模型，表征进攻飞行器的被捕获风险；
+其次，基于熵正则势博弈理论开展集群突防任务动态重构机制设计，驱动集群自适应涌现出诱骗牵制与主攻突破的协同突防行为。
+在此基础上，提出信任探索驱动的多智能体近端策略优化方法，通过信任反馈优化策略探索过程，抑制无效探索干扰，实现复杂拦截态势下突防策略的稳定寻优。
+仿真结果表明，所提方法能够引导进攻集群根据拦截态势自适应快速调整协同策略，通过诱骗机动干扰拦截器的目标选择，形成多机配合突防态势，提升突防概率。
+
+
+\end{abstract}
+
+\noindent\textbf{关键词：}协同机动突防；拦截器视场限制；多智能体近端策略优化；集群任务动态重构
+
+\section{引言}
+\label{sec:introduction}
+
+随着飞行器拦截技术和装备的不断发展，单一飞行器的突防能力难以满足复杂防御环境下的任务需求，提升飞行器集群的协同突防能力具有重要意义。
+然而，防御方利用多拦截器探测视场的交叉覆盖，构建了复杂的协同拦截态势，进攻集群若仅采用单机独立机动进行规避，难以摆脱防御方的协同拦截打击。
+因此，研究智能协同突防方法，引导集群通过主动机动配合实现协同突防，已成为集群作战的关键科学问题。
+
+
+目前关于飞行器突防方式的研究主要分为饱和式突防和机动式突防两类。
+饱和式突防主要依靠多飞行器在攻击时间、攻击角度等方面协同打击，在有限反应时间内压迫防御系统的火力分配和拦截资源。围绕多弹齐射攻击，Zhao等\cite{ZhaoZhou2008AAS}提出基于协调变量的多弹协同制导结构，将剩余飞行时间与制导指令相联系，为分布式突防打击奠定了基础；Zhao等\cite{ZhaoYang2017AAS}系统总结了多弹协同制导在时间协同、角度协同等方面的发展脉络，指出协同制导的核心在于把个体末端约束转化为群体一致性约束。Zhao等\cite{Zhao2015CJA}进一步针对静止和机动目标设计三维协同制导律，在比例导引项之外引入协调项，使多弹能够在集中式或分布式信息条件下实现同时到达；Zeng等\cite{Zeng2018CJA}将中制导Dubins路径规划和末制导协同律结合，实现多弹从航迹生成到末端同时攻击的全过程协同。为增强饱和突防中的时空协调能力，Wang等\cite{WangLu2018ISA}研究三维攻击角约束下的分布式制导律，使多弹可在局部信息条件下形成指定入射角；Lyu等\cite{Lyu2019AST}在有向通信拓扑下实现多弹同时攻击协同，体现了通信约束对协同行为稳定性的影响；Jiang等\cite{Jiang2018AST}利用凸优化处理多约束协同制导问题，将路径、过载、时间和终端角度等要求统一到滚动优化框架中，提高了复杂约束场景下的可求解性。Chen等\cite{Chen2021AST}提出三维固定时间鲁棒协同制导律，以距离剩余量和径向相对速度构造一致性变量，在避免过度依赖剩余飞行时间估计的同时实现攻击时间和攻击角快速收敛；Wang等\cite{Ai2019FOVSalvo}则把导引头视场限制引入三维多弹齐射两阶段制导设计，在满足视场边界的同时实现攻击时间和攻击角协调。
+
+机动式突防主要通过主动改变飞行轨迹、视线几何关系，降低飞行器被探测捕获和成功拦截的概率。早期机动突防研究多从追逃对抗和最优控制角度刻画突防机理，Shinar\cite{Shinar1977JA}基于二维线性化运动学分析了最优规避机动，指出拦截器过载指令饱和与进攻飞行器滚转能力会显著影响最优机动序列及最终脱靶量；Shinar等\cite{Shinar1979JGC}进一步将规避问题扩展到三维情形，将最优规避转化为滚转姿态控制问题，强调逃逸平面选择、最大过载使用和滚转速率约束对突防效果的影响。面向工程实现，Karelahti等\cite{Karelahti2007JGCD}提出滚动时域控制框架在线生成近似最优导弹规避航迹，在考虑飞行器俯仰、滚转速率约束和导弹比例导引模型的条件下，比较了脱靶量、闭合速度、导引头角速率和控制能量等指标对规避策略的影响。面向高超声速滑翔飞行器，Zhu等\cite{Zhu2018AST}提出摆式机动突防策略，将落点预测误差、拦截速度、机动过载和能量消耗统一为突防性能指标，体现了通过横向机动破坏防御方轨迹预测的思路；Shen等\cite{Shen2022AST}研究高超声速滑翔飞行器遭遇两枚拦截器时的突防轨迹优化问题，将非凸最优控制问题转化为序列二阶锥规划，生成兼顾目标区约束和规避约束的可飞航迹；Gao等\cite{Gao2025AAS}进一步考虑拦截器探测能力受限条件下的智能机动突防制导策略，使机动突防由预先设计轨迹向态势驱动的在线决策扩展。针对末制导阶段常见的攻击角和导引头视场限制，He和Lin\cite{He2015FOV}设计了兼顾攻击角约束和导引头视场边界的鲁棒制导律，表明视场边界、视线角变化和末端角度约束会直接影响攻防双方可实现的制导指令与捕获区域。随着高超声速飞行器和集群攻防任务的发展，Yu等\cite{Yu2020CJA}提出多高超声速滑翔飞行器协同突防制导策略，将个体规避与群体协同结合起来；Chen等\cite{Chen2024CJA}在安全关键框架下建立多高超声速飞行器协同博弈突防制导方法，并进一步考虑性能约束形成自适应协同博弈突防策略\cite{Chen2024TAES}，使机动式突防从几何规避扩展到攻防收益对抗和安全约束保持。
+
+
+以数据驱动为核心的智能协同突防方法通过从大量数据中学习，减少了对特定假设的依赖，正在成为新的研究趋势。
+深度强化学习技术为复杂攻防环境中的自主决策提供了方法。单智能体深度强化学习主要通过深度神经网络逼近策略函数，提高智能体在高维状态空间中的决策能力\cite{Mnih2015Nature,Schulman2017PPO}。
+对于多智能体协同任务，现有研究主要围绕集中式训练分布式执行\cite{Lowe2017MADDPG,Yu2022MAPPO}、团队价值函数分解\cite{Sunehag2018VDN,Rashid2020JMLR}、信用分配\cite{Foerster2018COMA}、注意力信息交互\cite{Iqbal2019MAAC}等方向展开，以缓解多智能体训练中的环境非平稳性、局部观测不完备和全局奖励分配困难等问题。
+在突防制导应用方面，Gaudet等\cite{Gaudet2020AST}利用强化学习研究角度量测条件下的机动目标拦截制导，说明学习策略可在观测受限条件下逼近有效制导行为；Liu等\cite{Liu2021AST}将深度网络的剩余时间预测与强化学习修正项结合，用于解决攻击时间控制中的预测校正制导问题；Qiu等\cite{Qiu2022JAE}面向弹道导弹机动突防建立深度强化学习策略，将突防过程视为连续对抗决策问题；Yan等\cite{Yan2022SciRep}提出用于导弹规避与制导的分层强化学习方法，通过高低层策略分工处理复杂机动任务。Hui等\cite{Hui2025CJA}面向多弹协同突防提出基于降维空间分层强化学习的策略，通过突防走廊约束降低搜索维度并提升多弹协同机动效率；Qiu和Gao\cite{Qiu2024AST}针对三维攻击角约束时间协同制导问题提出价值--策略分解的多智能体强化学习方法，用于缓解三维协同制导中的奖励耦合和策略耦合；Chen等\cite{Chen2024CJA,Chen2024TAES}面向多高超声速飞行器协同突防建立安全关键与性能约束下的协同博弈突防制导框架，体现了由单体规避向多机协同博弈决策的发展趋势。
+
+
+综上所述，现有的集群突防方法虽然能通过时间协同与角度协同在一定程度上提升集群突防能力，但在多拦截器协同拦截条件下，
+难以实现有效的机动规避与突防。
+因此，探索飞行器集群内部相互配合与突防掩护合作机制，利用诱骗与掩护等协同机动行为扰乱敌方目标分配，对提升突防能力具有重要意义。
+
+本文面向飞行器智能协同突防作战的任务需求，针对多拦截器协同拦截条件下进攻集群突防成功率低的问题，
+研究提出了一种智能协同突防制导方法。该方法利用安全裕度评估模型量化进攻飞行器被捕获风险，
+基于群体博弈理论设计集群突防任务动态重构机制，并依托多智能体强化学习框架在线求解机动指令，引导进攻集群通过协同配合实现高效突防。
+本文提出的智能协同突防制导策略具有以下优势：
+
+
+% 1）构建了多拦截器视场覆盖下的安全裕度评估模型。综合探测视场约束与攻防相对运动关系，对复杂对抗态势进行量化表征，为后续协同突防博弈模型的构建提供支撑。
+
+% 2）提出了基于熵正则势博弈的协同角色演化机制。构建博弈势函数为强化学习提供理论先验，突破传统预设任务分配的局限，驱动集群自主演化出诱饵、隐蔽与主攻的协同机动行为。
+
+% 3）提出了融合注意力机制的多智能体强化学习算法。将博弈势函数融合至集中式训练框架，提升模型训练的探索效率与策略稳定性，实现了态势驱动的在线制导指令输出。
+
+1）综合探测视场约束与攻防相对运动关系，构建了多拦截器视场覆盖下的安全裕度评估模型，表征了进攻飞行器的被捕获风险。
+
+2）提出了基于熵正则势博弈的协同任务动态重构机制，打破了传统预设任务分配的局限，引导集群形成诱饵牵制、隐蔽分散与主攻突破相结合的协同机动行为。
+
+3）提出了信任探索驱动的多智能体近端策略优化方法，将任务动态重构先验融合至集中式训练框架中，有效提升了复杂对抗环境下制导策略的训练收敛水平与在线决策稳定性。
+
+%% ----------------------------------------------------------------------- %%
+\section{考虑多拦截器视场限制的集群突防问题建模} 
+\label{sec:aircraft-model}
+
+
+本文考虑攻防双方非对称机动能力的对抗场景，进攻集群飞行器集合为$\mathcal{A}=\{A_1,A_2,\dots,A_{N_A}\}$，拦截集群飞行器集合为$\mathcal{D}=\{D_1,D_2,\dots,D_{N_I}\}$。
+拦截器在速度和过载能力上均优于进攻飞行器，即$V_j^{\max}>V_i^{\max}$，$n_j^{\max}>n_i^{\max}$，其中$A_i\in\mathcal A,\ D_j\in\mathcal D $。
+攻防交战几何关系如图~\ref{fig:engagement-geometry}所示。
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figures/gao1_V2.pdf}
+  \caption{飞行器集群协同突防作战示意图}
+  \label{fig:engagement-geometry}
+\end{figure}
+
+设地面惯性系为 $\mathcal{F}_E=\{O;\hat{e}_x,\hat{e}_y,\hat{e}_z\}$。
+攻防双方均采用相同的三自由度固定翼质点模型。定义飞行器的位置矢量 $p=[x,y,z]^\top$、速度大小为 $V$。航向角 $\psi\in(-\pi,\pi]$ 表示速度在水平面内相对于 $\hat e_x$ 轴的偏转角，并按从 $\hat e_x$ 向 $\hat e_y$ 旋转为正；俯仰角 $\gamma\in[-\pi/2,\pi/2]$。由此可得惯性速度分量为：
+\begin{equation}
+\dot x = V\cos\gamma\cos\psi,\quad
+\dot y = V\cos\gamma\sin\psi,\quad
+\dot z = V\sin\gamma,
+\label{eq:vel-decomp}
+\end{equation}
+
+进攻飞行器与拦截器的状态向量分别定义为：
+\begin{equation}
+x_i(t)=\bigl[\,p_i^\top(t),\,V_i(t),\,\psi_i(t),\,\gamma_i(t)\,\bigr]^\top\in\mathbb{R}^{6},
+\label{eq:att-state}
+\end{equation}
+\begin{equation}
+y_j(t)=\bigl[\,p_j^\top(t),\,V_j(t),\,\psi_j(t),\,\gamma_j(t)\,\bigr]^\top\in\mathbb{R}^{6}.
+\label{eq:def-state}
+\end{equation}
+
+高价值目标（High Value Target, HVT）的位置记为 $p_H\in\mathbb{R}^3$。定义任意进攻飞行器 $A_i$ 相对于 HVT 的相对位置矢量与距离分别为：
+\begin{equation}
+r_{iH}(t)=p_H-p_i(t),\qquad
+\rho_{iH}(t)=\|r_{iH}(t)\|.
+\label{eq:riH-def}
+\end{equation}
+同时，进攻飞行器相对于 HVT 的速度与空间视线角速度向量分别定义为：
+\begin{equation}
+V_{c,iH}(t)=\frac{r_{iH}^{\top}(t)v_i(t)}{\rho_{iH}(t)},\qquad
+\omega_{iH}^{\mathrm{LOS}}(t)=\frac{r_{iH}(t)\times v_i(t)}{\rho_{iH}^2(t)}.
+\label{eq:hvt_kinematics_def}
+\end{equation}
+
+飞行器动力学方程为：
+\begin{equation}
+\dot V_i=a_{x,i}-g\sin\gamma_i,
+\label{eq:dyn-V}
+\end{equation}
+\begin{equation}
+\dot\psi_i=\frac{a_{n,\psi,i}}{V_i\cos\gamma_i},
+\label{eq:dyn-psi}
+\end{equation}
+\begin{equation}
+\dot\gamma_i=\frac{a_{n,\gamma,i}-g\cos\gamma_i}{V_i},
+\label{eq:dyn-gamma}
+\end{equation}
+其中，$g$ 为重力加速度；$a_{x,i}$、$a_{n,\gamma,i}$ 和 $a_{n,\psi,i}$ 分别为其轴向、俯仰平面法向和偏航平面法向加速度。拦截器采用完全相同的动力学方程结构，其对应的三轴加速度分别记为 $a_{x,j}$、$a_{n,\gamma,j}$ 和 $a_{n,\psi,j}$。
+
+
+
+为刻画拦截器探测视场与攻防相对几何关系，对每架拦截器 $D_j$，定义其锥轴单位向量 $b_j(t)\in\mathbb S^2$ 和半锥角 $\alpha_j$，其中 $b_j(t)$ 取拦截器速度方向 $v_j/\|v_j\|$。对任意进攻飞行器 $A_i$，其相对于 $D_j$ 的位置矢量与距离分别为
+\begin{equation}
+r_{ij}(t)=p_i(t)-p_j(t),\qquad
+\rho_{ij}(t)=\left\|r_{ij}(t)\right\|.
+\end{equation}
+其中 $r_{ij}(t)$ 表示由拦截器 $D_j$ 指向进攻飞行器 $A_i$ 的相对位置矢量，$\rho_{ij}(t)$ 表示二者之间的相对距离。进攻飞行器相对于拦截器探测轴线的体视线角为
+\begin{equation}
+\theta_{ij}^{\mathrm{body}}(t)
+=
+\arccos
+\left(
+\frac{b_j^{\mathrm T}(t)r_{ij}(t)}
+{\rho_{ij}(t)}
+\right).
+\end{equation}
+
+在此基础上，定义视场锥角度裕度函数
+\begin{equation}
+q_{ij}(t)
+=
+\frac{b_j^{\mathrm T}(t)r_{ij}(t)}
+{\rho_{ij}(t)}
+-\cos\alpha_j ,
+\label{eq:qij-def}
+\end{equation}
+其中 $q_{ij}(t)>0$ 表示 $A_i$ 位于 $D_j$ 的视场锥内，$q_{ij}(t)=0$ 表示位于锥边界，$q_{ij}(t)<0$ 表示位于锥外。为获得 $C^1$ 连续的视场占用指标，进一步定义平滑视场占用函数
+\begin{equation}
+s_{ij}(t)
+=
+\sigma\!\bigl(\kappa_q q_{ij}(t)\bigr),\qquad
+\sigma(x)=\frac{1}{1+e^{-x}},
+\label{eq:sij-def}
+\end{equation}
+其中 $\sigma(\cdot)$ 为 Sigmoid 函数，$\kappa_q$ 为平滑系数。
+
+设 $D_{\mathrm{radar}}$ 为拦截器机载探测设备的最大探测距离，则进攻飞行器是否处于拦截器自身探测范围内可表示为
+\begin{equation}
+\delta_{ij}^{\mathrm{det}}(t)
+=
+\mathbf{1}
+\left\{
+\rho_{ij}(t)\le D_{\mathrm{radar}},\
+q_{ij}(t)>0
+\right\}.
+\label{eq:det-indicator}
+\end{equation}
+式~\eqref{eq:det-indicator} 同时考虑距离和视场角限制。当 $\delta_{ij}^{\mathrm{det}}(t)=1$ 时，拦截器 $D_j$ 可通过机载探测设备实时获取进攻飞行器 $A_i$ 的目标信息，更新频率为 $20\,\mathrm{Hz}$；当 $\delta_{ij}^{\mathrm{det}}(t)=0$ 时，拦截器依赖地面指控雷达提供的目指信息，更新频率为 $2\,\mathrm{Hz}$。
+\begin{equation}
+f_{ij}^{\mathrm{info}}(t)
+=
+20\,\delta_{ij}^{\mathrm{det}}(t)
++
+2\left[1-\delta_{ij}^{\mathrm{det}}(t)\right].
+\label{eq:info-update-rate}
+\end{equation}
+式~\eqref{eq:info-update-rate} 表示拦截器对进攻飞行器 $A_i$ 的信息更新频率，其中 $\delta_{ij}^{\mathrm{det}}(t)=1$ 对应机载探测接管，$\delta_{ij}^{\mathrm{det}}(t)=0$ 对应地面目指引导。
+
+
+进一步定义时刻 $t$ 已进入拦截器 $D_j$ 探测范围的存活进攻飞行器集合为
+\begin{equation}
+\mathcal A_{j,\mathrm{in}}(t)
+=
+\left\{
+i\in\mathcal A_{\mathrm{alive}}(t):
+\delta_{ij}^{\mathrm{det}}(t)=1
+\right\}.
+\label{eq:in-detect-set}
+\end{equation}
+进攻飞行器 $A_i$ 首次进入拦截器 $D_j$ 探测范围的时刻记为 $\tau_{ij}^{\mathrm{enter}}$。
+% 若 $A_i$ 未进入 $D_j$ 探测范围，则令 $\tau_{ij}^{\mathrm{enter}}=+\infty$。
+
+拦截器依据地面雷达目指信息，采用匈牙利算法确定初始打击目标 $m_j^0$，并令 $m_j(0)=m_j^0$。当进攻飞行器进入拦截器自身探测范围后，拦截器优先打击最早进入探测范围的目标；若当前目标失效，则转向最近的存活目标。记 $\bar m_j=m_j(t^-)$，则拦截器 $D_j$ 在时刻 $t$ 的打击目标为
+\begin{equation}
+m_j(t)=
+\begin{cases}
+\emptyset,
+& \mathcal A_{\mathrm{alive}}(t)=\emptyset,\\[1mm]
+\displaystyle \arg\min_{i\in \mathcal A_{\mathrm{alive}}(t)}
+\left\|r_{ij}(t)\right\|,
+& \bar m_j\notin \mathcal A_{\mathrm{alive}}(t),\
+\mathcal A_{\mathrm{alive}}(t)\neq\emptyset,\\[3mm]
+\displaystyle \arg\min_{i\in \mathcal A_{j,\mathrm{in}}(t)}
+\tau_{ij}^{\mathrm{enter}},
+& \bar m_j=m_j^0,\
+\mathcal A_{j,\mathrm{in}}(t)\neq\emptyset,\\[3mm]
+\bar m_j,
+& \bar m_j\in \mathcal A_{\mathrm{alive}}(t).
+\end{cases}
+\label{eq:fov-lock-rule}
+\end{equation}
+其中，$m_j(t)\in\mathcal A\cup\{\emptyset\}$ 表示拦截器 $D_j$ 在时刻 $t$ 选择的当前打击目标，$m_j^0$ 为初始目指分配目标。式~\eqref{eq:fov-lock-rule} 描述了拦截器由初始目指分配、探测接管到目标失效重分配的打击目标选择过程。
+
+
+在此基础上，定义进攻飞行器 $A_i$ 的实际被捕获数量为
+\begin{equation}
+\mathrm{lbc}_i(t)
+=
+\sum_{j\in\mathcal D}
+\mathbf{1}\bigl\{m_j(t)=i\bigr\},
+\label{eq:lbc-def}
+\end{equation}
+其中 $\mathrm{lbc}_i(t)$ 表示时刻 $t$ 将进攻飞行器 $A_i$ 选为当前打击目标的拦截器数量，$\mathbf{1}\{\cdot\}$ 为指示函数。
+
+拦截器的法向加速度指令由比例导引律给出：
+\begin{equation}
+a_{n,\gamma,j}^{\mathrm{cmd}}=-N_{\mathrm{PN}}\,V_{c,m_j j}\,\dot\lambda_{\mathrm{el},m_j j},\qquad
+a_{n,\psi,j}^{\mathrm{cmd}}=-N_{\mathrm{PN}}\,V_{c,m_j j}\,\dot\lambda_{\mathrm{az},m_j j},
+\label{eq:def-guid-pn}
+\end{equation}
+% 其中 $a_{n,\gamma,j}^{\mathrm{cmd}}$ 和 $a_{n,\psi,j}^{\mathrm{cmd}}$ 分别为拦截器在俯仰和偏航方向上的法向加速度指令，$N_{\mathrm{PN}}$ 为比例导引增益，$V_{c,ij}=-r_{ij}^\top(v_i-v_j)/\rho_{ij}$ 为闭合速度，$\dot\lambda_{\mathrm{az},ij}$ 和 $\dot\lambda_{\mathrm{el},ij}$ 分别为方位与俯仰视线角速率。
+其中 $a_{n,\gamma,j}^{\mathrm{cmd}}$ 和 $a_{n,\psi,j}^{\mathrm{cmd}}$ 分别为拦截器在俯仰和偏航方向上的法向加速度指令，$N_{\mathrm{PN}}$ 为比例导引增益，$V_{c,ij}=-r_{ij}^\top(v_i-v_j)/\rho_{ij}$ 为闭合速度，$\dot\lambda_{\mathrm{az},ij}$ 和 $\dot\lambda_{\mathrm{el},ij}$ 分别为偏航与俯仰通道的视线角速率。
+记攻防相对速度向量为 $v_{ij}=v_i-v_j$，则三维交战空间下的视线（LOS）角速度向量定义为
+\begin{equation}
+\omega_{ij}^{\mathrm{LOS}} = \frac{r_{ij}\times v_{ij}}{\rho_{ij}^2},
+\label{eq:omega_ij_def}
+\end{equation}
+其模长为 $\|\omega_{ij}^{\mathrm{LOS}}\| = \frac{\|v_{t,ij}\|}{\rho_{ij}}$，其中 $v_{t,ij}$ 为相对速度在视线切平面内的分量。
+% 该空间角速度模长在物理上对应偏航与俯仰通道视线角速率的几何合成，即 $\|\omega_{ij}^{\mathrm{LOS}}\| = \sqrt{\dot\lambda_{\mathrm{az},ij}^2 + \dot\lambda_{\mathrm{el},ij}^2}$，用以表征三维交战视线的总空间旋转强度。
+对任意拦截器 $D_j$ 与其捕获目标 $A_i=m_j(t)$，若 $\rho_{ij}(t)<\rho^{\mathrm{kill}}$，则 $A_i$ 被摧毁；对任意进攻飞行器 $A_i$ 与 HVT，若 $\rho_{iH}(t)<\rho^{\mathrm{kill}}$，则判定 HVT 被命中。
+
+
+
+
+
+
+
+
+%%--------------------------------------------------------------------------%%
+
+
+% \section{多拦截器视场约束下的安全裕度评估与角色博弈}
+
+% \subsection{零努力脱锥裕度与多拦截器聚合风险}
+
+% 为评估进攻飞行器在未来时刻相对于拦截器视场锥的暴露风险，本文在视场锥角度裕度 $q_{ij}(t)$ 的基础上构造零努力脱锥裕度。本文在锥边界附近对攻防相对运动进行局部线性化。将 $q_{ij}(t)$ 视为沿锥边界法向的局部坐标，并记其时间导数为 $\dot q_{ij}(t)$。于是构造局部状态向量
+% \begin{equation}
+% \xi_{ij}(t)=
+% \begin{bmatrix}
+% q_{ij}(t)\\
+% \dot q_{ij}(t)
+% \end{bmatrix}.
+% \end{equation}
+
+% 在零努力预测假设下，未来区间 $[t,t_f]$ 内不再施加额外机动修正，锥边界附近的短时局部运动可近似写为
+% \begin{equation}
+% \dot \xi_{ij}(t)
+% =
+% A_{c}\,\xi_{ij}(t),
+% \end{equation}
+% 其中
+% \begin{equation}
+% A_{c}
+% =
+% \begin{bmatrix}
+% 0 & 1\\
+% 0 & 0
+% \end{bmatrix}.
+% \end{equation}
+% 该模型表明，$q_{ij}(t)$ 和 $\dot q_{ij}(t)$ 分别刻画进攻飞行器相对于拦截器锥边界的局部几何裕度与运动趋势。
+
+% 记剩余预测时间为
+% \begin{equation}
+% t_{go}=t_f-t.
+% \end{equation}
+% 为刻画零努力条件下的终端脱锥结果，定义输出向量
+% \begin{equation}
+% c=
+% \begin{bmatrix}
+% 1\\
+% 0
+% \end{bmatrix},
+% \end{equation}
+% 则终端锥边界裕度可表示为
+% \begin{equation}
+% q_{ij}(t_f)=c^{\top}\xi_{ij}(t_f).
+% \end{equation}
+
+% 记局部系统的状态转移矩阵为 $\Phi_{ij}(t_f,t)$，则有
+% \begin{equation}
+% \xi_{ij}(t_f)=\Phi_{ij}(t_f,t)\,\xi_{ij}(t).
+% \end{equation}
+% 因此，
+% \begin{equation}
+% q_{ij}(t_f)=c^{\top}\Phi_{ij}(t_f,t)\,\xi_{ij}(t).
+% \end{equation}
+% 为将终端输出写成当前状态的显式线性函数，定义伴随变量
+% \begin{equation}
+% Y_{ij}(t_{go})=\Phi_{ij}^{\top}(t_f,t)\,c,
+% \end{equation}
+% 于是零努力脱锥裕度可写为
+% \begin{equation}
+% Z_{ij}(t)=Y_{ij}^{\top}(t_{go})\,\xi_{ij}(t).
+% \end{equation}
+% 其中，$Z_{ij}(t)$ 的物理含义为：在当前时刻停止施加新的机动修正时，进攻飞行器 $i$ 在终端时刻相对于拦截器 $j$ 探测锥边界的预测裕度。
+
+% 由于 $A_c$ 为常值二阶积分形式，可得
+% \begin{equation}
+% Y_{ij}(t_{go})
+% =
+% \begin{bmatrix}
+% 1\\
+% t_{go}
+% \end{bmatrix},
+% \end{equation}
+% 从而零努力脱锥裕度可显式写为
+% \begin{equation}
+% Z_{ij}(t)
+% =
+% q_{ij}(t)+t_{go}\dot q_{ij}(t).
+% \end{equation}
+% 其中，$Z_{ij}(t)$ 综合考虑了局部相对位置与相对运动趋势之后的终端风险预测量。
+
+
+
+% 对于单个进攻飞行器 $i$ 而言，其真实安全性并非由某一个拦截器单独决定，而是由所有拦截器联合形成的探测约束共同决定。若直接采用
+% \begin{equation}
+% \max_{j\in\mathcal{D}} Z_{ij}(t)
+% \end{equation}
+% 来刻画“最危险拦截器”的终端脱锥风险，虽然具有明确物理意义，但该表达不够平滑，不利于后续解析推导与梯度优化。为此，本文采用 smooth-max 形式构造多拦截器聚合脱锥风险：
+% \begin{equation}
+% \widetilde Z_i(t)
+% =
+% \frac{1}{\beta_Z}
+% \log\left(
+% \sum_{j\in\mathcal{D}}
+% \exp\!\bigl(\beta_Z Z_{ij}(t)\bigr)
+% \right),
+% \end{equation}
+% 其中 $\beta_Z>0$ 为平滑参数。当 $\beta_Z\to\infty$ 时，$\widetilde Z_i(t)$ 逼近 $\max_{j\in\mathcal{D}} Z_{ij}(t)$。因此，$\widetilde Z_i(t)$ 可理解为进攻飞行器 $i$ 在多拦截器联合锥约束下的总体终端脱锥风险。
+
+% 进一步地，引入单机风险死区函数
+% \begin{equation}
+% \Psi_i^{\mathrm{cone}}(t)
+% =
+% [\widetilde Z_i(t)+M_c]_+,
+% \end{equation}
+% 其中 $M_c>0$ 为终端安全脱锥裕度。当 $\widetilde Z_i(t)\le -M_c$ 时，表明飞行器 $i$ 对所有拦截器均已具备足够的终端脱锥裕度，此时风险项为零；反之，$\Psi_i^{\mathrm{cone}}(t)>0$，且随终端脱锥裕度不足程度增大而增大。
+
+% 于是，可构造整个进攻集群在时刻 $t$ 的聚合锥风险$c_t^{\mathrm{cone}}$，以统一刻画多拦截器联合探测约束下进攻集群的未来终端暴露风险：
+% \begin{equation}
+% c_t^{\mathrm{cone}}
+% =
+% \sum_{i\in\mathcal{A}}
+% \Psi_i^{\mathrm{cone}}(t)
+% =
+% \sum_{i\in\mathcal{A}}
+% [\widetilde Z_i(t)+M_c]_+.
+% \end{equation}
+
+
+% 上述推导从单拦截器零努力脱锥裕度出发，构建了多拦截器联合锥约束下的聚合脱锥风险模型，并为主动诱饵博弈与有效突防数量建模提供了解析先验。
+
+%% ------------------------------------------------------------------
+
+\section{多拦截器探测约束下的安全裕度评估与任务动态重构机制}
+
+\subsection{零控终端视场裕度与联合探测覆盖安全裕度评估}
+
+为构建集群协同突防的安全裕度评估模型，首先需要评估进攻飞行器在未来时刻相对于拦截器探测视场的被捕获风险。本文在视场锥角度裕度 $q_{ij}(t)$ 的基础上构造零控终端视场裕度（Zero-Control Terminal FOV Margin）。本文在视场边界附近对攻防相对运动进行局部线性化，将 $q_{ij}(t)$ 视为沿边界法向的局部坐标，并记其时间导数为 $\dot q_{ij}(t)$。于是构造局部状态向量
+\begin{equation}
+\xi_{ij}(t)=
+\begin{bmatrix}
+q_{ij}(t)\\
+\dot q_{ij}(t)
+\end{bmatrix}.
+\end{equation}
+
+% 在零控预测假设下，
+假设未来区间 $[t,t_f]$ 内不再施加额外的主动机动修正，视场边界附近的短时局部运动可近似写为
+\begin{equation}
+\dot \xi_{ij}(t)
+=
+A_{c}\,\xi_{ij}(t),
+\end{equation}
+其中
+\begin{equation}
+A_{c}
+=
+\begin{bmatrix}
+0 & 1\\
+0 & 0
+\end{bmatrix}.
+\end{equation}
+该模型表明，$q_{ij}(t)$ 和 $\dot q_{ij}(t)$ 分别刻画进攻飞行器相对于敌方探测边界的局部几何裕度与运动趋势。
+
+记剩余时间为
+\begin{equation}
+t_{go}=t_f-t.
+\end{equation}
+为刻画零控条件下的终端视场边界状态，定义输出向量
+\begin{equation}
+c=
+\begin{bmatrix}
+1\\
+0
+\end{bmatrix},
+\end{equation}
+则终端视场角度裕度可表示为
+\begin{equation}
+q_{ij}(t_f)=c^{\top}\xi_{ij}(t_f).
+\end{equation}
+
+记局部系统的状态转移矩阵为 $\Phi_{ij}(t_f,t)$，则有
+\begin{equation}
+\xi_{ij}(t_f)=\Phi_{ij}(t_f,t)\,\xi_{ij}(t).
+\end{equation}
+因此，
+\begin{equation}
+q_{ij}(t_f)=c^{\top}\Phi_{ij}(t_f,t)\,\xi_{ij}(t).
+\end{equation}
+为将终端输出写成当前状态的显式线性函数，定义伴随变量
+\begin{equation}
+Y_{ij}(t_{go})=\Phi_{ij}^{\top}(t_f,t)\,c,
+\end{equation}
+于是零控终端视场裕度可写为
+\begin{equation}
+Z_{ij}(t)=Y_{ij}^{\top}(t_{go})\,\xi_{ij}(t).
+\end{equation}
+其中，$Z_{ij}(t)$ 的物理含义为：在当前时刻停止施加新的机动修正时，进攻飞行器 $i$ 在终端时刻相对于拦截器 $j$ 探测锥边界的预测角度裕度。
+% 该量与经典制导理论中的零控脱靶量（Zero-Control Miss Distance）具有相似的物理本质，能够对未来的终端被捕获风险进行提前解析预警。
+
+由于 $A_c$ 为常值二阶积分形式，可得
+\begin{equation}
+Y_{ij}(t_{go})
+=
+\begin{bmatrix}
+1\\
+t_{go}
+\end{bmatrix},
+\end{equation}
+从而零控终端视场裕度可显式写为
+\begin{equation}
+Z_{ij}(t)
+=
+q_{ij}(t)+t_{go}\dot q_{ij}(t).
+\end{equation}
+
+对于单个进攻飞行器 $i$ ，其安全性并非由某一个拦截器单独决定，而是由敌方拦截器视场交叉覆盖所形成的联合探测约束共同决定。本文采用 smooth-max 形式将多个视场约束平滑化，构造多拦截器联合探测覆盖风险模型：
+\begin{equation}
+\widetilde Z_i(t)
+=
+\frac{1}{\beta_Z}
+\log\left(
+\sum_{j\in\mathcal{D}}
+\exp\!\bigl(\beta_Z Z_{ij}(t)\bigr)
+\right),
+\end{equation}
+其中 $\beta_Z>0$ 为平滑参数。当 $\beta_Z\to\infty$ 时，$\widetilde Z_i(t)$ 逼近 $\max_{j\in\mathcal{D}} Z_{ij}(t)$。因此，$\widetilde Z_i(t)$ 刻画了敌方多重视场重叠形成的空间等效边界，表征进攻飞行器 $i$ 在多拦截器协同拦截下的联合探测覆盖风险。
+
+% 进一步地，引入单机风险死区函数
+% \begin{equation}
+% \Psi_i^{\mathrm{cone}}(t)
+% =
+% \max\bigl(0,\, \widetilde Z_i(t)+M_c\bigr),
+% \end{equation}
+% 其中 $M_c>0$ 为设计安全裕度。当 $\widetilde Z_i(t)\le -M_c$ 时，被捕获风险为零；反之，风险指标 $\Psi_i^{\mathrm{cone}}(t)>0$，且其值随联合探测覆盖风险 $\widetilde Z_i(t)$ 的增大而单调递增。
+
+% 于是，可构造整个进攻集群在时刻 $t$ 的总联合探测覆盖风险 $c_t^{\mathrm{cone}}$，以统一量化多拦截器交叉覆盖下进攻集群的总体被捕获态势：
+% \begin{equation}
+% c_t^{\mathrm{cone}}
+% =
+% \sum_{i\in\mathcal{A}}
+% \Psi_i^{\mathrm{cone}}(t)
+% =
+% \sum_{i\in\mathcal{A}}
+% \max\bigl(0,\, \widetilde Z_i(t)+M_c\bigr).
+% \end{equation}
+
+% 上述推导从单机零控终端视场裕度出发，构建了多拦截器联合探测覆盖下的安全裕度评估模型，不仅定量表征了突防过程中的复杂交战态势，更为后续的协同策略优化提供了具有清晰物理意义的集群运动先验。
+
+本文定义集群协同突防的安全裕度评估模型$c_t^{\mathrm{cone}}$如下：
+\begin{equation}
+\Psi_i^{\mathrm{cone}}(t)
+=
+\max\bigl(0,\, \widetilde Z_i(t)+M_c\bigr),
+\end{equation}
+\begin{equation}
+c_t^{\mathrm{cone}}
+=
+\sum_{i\in\mathcal{A}}
+\Psi_i^{\mathrm{cone}}(t)
+=
+\sum_{i\in\mathcal{A}}
+\max\bigl(0,\, \widetilde Z_i(t)+M_c\bigr).
+\end{equation}
+其中 $M_c>0$ 为设定安全裕度，$\Psi_i^{\mathrm{cone}}(t)$为单机被捕获惩罚函数。$\widetilde Z_i(t)\le -M_c$ 时，飞行器 $i$ 满足安全规避要求，此时被捕获惩罚为零。
+% ；反之 $\Psi_i^{\mathrm{cone}}(t)>0$，且其值随联合探测覆盖被捕获风险 $\widetilde Z_i(t)$ 的增大而单调递增。
+安全裕度评估模型$c_t^{\mathrm{cone}}$量化了多拦截器交叉覆盖下进攻集群的总体安全态势。
+
+\subsection{熵正则势博弈下的协同任务动态重构机制}
+
+在非完全信息对抗环境中，进攻集群无法获取敌方拦截集群的实时目标分配方案。
+为此，本文通过对防御方打击意图的概率化推断，将未知的离散目标分配状态等效为连续的综合拦截威胁。
+定义拦截器 $D_j$ 对进攻飞行器 $A_i$ 的捕获强度为
+\begin{equation}
+\eta_{ij}(t)
+=
+w_s s_{ij}(t)
+-
+w_{\rho}\rho_{ij}(t)
++
+w_v V_{c,ij}(t),
+\end{equation}
+其中 $\rho_{ij}(t)$ 表示相对距离，$V_{c,ij}(t)$ 表示闭合速度，$w_s,w_{\rho},w_v>0$ 为权重系数。基于此定义拦截器 $D_j$ 对进攻飞行器 $A_i$ 的捕获概率
+\begin{equation}
+p_{ij}^{\mathrm{lock}}(t)
+=
+\frac{\exp!\bigl(\beta_L \eta_{ij}(t)\bigr)}
+{\sum\limits_{k\in\mathcal{A}}\exp!\bigl(\beta_L \eta_{kj}(t)\bigr)},
+\label{eq:soft-lock-prob}
+\end{equation}
+其中 $\beta_L>0$ 为温度参数，用于控制捕获概率分布的确定性程度，实现对拦截器离散打击意图的平滑近似。
+为了反映多拦截器对 $A_i$ 形成捕获的总体威胁程度,定义进攻飞行器 $A_i$ 承受的综合拦截威胁为
+\begin{equation}
+\lambda_i(t)
+=
+\sum_{j\in\mathcal D}p_{ij}^{\mathrm{lock}}(t),
+\label{eq:soft-lock-pressure}
+\end{equation}
+
+在此基础上，构造诱饵牵制行为的局部代价与群体收益。首先定义个体 $i$ 的自身牵制代价为
+\begin{equation}
+C_i^{\mathrm{self}}(t)
+=
+\sum_{j\in\mathcal{D}}
+p_{ij}^{\mathrm{lock}}(t)
+\left(
+\lambda_E E_{ij}(t)
++
+\lambda_D D_{ij}(t)
++
+\lambda_K K_{ij}(t)
+\right),
+\end{equation}
+其中 $E_{ij}(t)$ 表示视场内被捕获强度，$D_{ij}(t)$ 表示危险近距接触代价，$K_{ij}(t)$ 表示被击落风险，$\lambda_E,\lambda_D,\lambda_K>0$ 为权重。
+视场内被捕获强度由平滑视场占用函数与距离衰减共同决定，定义为
+\begin{equation}
+E_{ij}(t)
+=
+s_{ij}(t)\,\exp!\left(-\frac{\rho_{ij}(t)}{\rho_{\mathrm{ref}}}\right),
+\end{equation}
+其中 $s_{ij}(t)$ 为式~\eqref{eq:sij-def} 中给出的平滑视场占用函数，$\rho_{\mathrm{ref}}$ 为距离参考标度。该式表明，飞行器越深入敌方视场中心且距离越近，被捕获强度越大。
+危险近距接触代价定义如下：
+\begin{equation}
+D_{ij}(t)
+=
+\sigma\!\bigl(\kappa_d(d_s-\rho_{ij}(t))\bigr),
+\end{equation}
+其中 $d_s$ 为危险距离阈值，$\kappa_d>0$ 为平滑系数。当攻防距离 $\rho_{ij}(t)$ 逼近或小于 $d_s$ 时，近距代价急剧上升。
+被击落风险表示飞行器因距离过近而被直接判定摧毁的指标，定义为
+\begin{equation}
+K_{ij}(t)
+=
+\sigma\!\bigl(\kappa_k(\rho^{\mathrm{kill}}-\rho_{ij}(t))\bigr),
+\end{equation}
+其中 $\rho^{\mathrm{kill}}$ 为命中判定阈值，$\kappa_k>0$ 为用于模拟硬截断的较大增益系数。
+
+为描述个体 $i$ 主动吸引捕获后对其他成员带来的注意力转移收益，定义
+\begin{equation}
+B_i^{\mathrm{attn}}(t)
+=
+\sum_{j\in\mathcal{D}}
+\sum_{\substack{k\in\mathcal{A}\\k\neq i}}
+p_{ij}^{\mathrm{lock}}(t)\,\Theta_{kj}(t),
+\end{equation}
+其中 $\Theta_{kj}(t)$ 表示拦截器 $j$ 对进攻飞行器 $k$ 的威胁强度。可取
+\begin{equation}
+\Theta_{kj}(t)
+=
+\lambda_Z\,\max\bigl(0,\, Z_{kj}(t)+M_c\bigr)
++
+\lambda_R \sigma\!\bigl(\kappa_d(d_s-\rho_{kj}(t))\bigr),
+\end{equation}
+其中 $d_s$ 为危险距离阈值，$\lambda_Z,\lambda_R,\kappa_d>0$ 为参数。
+
+定义主动诱饵行为对群体最终突防打击的收益为：
+\begin{equation}
+B_i^{H}(t)
+=
+\sum_{\substack{k\in\mathcal{A}\\k\neq i}}
+\lambda_H P_k^{\mathrm{pen}}(t)\,P_k^{\mathrm{hit}}(t),
+\end{equation}
+其中 $\lambda_H>0$ 为权重。$P_k^{\mathrm{pen}}(t)\in[0,1]$ 表示第 $k$ 架飞行器的突防成功度，$P_k^{\mathrm{hit}}(t)\in[0,1]$ 表示其对高价值目标的打击可行度。为将集群运动先验深度融入在线协同任务动态重构，本文在此直接给出二者的具体构造。
+
+由式~\eqref{eq:omega_ij_def}可知，空间视线角速度模长 $\|\omega_{ij}^{\mathrm{LOS}}\| = \|v_{t,ij}\|/\rho_{ij}$ 强烈依赖于交战距离。在近距交战状态下，相对距离 $\rho_{ij}$ 的急剧衰减会对总空间视线角速率产生显著的非线性放大效应，这意味着飞行器通过小幅的切向突发机动即可诱发剧烈的空间视线旋转。
+
+设进攻飞行器在短时间 $\Delta t$ 内施加一段沿 LOS 视线切平面有利方向的机动，其等效切向加速度记为 $a_{t,ij}^{\mathrm{cmd}}$，则机动后的突发空间视线角速度可近似表示为
+\begin{equation}
+\|\omega_{ij}^{\mathrm{LOS},+}(t)\|
+\approx
+\frac{\|v_{t,ij}(t)+a_{t,ij}^{\mathrm{cmd}}(t)\Delta t\|}{\rho_{ij}(t)}.
+\end{equation}
+拦截器能够维持稳定闭环跟踪的前提是，其可实现的最大跟踪角速度不低于当前空间视线旋转速率。设拦截器最大法向过载能力为 $a_{j,\max}^{\perp}$，速度为 $V_j$，则飞行器最大可跟踪视线角速度定义为
+\begin{equation}
+\omega_{j,\max}^{\mathrm{trk}}
+=
+\frac{a_{j,\max}^{\perp}}{V_j}.
+\end{equation}
+
+基于上述定义，构造局部跟踪失配裕度
+\begin{equation}
+\Gamma_{ij}(t)
+=
+\|\omega_{ij}^{\mathrm{LOS},+}(t)\|
+-
+\omega_{j,\max}^{\mathrm{trk}}(t).
+\end{equation}
+其中：$\Gamma_{ij}(t)>0$ 表示若在当前时刻触发突然机动，则视线角速度将超过拦截器的最大可跟踪能力。
+
+由于该机理仅在近距离交战条件下具有显著作用，进一步引入近距门控函数
+\begin{equation}
+G_{ij}^{\mathrm{near}}(t)
+=
+\sigma\!\bigl(\kappa_{\rho}(\rho_0-\rho_{ij}(t))\bigr),
+\end{equation}
+其中 $\rho_0$ 为近距触发半径，$\kappa_{\rho}>0$ 为平滑系数。于是，定义进攻飞行器 $i$ 相对于拦截器 $j$ 的近距逃逸触发量为
+\begin{equation}
+\Xi_{ij}(t)
+=
+G_{ij}^{\mathrm{near}}(t)\,\max\bigl(0,\, \Gamma_{ij}(t)\bigr),
+\end{equation}
+其中，$\Xi_{ij}(t)$耦合了近距空间门控与动态失配裕度。仅当交战态势进入近距区域，且突发机动足以突破敌方跟踪极限时，该指标才产生显著的逃逸激励响应。
+
+在多拦截器场景下，进攻飞行器的局部逃逸能力通常由其所面对的最危险拦截器决定。为此，定义进攻飞行器 $i$ 的局部逃逸能力指标为
+\begin{equation}
+E_i^{\mathrm{esc}}(t)
+=
+\max_{j\in\mathcal{D}} \Xi_{ij}(t).
+\end{equation}
+% $E_i^{\mathrm{esc}}(t)$ 的物理含义是：在当前局势下，飞行器 $i$ 是否具备通过近距突发机动甩脱关键拦截器的能力。
+
+有效突防不仅依赖于远距联合探测覆盖风险的降低，更要求飞行器在近距交战中具备摆脱关键拦截器的局部逃逸能力，定义突防成功效能指标为
+\begin{equation}
+P_i^{\mathrm{pen}}(t)
+=
+\sigma\!\bigl(-\kappa_Z(\widetilde Z_i(t)+M_c)\bigr)
+\cdot
+\sigma\!\bigl(\kappa_d(\rho_i^{\mathrm{threat}}(t)-\rho^{\mathrm{kill}})\bigr)
+\cdot
+\sigma\!\bigl(\kappa_m m_i^{\mathrm{local}}(t)\bigr)
+\cdot
+\sigma\!\bigl(\kappa_E E_i^{\mathrm{esc}}(t)\bigr),
+\label{eq:P_pen_def}
+\end{equation}
+其中：$\rho_i^{\mathrm{threat}}(t)=\min_{j\in\mathcal{D}}\rho_{ij}(t)$ 为距最危险拦截器的距离，$m_i^{\mathrm{local}}(t)$ 为当前正在被敌方拦截器捕获的其余己方存活个体数，结合式~\eqref{eq:lbc-def} 定义为 $m_i^{\mathrm{local}}(t)=\sum_{k\in\mathcal{A}\setminus\{i\}}\mathbf{1}\{\mathrm{lbc}_k(t)>0\}$，用于定量表征队友诱饵牵制所产生的防御注意力转移程度。$\kappa_Z,\kappa_d,\kappa_m,\kappa_E>0$ 均为平滑系数。
+
+定义终端打击效能指标 $P_i^{\mathrm{hit}}(t)$ 为：
+\begin{equation}
+P_i^{\mathrm{hit}}(t)
+=
+\sigma\!\bigl(\kappa_h(\rho^{\mathrm{kill}}-\rho_{iH}(t))\bigr)
+\cdot
+\sigma\!\bigl(\kappa_c V_{c,iH}(t)\bigr)
+\cdot
+\sigma\!\bigl(-\kappa_{\omega}\|\omega_{iH}^{\mathrm{LOS}}(t)\|\bigr),
+\label{eq:P_hit_def}
+\end{equation}
+其中，$\kappa_h,\kappa_c,\kappa_{\omega}>0$ 均为平滑缩放参数。该项从相对运动几何层面表征了对高价值目标的打击态势。
+
+% 由此，$B_i^{H}(t)$ 所需的有效突防与打击指标便得到了严密的底层物理机理支撑。
+综上，定义进攻飞行器 $i$ 在当前时刻承担诱饵任务的局部价值函数为
+\begin{equation}
+U_i^{D}(t)
+=
+B_i^{\mathrm{attn}}(t)
++
+B_i^{H}(t)
+-
+C_i^{\mathrm{self}}(t).
+\label{eq:role-utility-decoy}
+\end{equation}
+当 $U_i^{D}(t)>0$ 时，表明个体 $i$ 主动吸引捕获并牵制防御火力在群体层面是有利的。
+对应地，主攻突破任务强调个体的有效突防与命中收益，隐蔽规避任务强调降低被捕获风险与避免无效损失，本文分别定义
+\begin{equation}
+U_i^{P}(t)
+=
+\lambda_{PH}P_i^{\mathrm{pen}}(t)P_i^{\mathrm{hit}}(t)
+-
+\lambda_{PL}\sum_{j\in\mathcal D}p_{ij}^{\mathrm{lock}}(t),
+\label{eq:role-utility-pen}
+\end{equation}
+\begin{equation}
+U_i^{S}(t)
+=
+-\lambda_{SZ}\Psi_i^{\mathrm{cone}}(t)
+-
+\lambda_{SL}\sum_{j\in\mathcal D}p_{ij}^{\mathrm{lock}}(t)
+-
+\lambda_{SD}\sigma\!\bigl(\kappa_d(d_s-\rho_i^{\mathrm{threat}}(t))\bigr),
+\label{eq:role-utility-stealth}
+\end{equation}
+其中 $\lambda_{PH},\lambda_{PL},\lambda_{SZ},\lambda_{SL},\lambda_{SD}>0$ 为权重系数。
+
+由式~\eqref{eq:role-utility-decoy}--\eqref{eq:role-utility-stealth} 可见，三类任务具有互补的语义：诱饵任务 $D$ 用于选择能够以可接受代价牵引拦截注意力的成员；主攻任务 $P$ 用于选择具备低被捕获风险打击窗口的成员；隐蔽任务 $S$ 用于保全暂不适合诱饵或主攻的成员并维持后续任务切换冗余。三者共同形成牵制、突击与保全相耦合的在线任务分工机制。
+
+本文不依赖预设任务分工，而是引入任务混合策略。对每个进攻飞行器 $i$，定义其任务概率向量
+\begin{equation}
+\mu_i(t)=
+\bigl(
+\mu_i^{D}(t),\,
+\mu_i^{P}(t),\,
+\mu_i^{S}(t)
+\bigr),
+\end{equation}
+其中 $\mu_i^{D}$、$\mu_i^{P}$、$\mu_i^{S}$ 分别表示个体在当前时刻承担主动诱饵、主攻突破和隐蔽规避任务的概率，并满足
+\begin{equation}
+\mu_i^{D}(t)+\mu_i^{P}(t)+\mu_i^{S}(t)=1,\qquad
+\mu_i^{r}(t)\ge 0,\quad r\in\{D,P,S\}.
+\end{equation}
+分别定义三种任务的局部效用为 $U_i^{D}(t)$、$U_i^{P}(t)$ 和 $U_i^{S}(t)$，则采用 logit 最优响应可得
+\begin{equation}
+\mu_i^{r}(t)
+=
+\frac{\exp!\bigl(\eta U_i^{r}(t)\bigr)}
+{\sum\limits_{s\in\{D,P,S\}}\exp!\bigl(\eta U_i^{s}(t)\bigr)},
+\qquad r\in\{D,P,S\},
+\label{eq:role-logit}
+\end{equation}
+其中 $\eta>0$ 为理性系数。该表达表明，任务选择不是预设的，而是由当前局部效用驱动的在线自适应重构结果。
+为了将该机制提升为群体博弈层面的统一刻画，定义总势函数
+\begin{equation}
+\Phi_{\mathrm{decoy}}(t)
+=
+\sum_{i\in\mathcal{A}}
+\Bigl(
+\mu_i^{D}(t)U_i^{D}(t)
++
+\mu_i^{P}(t)U_i^{P}(t)
++
+\mu_i^{S}(t)U_i^{S}(t)
+\Bigr)
+-
+\frac{\tau_{\mu}}{\eta}
+\sum_{i\in\mathcal{A}}
+\sum_{r\in\{D,P,S\}}
+\mu_i^{r}(t)\ln \mu_i^{r}(t),
+\end{equation}
+其中最后一项为熵正则项，$\tau_{\mu}>0$ 为权重。于是，协同突防问题可刻画为如下熵正则势博弈：
+\begin{equation}
+\mu^{\star}(t)
+=
+\arg\max_{\{\mu_i\}_{i\in\mathcal{A}}}
+\Phi_{\mathrm{decoy}}(t).
+\end{equation}
+由此得到的并不是传统的预设任务分配方案，而是一个由局部对抗代价、群体突防收益和防御注意力重定向共同驱动的机制，构成了集群协同任务动态重构的群体博弈基础。
+
+
+
+\section{集群协同突防价值评估与智能制导策略求解}
+
+在复杂的集群动态博弈对抗中，个体的局部最优并不等价于全局最优，诱饵成员的牵制代价必须能够切实转化为其余成员的有效突破。
+为实现飞行器集群的协同机动，本节首先建立集群终端突防价值效能模型，定量权衡群体整体突破收益与个体损伤代价；在此基础上，将前文推导的交战机理指标作为多智能体强化学习（MARL）的结构化状态先验与密集奖励函数，构建基于集中式训练-分散式执行（CTDE）范式的智能协同突防制导策略求解框架。
+
+\subsection{群体协同突防效用泛函设计}
+
+集群的价值效用模型的核心目标并非单纯提升单机生存概率，而是在敌方多重视场探测与高过载拦截约束下，尽量减少己方个体的无效消耗，使更多进攻飞行器突破防御边界，并保持对高价值目标（HVT）的终端突击可达性。
+
+对任意进攻飞行器 $i\in\mathcal{A}$，基于已严密构造的个体突防成功度 $P_i^{\mathrm{pen}}(t)$ 与打击可行度 $P_i^{\mathrm{hit}}(t)$（见式~\eqref{eq:P_pen_def}与式~\eqref{eq:P_hit_def}），直接定义其有效突防贡献为
+\begin{equation}
+e_i(t)
+=
+P_i^{\mathrm{pen}}(t)\,P_i^{\mathrm{hit}}(t).
+\end{equation}
+由此可定义集群在时刻 $t$ 的有效突防数量（连续近似）为
+\begin{equation}
+N_{\mathrm{eff}}(t)
+=
+\sum_{i\in\mathcal{A}} e_i(t)
+=
+\sum_{i\in\mathcal{A}} P_i^{\mathrm{pen}}(t)\,P_i^{\mathrm{hit}}(t).
+\end{equation}
+在终端时刻 $T$，$N_{\mathrm{eff}}(T)$ 统一表征了同时具备摆脱拦截与形成有效突击窗口能力的存活飞行器数量。
+
+为了区分必要的牺牲与非必要的无效消耗，进一步定义无效牺牲指标。记 $\ell_i(T)\in\{0,1\}$ 表示飞行器 $i$ 是否在终端时刻前被摧毁。若某飞行器在被毁前，其状态本已具备较低的被捕获概率，则应判定其损失为无效牺牲。据此，定义其可保全程度为
+\begin{equation}
+\chi_i^{\mathrm{salvage}}(T)
+=
+\sigma\!\bigl(-\kappa_Z(\widetilde Z_i(T)+M_c)\bigr)
+\cdot
+\sigma\!\bigl(\kappa_d(\rho_i^{\mathrm{threat}}(T)-\rho_s)\bigr)
+\cdot
+\sigma\!\bigl(\kappa_E E_i^{\mathrm{esc}}(T)\bigr),
+\end{equation}
+并定义无效牺牲量为
+\begin{equation}
+U_i^{\mathrm{waste}}(T)
+=
+\ell_i(T)\,\chi_i^{\mathrm{salvage}}(T).
+\end{equation}
+于是，集群总无效牺牲数量可写为
+\begin{equation}
+N_{\mathrm{waste}}(T)
+=
+\sum_{i\in\mathcal{A}} U_i^{\mathrm{waste}}(T).
+\end{equation}
+
+为了体现多架成功突防飞行器同时到达目标区域时所形成的非线性饱和打击收益，引入饱和打击效能函数
+\begin{equation}
+J_{\mathrm{sat}}(T)
+=
+\lambda_1 N_{\mathrm{eff}}(T)
++
+\lambda_2 N_{\mathrm{eff}}^2(T),
+\end{equation}
+其中， 第一项表示单机有效突防带来的收益，第二项则通过二次项结构激励多机协同同时进入终端有效打击区域的群体增益。
+
+记 $N_{\mathrm{loss}}(T)=\sum_{i\in\mathcal{A}}\ell_i(T)$ 为突防全历程的总损失数量，则终端总价值函数定义为
+\begin{equation}
+J_T
+=
+\lambda_1 N_{\mathrm{eff}}(T)
++
+\lambda_2 N_{\mathrm{eff}}^2(T)
+-
+\lambda_L N_{\mathrm{loss}}(T)
+-
+\lambda_U N_{\mathrm{waste}}(T),
+\end{equation}
+其中 $\lambda_L,\lambda_U>0$ 分别表示总损失惩罚与无效牺牲惩罚系数。该表达体现了群体价值优化的控制思想：少量成员的局部牺牲只有在能够换取更多成员真正完成突击突破时才具有正向的群体价值，否则应在策略寻优中被判定为无效消耗。
+
+进一步构造作战过程中的集群突防效用泛函
+\begin{equation}
+\mathcal J
+=
+\mathbb E\left[
+\int_0^T
+\left(
+\lambda_P \sum_{i\in\mathcal{A}} P_i^{\mathrm{pen}}(t)
++
+\lambda_H \sum_{i\in\mathcal{A}} P_i^{\mathrm{hit}}(t)
+-
+\lambda_C \sum_{i\in\mathcal{A}} \Psi_i^{\mathrm{cone}}(t)
+-
+\lambda_S \sum_{i\in\mathcal{A}} C_i^{\mathrm{self}}(t)
+\right)\,dt
++
+J_T
+\right],
+\end{equation}
+其中 $\Psi_i^{\mathrm{cone}}(t)$ 为聚合锥空间暴露风险惩罚，$C_i^{\mathrm{self}}(t)$ 为局部多维防御威胁代价，$\lambda_P,\lambda_H,\lambda_C,\lambda_S>0$ 为权重系数。由此可见，群体效用泛函的设计统一刻画了集群突防状态与终端任务命中效能之间的内在机理联系。
+
+% 上述群体层面的效用泛函将作为多智能体强化学习评价网络（Critic）的理论先验与动态奖励函数（Reward Design）的映射基准，确保学习策略的收敛目标与集群整体协同突防任务保持高度一致。
+
+
+
+
+
+\subsection{基于理论先验的马尔科夫决策建模}
+\label{subsec:rl-design}
+
+基于上述理论量，本文给出多智能体强化学习训练所需的动作空间、观测空间与奖励函数设计。每架进攻飞行器视为一个独立策略智能体，记其策略网络为
+\begin{equation}
+\pi_{\theta_i}\bigl(u_i(t)\,\big|\,o_i(t)\bigr),\qquad i\in\mathcal{A},
+\end{equation}
+其中 $o_i(t)$ 为下面给出的局部观测，$u_i(t)$ 为下面给出的归一化动作。
+
+
+进攻飞行器 $A_i$ 的强化学习动作定义为归一化连续控制向量
+\begin{equation}
+u_i(t)=\bigl[u_i^{(1)}(t),\,u_i^{(2)}(t),\,u_i^{(3)}(t)\bigr]^{\top}\in[-1,1]^3,
+\label{eq:rl-action}
+\end{equation}
+其中，$u_i^{(1)}(t)$、$u_i^{(2)}(t)$ 和 $u_i^{(3)}(t)$ 分别对应轴向、俯仰法向和偏航法向通道的机动指令。为使策略动作具有明确的物理含义，本文通过偏置仿射映射将归一化动作转换为式~\eqref{eq:dyn-V}--式~\eqref{eq:dyn-gamma} 中的加速度控制量：
+\begin{equation}
+\mathcal{T}:u_i\;\longmapsto\;\bigl(a_{x,i},\,a_{n,\gamma,i},\,a_{n,\psi,i}\bigr).
+\end{equation}
+具体地，记 $a_{x,\min}$ 和 $a_{x,\max}$ 分别为轴向加速度下限和上限，$a_{n}^{\max}$ 为法向加速度幅值上限，则轴向加速度映射为
+\begin{equation}
+a_{x,i}=
+\begin{cases}
+u_i^{(1)}\,(0-a_{x,\min}), & u_i^{(1)}\le 0,\\[2pt]
+u_i^{(1)}\,(a_{x,\max}-0), & u_i^{(1)}>0,
+\end{cases}
+\label{eq:act-ax}
+\end{equation}
+法向加速度映射为
+\begin{equation}
+a_{n,\gamma,i}=
+\begin{cases}
+g+u_i^{(2)}\,\bigl(a_{n}^{\max}-g\bigr), & u_i^{(2)}\ge 0,\\[2pt]
+g+u_i^{(2)}\,\bigl(a_{n}^{\max}+g\bigr), & u_i^{(2)}<0,
+\end{cases}
+\qquad
+a_{n,\psi,i}=u_i^{(3)}\,a_{n}^{\max}.
+\label{eq:act-an}
+\end{equation}
+式~\eqref{eq:act-ax} 和式~\eqref{eq:act-an} 表明，策略动作直接映射为进攻飞行器的物理控制输入，并经幅值约束后作用于飞行器运动学模型。该映射满足 $u_i=\mathbf{0}$ 时
+\begin{equation}
+a_{x,i}=0,\qquad a_{n,\gamma,i}=g,\qquad a_{n,\psi,i}=0,
+\end{equation}
+从而在水平飞行条件 $\gamma_i=0$ 下有 $\dot V_i=\dot\psi_i=\dot\gamma_i=0$。因此，零动作对应于水平等速直线飞行的配平状态，策略网络实际学习的是相对于基准飞行状态的机动修正量，而非从零开始学习完整控制律。
+
+
+
+
+
+记进攻飞行器 $i$ 的局部观测为 $o_i(t)\in\mathbb{R}^{n_o}$，将其分解为四个相互独立的子模块：
+\begin{equation}
+o_i(t)=\bigl[\,o_i^{\mathrm{self}}(t)\;\big|\;o_i^{H}(t)\;\big|\;o_i^{\mathrm{thr}}(t)\;\big|\;o_i^{\mathrm{team}}(t)\,\bigr]^{\top}.
+\label{eq:obs-decomp}
+\end{equation}
+
+自身机动状态子模块 $o_i^{\mathrm{self}}\in\mathbb{R}^{5}$，
+仅包含与位置无关的本体飞行状态：
+\begin{equation}
+o_i^{\mathrm{self}}(t)=\Bigl[\,V_i/V_{\mathrm{ref}},\;\sin\gamma_i,\;\cos\gamma_i,\;a_{n,\gamma,i}/a^{\mathrm{ref}}_n,\;a_{n,\psi,i}/a^{\mathrm{ref}}_n\,\Bigr],
+\label{eq:obs-self}
+\end{equation}
+其中 $V_{\mathrm{ref}},a^{\mathrm{ref}}_n$ 为相应的归一化常数。
+
+HVT目标打击子模块 $o_i^{H}\in\mathbb{R}^{4}$，
+% 设进攻飞行器到 HVT 的相对位置矢量为 $r_{iH}=p_H-p_i$，相对距离 $\rho_{iH}=\|r_{iH}\|$。
+该子模块包含的四部分为：
+\begin{align}
+\dot\lambda_{\mathrm{az},iH}(t)&=\frac{r_{iH,x}\,\dot r_{iH,y}-r_{iH,y}\,\dot r_{iH,x}}{r_{iH,x}^{2}+r_{iH,y}^{2}},
+\label{eq:los-az}\\
+\dot\lambda_{\mathrm{el},iH}(t)&=\frac{\dot r_{iH,z}\bigl(r_{iH,x}^{2}+r_{iH,y}^{2}\bigr)
+-r_{iH,z}\bigl(r_{iH,x}\dot r_{iH,x}+r_{iH,y}\dot r_{iH,y}\bigr)}{\rho_{iH}^{2}\,\sqrt{r_{iH,x}^{2}+r_{iH,y}^{2}}},
+\label{eq:los-el}\\
+V_{c,iH}(t)&=\frac{r_{iH}^{\top}v_i}{\rho_{iH}},
+\label{eq:vc-h}\\
+c_{\mathrm{align},iH}(t)&=\frac{v_i^{\top}r_{iH}}{\|v_i\|\,\rho_{iH}},
+\label{eq:cos-align}
+\end{align}
+% 其中 $v_i$ 为进攻飞行器在惯性系中的速度矢量，$\dot r_{iH}=-v_i$ 用于以解析形式给出导数。
+其中，$c_{\mathrm{align},iH}(t)$提供与距离无关的航向信息。最终该模块设计为：
+\begin{equation}
+o_i^{H}(t)=\Bigl[\,\dot\lambda_{\mathrm{az},iH}/\omega_{\mathrm{ref}},\;\dot\lambda_{\mathrm{el},iH}/\omega_{\mathrm{ref}},\;V_{c,iH}/V_{\mathrm{ref}},\;c_{\mathrm{align},iH}\,\Bigr],
+\end{equation}
+
+
+威胁拦截子块 $o_i^{\mathrm{thr}}\in\mathbb{R}^{5K}$，
+对每架活跃进攻飞行器 $i$，按某个综合威胁评分对所有拦截器排序，对所选拦截器 $j$，依据前文已建立的理论量构造五元组
+\begin{equation}
+o_{i,j}^{\mathrm{thr}}(t)=
+\Bigl[\,
+q_{ij}(t),\;
+\tilde V_{c,ij}(t),\;
+\bigl|\omega_{ij}^{\mathrm{LOS}}(t)\bigr|,\;
+\tilde\Gamma_{ij}(t),\;
+\mathbb{I}_{\mathrm{lock}}(i,j,t)
+\,\Bigr],
+\label{eq:obs-thr}
+\end{equation}
+其中，$q_{ij}(t)$ 表征飞行器 $i$ 相对于拦截器 $j$ 的 FOV 锥裕度；$\tilde V_{c,ij}(t)$ 表征归一化闭合速度；$\bigl|\omega_{ij}^{\mathrm{LOS}}(t)\bigr|$ 表征攻防相对视线角速度变化强度；$\tilde\Gamma_{ij}(t)$ 为跟踪失配裕度的归一化表征，用于刻画拦截器 $j$ 对本机视线旋转的跟踪能力是否不足；$\mathbb{I}_{\mathrm{lock}}(i,j,t)\in\{0,1\}$ 表示拦截器 $j$ 当前是否捕获飞行器 $i$。
+
+
+定义群体博弈模块为$o_i^{\mathrm{team}}\in\mathbb{R}^{3}$，
+该模块观测信息为：
+\begin{equation}
+o_i^{\mathrm{team}}(t)=\Bigl[\,m_i^{\mathrm{local}}(t)/(N_A-1),\;P_i^{\mathrm{pen}}(t),\;P_i^{\mathrm{hit}}(t)\,\Bigr],
+\label{eq:obs-team}
+\end{equation}
+% 其中 $m_i^{\mathrm{local}}(t)\in\{0,1,\dots,N_A-1\}$ 为当前正在被拦截器捕获的进攻飞行器数量，
+% $P_i^{\mathrm{pen}}(t)$ 与 $P_i^{\mathrm{hit}}(t)$ 分别为前节给出的个体突防概率与命中概率，作为模型给定的低维理论先验，可显著降低突防策略学习的有效探索维度。
+
+
+
+
+% % 奖励函数需同时承担两项任务：(i) 在稀疏的"命中 HVT"事件之外，提供与前文理论量耦合的稠密塑形信号，使策略能够在早期阶段就利用 PN 制导与脱锥分析所揭示的物理结构；(ii) 通过终端项注入群体协同与理论价值，使学习目标与~$N_{\mathrm{eff}}(T)$~的群体收益对齐。
+% 本文将奖励函数分解为个体运行项、团队共享运行项与终端团队项。
+
+% PN 制导塑形项，
+% 为引导策略学到与 PN 制导一致的几何行为，定义距离接近奖励、闭合速度奖励与远离惩罚：
+% \begin{align}
+% r_i^{\mathrm{app}}(t)&=\lambda_{\mathrm{app}}\,\frac{\rho_{iH}(t-\Delta t)-\rho_{iH}(t)}{\rho^{\mathrm{ref}}},
+% \label{eq:r-approach}\\
+% r_i^{\mathrm{cls}}(t)&=\lambda_{c}\,\frac{V_{c,iH}(t)}{V_{\mathrm{ref}}},
+% \label{eq:r-closing}\\
+% r_i^{\mathrm{ret}}(t)&=-\lambda_r\,\frac{\max\bigl(-V_{c,iH}(t),\,0\bigr)}{V_{\mathrm{ref}}}.
+% \label{eq:r-retreat}
+% \end{align}
+% 式~\eqref{eq:r-approach} 是 $-\dot\rho_{iH}$ 的离散化形式，它与~\eqref{eq:r-closing} 共同作为闭合速度的两阶塑形；~\eqref{eq:r-retreat} 用于显式抑制策略习得"绕远路"等局部最优解。
+
+% 几何对准塑形项，
+% 利用观测块 $o_i^{H}$ 中的 $c_{\mathrm{align},iH}$ 与垂直对准量
+% \begin{equation}
+% c_{\gamma,iH}(t)=\cos\!\bigl(\gamma_i(t)-\gamma_{iH}^{\mathrm{des}}(t)\bigr),\qquad
+% \gamma_{iH}^{\mathrm{des}}(t)=\arctan\!\frac{r_{iH,z}(t)}{\sqrt{r_{iH,x}^{2}+r_{iH,y}^{2}}},
+% \end{equation}
+% 分别给出水平与垂直对准奖励
+% \begin{equation}
+% r_i^{\mathrm{algn}}(t)=\lambda_h\,c_{\mathrm{align},iH}(t)+\lambda_g\,c_{\gamma,iH}(t),
+% \label{eq:r-align}
+% \end{equation}
+% 以及二次航向偏差惩罚
+% \begin{equation}
+% r_i^{\mathrm{herr}}(t)=-\lambda_e\,\Bigl(\dfrac{\arccos c_{\mathrm{align},iH}(t)}{\pi}\Bigr)^{2}.
+% \label{eq:r-herr}
+% \end{equation}
+
+% 群体最小距离进度奖励，
+% 为对齐"至少一架成功突防"这一理论目标，定义群体最小距离
+% \begin{equation}
+% \rho_{\min}(t)=\min_{i\in\mathcal{A}_{\mathrm{alive}}(t)}\rho_{iH}(t),
+% \end{equation}
+% 并给出全队共享的进度奖励
+% \begin{equation}
+% r_t^{\mathrm{tmin}}(t)=\lambda_{\mathrm{tm}}\,\frac{\rho_{\min}(t-\Delta t)-\rho_{\min}(t)}{\rho^{\mathrm{ref}}}.
+% \label{eq:r-team}
+% \end{equation}
+% 该项与“至少一架成员率先形成有效命中窗口”的任务目标相一致。
+
+% 理论先验辅助塑形项，
+% 直接将前节推导的逐个体理论量作为辅助稠密奖励，使策略获得与解析价值函数同梯度方向的密集学习信号：
+% \begin{equation}
+% r_t^{\mathrm{pen}}(t)=\lambda_P\sum_{i\in\mathcal{A}}P_i^{\mathrm{pen}}(t),\qquad
+% r_t^{\mathrm{esc}}(t)=\lambda_E\sum_{i\in\mathcal{A}}E_i^{\mathrm{esc}}(t).
+% \label{eq:r-prior}
+% \end{equation}
+% 此处 $\lambda_P,\lambda_E$ 为辅助权重，与前一节给出的形式完全一致。
+
+% 物理可行性与约束惩罚，
+% \begin{align}
+% r_i^{\mathrm{bnd}}(t)&=-\lambda_b\,\mathbb{I}_{\mathrm{out}}(p_i(t)),
+% \label{eq:r-bnd}\\
+% r_i^{\mathrm{grd}}(t)&=-\lambda_{\mathrm{gr}}\,\bigl(\max(0,\,1-z_i(t)/z^{\mathrm{safe}})\bigr)^{2},
+% \label{eq:r-grd}\\
+% r_i^{\mathrm{prx}}(t)&=-\lambda_{\mathrm{px}}\,\frac{\rho_{iH}(t)}{\rho^{\mathrm{ref}}},
+% \label{eq:r-prx}\\
+% r_i^{\mathrm{reg}}(t)&=-\lambda_{\mu}\,\bigl|u_i^{(3)}(t)\bigr|\cdot \tilde\rho_{iH}(t),
+% \label{eq:r-reg}
+% \end{align}
+% 分别对应越界惩罚、贴地二次惩罚、长程鼓励缩短距离的距离势能、以及对偏航分量的正则项 (其中 $\tilde\rho_{iH}$ 为按距离衰减的尺度因子，使近 HVT 时机动不被抑制)。
+
+% 事件触发奖励与步惩罚，
+% 对于稀疏事件采用事件型奖励：
+% \begin{equation}
+% r_i^{\mathrm{hit}}(t)=\lambda_H\mathbb{I}\bigl[\,\rho_{iH}(t)<\rho^{\mathrm{kill}}\,\bigr],\qquad
+% r_i^{\mathrm{kld}}(t)=-\lambda_{\mathrm{kl}}\,\mathbb{I}_{\text{just-killed}}(i,t),
+% \label{eq:r-event}
+% \end{equation}
+% 其中 $\rho^{\mathrm{kill}}$ 为"脱靶量小于阈值即视为命中"的距离阈值；$\lambda_H$ 取得较大值以使稀疏命中事件成为主驱动信号；被击杀惩罚 $\lambda_{\mathrm{kl}}$ 取较小值以避免策略过度保守。最后辅以小幅步惩罚 $r_i^{\mathrm{stp}}=-\lambda_s$ 鼓励快速完成任务。
+
+% 运行总奖励，
+% 为避免全队共享奖励在多智能体目标中被重复计数，本文将运行奖励分为个体奖励和团队奖励。第 $i$ 个智能体的个体运行奖励定义为
+% \begin{equation}
+% r_i^{\mathrm{ind}}(t)=
+% {r_i^{\mathrm{app}}+r_i^{\mathrm{cls}}+r_i^{\mathrm{ret}}}
+% +{r_i^{\mathrm{algn}}+r_i^{\mathrm{herr}}}
+% +{r_i^{\mathrm{bnd}}+r_i^{\mathrm{grd}}+r_i^{\mathrm{prx}}+r_i^{\mathrm{reg}}}
+% +r_i^{\mathrm{hit}}+r_i^{\mathrm{kld}}+r_i^{\mathrm{stp}}.
+% \label{eq:r-ind}
+% \end{equation}
+% 其中，$r_i^{\mathrm{app}}$、$r_i^{\mathrm{cls}}$ 和 $r_i^{\mathrm{ret}}$ 为比例导引闭合塑形奖励，
+% $r_i^{\mathrm{algn}}$ 和 $r_i^{\mathrm{herr}}$ 为几何对准奖励，
+% $r_i^{\mathrm{bnd}}$、$r_i^{\mathrm{grd}}$、$r_i^{\mathrm{prx}}$ 和 $r_i^{\mathrm{reg}}$ 为约束惩罚项，
+% $r_i^{\mathrm{hit}}$、$r_i^{\mathrm{kld}}$ 和 $r_i^{\mathrm{stp}}$ 分别表示命中奖励、被拦截惩罚和步长惩罚。
+
+
+% 全队共享的理论先验与进度奖励为
+% \begin{equation}
+% r_t^{\mathrm{team}}(t)=r_t^{\mathrm{tmin}}(t)+r_t^{\mathrm{pen}}(t)+r_t^{\mathrm{esc}}(t),
+% \label{eq:r-team-total}
+% \end{equation}
+% 因此，时刻 $t$ 的团队运行奖励写为
+% \begin{equation}
+% R(t)=\sum_{i\in\mathcal{A}}r_i^{\mathrm{ind}}(t)+r_t^{\mathrm{team}}(t).
+% \label{eq:r-total}
+% \end{equation}
+
+% 终端群体协同奖励，
+% 为使策略与前文给出的群体终端价值函数对齐，在轨迹末端 $t=T$ 给出全队共享的终端奖励
+% \begin{equation}
+% r^{T}=\lambda_1 N_{\mathrm{eff}}(T)+\lambda_2 N_{\mathrm{eff}}^{2}(T)
+% -\lambda_L N_{\mathrm{loss}}(T)-\lambda_U N_{\mathrm{waste}}(T),
+% \label{eq:r-term}
+% \end{equation}
+% 其中 $N_{\mathrm{eff}},N_{\mathrm{loss}},N_{\mathrm{waste}}$ 与前节定义完全一致。该终端项的二次结构 $\lambda_2 N_{\mathrm{eff}}^{2}$ 为多机协同同时进入有效任务区域提供了显式的非线性激励，与终端群体价值函数中的协同收益项保持一致。
+
+%% -----------------------------------------------------------
+
+为兼顾个体突防机动与群体协同收益，本文将奖励函数解耦为个体运行奖励、群体共享奖励与终端群体协同奖励三部分。
+首先，为引导集群建立末端打击态势，设计了末端打击引导项，具体包括视距逼近奖励、趋近速度奖励与远离惩罚：
+\begin{align}
+r_i^{\mathrm{app}}(t)&=\lambda_{\mathrm{app}}\,\frac{\rho_{iH}(t-\Delta t)-\rho_{iH}(t)}{\rho^{\mathrm{ref}}},
+\label{eq:r-approach}\\
+r_i^{\mathrm{cls}}(t)&=\lambda_{c}\,\frac{V_{c,iH}(t)}{V_{\mathrm{ref}}},
+\label{eq:r-closing}\\
+r_i^{\mathrm{ret}}(t)&=-\lambda_r\,\frac{\max\bigl(-V_{c,iH}(t),\,0\bigr)}{V_{\mathrm{ref}}}.
+\label{eq:r-retreat}
+\end{align}
+其中，式~\eqref{eq:r-approach} 与式~\eqref{eq:r-closing} 分别从位置差分与瞬时速度层面提供趋近目标的密集梯度；式~\eqref{eq:r-retreat} 用于避免策略陷入远离目标的局部最优。
+
+为加快末端视线的指向收敛，进一步引入了几何对准塑形项。利用观测块 $o_i^{H}$ 中的航向对准量 $c_{\mathrm{align},iH}$ 与垂直对准量
+\begin{equation}
+c_{\gamma,iH}(t)=\cos\!\bigl(\gamma_i(t)-\gamma_{iH}^{\mathrm{des}}(t)\bigr),\qquad
+\gamma_{iH}^{\mathrm{des}}(t)=\arctan\!\frac{r_{iH,z}(t)}{\sqrt{r_{iH,x}^{2}+r_{iH,y}^{2}}},
+\end{equation}
+分别构造水平与垂直指向奖励
+\begin{equation}
+r_i^{\mathrm{algn}}(t)=\lambda_h\,c_{\mathrm{align},iH}(t)+\lambda_g\,c_{\gamma,iH}(t),
+\label{eq:r-align}
+\end{equation}
+以及基于视线夹角的二次航向偏差惩罚
+\begin{equation}
+r_i^{\mathrm{herr}}(t)=-\lambda_e\,\Bigl(\dfrac{\arccos c_{\mathrm{align},iH}(t)}{\pi}\Bigr)^{2}.
+\label{eq:r-herr}
+\end{equation}
+
+在此基础上，为激励集群中至少一架成员率先建立有效突击窗口，定义群体最小距离 $\rho_{\min}(t)=\min_{i\in\mathcal{A}_{\mathrm{alive}}(t)}\rho_{iH}(t)$，并给出全队共享的进度奖励：
+\begin{equation}
+r_t^{\mathrm{tmin}}(t)=\lambda_{\mathrm{tm}}\,\frac{\rho_{\min}(t-\Delta t)-\rho_{\min}(t)}{\rho^{\mathrm{ref}}}.
+\label{eq:r-team}
+\end{equation}
+
+为使策略获得与前文解析模型同梯度方向的引导信号，本文引入了理论先验辅助塑形项，将推导的逐个体理论量作为辅助稠密奖励：
+\begin{equation}
+r_t^{\mathrm{pen}}(t)=\lambda_P\sum_{i\in\mathcal{A}}P_i^{\mathrm{pen}}(t),\qquad
+r_t^{\mathrm{esc}}(t)=\lambda_E\sum_{i\in\mathcal{A}}E_i^{\mathrm{esc}}(t).
+\label{eq:r-prior}
+\end{equation}
+此处 $\lambda_P,\lambda_E$ 为辅助权重，参数形式与前文理论定义完全一致。
+
+为保证生成的轨迹满足物理可行性，本文设置了相应的状态约束惩罚，包括空域越界惩罚 $r_i^{\mathrm{bnd}}(t)$、地形防撞惩罚 $r_i^{\mathrm{grd}}(t)$、远距耗散惩罚 $r_i^{\mathrm{prx}}(t)$ 及偏航控制正则项 $r_i^{\mathrm{reg}}(t)$：
+\begin{align}
+r_i^{\mathrm{bnd}}(t)&=-\lambda_b\,\mathbb{I}_{\mathrm{out}}(p_i(t)),
+\label{eq:r-bnd}\\
+r_i^{\mathrm{grd}}(t)&=-\lambda_{\mathrm{gr}}\,\bigl(\max(0,\,1-z_i(t)/z^{\mathrm{safe}})\bigr)^{2},
+\label{eq:r-grd}\\
+r_i^{\mathrm{prx}}(t)&=-\lambda_{\mathrm{px}}\,\frac{\rho_{iH}(t)}{\rho^{\mathrm{ref}}},
+\label{eq:r-prx}\\
+r_i^{\mathrm{reg}}(t)&=-\lambda_{\mu}\,\bigl|u_i^{(3)}(t)\bigr|\cdot \tilde\rho_{iH}(t).
+\label{eq:r-reg}
+\end{align}
+其中，$\tilde\rho_{iH}$ 为随距离衰减的尺度因子，旨在确保飞行器在逼近高价值目标时，不抑制其终端的高机动规避行为。同时，针对攻防对抗中的稀疏状态，引入事件触发机制与步长惩罚：
+\begin{equation}
+r_i^{\mathrm{hit}}(t)=\lambda_H\mathbb{I}\bigl[\,\rho_{iH}(t)<\rho^{\mathrm{kill}}\,\bigr],\qquad
+r_i^{\mathrm{kld}}(t)=-\lambda_{\mathrm{kl}}\,\mathbb{I}_{\text{just-killed}}(i,t),
+\label{eq:r-event}
+\end{equation}
+其中 ,设置较大的命中奖励 $\lambda_H$ 权重以构成主驱动信号，适度限制被击杀惩罚 $\lambda_{\mathrm{kl}}$ 以防策略过度保守，并辅以步长惩罚 $r_i^{\mathrm{stp}}=-\lambda_s$ 鼓励集群快速完成任务。
+
+为避免群体收益在多智能体目标中被重复计算，时刻 $t$ 的运行总奖励被严格分解为个体运行奖励与团队运行奖励。其中，个体运行奖励融合了上述单机维度的塑形与惩罚项：
+\begin{equation}
+r_i^{\mathrm{ind}}(t)=
+{r_i^{\mathrm{app}}+r_i^{\mathrm{cls}}+r_i^{\mathrm{ret}}}
++{r_i^{\mathrm{algn}}+r_i^{\mathrm{herr}}}
++{r_i^{\mathrm{bnd}}+r_i^{\mathrm{grd}}+r_i^{\mathrm{prx}}+r_i^{\mathrm{reg}}}
++r_i^{\mathrm{hit}}+r_i^{\mathrm{kld}}+r_i^{\mathrm{stp}}.
+\label{eq:r-ind}
+\end{equation}
+全队共享的进度与理论先验奖励则被整合为团队运行奖励 $r_t^{\mathrm{team}}(t)=r_t^{\mathrm{tmin}}(t)+r_t^{\mathrm{pen}}(t)+r_t^{\mathrm{esc}}(t)$。由此，系统在时刻 $t$ 的总运行奖励可表示为：
+\begin{equation}
+R(t)=\sum_{i\in\mathcal{A}}r_i^{\mathrm{ind}}(t)+r_t^{\mathrm{team}}(t).
+\label{eq:r-total}
+\end{equation}
+
+最后，基于群体价值效用模型，设置集群共享的终端群体协同奖励：
+\begin{equation}
+r^{T}=\lambda_1 N_{\mathrm{eff}}(T)+\lambda_2 N_{\mathrm{eff}}^{2}(T)
+-\lambda_L N_{\mathrm{loss}}(T)-\lambda_U N_{\mathrm{waste}}(T),
+\label{eq:r-term}
+\end{equation}
+% 其中 $N_{\mathrm{eff}},N_{\mathrm{loss}},N_{\mathrm{waste}}$ 的定义与前文一致。
+其中二次结构 $\lambda_2 N_{\mathrm{eff}}^{2}$ 提供了非线性激励，从而驱动多机协同进入终端打击区域。
+% 这与群体价值评估中的协同演化收益机理高度一致。
+
+
+
+%%-------------------------------------------------------------
+
+
+
+
+
+
+进攻方策略 $\pi_{\theta}=\{\pi_{\theta_i}\}_{i\in\mathcal{A}}$ 的学习目标为最大化折扣累积奖励：
+\begin{equation}
+J(\theta)=\mathbb{E}_{\pi_\theta}\Biggl[\sum_{t=0}^{T-1}\gamma^{t} R(t)\;+\;\gamma^{T} r^{T}\Biggr],
+\label{eq:rl-objective}
+\end{equation}
+其中 $\gamma\in(0,1)$ 为折扣因子。在多智能体执行框架下采用集中式训练-分散式执行 (CTDE) 范式：训练阶段评论家网络可访问联合状态 $\bm{s}(t)=\bigl(\{p_i\},\{p_j\},p_H\bigr)$，而执行阶段每个 $\pi_{\theta_i}$ 仅依赖其局部观测 $o_i(t)$。
+% 通过该设计，策略在训练阶段可充分利用前节给出的全局理论量 ($N_{\mathrm{eff}},E_i^{\mathrm{esc}},P_i^{\mathrm{pen}},P_i^{\mathrm{hit}}$) 收敛到接近解析最优解的策略，而在执行阶段仍保持纯局部、与绝对位置无关的观测接口。
+
+
+
+\subsection{任务信任引导的注意力协同突防策略优化算法}
+\label{subsubsec:rta-mappo}
+
+
+
+基于上述马尔科夫决策建模，本文采用任务信任引导的注意力协同策略优化算法
+（Role-Trust Attention Multi-Agent Proximal Policy Optimization, RTA-MAPPO）
+对集群协同突防策略进行求解。该方法将任务动态重构先验、信任调制探索和注意力残差特征提取机制引入 MAPPO，
+实现多飞行器在多拦截器视场约束下的协同策略学习，算法示意图如图~\ref{fig:algorithm-framework}所示。
+该方法采用集中式评价、分布式执行框架，其联合策略表示为
+\begin{equation}
+u_i(t)\sim \pi_{\theta_i}\bigl(\cdot\mid o_i(t)\bigr),\qquad
+\pi_{\theta}(\mathbf u(t)\mid \mathbf o(t))
+=
+\prod_{i\in\mathcal A}\pi_{\theta_i}\bigl(u_i(t)\mid o_i(t)\bigr),
+\end{equation}
+其中，$o_i(t)$ 为飞行器 $i$ 的局部观测，$u_i(t)$ 为其机动动作，$\mathbf o(t)$ 和 $\mathbf u(t)$ 分别为集群联合观测和联合动作。
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figures/高树一-2 - V1.pdf}
+  \caption{飞行器集群协同突防策略示意图}
+  \label{fig:algorithm-framework}
+\end{figure}
+
+
+在集中式训练阶段，评价网络引入全局攻防状态和理论先验信息，其价值函数写为
+\begin{equation}
+V_{\phi}(t)
+=
+V_{\phi}\bigl(s(t),\zeta(t)\bigr),
+\end{equation}
+其中，$s(t)$ 为全局状态，$\zeta(t)$ 为由脱锥风险、有效突防价值和任务动态重构结果构成的结构化先验，可表示为
+\begin{equation}
+\zeta(t)
+=
+\Bigl[
+\widetilde Z_1,\cdots,\widetilde Z_{N_A},
+P_1^{\mathrm{pen}},\cdots,P_{N_A}^{\mathrm{pen}},
+P_1^{\mathrm{hit}},\cdots,P_{N_A}^{\mathrm{hit}},
+\mu_1,\cdots,\mu_{N_A}
+\Bigr],
+\end{equation}
+其中，$\widetilde Z_i$ 表示飞行器 $i$ 的多拦截器聚合风险，$P_i^{\mathrm{pen}}$ 和 $P_i^{\mathrm{hit}}$ 分别表示其有效突防成功度和命中可行度，$\mu_i$ 表示任务动态重构得到的任务分布。
+
+为增强策略网络对多拦截器威胁和队友协同行为的表达能力，RTA-MAPPO 在 Actor 和 Critic 中引入注意力残差特征提取结构。对智能体 $i$，其特征更新过程为
+\begin{equation}
+h_i^{0}=f_{\mathrm{enc}}\bigl(o_i(t)\bigr),
+\end{equation}
+\begin{equation}
+\alpha_{ik}
+=
+\frac{
+\exp\left((W_q h_i^{0})^{\top}(W_k h_k^{0})/\sqrt{d}\right)
+}{
+\sum_{\ell\in\mathcal A}
+\exp\left((W_q h_i^{0})^{\top}(W_k h_\ell^{0})/\sqrt{d}\right)
+},
+\end{equation}
+\begin{equation}
+\bar h_i
+=
+\sum_{k\in\mathcal A}\alpha_{ik}W_vh_k^{0},
+\end{equation}
+\begin{equation}
+h_i
+=
+h_i^{0}
++
+f_{\mathrm{res}}\bigl([h_i^{0},\bar h_i]\bigr).
+\end{equation}
+其中，$\alpha_{ik}$ 表示飞行器 $k$ 对飞行器 $i$ 当前决策的注意力权重，残差项用于提升深层网络训练稳定性。
+
+针对复杂对抗环境下策略探索效率低的问题，本文引入信任调制探索机制。定义智能体 $i$ 的信任因子为
+\begin{equation}
+\eta_i(t)
+=
+\mathrm{clip}
+\left(
+\frac{\bar R_i(t)-R_{\min}}{R_{\max}-R_{\min}},
+0,1
+\right),
+\end{equation}
+其中，$\bar R_i(t)$ 为智能体 $i$ 的历史平均回报。其探索强度设置为
+\begin{equation}
+\epsilon_i(t)
+=
+\epsilon_{\min}
++
+\bigl(\epsilon_{\max}-\epsilon_{\min}\bigr)
+\bigl(1-\eta_i(t)\bigr).
+\end{equation}
+
+引入信任调制后的策略动作采样机制可写为
+\begin{equation}
+u_i(t)
+\sim
+(1-\epsilon_i)\pi_{\theta_i}(\cdot\mid o_i)
++
+\epsilon_i \pi_i^{\mathrm{exp}}(\cdot\mid o_i,\mu_i).
+\end{equation}
+
+本文将探索策略 $\pi_i^{\mathrm{exp}}$ 构造为由任务概率权重调制的混合高斯分布：
+\begin{equation}
+\pi_i^{\mathrm{exp}}(u_i\mid o_i,\mu_i)
+=
+\mu_i^D(t)\, \mathcal{N}\bigl(u_i^{D,\mathrm{ref}},\, \Sigma\bigr)
++
+\mu_i^P(t)\, \mathcal{N}\bigl(u_i^{P,\mathrm{ref}},\, \Sigma\bigr)
++
+\mu_i^S(t)\, \mathcal{N}\bigl(u_i^{S,\mathrm{ref}},\, \Sigma\bigr),
+\end{equation}
+其中 $\Sigma$ 为基础探索方差矩阵；$u_i^{D,\mathrm{ref}}, u_i^{P,\mathrm{ref}}, u_i^{S,\mathrm{ref}} \in [-1,1]^3$ 分别为三种任务在归一化动作空间下的启发式基准动作偏置。
+% 为避免引入额外的控制参数，本文直接基于前文已建立的态势评估指标，将上述动作偏置严密定义为对应的局部瞬时最优动作：
+
+% 1) \textbf{主攻突破动作偏置 ($u_i^{P,\mathrm{ref}}$)}：以最大化对 HVT 的瞬时打击潜能为目标，定义为
+% \begin{equation}
+% u_i^{P,\mathrm{ref}}(t) = \arg\max_{u \in [-1,1]^3} \dot{P}_i^{\mathrm{hit}}(t).
+% \end{equation}
+% 在物理边界上，该偏置控制俯仰与偏航通道以消除向目标的机头指向误差。
+
+% 2) \textbf{诱饵牵制动作偏置 ($u_i^{D,\mathrm{ref}}$)}：记当前距该飞行器最近的最危险拦截器为 $j^*$，以最大化局部跟踪失配裕度为目标，定义为
+% \begin{equation}
+% u_i^{D,\mathrm{ref}}(t) = \arg\max_{u \in [-1,1]^3} \Gamma_{ij^*}(t).
+% \end{equation}
+% 在物理边界上，该偏置等效于沿空间视线旋转的最有利方向施加满舵法向过载，主动诱发敌方跟踪失配。
+
+% 3) \textbf{隐蔽规避动作偏置 ($u_i^{S,\mathrm{ref}}$)}：以最快降低多拦截器联合探测覆盖风险为目标，定义为
+% \begin{equation}
+% u_i^{S,\mathrm{ref}}(t) = \arg\min_{u \in [-1,1]^3} \dot{\widetilde Z}_i(t).
+% \end{equation}
+% 在物理边界上，该偏置等效于引导飞行器执行向着偏离视场中心方向的反向规避机动。
+
+%% -------------------------------
+主攻突防动作偏置旨在最大化对HVT的打击效能，通过控制俯仰与偏航通道以消除对目标的指向误差，定义如下：
+\begin{equation}
+u_i^{P,\mathrm{ref}}(t) = \arg\max_{u \in [-1,1]^3} \dot{P}_i^{\mathrm{hit}}(t).
+\end{equation}
+
+
+诱饵牵制动作偏置旨在诱导当前距离最近的拦截器 $j^*$ 制导指令饱和，通过在视线旋转方向上施加法向过载以增加拦截器视线角速率，定义如下：
+\begin{equation}
+u_i^{D,\mathrm{ref}}(t) = \arg\max_{u \in [-1,1]^3} \Gamma_{ij^*}(t).
+\end{equation}
+
+隐蔽规避动作偏置旨在快速降低多拦截器联合探测覆盖风险，引导飞行器向偏离视场中心方向机动，其具体定义为：
+\begin{equation}
+u_i^{S,\mathrm{ref}}(t) = \arg\min_{u \in [-1,1]^3} \dot{\widetilde Z}_i(t).
+\end{equation}
+
+
+
+
+该机制使得多智能体强化学习在面对高维连续动作空间时，能够基于任务概率动态加权三种启发式动作偏置，从而有效避免了传统强化学习在对抗初期的低效盲目探索。
+
+
+策略更新采用 PPO 裁剪目标函数：
+\begin{equation}
+J_{\mathrm{clip}}(\theta)
+=
+\mathbb E_t
+\left[
+\min
+\left(
+r_t(\theta)\hat A_t,
+\mathrm{clip}\bigl(r_t(\theta),1-\varepsilon,1+\varepsilon\bigr)\hat A_t
+\right)
+\right],
+\end{equation}
+\begin{equation}
+r_t(\theta)
+=
+\frac{
+\pi_{\theta}\bigl(\mathbf u(t)\mid \mathbf o(t)\bigr)
+}{
+\pi_{\theta_{\mathrm{old}}}\bigl(\mathbf u(t)\mid \mathbf o(t)\bigr)
+}.
+\end{equation}
+
+集中式评价网络的损失函数为
+\begin{equation}
+L_V(\phi)
+=
+\mathbb E_t
+\left[
+\left(
+V_{\phi}(s(t),\zeta(t))
+-
+\hat R_t
+\right)^2
+\right].
+\end{equation}
+
+最终，RTA-MAPPO 的联合优化目标为
+\begin{equation}
+\mathcal L(\theta,\phi)
+=
+-J_{\mathrm{clip}}(\theta)
++
+c_v L_V(\phi)
+-
+c_e\mathcal H(\pi_{\theta}),
+\end{equation}
+其中，$c_v$ 为价值损失权重，$c_e$ 为熵正则权重，$\mathcal H(\pi_{\theta})$ 为策略熵。通过上述设计，RTA-MAPPO 在训练阶段利用全局攻防态势和任务动态重构先验进行集中式评价，在执行阶段仅依赖局部观测输出个体机动指令，从而实现多飞行器集群的分布式协同突防。
+
+
+
+\section{仿真结果与分析}
+\label{subsec:v71-case-study}
+
+\subsection{参数设置及模型训练}
+\label{subsec:algo-net-setting}
+
+仿真实验服务器配置为 Ubuntu 22.04、Intel Core i9-10900K CPU 和 NVIDIA GeForce RTX 3080 GPU。为评估所提策略在嵌入式计算平台上的闭环可执行性，本文构建了硬件在环（hardware-in-the-loop, HIL）半实物仿真平台，如图 ~\ref{fig:HIL}所示 。
+平台采用环境仿真与策略推理解耦的分布式架构：服务器端实时更新攻防对抗环境状态，嵌入式端由 5 台 NVIDIA Jetson NX 承载进攻飞行器策略推理节点，通过 TCP 链路接收对环境的局部观测，完成策略网络推理后输出飞行器机动指令。
+
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figures/HIL_SWARM_fig.png}
+  \caption{半实物仿真平台}
+  \label{fig:HIL}
+\end{figure}
+
+
+
+% 为模拟嵌入式闭环部署条件下观测信息的不确定性，本文在进攻飞行器策略接收的观测量中引入高斯误差。对速度观测量、相对距离观测量和视线角信息分别建模为
+% [
+% $\tilde v=v+\eta_v,\qquad
+% \tilde \rho=\rho+\eta_\rho,\qquad
+% \tilde \omega=\omega+\eta_\omega ,$
+% ]
+% 其中 $\eta_v\sim\mathcal{N}(0.036,,0.18^2)$，$\eta_\rho\sim\mathcal{N}(0.15,,0.75^2)$，$\eta_\omega\sim\mathcal{N}(1.5\times10^{-4},,(7.5\times10^{-4})^2)$。
+% 上述误差分别对应速度观测、相对距离观测和视线角速度观测中的测量偏差与随机噪声，用于评估观测不确定性对协同突防策略闭环执行效果的影响。集群飞行器协同突防算法参数设置如表~\ref{tab:v71-setup} 所示。
+
+
+为模拟嵌入式闭环部署条件下观测信息的不确定性，本文在进攻飞行器的观测量中引入高斯误差，对速度、距离和视线角速度信息的观测误差建模为
+$
+\tilde v=v + \eta_v$，
+$\tilde \rho=\rho + \eta_\rho$， 
+$\tilde \omega=\omega + \eta_\omega$。其中
+$
+\eta_v\sim\mathcal{N}\left(0.036\mathrm{m/s},(0.18\mathrm{m/s})^2\right)$
+,
+$
+\eta_\rho\sim\mathcal{N}\left(0.15\mathrm{m},(0.75\mathrm{m})^2\right)$
+,
+$
+\eta_\omega\sim\mathcal{N}\left(1.5\times10^{-4}\mathrm{rad/s},(7.5\times10^{-4}\mathrm{rad/s})^2\right)$
+。
+集群飞行器协同突防算法参数设置如表~\ref{tab:v71-setup} 所示。
+
+
+
+
+
+
+\begin{table}[!htbp]
+\centering
+\scriptsize
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.1}
+\caption{仿真参数设置}
+\label{tab:v71-setup}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}lc|lc|lc|lc|lc|lc|lc|lc|lc@{}}
+\toprule
+Sym. & Val. & Sym. & Val. & Sym. & Val. & Sym. & Val. & Sym. & Val. & Sym. & Val. & Sym. & Val. & Sym. & Val. & Sym. & Val. \\
+\midrule
+$V_i^{\max}$          & $50\,\mathrm{m/s}$ & $M_c$               & $0.05$            & $\kappa_d$              & $0.05$          & $\kappa_m$              & $1.0$           & $V_{\mathrm{ref}}$      & $60\,\mathrm{m/s}$& $\lambda_{\mathrm{tm}}$ & $4.0$             & $\lambda_1$              & $0.45$             & $L$                     & $3$                & Opt.                     & Adam             \\
+$V_j^{\max}$          & $60\,\mathrm{m/s}$ & $w_s$               & $1.0$             & $\kappa_k$              & $2.0$           & $\kappa_E$              & $1.0$           & $a_n^{\mathrm{ref}}$    & $3g$            & $\lambda_P$             & $0$                & $\lambda_2$              & $0.3$             & $\sigma_x$,\,$\sigma_y$ & $1.0$,\,$0.2$      & $\beta_1$                & $0.9$            \\
+$a_{n,A}^{\max}$      & $3g$               & $w_{\rho}$          & $0.5$             & $\lambda_E$             & $0.4$           & $\alpha_{\mathrm{syn}}$ & $1.5$           & $\omega_{\mathrm{ref}}$ & $0.6$           & $\lambda_C$             & $0$                & $\lambda_L$              & $0.15$             & Act.                    & ReLU               & $\beta_2$                & $0.999$          \\
+$a_{n,D}^{\max}$      & $5g$               & $w_v$               & $0.3$             & $\lambda_D$             & $0.3$           & $\lambda_U$             & $0.5$           & $\rho^{\mathrm{ref}}$   & $60\,\mathrm{m}$& $\lambda_S$             & $0$                & $\gamma$                 & $0.99$          & Norm.                   & LN                 & $\Delta t$               & $1\,\mathrm{s}$  \\
+$\alpha_j$            & $30^{\circ}$       & $\beta_L$           & $5.0$             & $\lambda_K$             & $0.3$           & $\lambda_{PH}$          & $1.0$           & $z_{\mathrm{safe}}$     & $0$             & $\lambda_b$             & $2.0$              & $\lambda_{\mathrm{GAE}}$ & $0.95$          & Init                    & Orth.              &               &              \\
+$D_{\mathrm{radar}}$  & $500\,\mathrm{m}$  & $w_{\mathrm{self}}$ & $1.0$             & $\lambda_Z$             & $0.6$           & $\lambda_{PL}$          & $0.5$           & $\lambda_{\mathrm{app}}$& $3.0$           & $\lambda_{\mathrm{gr}}$ & $1.0$              & $\epsilon_{\mathrm{clip}}$& $0.1$          & GRU                     & $T_c{=}25$         &                &   \\
+$\rho^{\mathrm{kill}}$& $5\,\mathrm{m}$    & $w_{\mathrm{attn}}$ & $1.5$             & $\lambda_R$             & $0.4$           & $\lambda_{SZ}$          & $0.5$           & $\lambda_c$             & $0.15$          & $\lambda_{\mathrm{px}}$ & $0.05$             & $\alpha_{\pi}$           & $3{\times}10^{-5}$& $K_{\mathrm{ppo}}$     & $15$               &       &                \\
+$N_{\mathrm{PN}}$     & $3$                & $w_{\mathrm{team}}$ & $1.0$             & $\kappa_h$              & $2.0$           & $\lambda_{SL}$          & $0.3$           & $\lambda_r$             & $1.2$           & $\lambda_{\mu}$         & $0.012$            & $\alpha_{V}$             & $3{\times}10^{-4}$& $M_b$                  & $1$                &                          &                  \\
+$T_{\max}$            & $80\,\mathrm{s}$   & $\rho_0$            & $150\,\mathrm{m}$ & $\kappa_c$              & $1.0$           & $\lambda_{SD}$          & $0.2$           & $\lambda_h$             & $0.05$          & $\lambda_H$             & $1500$             & $c_1$                    & $0.5$           & $N_{\mathrm{th}}$       & $40$               &                          &                  \\
+$\kappa_q$            & $10.0$             & $\kappa_{\rho}$     & $0.1$             & $\kappa_{\omega}$       & $2.0$           & $\eta$                  & $2.0$           & $\lambda_g$             & $0.05$          & $\lambda_{\mathrm{kl}}$ & $0.5$              & $c_2$                    & $0.01$          & $H_{\mathrm{attn}}$     & $1$              &                          &                  \\
+$\beta$               & $10.0$             & $d_s$               & $80\,\mathrm{m}$ & $\kappa_Z$              & $10.0$          & $\tau_{\mu}$            & $0.05$          & $\lambda_e$             & $0.2$           & $\lambda_s$             & $0.02$             & $d_h$                    & $256$           & $L_{\mathrm{gru}}$      & $1$                &                          &                  \\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+
+本文设定了包含进攻飞行器、高价值目标与拦截器的攻防对抗仿真场景，
+HVT固定于 $p_H=(1200,0,0)^\top\,\mathrm{m}$。
+各回合初始态势按如下分布随机采样：进攻集群的初始位置、
+速度与姿态分别在 $x\in[-1400,-950]\,\mathrm{m}$、$y\in[-200,250]\,\mathrm{m}$、$z\in[280,320]\,\mathrm{m}$，
+$V_A\in[45,50]\,\mathrm{m/s}$，$\delta\psi_A\sim\mathcal{U}(-11^\circ,11^\circ)$，
+$\gamma_A\in[-1.5^\circ,1.5^\circ]$ 内均匀采样；拦截集群对应范围为 $x\in[370,900]\,
+\mathrm{m}$、$y\in[-260,260]\,\mathrm{m}$、$z\in[320,380]\,\mathrm{m}$，$V_D\in[55,60]\,
+\mathrm{m/s}$，$\delta\psi_D\sim\mathcal{U}(-15^\circ,15^\circ)$，$\gamma_D\in[-5^\circ,5^\circ]$。
+本文设置 6VS6、8VS8 与 10VS10 三类规模工况以覆盖不同攻防规模，三类工况的仿真初始状态见表~\ref{tab:sim-ic}。
+在 HIL 测试中，硬件侧固定承担 $A_0$--$A_4$ 的进攻策略推理，其余进攻飞行器策略部署在服务器端，并采用相同观测封装、通信协议与动作接口。
+
+
+
+
+
+\begin{table}[!htbp]
+\centering\scriptsize
+\setlength{\tabcolsep}{2.0pt}
+\renewcommand{\arraystretch}{1.05}
+\caption{三类工况代表回合初始状态}
+\label{tab:sim-ic}
+\resizebox{\linewidth}{!}{%
+\begin{tabular}{@{}c rrrrr rrrrr rrrrr cc@{}}
+\toprule
+& \multicolumn{5}{c}{工况一 (6VS6)} & \multicolumn{5}{c}{工况二 (8VS8)} & \multicolumn{5}{c}{工况三 (10VS10)} & \multicolumn{2}{c}{能力}\\
+\cmidrule(lr){2-6}\cmidrule(lr){7-11}\cmidrule(lr){12-16}\cmidrule(l){17-18}
+& $x$/m & $y$/m & $z$/m & $V$/(m/s) & $\psi/^\circ$
+& $x$/m & $y$/m & $z$/m & $V$/(m/s) & $\psi/^\circ$
+& $x$/m & $y$/m & $z$/m & $V$/(m/s) & $\psi/^\circ$
+& $V^{\max}$/(m/s) & $a_n^{\max}$\\
+\midrule
+$A_0$ & $-1144$ & $5$    & $291$ & 45.0 & $4$
+      & $-956$  & $40$   & $309$ & 45.0 & $-7$
+      & $-1040$ & $26$   & $302$ & 45.0 & $-6$
+      & \multirow{10}{*}{50} & \multirow{10}{*}{$3g$} \\
+$A_1$ & $-1062$ & $91$   & $315$ & 45.0 & $-6$
+      & $-1057$ & $68$   & $305$ & 45.0 & $-9$
+      & $-1127$ & $80$   & $305$ & 45.0 & $10$ &&\\
+$A_2$ & $-1352$ & $175$  & $318$ & 45.0 & $-10$
+      & $-1184$ & $249$  & $316$ & 45.0 & $10$
+      & $-1231$ & $171$  & $304$ & 45.0 & $0$ &&\\
+$A_3$ & $-1386$ & $-3$   & $300$ & 45.0 & $11$
+      & $-1331$ & $32$   & $312$ & 45.0 & $-5$
+      & $-1253$ & $111$  & $286$ & 45.0 & $7$ &&\\
+$A_4$ & $-1233$ & $-97$  & $314$ & 45.0 & $-1$
+      & $-1291$ & $40$   & $301$ & 45.0 & $7$
+      & $-1225$ & $130$  & $311$ & 45.0 & $-1$ &&\\
+$A_5$ & $-1177$ & $-64$  & $293$ & 45.0 & $11$
+      & $-1375$ & $-191$ & $307$ & 45.0 & $4$
+      & $-1348$ & $-4$   & $313$ & 45.0 & $-1$ &&\\
+$A_6$ &         &        &       &      &
+      & $-1278$ & $-112$ & $281$ & 45.0 & $-2$
+      & $-1227$ & $-13$  & $298$ & 45.0 & $9$ &&\\
+$A_7$ &         &        &       &      &
+      & $-1029$ & $-105$ & $297$ & 45.0 & $1$
+      & $-1203$ & $-67$  & $287$ & 45.0 & $9$ &&\\
+$A_8$ &         &        &       &      &
+      &         &        &       &      &
+      & $-1240$ & $-221$ & $294$ & 45.0 & $2$ &&\\
+$A_9$ &         &        &       &      &
+      &         &        &       &      &
+      & $-1016$ & $-4$   & $289$ & 45.0 & $-7$ &&\\
+\midrule
+$D_0$ & $863$  & $-97$  & $360$ & 55.0 & $-175$
+      & $890$  & $-15$  & $321$ & 55.0 & $-172$
+      & $851$  & $78$   & $341$ & 55.0 & $175$
+      & \multirow{10}{*}{60} & \multirow{10}{*}{$5g$} \\
+$D_1$ & $617$  & $115$  & $378$ & 55.0 & $172$
+      & $793$  & $118$  & $331$ & 55.0 & $173$
+      & $830$  & $58$   & $358$ & 55.0 & $-174$ &&\\
+$D_2$ & $492$  & $235$  & $349$ & 55.0 & $179$
+      & $592$  & $255$  & $360$ & 55.0 & $169$
+      & $622$  & $107$  & $332$ & 55.0 & $-171$ &&\\
+$D_3$ & $491$  & $-63$  & $360$ & 55.0 & $176$
+      & $493$  & $130$  & $328$ & 55.0 & $174$
+      & $576$  & $132$  & $371$ & 55.0 & $-172$ &&\\
+$D_4$ & $534$  & $-106$ & $355$ & 55.0 & $-174$
+      & $436$  & $-19$  & $325$ & 55.0 & $179$
+      & $412$  & $189$  & $351$ & 55.0 & $176$ &&\\
+$D_5$ & $635$  & $-182$ & $375$ & 55.0 & $-166$
+      & $443$  & $-52$  & $364$ & 55.0 & $165$
+      & $374$  & $-9$   & $358$ & 55.0 & $177$ &&\\
+$D_6$ &        &        &       &      &
+      & $689$  & $-248$ & $334$ & 55.0 & $-172$
+      & $517$  & $-34$  & $375$ & 55.0 & $-174$ &&\\
+$D_7$ &        &        &       &      &
+      & $770$  & $-44$  & $370$ & 55.0 & $163$
+      & $462$  & $-279$ & $349$ & 55.0 & $-180$ &&\\
+$D_8$ &        &        &       &      &
+      &        &        &       &      &
+      & $664$  & $-186$ & $340$ & 55.0 & $170$ &&\\
+$D_9$ &        &        &       &      &
+      &        &        &       &      &
+      & $861$  & $-99$  & $355$ & 55.0 & $-174$ &&\\
+\bottomrule
+\end{tabular}%
+}
+\end{table}
+
+
+
+为评估所提策略的训练收敛性与价值估计稳定性，本文对 RTA-MAPPO 及 MAPPO、IPPO、IA2C、IQL 等基线算法进行同一任务设置下的训练对比，
+并统计归一化奖励与损失随训练回合的变化，如图~\ref{fig:training-reward} 与图~\ref{fig:training-critic-loss} 所示。
+
+
+\begin{figure}[H]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/swarm_attack_training/swarm_attack_reward.pdf}
+    \caption{集群奖励}
+    \label{fig:training-reward}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/swarm_attack_training/swarm_attack_critic_loss.pdf}
+    \caption{评论家网络损失曲线}
+    \label{fig:training-critic-loss}
+  \end{subfigure}
+  \caption{算法训练过程}
+\end{figure}
+
+由图~\ref{fig:training-reward} 可知，所提 RTA-MAPPO 在训练前中期快速提升，并在约 $1000$ 个训练回合后达到相对较高的归一化奖励水平，最终稳定在各对比方法中的较高水平。相比之下，MAPPO 虽能较快收敛，但收敛收益水平低于所提 RTA-MAPPO；IPPO、IA2C 与 IQL 的上升速度和最终奖励水平均相对较低。该结果说明，所提 RTA-MAPPO 有助于提高多智能体协同突防中的策略探索与收敛效率。
+
+由图~\ref{fig:training-critic-loss} 可知，RTA-MAPPO 的评论家网络损失在早期迅速下降，并在后续训练中保持相对较低且波动较小的误差水平；MAPPO、IPPO 与 IA2C 的评论家网络损失虽也下降，但收敛速度较慢且最终误差水平高于所提 RTA-MAPPO，IQL 的损失长期处于较高水平。该现象说明所提解析先验有助于降低协同收益和局部风险的价值估计误差，从而为策略更新提供更稳定的优势函数估计。结合图~\ref{fig:training-reward} 可知，RTA-MAPPO 同时取得更高回报和更低价值估计误差，表明所提解析先验与 MAPPO 框架结合后有助于提高回报收敛水平并降低价值估计误差。
+
+% 在完成训练收敛性评估后，本文进一步将训练完成的进攻策略接入 HIL 闭环平台，选取 6VS6、8VS8 和 10VS10 三类规模下的成功回合作为代表，分别从三维轨迹、运动学约束、防御目标分配和任务偏好演化四个方面分析策略的在线协同行为。
+
+
+
+
+
+
+\subsection{6VS6 仿真场景}
+\label{subsec:v71-case-1}
+
+6VS6 工况用于分析基础攻防规模下所提方法形成的任务分化与协同突防过程。该回合中，$A_4$ 于 $49.56\,\mathrm{s}$ 命中 HVT，终端脱靶量为 $4.60\,\mathrm{m}$，最终进攻方仍有 $A_3$ 和 $A_4$ 共 $2$ 架飞行器存活。
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig4_traj3d.pdf}
+  \caption{博弈对抗三维轨迹}
+  \label{fig:v71-case1-traj}
+\end{figure}
+
+图~\ref{fig:v71-case1-traj} 给出的三维轨迹表明，$A_1$、$A_5$ 和 $A_0$ 在前 $18.39\,\mathrm{s}$ 内相继被拦截，构成第一轮前置牵制；$A_2$ 继续吸引防御资源并存活至 $41.63\,\mathrm{s}$。在上述牵制过程中，主攻成员 $A_4$ 保持连续接近 HVT 的通道，并最终完成命中。该代表回合呈现出在硬件策略节点与服务器端同构节点共同参与的闭环条件下，进攻集群在诱饵牵制、隐蔽分散与主攻保持之间形成协同分化的过程。
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig1a_speed.pdf}
+    \caption{速度}
+    \label{fig:v71-case1-off-speed}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig1b_pitch_overload.pdf}
+    \caption{俯仰过载}
+    \label{fig:v71-case1-off-pitch}
+  \end{subfigure}
+  \vspace{1mm}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig1c_yaw_overload.pdf}
+    \caption{偏航过载}
+    \label{fig:v71-case1-off-yaw}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig1d_distance.pdf}
+    \caption{主攻距离}
+    \label{fig:v71-case1-off-distance}
+  \end{subfigure}
+  \caption{进攻方运动学响应}
+  \label{fig:v71-case1-offensive}
+\end{figure}
+
+图~\ref{fig:v71-case1-offensive} 给出了进攻方速度、过载和主攻距离变化。主攻成员 $A_4$ 的速度保持在 $44.95$--$50.00\,\mathrm{m/s}$，俯仰与偏航过载绝对值峰值分别为 $1.90g$ 和 $0.06g$，均未超过进攻飞行器的 $3g$ 机动约束；其与 HVT 的距离在末段持续减小并完成命中。
+从该代表回合的速度与过载曲线看，嵌入式策略推理与服务器端环境之间的闭环通信未出现控制振荡，主攻轨迹保持可执行性。
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}[t]{0.50\linewidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig2a_gantt.pdf}
+    \caption{拦截器打击目标}
+    \label{fig:v71-case1-def-gantt}
+  \end{subfigure}
+  \vspace{1mm}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig2c_ratio.pdf}
+    \caption{防御分配失效比 $\nu(t)$}
+    \label{fig:v71-case1-def-ratio}
+  \end{subfigure}
+  \vspace{1mm}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig2d_pitch_overload.pdf}
+    \caption{拦截器俯仰过载}
+    \label{fig:v71-case1-def-pitch}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig2e_yaw_overload.pdf}
+    \caption{拦截器偏航过载}
+    \label{fig:v71-case1-def-yaw}
+  \end{subfigure}
+  \caption{防御方响应}
+  \label{fig:v71-case1-defensive}
+\end{figure}
+
+图~\ref{fig:v71-case1-defensive} 给出了防御集群打击目标分配的变化过程。由图~\ref{fig:v71-case1-def-gantt} 可知，防御方在突防过程中并未始终稳定锁定主攻成员，而是在诱饵牵制和目标毁伤的共同作用下发生多次目标切换。具体而言，$D_0$ 初始选择诱饵 $A_0$，并在 $A_0$ 于 $18.39\mathrm{s}$ 被摧毁后才转向主攻成员 $A_4$；$D_5$ 在 $0.01$--$12.74\mathrm{s}$ 内选择 $A_4$，随后又转向 $A_0$；$D_1$ 和 $D_4$ 分别在 $12.30\mathrm{s}$ 和 $10.37\mathrm{s}$ 转向 $A_5$ 与 $A_1$，进一步表明集群对防御火力形成了持续分散和牵制作用。
+
+从突防效果看，虽然后期 $D_0$ 重新锁定主攻成员 $A_4$，但此时 $A_4$ 已在早期诱饵掩护下建立了足够的空间优势，拦截器转向追击已难以重新形成有效拦截条件。因此，$A_4$ 与最近存活拦截器的最小距离仍为 $14.05,\mathrm{m}$，显著大于 $5,\mathrm{m}$ 毁伤半径，说明所提策略能够通过诱饵牺牲和目标牵引为主攻成员维持终端突防通道。
+
+图~\ref{fig:v71-case1-def-ratio} 进一步从防御分配失效角度验证了上述过程。$0$--$18.39,\mathrm{s}$ 内，分配失效比均值为 $1.14$，且 $\nu(t)>1.1$ 的时间占比达到 $40.8\%$，表明防御方在前期较长时间内处于较高分配代价状态。随着诱饵被消耗，后续阶段 $\nu(t)$ 基本回落至 $1.00$，说明防御方虽逐渐恢复目标分配一致性，但主攻成员已完成关键突防窗口构建。由此可见，所提协同突防策略并非单纯依赖个体机动规避，而是通过诱饵牵制、目标偏转和分配失效放大，使防御方在关键时段产生资源错配，从而提高主攻成员的生存突防能力。
+
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig3a_role_prob.pdf}
+    \caption{任务偏好概率}
+    \label{fig:v71-case1-game-role}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig3b_lock_pressure.pdf}
+    \caption{综合拦截威胁 $\lambda_i(t)$}
+    \label{fig:v71-case1-game-lock}
+  \end{subfigure}
+  \caption{任务动态重构机理}
+  \label{fig:v71-case1-game}
+\end{figure}
+
+图~\ref{fig:v71-case1-game-role} 以热图形式给出各成员任务推断概率的演化，结合轨迹图~\ref{fig:v71-case1-traj} 可将突防过程划分为三个阶段：阶段一（$0$--$18.39\,\mathrm{s}$），$A_1$、$A_5$ 和 $A_0$ 的平均诱饵偏好分别为 $0.93$、$0.86$ 和 $0.85$，与其前置牺牲顺序相对应；$A_3$ 和 $A_2$ 的隐蔽偏好分别为 $0.62$ 和 $0.54$，主攻成员 $A_4$ 的主攻偏好已达到 $0.85$。阶段二（$18.39$--$41.63\,\mathrm{s}$），前三架诱饵被摧毁后，$A_2$ 的诱饵偏好升至 $0.87$，$A_3$ 的诱饵偏好约为 $0.65$，并与存活拦截器目标分配分散现象相对应；$A_4$ 的主攻偏好进一步提高至 $0.92$。阶段三（$41.63$--$49.56\,\mathrm{s}$），$A_2$ 牺牲后，$A_3$ 的诱饵偏好保持在 $0.66$ 左右，$A_4$ 的主攻偏好升至 $0.97$ 并完成命中。图~\ref{fig:v71-case1-game-lock} 表明 $A_4$ 的综合拦截威胁均值约为 $0.992$，说明主攻并非处于无威胁状态；其主攻偏好由阶段一的 $0.85$ 提高至终端阶段的 $0.97$，表明该成员在单拦截器追击条件下仍保持主攻任务判断；与此同时，前置诱饵对应的防御目标分配分散在多个方向，主攻方向未形成多拦截器合围。
+
+
+\subsection{8VS8 仿真场景}
+\label{subsec:v71-case-2}
+
+8VS8 工况进一步放大攻防规模，用于分析所提方法在密集拦截资源下的协同突防过程与任务分化特征。该工况下，$A_4$ 于 $51.28\,\mathrm{s}$ 命中 HVT，终端脱靶量为 $4.52\,\mathrm{m}$；最终进攻方仍有 $A_2$、$A_3$、$A_4$、$A_6$ 和 $A_7$ 共 $5$ 架飞行器存活。
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig4_traj3d.pdf}
+  \caption{博弈对抗三维轨迹}
+  \label{fig:v71-case2-traj}
+\end{figure}
+
+图~\ref{fig:v71-case2-traj} 给出了 8VS8 工况下的三维轨迹。由图可知，$A_0$、$A_1$ 和 $A_5$ 分别在 $13.49\,\mathrm{s}$、$17.15\,\mathrm{s}$ 和 $22.26\,\mathrm{s}$ 被拦截，形成前期诱饵消耗；$A_2$、$A_3$、$A_6$ 和 $A_7$ 在中后段保持空间分散并继续牵制存活拦截器，$A_4$ 则沿主攻通道持续逼近 HVT 并完成命中。该代表回合表明，在服务器端同构节点补充更多进攻成员后，集群呈现出诱饵牵制、隐蔽分散与主攻保持之间的协同分工，而非单纯增加机动成员数量。
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig1a_speed.pdf}
+    \caption{速度}
+    \label{fig:v71-case2-off-speed}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig1b_pitch_overload.pdf}
+    \caption{俯仰过载}
+    \label{fig:v71-case2-off-pitch}
+  \end{subfigure}
+  \vspace{1mm}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig1c_yaw_overload.pdf}
+    \caption{偏航过载}
+    \label{fig:v71-case2-off-yaw}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig1d_distance.pdf}
+    \caption{主攻距离}
+    \label{fig:v71-case2-off-distance}
+  \end{subfigure}
+  \caption{进攻方运动学响应}
+  \label{fig:v71-case2-offensive}
+\end{figure}
+
+% 图~\ref{fig:v71-case2-offensive} 表明，主攻成员 $A_4$ 的速度保持在 $44.99$--$50.00\,\mathrm{m/s}$，俯仰与偏航过载绝对值峰值分别为 $1.90g$ 和 $0.14g$，均满足机动约束。$A_4$ 与最近存活拦截器的最小距离为 $249.82\,\mathrm{m}$，约为 $5\,\mathrm{m}$ 毁伤半径的 $50$ 倍；该距离裕度与前置牺牲和后续分散牵制现象同时出现。
+
+
+图~\ref{fig:v71-case2-defensive} 给出了 8VS8 工况下防御集群打击目标分配的变化过程。由图~\ref{fig:v71-case2-def-gantt} 可知，虽然防御方拦截器数量增加，但其打击目标并未向主攻成员 $A_4$ 持续集中，而是在前置诱饵牺牲和多成员分散牵制作用下形成了长期分散的目标分配。具体而言，$D_5$ 和 $D_7$ 分别持续选择 $A_0$ 和 $A_1$，使防御资源在前期被诱饵成员稳定牵制；$D_6$ 在 $12.14\mathrm{s}$ 由 $A_5$ 转向 $A_1$，并在 $A_1$ 被摧毁后重新选择 $A_5$，表明诱饵成员能够持续诱导防御方发生目标切换；$D_3$ 在 $0.01$--$10.45\mathrm{s}$ 内短时选择主攻成员 $A_4$，随后转向 $A_7$，之后 $A_4$ 在后续阶段未再受到直接追击。与此同时，$D_0$、$D_1$、$D_2$ 和 $D_4$ 分别选择 $A_6$、$A_3$、$A_2$ 和 $A_7/A_3$，进一步说明防御方目标分配被牵引至多个非主攻成员，未能形成对主攻通道的集中压制。
+
+从突防效果看，尽管 $D_3$ 在初始阶段曾短时锁定 $A_4$，但该追击未能持续形成有效拦截；当 $D_3$ 转向 $A_7$ 后，$A_4$ 已在多成员牵制下获得较低的直接追击压力，并保持主攻通道持续逼近 HVT。结合图~\ref{fig:v71-case2-offensive} 可知，$A_4$ 与最近存活拦截器的最小距离为 $249.82\mathrm{m}$，约为 $5\mathrm{m}$ 毁伤半径的 $50$ 倍，说明所提策略并非依靠主攻成员单独规避拦截，而是通过多诱饵接力牵制和防御目标偏转，为主攻成员构造了充足的安全距离裕度。
+
+图~\ref{fig:v71-case2-def-ratio} 进一步从防御分配失效角度验证了上述过程。前期 $0$--$22.26\mathrm{s}$ 内，分配失效比均值为 $1.13$，表明诱饵牺牲阶段已使防御方处于较高分配代价状态；在 $A_0$、$A_1$ 和 $A_5$ 相继被摧毁后，$22.26$--$51.28\mathrm{s}$ 内分配失效比均值进一步升至 $1.42$，且全程大于 $1.1$，说明防御方在重分配过程中并未恢复对主攻成员的有效覆盖，反而长期处于非最优分配状态。由此可见，在 8VS8 密集拦截资源条件下，所提协同突防策略能够通过前期诱饵消耗、中后段多成员分散牵制和防御分配失效放大，使防御方资源持续错配，从而为主攻成员 $A_4$ 保持安全、稳定的终端突防通道。
+
+
+
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}[t]{0.50\linewidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig2a_gantt.pdf}
+    \caption{拦截器打击目标}
+    \label{fig:v71-case2-def-gantt}
+  \end{subfigure}
+  \vspace{1mm}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig2c_ratio.pdf}
+    \caption{防御分配失效比 $\nu(t)$}
+    \label{fig:v71-case2-def-ratio}
+  \end{subfigure}
+  \vspace{1mm}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig2d_pitch_overload.pdf}
+    \caption{拦截器俯仰过载}
+    \label{fig:v71-case2-def-pitch}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig2e_yaw_overload.pdf}
+    \caption{拦截器偏航过载}
+    \label{fig:v71-case2-def-yaw}
+  \end{subfigure}
+  \caption{防御方响应}
+  \label{fig:v71-case2-defensive}
+\end{figure}
+
+图~\ref{fig:v71-case2-defensive} 显示了防御方目标选择被持续牵制的过程。$D_5$ 和 $D_7$ 分别持续选择 $A_0$ 和 $A_1$，$D_6$ 在 $12.14\,\mathrm{s}$ 由 $A_5$ 转向 $A_1$，并在 $A_1$ 被摧毁后重新选择 $A_5$；$D_3$ 在 $0.01$--$10.45\,\mathrm{s}$ 选择主攻成员 $A_4$，随后转向 $A_7$，之后 $A_4$ 在后续阶段未再受到直接追击。$D_0$、$D_1$、$D_2$ 和 $D_4$ 分别选择 $A_6$、$A_3$、$A_2$ 和 $A_7/A_3$，防御方目标分配未向主攻方向集中。图~\ref{fig:v71-case2-def-ratio} 进一步表明，前期 $0$--$22.26\,\mathrm{s}$ 内 $\nu(t)$ 均值为 $1.13$，而 $22.26$--$51.28\,\mathrm{s}$ 内均值升至 $1.42$ 且全程大于 $1.1$，说明前置诱饵死亡后的重分配使防御方长期处于非最优覆盖状态。
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig3a_role_prob.pdf}
+    \caption{任务偏好概率}
+    \label{fig:v71-case2-game-role}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig3b_lock_pressure.pdf}
+    \caption{综合拦截威胁 $\lambda_i(t)$}
+    \label{fig:v71-case2-game-lock}
+  \end{subfigure}
+  \caption{任务动态重构机理}
+  \label{fig:v71-case2-game}
+\end{figure}
+
+图~\ref{fig:v71-case2-game-role} 以热图形式给出各成员任务推断概率的演化，结合轨迹图~\ref{fig:v71-case2-traj} 可将突防过程划分为两个阶段：阶段一（$0$--$22.26\,\mathrm{s}$），$A_0$ 和 $A_1$ 的平均诱饵偏好分别为 $0.93$ 和 $0.90$，$A_7$、$A_5$ 和 $A_3$ 的诱饵偏好分别约为 $0.61$、$0.54$ 和 $0.48$，共同形成前置与侧向牵制；$A_6$ 和 $A_2$ 的隐蔽偏好均约为 $0.52$，主攻成员 $A_4$ 的主攻偏好为 $0.75$。该阶段 $D_3$ 在 $0.01$--$10.45\,\mathrm{s}$ 短时选择 $A_4$ 后转向 $A_7$，之后主攻成员在后续阶段未再受到直接追击。阶段二（$22.26$--$51.28\,\mathrm{s}$），前置诱饵牺牲后，$A_6$、$A_3$、$A_2$ 和 $A_7$ 的诱饵偏好分别提高至 $0.72$、$0.68$、$0.66$ 和 $0.65$，并与存活拦截器目标分配分散现象相对应；$A_4$ 的主攻偏好升至 $0.97$，并在较低直接追击压力下完成命中。图~\ref{fig:v71-case2-game-lock} 显示 $A_4$ 的综合拦截威胁均值约为 $0.970$，且实际被存活拦截器选择为打击目标的时间占比约为 $20.4\%$。在该 8VS8 代表回合中，主攻偏好由 $0.75$ 提高至 $0.97$ 的角色保持过程与多成员诱饵接力相对应，防御目标分配持续受到牵制，未能在命中前重新集中到主攻方向。
+
+
+\subsection{10VS10 仿真场景}
+\label{subsec:v71-case-3}
+
+10VS10 工况用于分析本文最大测试规模下所提方法的角色保持、任务分化与协同突防过程。该仿真工况中，$A_8$ 于 $49.78\,\mathrm{s}$ 命中 HVT，终端脱靶量为 $4.51\,\mathrm{m}$；终局时进攻方仍有 $A_3$、$A_6$、$A_7$ 和 $A_8$ 共 $4$ 架飞行器存活。
+
+\begin{figure}[!htbp]
+  \centering
+  \includegraphics[width=0.82\textwidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig4_traj3d.pdf}
+  \caption{博弈对抗三维轨迹}
+  \label{fig:v71-case3-traj}
+\end{figure}
+
+图~\ref{fig:v71-case3-traj} 给出了 10VS10 工况下的三维轨迹。前置成员 $A_9$、$A_0$、$A_1$、$A_4$ 和 $A_5$ 分别在 $13.35\,\mathrm{s}$、$15.13\,\mathrm{s}$、$17.16\,\mathrm{s}$、$19.61\,\mathrm{s}$ 和 $21.99\,\mathrm{s}$ 被拦截，构成连续的第一牵制层；$A_2$ 随后继续吸引防御资源并存活至 $37.33\,\mathrm{s}$。在上述多级牵制过程中，$A_8$ 沿相对直接的突防通道持续接近 HVT，而 $A_3$、$A_6$ 和 $A_7$ 保持空间分散，并与存活拦截器继续分配防御资源的现象相对应。该代表回合的轨迹演化呈现出有时序的诱饵接力和空间分工，而非多个成员沿相近通道同时突防。
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig1a_speed.pdf}
+    \caption{速度}
+    \label{fig:v71-case3-off-speed}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig1b_pitch_overload.pdf}
+    \caption{俯仰过载}
+    \label{fig:v71-case3-off-pitch}
+  \end{subfigure}
+  \vspace{1mm}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig1c_yaw_overload.pdf}
+    \caption{偏航过载}
+    \label{fig:v71-case3-off-yaw}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig1d_distance.pdf}
+    \caption{主攻距离}
+    \label{fig:v71-case3-off-distance}
+  \end{subfigure}
+  \caption{进攻方运动学响应}
+  \label{fig:v71-case3-offensive}
+\end{figure}
+
+图~\ref{fig:v71-case3-offensive} 表明，主攻成员 $A_8$ 的速度始终保持在 $44.97$--$50.00\,\mathrm{m/s}$，俯仰与偏航过载绝对值峰值分别为 $1.90g$ 和 $0.07g$，均未超过进攻飞行器的 $3g$ 机动约束。其与最近存活拦截器的最小距离为 $242.41\,\mathrm{m}$，HVT 距离总体持续减小并在末段完成命中。从该代表回合的速度、过载与距离曲线看，在硬件策略节点与服务器端同构节点共同参与的闭环条件下，主攻轨迹仍保持连续。
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}[t]{0.50\linewidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig2a_gantt.pdf}
+    \caption{拦截器打击目标}
+    \label{fig:v71-case3-def-gantt}
+  \end{subfigure}
+  \vspace{1mm}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig2c_ratio.pdf}
+    \caption{防御分配失效比 $\nu(t)$}
+    \label{fig:v71-case3-def-ratio}
+  \end{subfigure}
+  \vspace{1mm}
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig2d_pitch_overload.pdf}
+    \caption{拦截器俯仰过载}
+    \label{fig:v71-case3-def-pitch}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig2e_yaw_overload.pdf}
+    \caption{拦截器偏航过载}
+    \label{fig:v71-case3-def-yaw}
+  \end{subfigure}
+  \caption{防御方响应}
+  \label{fig:v71-case3-defensive}
+\end{figure}
+
+图~\ref{fig:v71-case3-defensive} 给出了防御方打击目标分配与机动响应。由图~\ref{fig:v71-case3-def-gantt} 可知，$D_7$ 在 $0.01$--$9.99\,\mathrm{s}$ 短时选择主攻成员 $A_8$ 后转向 $A_0$；$D_8$ 初始选择 $A_9$，随后依次转向 $A_0$ 和 $A_4$，并在 $19.61\,\mathrm{s}$ 转向 $A_8$；$D_9$ 在 $A_5$ 于 $21.99\,\mathrm{s}$ 被摧毁后转向 $A_8$。与此同时，$D_5$ 由 $A_0$ 转向 $A_9$，$D_0$、$D_2$、$D_3$、$D_4$、$D_6$ 等拦截器分别被 $A_4$、$A_3$、$A_1$、$A_2$ 和 $A_7$ 等成员牵制。尽管中后段最多有两架存活拦截器选择 $A_8$，其最近拦截距离仍保持在 $242.41\,\mathrm{m}$ 以上，该现象与早期连续诱饵牺牲和较大的空间安全裕度同时出现。
+
+图~\ref{fig:v71-case3-def-ratio} 进一步量化了上述过程。$0$--$15.13\,\mathrm{s}$ 内分配失效比均值为 $1.07$，且 $\nu(t)>1.1$ 的时间占比约为 $39.0\%$；随着诱饵连续损失，$15.13$--$21.99\,\mathrm{s}$、$21.99$--$37.33\,\mathrm{s}$ 和 $37.33$--$49.78\,\mathrm{s}$ 三个阶段的 $\nu(t)$ 均值分别升至 $1.21$、$1.33$ 和 $1.62$，末段全程大于 $1.1$。该统计结果显示，随着被分配进攻目标损毁和防御方后续重分配，分配失效比逐阶段升高，剩余拦截器在命中前未能恢复对主攻方向的有效合围。
+
+\begin{figure}[!htbp]
+  \centering
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig3a_role_prob.pdf}
+    \caption{任务偏好概率}
+    \label{fig:v71-case3-game-role}
+  \end{subfigure}\hfill
+  \begin{subfigure}[t]{0.48\textwidth}
+    \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig3b_lock_pressure.pdf}
+    \caption{综合拦截威胁 $\lambda_i(t)$}
+    \label{fig:v71-case3-game-lock}
+  \end{subfigure}
+  \caption{任务动态重构机理}
+  \label{fig:v71-case3-game}
+\end{figure}
+
+图~\ref{fig:v71-case3-game-role} 与图~\ref{fig:v71-case3-game-lock} 给出了任务偏好和综合拦截威胁的演化。结合轨迹可将对抗过程划分为四个阶段：阶段一（$0$--$15.13\,\mathrm{s}$），$A_9$、$A_1$、$A_0$、$A_4$ 和 $A_5$ 的平均诱饵偏好分别为 $0.93$、$0.85$、$0.84$、$0.75$ 和 $0.63$，构成连续前置牵制；$A_6$、$A_2$、$A_3$ 和 $A_7$ 的隐蔽偏好分别为 $0.64$、$0.54$、$0.53$ 和 $0.51$，主攻成员 $A_8$ 的主攻偏好为 $0.84$。阶段二（$15.13$--$21.99\,\mathrm{s}$），$A_1$ 和 $A_4$ 的诱饵偏好均升至接近 $1.00$，$A_5$ 的诱饵偏好为 $0.96$，$A_2$ 的诱饵偏好为 $0.81$，并与防御方目标重分配过程相对应；$A_8$ 的主攻偏好提高至 $0.89$。阶段三（$21.99$--$37.33\,\mathrm{s}$），$A_2$ 的诱饵偏好维持在 $0.91$，$A_3$ 和 $A_7$ 的诱饵偏好分别为 $0.68$ 和 $0.61$，$A_6$ 的隐蔽偏好约为 $0.76$，$A_8$ 的主攻偏好进一步升至 $0.92$。阶段四（$37.33$--$49.78\,\mathrm{s}$），$A_3$ 的诱饵偏好约为 $0.71$，$A_6$ 和 $A_7$ 的隐蔽偏好分别约为 $0.76$ 和 $0.73$，$A_8$ 的主攻偏好升至 $0.96$ 并完成命中。尽管 $A_8$ 的综合拦截威胁均值约为 $0.989$，且实际被存活拦截器选择为打击目标的时间占比约为 $80.7\%$，其主攻偏好仍由阶段一的 $0.84$ 提高至终端阶段的 $0.96$，该结果表明，在该代表回合的持续威胁条件下，$A_8$ 仍保持主攻角色；同时，$A_8$ 最近拦截距离保持在 $242.41\,\mathrm{m}$ 以上，该距离裕度与诱饵接力、隐蔽分散和防御目标持续重分配现象同时出现。上述结果呈现了所提方法在 10VS10 进攻侧 HIL 闭环条件下的可执行协同突防过程。三组代表回合均出现诱饵牵制、隐蔽分散与主攻保持之间的协同关系；为进一步考察所提完整方法在局部初始扰动下的突防成功率和终端精度稳定性，本文开展服务器端局部扰动蒙特卡洛统计评估。
+
+
+本文针对上述三类测试规模分别开展了 $1000$ 次蒙特卡洛仿真测试，统计突防成功率及平均终端脱靶量，结果如表~\ref{tab:mc-stat} 所示。由表可知，所提完整方法在三类工况下分别取得 $94.5\%$（6VS6）、$95.7\%$（8VS8）和 $97.1\%$（10VS10）的突防成功率，说明所提策略在服务器端局部扰动仿真条件下的突防成功率均不低于 $94.5\%$。所提完整方法的平均终端脱靶量为 $4.74$--$4.80\,\mathrm{m}$，均小于 $5\,\mathrm{m}$，表明三类测试规模下的终端打击精度保持在相近水平。
+相比之下，协同博弈突防制导类方法\cite{Chen2024CJA,Chen2024TAES}在相同防御策略和随机初始扰动条件下在三类工况分别取得 $70.5\%$、$79.5\%$ 和 $83.5\%$ 的突防成功率；分层强化学习突防制导类方法\cite{Hui2025CJA}在对应规模下分别取得 $60.0\%$、$67.4\%$ 和 $68.1\%$ 的突防成功率。对比结果表明，在相同防御策略和随机初始扰动条件下，所提方法的突防成功率高于协同博弈突防制导类方法和分层强化学习突防制导类方法。
+
+
+\begin{table}[H]
+% \begin{table}[!htbp]
+  \centering
+  \caption{蒙特卡洛统计结果}
+  \label{tab:mc-stat}
+  \begin{tabular}{cccc}
+    \toprule
+    作战规模 & 方法 & 突防成功率 & 平均终端脱靶量/m  \\
+    \midrule
+    \multirow{3}{*}{6VS6} & 本文方法 & \textbf{94.5\%} & $4.76$  \\
+    & 对比方案A（博弈增强型） & $70.5\%$ & $4.75$  \\
+    & 对比方案B（分层强化学习） & $60.0\%$ & $4.74$  \\
+    \midrule
+    \multirow{3}{*}{8VS8} & 本文方法 & \textbf{95.7\%} & $4.74$  \\
+    & 对比方案A（博弈增强型） & $79.5\%$ & $4.75$  \\
+    & 对比方案B（分层强化学习） & $67.4\%$ & $4.76$  \\
+    \midrule
+    \multirow{3}{*}{10VS10} & 本文方法 & \textbf{97.1\%} & $4.80$  \\
+    & 对比方案A（博弈增强型） & $83.5\%$ & $4.51$  \\
+    & 对比方案B（分层强化学习） & $68.1\%$ & $5.19$  \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+为进一步识别性能增益的来源，本文开展观测通道消融实验。实验保持训练好的策略网络权重不变，仅在测试推理时将策略网络输入端的部分观测维度置零，使策略丧失对应信息的感知能力。具体设置两组消融：其一，屏蔽威胁拦截子块 $o_i^{\mathrm{thr}}$ 中的视场锥裕度 $q_{ij}$、跟踪失配裕度 $\tilde\Gamma_{ij}$ ，即去除策略对自身是否处于拦截器探测视场内的感知；其二，屏蔽群体博弈模块 $o_i^{\mathrm{team}}$ 的全部三个维度，即队友被捕获数 $m_i^{\mathrm{local}}/(N_A-1)$、个体突防概率 $P_i^{\mathrm{pen}}$ 和命中概率 $P_i^{\mathrm{hit}}$，使策略丧失对队友牵制程度和自身突防可行性的感知。
+每类工况各进行 $1000$ 回合蒙特卡洛仿真测试，统计突防成功率，结果如表~\ref{tab:ablation-rta-prior} 所示。
+
+\begin{table}[H]
+  \centering
+  \caption{消融统计结果}
+  \label{tab:ablation-rta-prior}
+  \begin{tabular}{cccc}
+    \toprule
+    作战规模 & 完整方法 & 去除威胁安全裕度观测 & 去除群体博弈信息观测  \\
+    \midrule
+    6VS6   & $94.5\%$  & $57.5\%$  & $1.1\%$    \\
+    8VS8   & $95.7\%$ & $68.0\%$ & $1.0\%$   \\
+    10VS10 & $97.1\%$ & $93.5\%$   & $1.3\%$  \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+由表~\ref{tab:ablation-rta-prior} 可知，去除近邻威胁及主锁定拦截器安全裕度通道后，6VS6、8VS8 和 10VS10 工况的突防成功率分别降至 $57.5\%$、$68.0\%$ 和 $93.5\%$，说明该通道对局部捕获风险识别和锁定关系判断具有直接影响；该通道缺失后的成功率下降与诱饵牵制和主攻通道维护能力减弱相对应。去除队友牵制、突防概率和命中概率先验后，三类规模下的突防成功率均不高于 $1.3\%$。上述消融结果表明，任务动态重构先验并非只提供末端打击动作；威胁安全裕度和团队收益估计通道的移除均会显著改变突防成功率，说明所提策略对风险识别和团队收益估计信息具有较强依赖性。
+
+
+% 综上所述，仿真结果呈现了所提基于任务动态重构先验的多智能体强化学习协同突防方法在三类测试规模中的协同突防行为。三组代表回合中，主攻成员的综合拦截威胁均值约为 $0.970$--$0.992$，终端阶段主攻偏好保持在 $0.96$--$0.97$，且最近拦截距离均大于 $5\,\mathrm{m}$ 毁伤半径，说明诱饵牵制与终端打击通道保持现象同时出现。蒙特卡洛统计进一步给出了突防成功率与平均终端脱靶量结果，完整方法在局部初始扰动范围内的突防成功率不低于 $94.5\%$。服务器端局部扰动消融结果显示，威胁安全裕度和团队收益估计先验对维持高突防成功率具有重要作用。
+综上所述，所提协同突防方法能够在不同作战规模下形成稳定的协同突防行为。仿真结果中，主攻成员均表现出较高主攻偏好，并在突防过程中避免被拦截器持续捕获；同时，被防御集群重点捕获的成员通常具有较高诱饵偏好，表明进攻集群能够通过主动诱饵和牵制行为扰动拦截器目标分配，使防御注意力从主攻成员转移至非主攻成员。随着作战规模增大，诱饵、隐蔽和主攻任务能够根据战场态势自适应形成与切换，体现出方法对不同作战规模的适应能力。
+
+
+\section{结论}
+\label{sec:conclusion}
+
+面向飞行器集群协同突防的任务需求，赋予进攻飞行器智能化决策能力具有重要工程意义。
+本文针对集群协同突防问题，开展了基于群体博弈理论的 RTA-MAPPO 突防制导策略研究，
+仿真结果表明本文提出的协同突防制导策略方法能够提升突防成功率和智能化作战水平。主要结论如下：
+
+1）构造了零控终端视场裕度与多拦截器联合探测覆盖安全裕度评估模型，表征了复杂对抗态势下进攻飞行器的被捕获风险；
+
+2）提出了基于熵正则势博弈的协同任务动态重构机制，打破了传统预设任务分配的局限，引导进攻集群基于实时态势自适应形成诱饵牵制、隐蔽分散与主攻突破相结合的协同机动行为；
+
+3）提出了信任探索驱动的多智能体近端策略优化方法，将任务动态重构理论深度融合至集中式训练框架中，有效提升了高维连续动作空间下制导策略的训练收敛速度;
+
+4）仿真结果表明，所提方法能够在不同攻防规模下引导集群涌现出稳定高效的协同突防战术，通过机动牵制持续扰乱敌方目标分配，保障了集群成功实现突防打击。
+% 消融实验进一步说明，威胁安全裕度和团队收益估计先验是支撑角色在线切换与突防通道维持的关键因素。
+
+
+
+
+
+
+
+
+\begin{thebibliography}{99}
+
+\bibitem{ZhaoZhou2008AAS}
+S. Zhao and R. Zhou, ``Multi-missile cooperative guidance using coordination variables,'' \textit{Acta Aeronaut. Astronaut. Sin.}, vol.~29, no.~6, pp.~1605--1611, 2008.
+
+\bibitem{ZhaoYang2017AAS}
+J. Zhao and S. Yang, ``Review of multi-missile cooperative guidance,'' \textit{Acta Aeronaut. Astronaut. Sin.}, vol.~38, no.~1, Art.~20256, 2017, doi: 10.7527/S1000-6893.2016.0136.
+
+\bibitem{Zhao2015CJA}
+J. Zhao, R. Zhou, and Z. Dong, ``Three-dimensional cooperative guidance laws against stationary and maneuvering targets,'' \textit{Chinese J. Aeronaut.}, vol.~28, no.~4, pp.~1104--1120, 2015, doi: 10.1016/j.cja.2015.06.003.
+
+\bibitem{Zeng2018CJA}
+J. Zeng, L. Dou, and B. Xin, ``A joint mid-course and terminal course cooperative guidance law for multi-missile salvo attack,'' \textit{Chinese J. Aeronaut.}, vol.~31, no.~6, pp.~1311--1326, 2018, doi: 10.1016/j.cja.2018.03.016.
+
+\bibitem{WangLu2018ISA}
+X. Wang and X. Lu, ``Three-dimensional impact angle constrained distributed guidance law design for cooperative attacks,'' \textit{ISA Trans.}, vol.~73, pp.~79--90, 2018, doi: 10.1016/j.isatra.2017.12.009.
+
+\bibitem{Lyu2019AST}
+T. Lyu, Y. Guo, C. Li, G. Ma, and H. Zhang, ``Multiple missiles cooperative guidance with simultaneous attack requirement under directed topologies,'' \textit{Aerosp. Sci. Technol.}, vol.~89, pp.~100--110, 2019, doi: 10.1016/j.ast.2019.03.037.
+
+\bibitem{Jiang2018AST}
+H. Jiang, Z. An, Y. Yu, S. Chen, and F. Xiong, ``Cooperative guidance with multiple constraints using convex optimization,'' \textit{Aerosp. Sci. Technol.}, vol.~79, pp.~426--440, 2018, doi: 10.1016/j.ast.2018.06.001.
+
+\bibitem{Chen2021AST}
+Z. Chen, W. Chen, X. Liu, and C. Jin, ``Three-dimensional fixed-time robust cooperative guidance law for simultaneous attack with impact angle constraint,'' \textit{Aerosp. Sci. Technol.}, vol.~110, Art.~106523, 2021, doi: 10.1016/j.ast.2021.106523.
+
+\bibitem{Ai2019FOVSalvo}
+X. Ai, L. Wang, J. Yu, and Y. Shen, ``Field-of-view constrained two-stage guidance law design for three-dimensional salvo attack of multiple missiles via an optimal control approach,'' \textit{Aerosp. Sci. Technol.}, vol.~85, pp.~334--346, 2019, doi: 10.1016/j.ast.2018.11.052.
+
+\bibitem{Shinar1977JA}
+J. Shinar and D. Steinberg, ``Analysis of optimal evasive maneuvers based on a linearized two-dimensional kinematic model,'' \textit{J. Aircr.}, vol.~14, no.~8, pp.~795--802, 1977, doi: 10.2514/3.58855.
+
+\bibitem{Shinar1979JGC}
+J. Shinar, Y. Rotsztein, and E. Bezner, ``Analysis of three-dimensional optimal evasion with linearized kinematics,'' \textit{J. Guid. Control}, vol.~2, no.~5, pp.~353--360, 1979, doi: 10.2514/3.55889.
+
+\bibitem{Karelahti2007JGCD}
+J. Karelahti, K. Virtanen, and T. Raivio, ``Near-optimal missile avoidance trajectories via receding horizon control,'' \textit{J. Guid. Control Dyn.}, vol.~30, no.~5, pp.~1287--1298, 2007, doi: 10.2514/1.26024.
+
+\bibitem{Zhu2018AST}
+J. Zhu, R. He, G. Tang, and W. Bao, ``Pendulum maneuvering strategy for hypersonic glide vehicles,'' \textit{Aerosp. Sci. Technol.}, vol.~78, pp.~62--70, 2018, doi: 10.1016/j.ast.2018.03.038.
+
+\bibitem{Shen2022AST}
+Z. Shen, J. Yu, X. Dong, Y. Hua, and Z. Ren, ``Penetration trajectory optimization for the hypersonic gliding vehicle encountering two interceptors,'' \textit{Aerosp. Sci. Technol.}, vol.~121, Art.~107363, 2022, doi: 10.1016/j.ast.2022.107363.
+
+\bibitem{Gao2025AAS}
+S. Gao, D. Lin, D. Zheng, and C. Xu, ``Intelligent maneuvering penetration guidance strategies for aerial vehicles considering interceptor detection capability limitations,'' \textit{Acta Aeronaut. Astronaut. Sin.}, vol.~46, no.~10, Art.~331304, 2025, doi: 10.7527/S1000-6893.2024.31304.
+
+\bibitem{He2015FOV}
+S. He and D. Lin, ``A robust impact angle constraint guidance law with seeker's field-of-view limit,'' \textit{Trans. Inst. Meas. Control}, vol.~37, no.~3, pp.~317--328, 2015, doi: 10.1177/0142331214538278.
+
+\bibitem{Yu2020CJA}
+J. Yu, X. Dong, Q. Li, Z. Ren, and J. Lv, ``Cooperative guidance strategy for multiple hypersonic gliding vehicles system,'' \textit{Chinese J. Aeronaut.}, vol.~33, no.~3, pp.~990--1005, 2020, doi: 10.1016/j.cja.2019.12.003.
+
+\bibitem{Chen2024CJA}
+J. Chen, R. Sun, and Y. Lu, ``Cooperative game penetration guidance for multiple hypersonic vehicles under safety critical framework,'' \textit{Chinese J. Aeronaut.}, vol.~37, no.~1, pp.~247--255, 2024, doi: 10.1016/j.cja.2023.08.023.
+
+\bibitem{Chen2024TAES}
+J. Chen, R. Sun, Y. Lu, and R. Zhao, ``Adaptive cooperative game penetration guidance for multiple hypersonic vehicles with performance constraints,'' \textit{IEEE Trans. Aerosp. Electron. Syst.}, vol.~60, no.~4, pp.~5538--5555, 2024, doi: 10.1109/TAES.2024.3392874.
+
+\bibitem{Mnih2015Nature}
+V. Mnih, K. Kavukcuoglu, D. Silver, A. A. Rusu, J. Veness, M. G. Bellemare, A. Graves, M. Riedmiller, A. K. Fidjeland, G. Ostrovski, \textit{et al.}, ``Human-level control through deep reinforcement learning,'' \textit{Nature}, vol.~518, no.~7540, pp.~529--533, 2015, doi: 10.1038/nature14236.
+
+\bibitem{Schulman2017PPO}
+J. Schulman, F. Wolski, P. Dhariwal, A. Radford, and O. Klimov, ``Proximal policy optimization algorithms,'' arXiv:1707.06347, 2017.
+
+\bibitem{Lowe2017MADDPG}
+R. Lowe, Y. Wu, A. Tamar, J. Harb, P. Abbeel, and I. Mordatch, ``Multi-agent actor-critic for mixed cooperative-competitive environments,'' in \textit{Proc. 31st Int. Conf. Neural Inf. Process. Syst.}, 2017, pp.~6382--6393.
+
+\bibitem{Yu2022MAPPO}
+C. Yu, A. Velu, E. Vinitsky, J. Gao, Y. Wang, A. M. Bayen, and Y. Wu, ``The surprising effectiveness of PPO in cooperative multi-agent games,'' in \textit{Adv. Neural Inf. Process. Syst.}, vol.~35, 2022, pp.~24611--24624.
+
+\bibitem{Sunehag2018VDN}
+P. Sunehag, G. Lever, A. Gruslys, W. M. Czarnecki, V. Zambaldi, M. Jaderberg, M. Lanctot, N. Sonnerat, J. Z. Leibo, K. Tuyls, and T. Graepel, ``Value-decomposition networks for cooperative multi-agent learning,'' arXiv:1706.05296, 2017.
+
+\bibitem{Rashid2020JMLR}
+T. Rashid, M. Samvelyan, C. S. de Witt, G. Farquhar, J. Foerster, and S. Whiteson, ``Monotonic value function factorisation for deep multi-agent reinforcement learning,'' \textit{J. Mach. Learn. Res.}, vol.~21, no.~178, pp.~1--51, 2020.
+
+\bibitem{Foerster2018COMA}
+J. Foerster, G. Farquhar, T. Afouras, N. Nardelli, and S. Whiteson, ``Counterfactual multi-agent policy gradients,'' \textit{Proc. AAAI Conf. Artif. Intell.}, vol.~32, no.~1, 2018, doi: 10.1609/aaai.v32i1.11794.
+
+\bibitem{Iqbal2019MAAC}
+S. Iqbal and F. Sha, ``Actor-attention-critic for multi-agent reinforcement learning,'' in \textit{Proc. 36th Int. Conf. Mach. Learn.}, ser. Proc. Mach. Learn. Res., vol.~97, 2019, pp.~2961--2970.
+
+\bibitem{Gaudet2020AST}
+B. Gaudet, R. Furfaro, and R. Linares, ``Reinforcement learning for angle-only intercept guidance of maneuvering targets,'' \textit{Aerosp. Sci. Technol.}, vol.~99, Art.~105746, 2020, doi: 10.1016/j.ast.2020.105746.
+
+\bibitem{Liu2021AST}
+X. Liu, Y. Liang, H. Wang, and W. Chen, ``Learning prediction-correction guidance for impact time control,'' \textit{Aerosp. Sci. Technol.}, vol.~119, Art.~107187, 2021, doi: 10.1016/j.ast.2021.107187.
+
+\bibitem{Qiu2022JAE}
+X. Qiu, C. Gao, and W. Jing, ``Maneuvering penetration strategies of ballistic missiles based on deep reinforcement learning,'' \textit{Proc. Inst. Mech. Eng. Part G J. Aerosp. Eng.}, vol.~236, no.~16, 2022, doi: 10.1177/09544100221088361.
+
+\bibitem{Yan2022SciRep}
+M. Yan, R. Yang, Y. Zhang, L. Yue, and D. Hu, ``A hierarchical reinforcement learning method for missile evasion and guidance,'' \textit{Sci. Rep.}, vol.~12, Art.~18888, 2022, doi: 10.1038/s41598-022-21756-6.
+
+\bibitem{Hui2025CJA}
+Y. Hui, X. Li, C. Liang, Z. Zhang, and J. Yan, ``Multi-missile coordinated penetration strategy based on hierarchical reinforcement learning in reduced space,'' \textit{Chinese J. Aeronaut.}, vol.~38, no.~9, Art.~103375, 2025, doi: 10.1016/j.cja.2024.103375.
+
+\bibitem{Qiu2024AST}
+X. Qiu and C. Gao, ``Three-dimensional cooperative guidance with impact angle constraints via value-policy decomposed multi-agent reinforcement learning,'' \textit{Aerosp. Sci. Technol.}, vol.~155, Art.~109616, 2024, doi: 10.1016/j.ast.2024.109616.
+
+\bibitem{WeiYang2022CJA}
+Y. Wei, S. Wang, and Q. Zhu, ``Multi-missile cooperative guidance with target assignment and attack angle constraints,'' \textit{Chinese J. Aeronaut.}, vol.~35, no.~4, pp.~274--286, 2022, doi: 10.1016/j.cja.2021.07.027.
+
+\end{thebibliography}

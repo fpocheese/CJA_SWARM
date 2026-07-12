@@ -1,0 +1,9 @@
+scenario,seed,done_reason,success_any,success_all,hit_count,mean_min_dist_hvt,best_min_dist_hvt,offensive_alive_final,defensive_alive_final,attacker0_hit,attacker0_status,attacker1_hit,attacker1_status,attacker2_hit,attacker2_status
+scenario_3v3_single_policy,400,timeout,1,0,2,26.644951749011195,1.4794815320822718,3,3,1,hit_hvt,1,hit_hvt,0,alive_timeout
+scenario_3v3_single_policy,401,timeout,1,0,1,1434.292361036715,0.618849052642868,2,2,1,hit_hvt,0,killed,0,alive_timeout
+scenario_3v3_single_policy,402,timeout,0,0,0,2444.11274922853,138.58210384499068,1,1,0,killed,0,killed,0,alive_timeout
+scenario_3v3_single_policy,403,timeout,0,0,0,1408.2092618819277,41.45971253692878,1,2,0,killed,0,killed,0,alive_timeout
+scenario_3v3_single_policy,404,partial_success,1,0,1,1376.366553901152,3.9684787736089446,1,2,0,killed,1,hit_hvt,0,killed
+scenario_3v3_single_policy,405,all_killed,0,0,0,3784.740475020885,3085.6853508305276,0,0,0,killed,0,killed,0,killed
+scenario_3v3_single_policy,406,timeout,1,0,1,45.32897976725598,4.616043389043923,2,3,0,killed,1,hit_hvt,0,alive_timeout
+scenario_3v3_single_policy,407,timeout,1,0,1,1418.60589967904,1.4483781080828153,2,2,1,hit_hvt,0,killed,0,alive_timeout

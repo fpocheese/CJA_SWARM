@@ -1,0 +1,49 @@
+{
+  "case": "baseline",
+  "n_offensive": 4,
+  "n_defensive": 4,
+  "seeds_rendered": [
+    1003,
+    1007,
+    1009,
+    1010,
+    1011
+  ],
+  "episodes": [
+    {
+      "seed": 1003,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.557621520069103,
+      "final_step": 7071
+    },
+    {
+      "seed": 1007,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.728157536720288,
+      "final_step": 7052
+    },
+    {
+      "seed": 1009,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.663451371875291,
+      "final_step": 5755
+    },
+    {
+      "seed": 1010,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.983919770049768,
+      "final_step": 6330
+    },
+    {
+      "seed": 1011,
+      "success": true,
+      "hit_count": 1,
+      "best_min_dist_m": 4.889677112387215,
+      "final_step": 7607
+    }
+  ]
+}

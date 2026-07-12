@@ -1,0 +1,106 @@
+{
+  "timestamp": "20260501_160632",
+  "tag": "paper",
+  "model_dir": "outputs/results/fov_penetration/mappo/v69_hybrid_terminal_pn/run3/models_hit3_hourly_20260501_145607_snapshot",
+  "reward_profile": "v68strictpnfix",
+  "obs_mask": "v65_strict_los",
+  "terminal_guidance": "pn_los",
+  "terminal_pn_gain": 8.0,
+  "terminal_pn_max_action": 0.8,
+  "scenario_case": "six_defenders",
+  "scenario_label": "4v6 defense with nominal maneuver envelope",
+  "scenario_info": {
+    "case": "six_defenders",
+    "label": "4v6 defense with nominal maneuver envelope",
+    "n_offensive": 4,
+    "n_defensive": 6,
+    "defender_maneuver": "nominal 5g, v=55 m/s",
+    "policy_observation": "fixed actor observation; highest-threat defenders are selected without expanding input dimension"
+  },
+  "seeds": [
+    1000,
+    1001,
+    1002
+  ],
+  "episodes": [
+    {
+      "seed": 1000,
+      "hit_count": 0,
+      "hit_indices": [],
+      "final_step": 8000,
+      "done_reason": "timeout",
+      "min_dist_per_agent_m": [
+        32.72566174212418,
+        1628.951391575013,
+        1505.9013804633246,
+        1770.5133071532907
+      ],
+      "min_step_per_agent": [
+        7679,
+        2626,
+        2830,
+        2416
+      ],
+      "best_min_dist_m": 32.72566174212418,
+      "success": false
+    },
+    {
+      "seed": 1001,
+      "hit_count": 1,
+      "hit_indices": [
+        2
+      ],
+      "final_step": 5457,
+      "done_reason": "success",
+      "min_dist_per_agent_m": [
+        34.21094069008113,
+        1758.3090707644778,
+        4.98205997364458,
+        1678.0777181788067
+      ],
+      "min_step_per_agent": [
+        4941,
+        2692,
+        5457,
+        2458
+      ],
+      "best_min_dist_m": 4.98205997364458,
+      "success": true
+    },
+    {
+      "seed": 1002,
+      "hit_count": 0,
+      "hit_indices": [],
+      "final_step": 8000,
+      "done_reason": "timeout",
+      "min_dist_per_agent_m": [
+        18.836534510043116,
+        1752.4487351644043,
+        11.576007574877512,
+        892.0003989713034
+      ],
+      "min_step_per_agent": [
+        6467,
+        2511,
+        5806,
+        3681
+      ],
+      "best_min_dist_m": 11.576007574877512,
+      "success": false
+    }
+  ],
+  "success_episodes": 1,
+  "total_hits": 1,
+  "hit_rate": 0.3333333333333333,
+  "best_min_dist_m": 4.98205997364458,
+  "figures": [
+    "fig01_trajectory_3d",
+    "fig02_distance_phase",
+    "fig03_speed_heading_accel",
+    "fig04_los_guidance",
+    "fig05_game_metrics",
+    "fig06_breach_geometry",
+    "fig07_breach_moment_detail",
+    "fig08_strike_interceptor_range"
+  ]
+}

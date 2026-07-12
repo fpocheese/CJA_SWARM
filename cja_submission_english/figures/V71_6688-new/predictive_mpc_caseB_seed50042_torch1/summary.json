@@ -1,0 +1,38 @@
+{
+  "case": "predictive_mpc_caseB_seed50042_torch1",
+  "source_case": "caseB_seed50042_torch1",
+  "method": "predictive_mpc",
+  "seed": 50042,
+  "n_offensive": 4,
+  "n_defensive": 4,
+  "success": false,
+  "hit_count": 0,
+  "hit_indices": [],
+  "hit_step": {},
+  "death_step": {
+    "0": 1429,
+    "1": 1730,
+    "2": 1928,
+    "3": 1826
+  },
+  "done_reason": "all_killed",
+  "final_step": 1928,
+  "final_time_s": 19.28,
+  "offensive_alive": 0,
+  "defensive_alive": 0,
+  "best_agent": 2,
+  "best_hvt_distance_m": 1532.8100326242584,
+  "min_dist_per_agent_m": [
+    1640.6031415274163,
+    1586.1662149121287,
+    1532.8100326242584,
+    1653.4814415506457
+  ],
+  "elapsed_s": 13.747554063796997,
+  "files": [
+    "game_data.npz",
+    "summary.json",
+    "trajectory_data.npz"
+  ],
+  "method_notes": "Recent online-planning PE idea adapted as a deterministic candidate-rollout attacker controller."
+}

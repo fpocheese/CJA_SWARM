@@ -1,0 +1,1205 @@
+[
+  {
+    "iteration": 1,
+    "direction": "methodology_and_units_hardening",
+    "rationale": "The user identified the HIL setup paragraphs as report-like and insufficiently rigorous. First iteration focuses on architecture, delay/noise units, and measured physical quantities."
+  },
+  {
+    "iteration": 2,
+    "direction": "normalization_scale_disambiguation",
+    "rationale": "The HIL paragraph converts normalized noise to physical units. The manuscript's parameter table uses other reference scales, so the HIL-specific input normalization scales must be explicit."
+  },
+  {
+    "iteration": 3,
+    "direction": "hil_action_loop_precision",
+    "rationale": "The platform paragraph should describe the closed-loop control path precisely: local observation, actor inference, normalized action, terminal PN/action mapping, dynamics propagation."
+  },
+  {
+    "name": "representative_initial_state_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T16:41:14",
+    "evidence": "Added tab:sim-ic-10v10 from 10v10_seed100015 trajectory_data.npz and updated manuscript text to reference separate 6v6/8v8 and 10v10 initial-state tables."
+  },
+  {
+    "name": "latex_syntax_and_numeric_consistency_hardening",
+    "status": "completed",
+    "timestamp": "2026-07-02T16:45:46",
+    "evidence": "Rewrote tab:sim-ic-10v10 with correct LaTeX command/row terminators and corrected MC paragraph to match table values 98.5/100.0/99.5."
+  },
+  {
+    "name": "evidence_backed_case_claim_audit",
+    "status": "completed",
+    "timestamp": "2026-07-02T16:48:43",
+    "evidence": "Verified HIL summaries, trajectory kinematics, live-interceptor distances and def_ltgt target transitions; corrected the 10v10 D5/D8 target-assignment narrative and softened single-case claims."
+  },
+  {
+    "name": "section_flow_and_transition_hardening",
+    "status": "completed",
+    "timestamp": "2026-07-02T16:51:27",
+    "evidence": "Added bridges from training convergence to HIL case studies, from representative HIL cases to Monte Carlo statistics, and from MC robustness to prior-channel ablation; rewrote section summary to link HIL, MC, and ablation evidence."
+  },
+  {
+    "name": "evidence_boundary_and_overclaim_control",
+    "status": "completed",
+    "timestamp": "2026-07-02T16:53:32",
+    "evidence": "Separated HIL representative-case evidence from local-perturbation Monte Carlo statistics; softened prove/exclude wording to evidence-consistent language."
+  },
+  {
+    "name": "submission_tone_claim_strength_polishing",
+    "status": "completed",
+    "timestamp": "2026-07-02T16:55:09",
+    "evidence": "Replaced remaining absolute verify/check wording in HIL case introductions and training-to-HIL bridge with evaluation-oriented language."
+  },
+  {
+    "name": "hil_experiment_purpose_wording_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T16:56:30",
+    "evidence": "Changed HIL platform introduction from verification-oriented wording to evaluation-oriented wording; no compile or static audit was run."
+  },
+  {
+    "name": "terminology_and_table_style_normalization",
+    "status": "completed",
+    "timestamp": "2026-07-02T16:57:47",
+    "evidence": "Normalized combat-scale notation in simulation tables, Chinese parentheses for method label, and translated residual episode/critic-loss wording in the simulation section."
+  },
+  {
+    "name": "scale_notation_latex_escape_micro_audit",
+    "status": "completed",
+    "timestamp": "2026-07-02T16:58:57",
+    "evidence": "Checked simulation-section times command escaping after scale notation normalization: double_times_commands=0; no manuscript edit required."
+  },
+  {
+    "name": "figure_interpretation_style_polish",
+    "status": "completed",
+    "timestamp": "2026-07-02T16:59:48",
+    "evidence": "Replaced informal or less consistent figure-interpretation phrases with formal 由图可知 wording in selected training and HIL case paragraphs."
+  },
+  {
+    "name": "hil_platform_typography_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:00:52",
+    "evidence": "Normalized spacing around NVIDIA Jetson NX, TCP, HIL input, and HIL link descriptions in the simulation section."
+  },
+  {
+    "name": "server_side_policy_node_wording_polish",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:01:47",
+    "evidence": "Replaced report-style 补足 wording in 6v6/8v8/10v10 HIL case introductions with formal 执行对应进攻策略推理 wording."
+  },
+  {
+    "name": "hil_deployment_wording_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:02:49",
+    "evidence": "Unified three representative HIL case introductions to use 硬件侧部署并运行 A0--A4 wording."
+  },
+  {
+    "name": "initial_state_table_caption_scope_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:04:13",
+    "evidence": "Changed tab:sim-ic caption from generic 各工况 to explicit 6x6 and 8x8 scope because 10x10 is now documented in a separate table."
+  },
+  {
+    "name": "monte_carlo_table_header_unit_formatting",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:05:11",
+    "evidence": "Changed Monte Carlo table header from 目标打击脱靶量 (m) to 目标打击脱靶量/m."
+  },
+  {
+    "name": "hil_policy_model_terminology_precision",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:06:12",
+    "evidence": "Changed three HIL representative case introductions from deploying/running offensive policies to deploying/running offensive policy models."
+  },
+  {
+    "name": "hil_overall_policy_model_wording_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:07:24",
+    "evidence": "Changed overall HIL setup paragraph from five offensive policy nodes to A0--A4 offensive policy models and policy inference nodes."
+  },
+  {
+    "name": "hil_scaling_policy_index_mapping_precision",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:08:34",
+    "evidence": "Changed ambiguous 新增飞行器 mapping wording to 超出硬件部署数量的进攻飞行器按训练策略编号循环映射."
+  },
+  {
+    "name": "combat_scale_latex_notation_normalization",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:09:25",
+    "evidence": "Replaced nonstandard $6$v$6$, $8$v$8$, and $10$v$10$ notation with $6\\times6$, $8\\times8$, and $10\\times10$ in 9 locations."
+  },
+  {
+    "name": "combat_scale_times_escape_micro_audit",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:10:36",
+    "evidence": "Checked for accidental double-backslash times commands after combat-scale notation replacement; fixed_double_backslash_times=0."
+  },
+  {
+    "name": "ablation_interpretation_quantitative_wording",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:11:51",
+    "evidence": "Replaced qualitative 几乎失去突防能力 wording with table-supported success-rate statement below 1.3 percent."
+  },
+  {
+    "name": "ablation_threshold_wording_strictness",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:13:02",
+    "evidence": "Changed success-rate statement from below 1.3 percent to not higher than 1.3 percent, matching the table maximum exactly."
+  },
+  {
+    "name": "hil_kinematic_response_causality_softening",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:14:16",
+    "evidence": "Changed kinematic-response interpretations from causal communication/delay claims to curve-supported representative-case observations."
+  },
+  {
+    "name": "defensive_assignment_terminology_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:15:29",
+    "evidence": "Changed current-target wording in 6v6 and 10v10 defensive-response paragraphs to target-assignment wording."
+  },
+  {
+    "name": "defensive_reassignment_target_loss_wording_precision",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:16:47",
+    "evidence": "Changed ambiguous 目标死亡与重分配 wording to 被分配进攻目标损毁与后续重分配 in the 10v10 defensive ratio analysis."
+  },
+  {
+    "name": "hil_setup_attribution_wording_control",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:17:55",
+    "evidence": "Replaced strong attribution wording in HIL setup with a more neutral statement about highlighting embedded policy deployment and state-transfer effects on closed-loop execution."
+  },
+  {
+    "name": "interceptor_selected_as_target_wording_precision",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:19:07",
+    "evidence": "Changed two occurrences of actual selection by surviving interceptors to selection as attack target, aligning with defensive target-assignment terminology."
+  },
+  {
+    "name": "defensive_assignment_anthropomorphic_wording_removal",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:20:22",
+    "evidence": "Replaced two occurrences of 主动转向 with neutral 转向 in defensive target-assignment analysis."
+  },
+  {
+    "name": "task_preference_confidence_wording_precision",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:21:21",
+    "evidence": "Changed high-confidence main-attack role wording to high-confidence main-attack role judgment in the 8v8 task-preference analysis."
+  },
+  {
+    "name": "hil_policy_inference_node_terminology_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:22:30",
+    "evidence": "Changed HIL platform architecture wording from offensive policy node to offensive policy inference node."
+  },
+  {
+    "name": "hil_policy_network_inference_wording_precision",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:23:35",
+    "evidence": "Changed HIL platform process wording from network inference to policy-network inference."
+  },
+  {
+    "name": "complete_method_terminology_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:24:46",
+    "evidence": "Changed Monte Carlo-to-ablation transition from 完整策略 to 完整方法 to match table naming."
+  },
+  {
+    "name": "monte_carlo_caption_local_perturbation_scope",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:26:18",
+    "evidence": "Changed tab:mc-stat caption from generic Monte Carlo statistics to local-perturbation Monte Carlo statistics."
+  },
+  {
+    "name": "ablation_table_channel_name_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:27:31",
+    "evidence": "Changed ablation table header from 去除威胁安全裕度 to 去除威胁安全裕度通道 to match the channel-ablation description."
+  },
+  {
+    "name": "ablation_table_two_channel_headers_consistency",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:28:37",
+    "evidence": "Added 通道 to the teammate-containment and penetration-hit prior ablation header so both ablation columns use channel-level wording."
+  },
+  {
+    "name": "ablation_table_header_compactness",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:30:04",
+    "evidence": "Shortened the second ablation column header while preserving channel-removal meaning."
+  },
+  {
+    "name": "ablation_table_header_slash_to_formal_conjunction",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:31:05",
+    "evidence": "Changed ablation header from slash-separated teammate-containment/penetration-hit wording to formal 与 conjunction wording."
+  },
+  {
+    "name": "training_reward_curve_wording_polish",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:32:13",
+    "evidence": "Replaced colloquial reward plateau wording with higher reward level and converged return level wording in the training analysis paragraph."
+  },
+  {
+    "name": "training_reward_curve_claim_strength_polish",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:33:20",
+    "evidence": "Softened reward-curve wording from highest interval / large gap to higher interval / relatively lower reward level."
+  },
+  {
+    "name": "training_critic_loss_subject_clarity",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:34:36",
+    "evidence": "Clarified that the decreasing quantity for MAPPO/IPPO/IA2C is critic-network loss."
+  },
+  {
+    "name": "training_critic_loss_error_level_wording",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:35:41",
+    "evidence": "Changed inaccurate weak-error wording to slower convergence and higher final error level wording in the critic-loss analysis."
+  },
+  {
+    "name": "training_critic_loss_level_wording_polish",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:37:20",
+    "evidence": "Changed IQL loss wording from higher interval to higher level in the critic-loss analysis."
+  },
+  {
+    "name": "critic_loss_chinese_terminology_residual_check",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:38:29",
+    "evidence": "Attempted to replace residual RTA-MAPPO critic loss wording; target phrase count was zero, so no manuscript edit was required."
+  },
+  {
+    "name": "simulation_summary_stability_claim_softening",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:39:33",
+    "evidence": "Changed final simulation-section summary from stable cooperative penetration behavior to relatively stable cooperative penetration behavior."
+  },
+  {
+    "name": "simulation_summary_reference_clarity",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:40:39",
+    "evidence": "Changed vague 该行为 reference to 上述协同突防行为 in the simulation-section summary."
+  },
+  {
+    "name": "hil_terminal_pn_guidance_wording_precision",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:41:51",
+    "evidence": "Changed terminal proportional-navigation wrapper wording to terminal proportional-navigation law encapsulation in the HIL action chain."
+  },
+  {
+    "name": "hil_server_responsibility_wording_precision",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:43:50",
+    "evidence": "Changed server-side HIL architecture wording to explicitly state environment-state update, dynamics propagation, and defensive decision-module execution."
+  },
+  {
+    "name": "hil_action_vector_math_spacing",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:45:18",
+    "evidence": "Added spacing before the normalized action vector math symbol in the HIL platform paragraph."
+  },
+  {
+    "name": "hvt_abbreviation_readability_in_case_results",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:46:55",
+    "evidence": "Added 高价值目标 parenthetical to HVT in the first hit-description sentence of each representative HIL case."
+  },
+  {
+    "name": "hil_defense_decision_wording_refinement",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:48:11",
+    "evidence": "Changed server-side wording from executing the defensive decision module to executing defensive-group decision making."
+  },
+  {
+    "name": "initial_condition_sampling_wording_precision",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:49:29",
+    "evidence": "Changed the simulation setup lead-in from initial conditions being set to being randomly sampled from the stated distributions."
+  },
+  {
+    "name": "simulation_case_count_and_evaluation_wording",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:51:09",
+    "evidence": "Changed setup sentence from multi-scale verification wording to three-scale evaluation wording."
+  },
+  {
+    "name": "hvt_definition_placement_normalization",
+    "status": "completed",
+    "timestamp": "2026-07-02T17:52:48",
+    "evidence": "Moved HVT Chinese definition to simulation setup first occurrence and removed three repeated case-level parentheticals."
+  },
+  {
+    "name": "hvt_abbreviation_source_definition_normalization",
+    "iteration": 57,
+    "status": "applied",
+    "note": "Standardized the first HVT definition as high-value target (HVT)."
+  },
+  {
+    "name": "representative_hil_scale_notation_consistency",
+    "iteration": 58,
+    "status": "applied",
+    "note": "Unified representative HIL case scale notation from textual 6v6 / 对 notation to $n\\times n$ mathematical notation."
+  },
+  {
+    "name": "jetson_nx_hil_hardware_side_description_precision",
+    "iteration": 59,
+    "status": "applied",
+    "note": "Made the HIL platform description explicitly state that five NVIDIA Jetson NX devices host offensive policy inference nodes."
+  },
+  {
+    "name": "hil_link_scope_isolation_evaluation_wording",
+    "iteration": 60,
+    "status": "applied",
+    "note": "Reworded the HIL-link scope sentence to state isolation evaluation rather than informal emphasis."
+  },
+  {
+    "name": "representative_hil_subsection_opening_scale_notation_consistency",
+    "iteration": 61,
+    "status": "applied",
+    "note": "Confirmed no double-backslash times commands in the simulation section, then unified subsection opening scenario notation to $n\\times n$."
+  },
+  {
+    "name": "latex_times_command_hard_error_correction_after_scale_notation_edits",
+    "iteration": 62,
+    "status": "applied",
+    "note": "Targeted replacement of accidental double-backslash times commands; count_before=0."
+  },
+  {
+    "name": "hvt_abbreviation_first_use_order_in_simulation_scenario_definition",
+    "iteration": 63,
+    "status": "applied",
+    "note": "Avoided using HVT abbreviation immediately before its simulation-section definition."
+  },
+  {
+    "name": "conclusion_simulation_result_claim_tone_hardening",
+    "iteration": 64,
+    "status": "applied",
+    "note": "Replaced promotional conclusion wording about intelligentized combat level with evidence-aligned task differentiation and online reconfiguration capability."
+  },
+  {
+    "name": "conclusion_item4_evidence_boundary_tone_hardening",
+    "iteration": 65,
+    "status": "applied",
+    "note": "Rewrote conclusion item 4 to avoid promotional tactical wording and align with HIL/MC/ablation evidence."
+  },
+  {
+    "name": "10x10_representative_case_conclusion_evidence_boundary_hardening",
+    "iteration": 66,
+    "status": "applied",
+    "note": "Unified the residual 10-to-10 notation and softened a single-case scale-extension claim to case-level deployment support."
+  },
+  {
+    "name": "actual_double_backslash_times_command_correction",
+    "iteration": 67,
+    "status": "applied",
+    "note": "Corrected actual literal double-backslash times commands to single-backslash LaTeX \\times; count_before=0, count_after=0."
+  },
+  {
+    "name": "corrected_actual_two_backslash_times_guard_after_overescaped_check",
+    "iteration": 68,
+    "status": "applied",
+    "note": "Corrected iteration-67 over-escaped guard; checked actual two-backslash times pattern; count_before=43, count_after=43."
+  },
+  {
+    "name": "actual_repair_of_double_backslash_times_noop_replacement",
+    "iteration": 69,
+    "status": "applied",
+    "note": "Fixed the no-op from iteration 68 by constructing replacement strings explicitly; count_before=0, count_after=0."
+  },
+  {
+    "name": "chr92_exact_double_backslash_times_correction",
+    "iteration": 70,
+    "status": "applied",
+    "note": "Used chr(92) to avoid escape ambiguity; two-backslash times count_before=0, count_after=0."
+  },
+  {
+    "name": "hil_local_observation_masking_wording_and_scale_spacing_polish",
+    "iteration": 71,
+    "status": "applied",
+    "note": "Refined local-observation masking wording in the HIL platform paragraph and normalized spacing around scale math notation."
+  },
+  {
+    "name": "hil_action_generation_chain_wording_refinement",
+    "iteration": 72,
+    "status": "applied",
+    "note": "Replaced implementation-like terminal guidance packaging wording with an explicit action-to-acceleration conversion statement."
+  },
+  {
+    "name": "simulation_server_configuration_wording_normalization",
+    "iteration": 73,
+    "status": "applied",
+    "note": "Normalized the simulation server configuration sentence to a concise CPU/GPU configuration statement."
+  },
+  {
+    "name": "quantified_monte_carlo_robustness_bridge_before_ablation",
+    "iteration": 74,
+    "status": "applied",
+    "note": "Replaced vague statistical robustness wording before ablation with the evidence-backed minimum Monte Carlo success rate of 98.5%."
+  },
+  {
+    "name": "quantified_stability_claim_in_simulation_section_summary",
+    "iteration": 75,
+    "status": "applied",
+    "note": "Replaced vague simulation-section summary stability wording with minimum Monte Carlo success-rate evidence."
+  },
+  {
+    "name": "8x8_representative_case_introduction_evidence_boundary_hardening",
+    "iteration": 76,
+    "status": "applied",
+    "note": "Replaced a representative-case scale/stability evaluation claim with an analysis-focused description of cooperative penetration process and task differentiation."
+  },
+  {
+    "name": "6x6_representative_case_introduction_evidence_boundary_hardening",
+    "iteration": 77,
+    "status": "applied",
+    "note": "Reframed the 6x6 representative episode as process analysis rather than a stability evaluation."
+  },
+  {
+    "name": "10x10_representative_case_introduction_evidence_boundary_hardening",
+    "iteration": 78,
+    "status": "applied",
+    "note": "Reframed the 10x10 representative episode as process analysis rather than a stability/task-differentiation evaluation."
+  },
+  {
+    "name": "hil_remaining_offensive_agents_wording_refinement",
+    "iteration": 79,
+    "status": "applied",
+    "note": "Refined the server-side non-NX offensive-agent wording in the HIL platform paragraph."
+  },
+  {
+    "name": "10x10_defense_damage_state_claim_softening",
+    "iteration": 80,
+    "status": "applied",
+    "note": "Softened an overstrong 10x10 case-analysis phrase about preventing defensive damage into a hit-before-effective-damage statement."
+  },
+  {
+    "name": "hil_non_nx_offensive_policy_inference_subject_predicate_correction",
+    "iteration": 81,
+    "status": "applied",
+    "note": "Corrected the HIL paragraph subject-predicate relation by stating that server-side homogeneous nodes execute policy inference for remaining offensive vehicles."
+  },
+  {
+    "name": "simulation_section_summary_opening_evidence_boundary_hardening",
+    "iteration": 82,
+    "status": "applied",
+    "note": "Reframed the simulation-section summary opening around HIL representative episodes and local-perturbation Monte Carlo evidence."
+  },
+  {
+    "name": "simulation_section_summary_hil_evidence_repetition_removal",
+    "iteration": 83,
+    "status": "applied",
+    "note": "Removed immediate repetition of “三组 HIL 代表回合” in the simulation-section summary by replacing the second occurrence with a transition phrase."
+  },
+  {
+    "name": "conclusion_item4_quantified_cooperative_penetration_claim",
+    "iteration": 84,
+    "status": "applied",
+    "note": "Replaced vague “较稳定” conclusion wording with HIL representative-episode and minimum Monte Carlo success-rate evidence."
+  },
+  {
+    "name": "hil_cyclic_policy_parameter_index_mapping_clarification",
+    "iteration": 85,
+    "status": "applied",
+    "note": "Clarified that cyclic mapping for non-NX offensive agents applies only to policy parameter indices, while observations and action outputs remain independent per inference node."
+  },
+  {
+    "name": "monte_carlo_complete_method_naming_consistency",
+    "iteration": 86,
+    "status": "applied",
+    "note": "Unified Monte Carlo paragraph wording from “本文方法” to “所提完整方法” to align with ablation/table terminology."
+  },
+  {
+    "name": "training_critic_loss_paragraph_spacing_typo_correction",
+    "iteration": 87,
+    "status": "applied",
+    "note": "Removed an erroneous space in “评论家网络损失 在” within the training critic-loss analysis paragraph."
+  },
+  {
+    "name": "training_convergence_episode_terminology_localization",
+    "iteration": 88,
+    "status": "applied",
+    "note": "Localized the remaining “episode” term in the training-convergence paragraph to “训练回合”."
+  },
+  {
+    "name": "simulation_condition_setup_purpose_wording_hardening",
+    "iteration": 89,
+    "status": "applied",
+    "note": "Changed the simulation-condition setup sentence from an early scale-adaptability evaluation claim to neutral coverage of different offense-defense scales."
+  },
+  {
+    "name": "monte_carlo_miss_distance_trend_wording_refinement",
+    "iteration": 90,
+    "status": "applied",
+    "note": "Replaced informal “明显退化” wording with a trend-based statement for terminal miss-distance statistics."
+  },
+  {
+    "name": "training_reward_paragraph_causal_claim_softening",
+    "iteration": 91,
+    "status": "applied",
+    "note": "Softened the training-reward paragraph from a strong causal claim about reducing exploration difficulty to an efficiency-oriented interpretation."
+  },
+  {
+    "name": "training_critic_loss_paragraph_value_estimation_claim_softening",
+    "iteration": 92,
+    "status": "applied",
+    "note": "Softened critic-loss interpretation from value-function fit causality to value-estimation-error reduction supported by loss curves."
+  },
+  {
+    "name": "training_critic_loss_absolute_wording_softening",
+    "iteration": 93,
+    "status": "applied",
+    "note": "Replaced absolute “最低且最稳定” critic-loss wording with relative low-error/low-fluctuation wording."
+  },
+  {
+    "name": "training_quality_claim_evidence_alignment_refinement",
+    "iteration": 94,
+    "status": "applied",
+    "note": "Replaced broad training-quality wording with direct reward-convergence and value-estimation-error evidence."
+  },
+  {
+    "name": "training_reward_relative_level_wording_refinement",
+    "iteration": 95,
+    "status": "applied",
+    "note": "Refined vague reward-level wording to explicitly refer to normalized reward and comparison among methods."
+  },
+  {
+    "name": "training_reward_rta_mappo_naming_consistency",
+    "iteration": 96,
+    "status": "applied",
+    "note": "Changed awkward “本文 RTA-MAPPO” wording to “所提 RTA-MAPPO” in the training reward analysis paragraph."
+  },
+  {
+    "name": "training_reward_baseline_comparison_naming_and_tone_refinement",
+    "iteration": 97,
+    "status": "applied",
+    "note": "Changed baseline comparison wording from “明显低于本文方法” to “低于所提 RTA-MAPPO”."
+  },
+  {
+    "name": "training_critic_loss_baseline_comparison_naming_consistency",
+    "iteration": 98,
+    "status": "applied",
+    "note": "Changed critic-loss comparison wording from “高于本文方法” to “高于所提 RTA-MAPPO”."
+  },
+  {
+    "name": "training_reward_final_sentence_method_naming_consistency",
+    "iteration": 99,
+    "status": "applied",
+    "note": "Changed training reward final-sentence subject from “本文所提方法” to “所提 RTA-MAPPO”."
+  },
+  {
+    "name": "training_critic_loss_analytic_prior_naming_consistency",
+    "iteration": 100,
+    "status": "applied",
+    "note": "Changed “本文引入的解析先验” to “所提解析先验” in the training critic-loss paragraph."
+  },
+  {
+    "name": "training_critic_loss_analytic_prior_terminology_full_consistency",
+    "iteration": 101,
+    "status": "applied",
+    "note": "Unified the second nearby “所提理论先验” occurrence to “所提解析先验” in the training critic-loss paragraph."
+  },
+  {
+    "name": "6x6_hil_kinematic_control_oscillation_wording_refinement",
+    "iteration": 102,
+    "status": "applied",
+    "note": "Replaced informal “明显控制振荡” wording with “可辨识的控制振荡” in the 6x6 HIL kinematic analysis."
+  },
+  {
+    "iteration": 103,
+    "timestamp": "2026-07-02T18:44:40+0800",
+    "direction": "8x8_hil_role_analysis_overstrong_wording_softening",
+    "result": "edited",
+    "stale": false,
+    "note": "Removed the unsupported intensity adverb 显著 before the numeric preference value and softened an absolute inability claim into a time-bounded observation."
+  },
+  {
+    "iteration": 104,
+    "timestamp": "2026-07-02T18:45:39+0800",
+    "direction": "10x10_hil_spatial_margin_wording_refinement",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced a qualitative significance claim with an engineering spatial-safety-margin interpretation tied to the reported minimum interceptor distance."
+  },
+  {
+    "iteration": 105,
+    "timestamp": "2026-07-02T18:46:47+0800",
+    "direction": "hil_summary_evidence_range_tightening",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced qualitative high-threat/high-preference summary wording with numeric ranges from the three representative HIL cases."
+  },
+  {
+    "iteration": 106,
+    "timestamp": "2026-07-02T18:47:51+0800",
+    "direction": "6x6_hil_role_preference_evidence_wording",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced the colloquial role-mis-switching claim with a numeric task-preference evolution statement from 0.85 to 0.97."
+  },
+  {
+    "iteration": 107,
+    "timestamp": "2026-07-02T18:49:02+0800",
+    "direction": "8x8_hil_spatial_margin_quantification",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced abstract 8x8 distance-window wording with a 50x damage-radius margin and the D3 target-switch timing."
+  },
+  {
+    "iteration": 108,
+    "timestamp": "2026-07-02T18:50:04+0800",
+    "direction": "6x6_hil_defensive_ratio_evidence_linkage",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced abstract penetration-advantage wording with a conclusion tied to early allocation-failure ratio and closest-interceptor safety distance."
+  },
+  {
+    "iteration": 109,
+    "timestamp": "2026-07-02T18:51:12+0800",
+    "direction": "8x8_hil_role_preference_confidence_wording_removal",
+    "result": "edited",
+    "stale": false,
+    "note": "Removed the undefined confidence framing and used the main-attack preference increase from 0.75 to 0.97 as direct evidence."
+  },
+  {
+    "iteration": 110,
+    "timestamp": "2026-07-02T18:52:10+0800",
+    "direction": "10x10_hil_defensive_ratio_trend_wording",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced the colloquial 越来越难以 trend wording with a time-bounded statement that interceptors did not restore an effective main-direction encirclement before impact."
+  },
+  {
+    "iteration": 111,
+    "timestamp": "2026-07-02T18:53:16+0800",
+    "direction": "10x10_hil_role_preference_numeric_evolution",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced qualitative high/increasing main-attack preference wording with the measured increase from 0.84 to 0.96 under high threat and target-selection ratio."
+  },
+  {
+    "iteration": 112,
+    "timestamp": "2026-07-02T18:54:19+0800",
+    "direction": "10x10_hil_scale_boundary_wording",
+    "result": "edited",
+    "stale": false,
+    "note": "Bounded 10x10 HIL claims to the maximum tested scale instead of implying extrapolation to untested higher scales."
+  },
+  {
+    "iteration": 113,
+    "timestamp": "2026-07-02T18:55:25+0800",
+    "direction": "10x10_hil_effective_damage_evidence_boundary",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced qualitative effective-damage wording with a statement tied to the 242.41 m closest-interceptor distance staying outside the 5 m damage radius."
+  },
+  {
+    "iteration": 114,
+    "timestamp": "2026-07-02T18:56:47+0800",
+    "direction": "ablation_result_analysis_numeric_specificity",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced qualitative ablation-drop wording with exact success rates 17.5%, 68.0%, and 93.5% for the threat-margin channel removal."
+  },
+  {
+    "iteration": 115,
+    "timestamp": "2026-07-02T18:57:46+0800",
+    "direction": "monte_carlo_baseline_comparison_claim_boundary",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced speculative baseline mechanism explanation with direct success-rate range comparison across methods."
+  },
+  {
+    "iteration": 116,
+    "timestamp": "2026-07-02T18:59:24+0800",
+    "direction": "monte_carlo_stability_wording_numeric_lower_bound",
+    "result": "edited_after_initial_match_failure",
+    "stale": false,
+    "note": "Replaced qualitative stable-cooperation wording with the direct lower bound that penetration success is not below 98.5% across tested scales."
+  },
+  {
+    "iteration": 117,
+    "timestamp": "2026-07-02T19:00:31+0800",
+    "direction": "monte_carlo_miss_distance_range_specificity",
+    "result": "edited",
+    "stale": false,
+    "note": "Scoped the miss-distance conclusion to the complete method and inserted its 4.74--4.80 m average miss-distance range."
+  },
+  {
+    "iteration": 118,
+    "timestamp": "2026-07-02T19:01:43+0800",
+    "direction": "conclusion_item_4_hil_mc_evidence_alignment",
+    "result": "edited",
+    "stale": false,
+    "note": "Aligned conclusion item 4 with the quantified HIL and Monte Carlo evidence already introduced in the simulation section."
+  },
+  {
+    "iteration": 119,
+    "timestamp": "2026-07-02T19:02:46+0800",
+    "direction": "mc_to_ablation_bridge_redundancy_removal",
+    "result": "edited",
+    "stale": false,
+    "note": "Removed duplicate MC success-rate lower-bound statement after the MC table and converted it into a transition to ablation analysis."
+  },
+  {
+    "iteration": 120,
+    "timestamp": "2026-07-02T19:04:04+0800",
+    "direction": "ablation_mechanism_claim_boundary_refinement",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced direct qualitative mechanism degradation wording with a bounded statement that the success-rate decrease corresponds to weakened decoy and main-channel maintenance."
+  },
+  {
+    "iteration": 121,
+    "timestamp": "2026-07-02T19:05:44+0800",
+    "direction": "simulation_summary_ablation_numeric_evidence",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced the strong key-factor summary claim with compact numerical ablation evidence from the prior-channel table."
+  },
+  {
+    "iteration": 122,
+    "timestamp": "2026-07-02T19:06:48+0800",
+    "direction": "conclusion_item_4_ablation_numeric_evidence_alignment",
+    "result": "edited",
+    "stale": false,
+    "note": "Removed the key-factor claim from conclusion item 4 and replaced it with the two ablation success-rate ranges."
+  },
+  {
+    "iteration": 123,
+    "timestamp": "2026-07-02T19:07:53+0800",
+    "direction": "simulation_section_tested_scale_boundary_refinement",
+    "result": "edited",
+    "stale": false,
+    "note": "Bounded remaining different-scale phrasing to the three tested scales in the Monte Carlo introduction and simulation summary."
+  },
+  {
+    "iteration": 124,
+    "timestamp": "2026-07-02T19:09:32+0800",
+    "direction": "conclusion_intro_academic_tone_and_test_scope_boundary",
+    "result": "edited",
+    "stale": false,
+    "note": "Improved conclusion intro tone and bounded the performance claim to the three tested attack-defense scales and local perturbation conditions."
+  },
+  {
+    "iteration": 125,
+    "timestamp": "2026-07-02T19:10:44+0800",
+    "direction": "conclusion_opening_gain_statement_evidence_alignment",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced broad improve/enhance wording in the conclusion opening with the 98.5% success-rate lower bound and HIL task-differentiation evidence."
+  },
+  {
+    "iteration": 126,
+    "timestamp": "2026-07-02T19:11:44+0800",
+    "direction": "conclusion_item_3_training_convergence_claim_softening",
+    "result": "edited",
+    "stale": false,
+    "note": "Softened conclusion item 3 from an absolute effective-improvement claim to a bounded helps-improve convergence-level statement."
+  },
+  {
+    "iteration": 127,
+    "timestamp": "2026-07-02T19:12:55+0800",
+    "direction": "representative_hil_trajectory_generalization_boundary",
+    "result": "edited",
+    "stale": false,
+    "note": "Bounded 8x8 and 10x10 trajectory interpretation to representative-case observations instead of broad scale-generalization claims."
+  },
+  {
+    "iteration": 128,
+    "timestamp": "2026-07-02T19:14:03+0800",
+    "direction": "6x6_representative_hil_trajectory_claim_boundary",
+    "result": "edited",
+    "stale": false,
+    "note": "Recast the 6x6 HIL trajectory conclusion as a representative-case observation rather than a general capability claim."
+  },
+  {
+    "iteration": 129,
+    "timestamp": "2026-07-02T19:15:08+0800",
+    "direction": "10x10_representative_hil_ability_claim_boundary",
+    "result": "edited",
+    "stale": false,
+    "note": "Recast 10x10 HIL role-maintenance and closed-loop feasibility statements as representative-case evidence rather than general ability claims."
+  },
+  {
+    "iteration": 130,
+    "timestamp": "2026-07-02T19:16:15+0800",
+    "direction": "8x8_representative_hil_role_analysis_claim_boundary",
+    "result": "edited",
+    "stale": false,
+    "note": "Recast the 8x8 role-preference conclusion as a representative-episode observation instead of a general result claim."
+  },
+  {
+    "iteration": 131,
+    "timestamp": "2026-07-02T19:17:27+0800",
+    "direction": "representative_hil_mechanism_transition_wording_boundary",
+    "result": "edited",
+    "stale": false,
+    "note": "Replaced 从机理层面展示 with 呈现 to keep the three HIL representative episodes within a case-observation evidence boundary."
+  },
+  {
+    "iteration": 132,
+    "timestamp": "2026-07-02T19:18:30+0800",
+    "direction": "simulation_summary_hil_mc_evidence_role_separation",
+    "result": "edited",
+    "stale": false,
+    "note": "Separated representative HIL case observations from Monte Carlo statistical support in the simulation summary opening sentence."
+  },
+  {
+    "iteration": 133,
+    "name": "conclusion_item_4_hil_mc_evidence_role_separation",
+    "result": "useful",
+    "note": "Reduced overclaiming by separating HIL representative episode observations from Monte Carlo statistical support."
+  },
+  {
+    "iteration": 134,
+    "name": "simulation_summary_case_statistical_boundary",
+    "result": "useful",
+    "note": "Separated representative HIL mechanism observations from Monte Carlo success-rate evidence in the section summary."
+  },
+  {
+    "iteration": 135,
+    "name": "simulation_opening_validation_language_moderation",
+    "result": "useful",
+    "note": "Reframed training comparison as evaluation rather than proof/verification."
+  },
+  {
+    "iteration": 136,
+    "name": "abstract_simulation_result_evidence_alignment",
+    "result": "useful",
+    "note": "Replaced vague abstract performance claim with bounded HIL/MC evidence statement."
+  },
+  {
+    "iteration": 137,
+    "name": "front_matter_contribution_algorithm_terminology_alignment",
+    "result": "useful",
+    "note": "Removed obsolete attention/game-potential contribution wording and aligned it with current RTA-MAPPO terminology."
+  },
+  {
+    "iteration": 138,
+    "name": "front_matter_three_role_terminology_alignment",
+    "result": "useful",
+    "note": "Standardized abstract and contribution role terms to decoy/stealth/primary attack wording."
+  },
+  {
+    "iteration": 139,
+    "name": "global_role_terminology_and_abstract_effect_moderation",
+    "result": "useful",
+    "note": "Aligned residual introduction/conclusion role terms and moderated abstract effect claim."
+  },
+  {
+    "iteration": 140,
+    "name": "abstract_hil_mc_evidence_boundary_tightening",
+    "result": "useful",
+    "note": "Made abstract distinguish HIL representative-role evidence from MC success-rate statistics."
+  },
+  {
+    "iteration": 141,
+    "name": "hil_to_mc_transition_evidence_boundary",
+    "result": "useful",
+    "note": "Limited the MC transition claim to success-rate and terminal-accuracy stability rather than cooperative-behavior stability."
+  },
+  {
+    "iteration": 142,
+    "name": "hil_representative_role_terminology_normalization",
+    "result": "useful",
+    "note": "Aligned HIL case role terminology with the paper-defined decoy/stealth/primary role descriptions."
+  },
+  {
+    "iteration": 143,
+    "name": "simulation_mechanism_role_name_normalization",
+    "result": "useful",
+    "note": "Changed loose role labels in mechanism claims to paper-defined role names."
+  },
+  {
+    "iteration": 144,
+    "name": "primary_role_boundary_and_vague_behavior_wording_polish",
+    "result": "useful",
+    "note": "Kept method/result role boundary intact while polishing vague or informal wording."
+  },
+  {
+    "iteration": 145,
+    "name": "hil_figure_path_replacement_audit",
+    "result": "confirmed",
+    "note": "No stale old V71_6688 simulation figure paths remained; HIL output paths are already aligned."
+  },
+  {
+    "iteration": 146,
+    "name": "hil_figure_caption_evidence_property_alignment",
+    "result": "useful",
+    "note": "Made HIL representative-case figure captions explicitly identify their HIL closed-loop evidence status."
+  },
+  {
+    "iteration": 147,
+    "name": "mc_comparison_claim_moderation",
+    "result": "useful",
+    "note": "Reduced broad performance claim in MC comparison while preserving quantitative evidence."
+  },
+  {
+    "iteration": 148,
+    "name": "setup_table_caption_hil_simulation_scope_alignment",
+    "result": "useful",
+    "note": "Made setup table caption reflect both simulation and offensive-side HIL testing scope."
+  },
+  {
+    "iteration": 149,
+    "name": "defensive_response_caption_offensive_hil_scope_precision",
+    "result": "useful",
+    "note": "Clarified that defensive response figures belong to offensive-side HIL closed-loop runs, not defensive-side HIL hardware."
+  },
+  {
+    "iteration": 150,
+    "name": "hil_kinematic_caption_concision_polish",
+    "result": "useful",
+    "note": "Removed redundant “offensive” wording from HIL kinematic-response captions."
+  },
+  {
+    "iteration": 151,
+    "name": "hil_figure_captions_scenario_scale_disambiguation",
+    "result": "useful",
+    "note": "Added scenario-scale identifiers to repeated HIL figure captions for clearer figure-list and citation readability."
+  },
+  {
+    "iteration": 152,
+    "name": "hil_defensive_response_caption_closed_loop_qualifier_restoration",
+    "result": "useful",
+    "note": "Restored closed-loop qualifier after scenario-scale caption disambiguation."
+  },
+  {
+    "iteration": 153,
+    "name": "setup_table_caption_common_parameter_scope_precision",
+    "result": "useful",
+    "note": "Clarified that setup table lists major shared parameters, while HIL link delay/noise parameters remain in text."
+  },
+  {
+    "iteration": 154,
+    "name": "conclusion_opening_simulation_hil_evidence_source_alignment",
+    "result": "useful",
+    "note": "Updated conclusion opening to match the simulation + offensive-side HIL evidence structure."
+  },
+  {
+    "iteration": 155,
+    "name": "conclusion_opening_mc_hil_evidence_separation",
+    "result": "useful",
+    "note": "Avoided attributing MC success-rate statistics to HIL representative episodes."
+  },
+  {
+    "iteration": 156,
+    "name": "conclusion_item4_hil_evidence_source_precision",
+    "result": "useful",
+    "note": "Clarified that conclusion item 4 role-behavior evidence comes from offensive-side HIL representative episodes, not generic simulation results."
+  },
+  {
+    "iteration": 157,
+    "name": "conclusion_item4_hil_lead_grammar_polish",
+    "result": "useful",
+    "note": "Improved fluency of the HIL representative-case conclusion after evidence-source precision edits."
+  },
+  {
+    "iteration": 158,
+    "name": "abstract_hil_evidence_terminology_alignment",
+    "result": "useful",
+    "note": "Aligned abstract HIL representative-episode wording with the main section and conclusion."
+  },
+  {
+    "iteration": 159,
+    "name": "abstract_hil_representative_case_evidence_boundary",
+    "result": "useful",
+    "note": "Limited abstract HIL role-behavior result to representative episodes rather than a broad method-level statement."
+  },
+  {
+    "iteration": 160,
+    "name": "simulation_summary_mc_statistical_output_precision",
+    "result": "useful",
+    "note": "Made simulation summary refer directly to MC success-rate and terminal-miss-distance outputs rather than vague support."
+  },
+  {
+    "iteration": 161,
+    "name": "8v8_hil_role_analysis_causal_claim_moderation",
+    "result": "useful",
+    "note": "Reduced causal strength of a single representative HIL episode interpretation."
+  },
+  {
+    "iteration": 162,
+    "name": "6v6_hil_defensive_analysis_causal_claim_moderation",
+    "result": "useful",
+    "note": "Reduced causal attribution in single representative 6v6 HIL defensive analysis."
+  },
+  {
+    "iteration": 163,
+    "name": "10v10_hil_trajectory_causal_claim_moderation",
+    "result": "useful",
+    "note": "Reduced causal attribution in the 10v10 representative HIL trajectory analysis."
+  },
+  {
+    "iteration": 164,
+    "name": "10v10_hil_safety_margin_causal_claim_moderation",
+    "result": "useful",
+    "note": "Reduced causal attribution in 10v10 representative-episode safety-margin analysis."
+  },
+  {
+    "iteration": 165,
+    "name": "8v8_hil_safety_margin_causal_claim_moderation",
+    "result": "useful",
+    "note": "Reduced causal attribution in 8v8 representative-episode safety-margin analysis."
+  },
+  {
+    "iteration": 166,
+    "name": "6v6_hil_cooccurrence_sentence_fluency_polish",
+    "result": "useful",
+    "note": "Improved readability of a causal-moderated 6v6 HIL sentence without strengthening the claim."
+  },
+  {
+    "iteration": 167,
+    "name": "hil_summary_and_10v10_causal_boundary_tightening",
+    "result": "useful",
+    "note": "Moderated remaining representative-episode causal wording in 10v10 analysis, simulation summary, and conclusion."
+  },
+  {
+    "iteration": 168,
+    "name": "6v6_8v8_defense_response_causal_verb_moderation",
+    "result": "useful",
+    "note": "Replaced strong causal verbs in representative defense-response descriptions with direct target-allocation observations."
+  },
+  {
+    "iteration": 169,
+    "name": "hil_terminology_and_transition_level_polish",
+    "result": "useful",
+    "note": "Unified representative-episode terminology and made HIL-to-Monte-Carlo transition more journal-like."
+  },
+  {
+    "iteration": 170,
+    "name": "hil_platform_gpu_model_correction",
+    "result": "useful",
+    "note": "Corrected the server GPU model from non-existent GTX 3080 wording to GeForce RTX 3080."
+  },
+  {
+    "iteration": 171,
+    "name": "hil_subsection_heading_and_scenario_terminology_alignment",
+    "result": "useful",
+    "note": "Changed HIL representative-case subsection titles from generic simulation scenarios to offensive-side HIL test cases and aligned paragraph terminology."
+  },
+  {
+    "iteration": 172,
+    "name": "hil_mixed_deployment_homogeneity_clarification",
+    "result": "useful",
+    "note": "Clarified that mixed NX/server policy execution changes only inference hardware location, not policy, observation, communication, or action mapping definitions."
+  },
+  {
+    "iteration": 173,
+    "name": "monte_carlo_evidence_layer_and_miss_distance_definition_clarification",
+    "result": "useful",
+    "note": "Clarified that Monte-Carlo and ablation statistics are server-side local-perturbation simulations and corrected the miss-distance wording so it is not limited to successful episodes."
+  },
+  {
+    "iteration": 174,
+    "name": "abstract_and_conclusion_monte_carlo_terminology_synchronization",
+    "result": "useful",
+    "note": "Synchronized abstract, simulation summary, and conclusion with the server-side local-perturbation Monte-Carlo terminology introduced in the main statistical section."
+  },
+  {
+    "iteration": 175,
+    "name": "monte_carlo_table_metric_and_ablation_caption_definition_polish",
+    "result": "useful",
+    "note": "Renamed the miss-distance column to average terminal miss distance, removed the successful-episode restriction from the complete-method miss-distance sentence, and aligned ablation caption with server-side local-perturbation statistics."
+  },
+  {
+    "iteration": 176,
+    "name": "hil_nonideal_input_parameter_math_spacing_polish",
+    "result": "useful",
+    "note": "Improved Chinese-LaTeX spacing around sampling period, delay, noise/bias, and physical-channel scale expressions in the HIL nonideal-input model paragraph."
+  },
+  {
+    "iteration": 177,
+    "name": "hil_figure_caption_and_monte_carlo_summary_terminology_alignment",
+    "result": "useful",
+    "note": "Unified the three HIL defensive-response figure captions and restored full server-side local-perturbation Monte-Carlo wording in the simulation summary."
+  },
+  {
+    "iteration": 178,
+    "name": "10v10_hil_role_reconstruction_causal_attribution_moderation",
+    "result": "useful",
+    "note": "Rephrased a 10v10 representative-episode role-preference sentence from inducing defense redistribution to corresponding with observed target redistribution."
+  },
+  {
+    "iteration": 179,
+    "name": "monte_carlo_and_ablation_table_sample_size_caption_clarification",
+    "result": "useful",
+    "note": "Added per-case episode counts to Monte-Carlo and ablation captions and aligned the paragraph metric name with average terminal miss distance."
+  },
+  {
+    "iteration": 180,
+    "name": "hil_representative_case_terminal_miss_distance_terminology_alignment",
+    "result": "useful",
+    "note": "Changed the three representative HIL case introductions from minimum miss distance to terminal miss distance to align with the Monte-Carlo metric terminology."
+  },
+  {
+    "iteration": 181,
+    "name": "monte_carlo_transition_and_average_terminal_miss_distance_summary_alignment",
+    "result": "useful",
+    "note": "Added the missing local-perturbation qualifier to the HIL-to-Monte-Carlo transition and aligned the simulation summary with average terminal miss-distance terminology."
+  },
+  {
+    "iteration": 182,
+    "name": "hil_input_channel_task_probability_terminology_alignment",
+    "result": "useful",
+    "note": "Changed the HIL nonideal-input channel list from task prior probability to task preference probability to align with figure captions and HIL analysis terminology."
+  },
+  {
+    "iteration": 183,
+    "name": "6v6_8v8_hil_role_analysis_causal_attribution_moderation",
+    "result": "useful",
+    "note": "Rephrased remaining 6v6/8v8 role-analysis phrases from active dispersing/traction of interceptors to correspondence with observed target-allocation dispersion."
+  },
+  {
+    "iteration": 184,
+    "name": "ablation_to_role_switching_causal_interpretation_moderation",
+    "result": "useful",
+    "note": "Moderated ablation interpretation from directly supporting/affecting role switching to statistical association with reduced role-switching capability."
+  },
+  {
+    "iteration": 185,
+    "name": "ablation_interpretation_limited_to_success_rate_sensitivity",
+    "result": "useful",
+    "note": "Removed unmeasured role-switching capability claims from ablation interpretation and limited conclusions to success-rate sensitivity to risk and team-benefit information."
+  },
+  {
+    "iteration": 186,
+    "name": "conclusion_ablation_condition_terminology_alignment",
+    "result": "useful",
+    "note": "Qualified the conclusion ablation statement as server-side local-perturbation ablation to match the simulation section table caption and setup."
+  },
+  {
+    "iteration": 187,
+    "name": "simulation_section_summary_compression",
+    "result": "useful",
+    "note": "Compressed the simulation-section summary to reduce repeated numerical listing while preserving HIL, Monte-Carlo, and ablation evidence."
+  },
+  {
+    "iteration": 188,
+    "name": "conclusion_wording_and_punctuation_polish",
+    "result": "useful",
+    "note": "Polished conclusion lead sentence around RTA-MAPPO spacing/wording and replaced half-width semicolons in conclusion items."
+  },
+  {
+    "iteration": 189,
+    "name": "statistical_table_caption_compression",
+    "result": "useful",
+    "note": "Shortened Monte-Carlo and ablation table captions while preserving server-side local-perturbation and per-case episode-count information."
+  },
+  {
+    "iteration": 190,
+    "name": "abstract_result_scope_terminology_alignment",
+    "result": "useful",
+    "note": "Aligned abstract result scope with the simulation/conclusion wording by using three offensive-defense scales and specifying that Monte-Carlo success rate applies across the three scales."
+  },
+  {
+    "iteration": 191,
+    "name": "mechanism_wording_moderation_in_abstract_contribution_and_conclusion",
+    "result": "useful",
+    "note": "Changed “drive formation” wording to “guide formation” in abstract, contribution, and conclusion to avoid over-strong mechanism claims."
+  }
+]

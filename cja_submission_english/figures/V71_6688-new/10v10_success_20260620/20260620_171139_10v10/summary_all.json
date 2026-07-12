@@ -1,0 +1,174 @@
+{
+  "created_at": "20260620_171139",
+  "elapsed_s": 533.1461012363434,
+  "out_root": "/tmp/v71_10v10_success/20260620_171139_10v10",
+  "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+  "scan_count": 12,
+  "success_count": 3,
+  "selected": [
+    {
+      "case": "10v10",
+      "seed": 100015,
+      "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+      "clone_map": {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 0,
+        "5": 1,
+        "6": 2,
+        "7": 3,
+        "8": 0,
+        "9": 1
+      },
+      "n_offensive": 10,
+      "n_defensive": 10,
+      "success": true,
+      "hit_count": 1,
+      "hit_indices": [
+        8
+      ],
+      "done_reason": "success",
+      "final_step": 4978,
+      "final_time_s": 49.78,
+      "offensive_alive": 4,
+      "defensive_alive": 4,
+      "best_agent": 8,
+      "best_hvt_distance_m": 4.512702799289981,
+      "best_min_step": 4978,
+      "min_dist_per_agent_m": [
+        1527.569,
+        1685.577,
+        2169.548,
+        2113.978,
+        1492.097,
+        1652.686,
+        2186.805,
+        2047.028,
+        4.513,
+        1612.951
+      ],
+      "hit_step": {
+        "8": 4978
+      },
+      "death_step": {
+        "0": 1513,
+        "1": 1716,
+        "2": 3733,
+        "4": 1961,
+        "5": 2199,
+        "9": 1335
+      }
+    },
+    {
+      "case": "10v10",
+      "seed": 100007,
+      "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+      "clone_map": {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 0,
+        "5": 1,
+        "6": 2,
+        "7": 3,
+        "8": 0,
+        "9": 1
+      },
+      "n_offensive": 10,
+      "n_defensive": 10,
+      "success": true,
+      "hit_count": 1,
+      "hit_indices": [
+        4
+      ],
+      "done_reason": "success",
+      "final_step": 5192,
+      "final_time_s": 51.92,
+      "offensive_alive": 5,
+      "defensive_alive": 5,
+      "best_agent": 4,
+      "best_hvt_distance_m": 4.80500695441658,
+      "best_min_step": 5192,
+      "min_dist_per_agent_m": [
+        1507.124,
+        1588.08,
+        2168.531,
+        2035.668,
+        4.805,
+        1784.862,
+        2107.441,
+        2152.992,
+        1495.288,
+        1596.572
+      ],
+      "hit_step": {
+        "4": 5192
+      },
+      "death_step": {
+        "0": 1443,
+        "1": 1444,
+        "5": 1945,
+        "8": 2010,
+        "9": 1551
+      }
+    },
+    {
+      "case": "10v10",
+      "seed": 100013,
+      "model_dir": "outputs/results/fov_penetration/mappo/v71_locker_obs/run2/models",
+      "clone_map": {
+        "0": 0,
+        "1": 1,
+        "2": 2,
+        "3": 3,
+        "4": 0,
+        "5": 1,
+        "6": 2,
+        "7": 3,
+        "8": 0,
+        "9": 1
+      },
+      "n_offensive": 10,
+      "n_defensive": 10,
+      "success": true,
+      "hit_count": 1,
+      "hit_indices": [
+        4
+      ],
+      "done_reason": "success",
+      "final_step": 5189,
+      "final_time_s": 51.89,
+      "offensive_alive": 4,
+      "defensive_alive": 4,
+      "best_agent": 4,
+      "best_hvt_distance_m": 4.8963691601837915,
+      "best_min_step": 5189,
+      "min_dist_per_agent_m": [
+        1605.353,
+        1562.595,
+        2124.487,
+        2066.571,
+        4.896,
+        1627.661,
+        2192.923,
+        2021.215,
+        1572.57,
+        1529.649
+      ],
+      "hit_step": {
+        "4": 5189
+      },
+      "death_step": {
+        "0": 1542,
+        "1": 1820,
+        "2": 3712,
+        "5": 2100,
+        "8": 1714,
+        "9": 1923
+      }
+    }
+  ]
+}

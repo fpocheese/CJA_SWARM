@@ -1,0 +1,79 @@
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+=== MC hetero_guard/caseB_seed50042_torch1: n=1000 workers=6 out=/tmp/v71_mc_hetero_guard_1000_reuse/hetero_guard_caseB_seed50042_torch1_mc1000 ===
+hetero_guard/caseB_seed50042_torch1 done=1/1000 succ=1 rate=1.000 best_min=4.70m
+hetero_guard/caseB_seed50042_torch1 done=2/1000 succ=1 rate=0.500 best_min=4.70m
+hetero_guard/caseB_seed50042_torch1 done=3/1000 succ=1 rate=0.333 best_min=4.70m
+hetero_guard/caseB_seed50042_torch1 done=4/1000 succ=1 rate=0.250 best_min=4.70m
+hetero_guard/caseB_seed50042_torch1 done=5/1000 succ=1 rate=0.200 best_min=4.70m
+hetero_guard/caseB_seed50042_torch1 done=25/1000 succ=15 rate=0.600 best_min=4.52m
+hetero_guard/caseB_seed50042_torch1 done=50/1000 succ=26 rate=0.520 best_min=4.51m
+hetero_guard/caseB_seed50042_torch1 done=75/1000 succ=33 rate=0.440 best_min=4.51m
+hetero_guard/caseB_seed50042_torch1 done=100/1000 succ=43 rate=0.430 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=125/1000 succ=54 rate=0.432 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=150/1000 succ=68 rate=0.453 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=175/1000 succ=79 rate=0.451 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=200/1000 succ=93 rate=0.465 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=225/1000 succ=106 rate=0.471 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=250/1000 succ=114 rate=0.456 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=275/1000 succ=122 rate=0.444 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=300/1000 succ=133 rate=0.443 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=325/1000 succ=144 rate=0.443 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=350/1000 succ=154 rate=0.440 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=375/1000 succ=162 rate=0.432 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=400/1000 succ=171 rate=0.427 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=425/1000 succ=179 rate=0.421 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=450/1000 succ=190 rate=0.422 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=475/1000 succ=198 rate=0.417 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=500/1000 succ=205 rate=0.410 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=525/1000 succ=213 rate=0.406 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=550/1000 succ=221 rate=0.402 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=575/1000 succ=233 rate=0.405 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=600/1000 succ=242 rate=0.403 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=625/1000 succ=249 rate=0.398 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=650/1000 succ=261 rate=0.402 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=675/1000 succ=276 rate=0.409 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=700/1000 succ=284 rate=0.406 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=725/1000 succ=297 rate=0.410 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=750/1000 succ=308 rate=0.411 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=775/1000 succ=323 rate=0.417 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=800/1000 succ=333 rate=0.416 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=825/1000 succ=339 rate=0.411 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=850/1000 succ=350 rate=0.412 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=875/1000 succ=357 rate=0.408 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=900/1000 succ=365 rate=0.406 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=925/1000 succ=375 rate=0.405 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=950/1000 succ=381 rate=0.401 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=975/1000 succ=391 rate=0.401 best_min=4.50m
+hetero_guard/caseB_seed50042_torch1 done=1000/1000 succ=404 rate=0.404 best_min=4.50m
+{
+  "method": "hetero_guard",
+  "case": "caseB_seed50042_torch1",
+  "n_episodes": 1000,
+  "workers": 6,
+  "success_count": 404,
+  "success_rate": 0.404,
+  "hit_count_mean": 0.404,
+  "best_hvt_distance_mean_m": 727.6401104713829,
+  "best_hvt_distance_median_m": 605.9308918718399,
+  "best_hvt_distance_min_m": 4.500243280996138,
+  "best_hvt_distance_p05_m": 4.57064073703228,
+  "best_hvt_distance_p95_m": 1574.4967777640306,
+  "final_time_mean_s": 38.44535,
+  "success_time_mean_s": 54.200940594059404,
+  "done_reason_counts": {
+    "success": 404,
+    "all_killed": 596
+  },
+  "elapsed_s": 3933.1588201522827,
+  "jitter": {
+    "pos_xy_m": 35.0,
+    "pos_z_m": 8.0,
+    "heading_rad": 0.06,
+    "gamma_rad": 0.015,
+    "speed_frac": 0.035
+  }
+}
+summary_all=/tmp/v71_mc_hetero_guard_1000_reuse/summary_all.json
