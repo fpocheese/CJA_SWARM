@@ -16,8 +16,12 @@
 
 \begin{document}
 
-% \title{Dynamic Task Reconfiguration for Cooperative Maneuvering Penetration of UAV Swarms Against Multi-Interceptor Cooperative Interception}
-\title{Intelligent Cooperative Penetration of UAV Swarms Against Coordinated Interception via Dynamic Task Reconfiguration}
+\title{Dynamic Task Reconfiguration for Intelligent Cooperative Penetration of UAV Swarms Against Swarm Interception}
+% \title{Intelligent Cooperative Penetration of UAV Swarms Against Coordinated Interception via Dynamic Task Reconfiguration}
+
+
+
+
 \shorttitle{Intelligent Cooperative Penetration}
 
 % \author[a]{Author information not provided\corref{cor}}
@@ -32,14 +36,27 @@
 
 \frontheader{}
 
+% \begin{abstract}
+% Advances in air-defense interception increasingly threaten the survivability of offensive unmanned aerial vehicles (UAVs), making cooperative swarm penetration important for defeating complex defensive systems.
+% To address the low survivability and limited penetration capability of offensive UAV swarms under cooperative interception, this paper proposes an intelligent cooperative maneuvering penetration method that dynamically reconfigures swarm tasks while accounting for interceptor field-of-view (FOV) constraints.
+% First, a safety-margin evaluation model is developed from the interceptor detection range and relative offensive--defensive motion. The model characterizes the detection risk to each offensive UAV under overlapping FOV coverage from multiple interceptors.
+% Second, an entropy-regularized potential-game mechanism dynamically reconfigures penetration tasks, enabling the swarm to adaptively differentiate into decoy-containment and primary-attack behaviors.
+% A trust-exploration-driven multi-agent proximal policy optimization method is then developed. Trust feedback regulates policy exploration, suppresses ineffective exploration, and promotes stable policy optimization in complex interception geometries.
+% Hardware-in-the-loop simulation results indicate that the proposed method adapts the swarm's cooperative strategy to the evolving interception geometry, disrupts interceptor--target assignments through decoy maneuvers, coordinates multiple UAVs to penetrate the defensive formation, and increases the probability of successful penetration.
+% \end{abstract}
+
+
 \begin{abstract}
 Advances in air-defense interception increasingly threaten the survivability of offensive unmanned aerial vehicles (UAVs), making cooperative swarm penetration important for defeating complex defensive systems.
 To address the low survivability and limited penetration capability of offensive UAV swarms under cooperative interception, this paper proposes an intelligent cooperative maneuvering penetration method that dynamically reconfigures swarm tasks while accounting for interceptor field-of-view (FOV) constraints.
-First, a safety-margin evaluation model is developed from the interceptor detection range and relative offensive--defensive motion. The model characterizes the detection risk to each offensive UAV under overlapping FOV coverage from multiple interceptors.
-Second, an entropy-regularized potential-game mechanism dynamically reconfigures penetration tasks, enabling the swarm to adaptively differentiate into decoy-containment and primary-attack behaviors.
-A trust-exploration-driven multi-agent proximal policy optimization method is then developed. Trust feedback regulates policy exploration, suppresses ineffective exploration, and promotes stable policy optimization in complex interception geometries.
+First, a safety-margin evaluation model is developed from interceptor detection range, FOV geometry, 
+and relative offensive--defensive motion to characterize the detection risk to each offensive UAV under overlapping multi-interceptor coverage. 
+Second, based on the evaluated risk and group penetration benefit, an entropy-regularized potential game updates each UAV's task-probability distribution online among decoy-containment, 
+concealment-evasion, and primary-attack tasks without preset assignments. The reconfigured task probabilities are then incorporated into centralized value estimation and task-conditioned decentralized policy execution through a task-trust attention multi-agent proximal policy optimization method, while trust feedback regulates policy exploration. 
 Hardware-in-the-loop simulation results indicate that the proposed method adapts the swarm's cooperative strategy to the evolving interception geometry, disrupts interceptor--target assignments through decoy maneuvers, coordinates multiple UAVs to penetrate the defensive formation, and increases the probability of successful penetration.
 \end{abstract}
+
+
 
 \begin{keyword}
 cooperative maneuvering penetration \sep interceptor field-of-view constraint \sep multi-agent proximal policy optimization \sep dynamic task reconfiguration
@@ -51,8 +68,10 @@ cooperative maneuvering penetration \sep interceptor field-of-view constraint \s
 \label{sec:introduction}
 
 As interception technologies and equipment continue to advance, a single UAV can no longer provide sufficient penetration capability in complex defensive environments. Cooperative penetration by UAV swarms has therefore become increasingly important.
-By overlapping the detection fields of view (FOVs) of multiple interceptors, the defender can establish a tightly coupled interception geometry. Independent evasive maneuvers by individual offensive UAVs are generally insufficient to defeat such cooperative interception.
-The resulting challenge is to develop intelligent guidance methods that exploit coordinated maneuvers within the swarm to create viable penetration opportunities.
+By overlapping the detection fields of view (FOVs) of multiple interceptors, the defender can establish a tightly coupled interception geometry. 
+Independent evasive maneuvers and preset task assignments among offensive UAVs are generally insufficient to defeat such cooperative interception.
+The resulting challenge is to develop intelligent guidance methods that dynamically reconfigure swarm tasks and exploit coordinated maneuvers to create viable penetration opportunities.
+
 
 Existing UAV penetration methods can be broadly classified as saturation penetration or maneuvering penetration.
 Saturation penetration mainly relies on coordinated attacks by multiple UAVs in terms of attack time and attack angle, thereby stressing the firepower allocation and interception resources of the defense system within limited reaction time. For multi-missile salvo attacks, Zhao et al.\cite{ZhaoZhou2008AAS} proposed a cooperative multi-missile guidance structure based on coordination variables, linking the remaining flight time with guidance commands and laying a foundation for distributed penetration attacks. Zhao et al.\cite{ZhaoYang2017AAS} systematically reviewed the development of cooperative multi-missile guidance in time coordination and angle coordination, and pointed out that the core of cooperative guidance is to transform individual terminal constraints into group-consensus constraints. Zhao et al.\cite{Zhao2015CJA} further designed three-dimensional cooperative guidance laws for stationary and maneuvering targets by adding a coordination term to proportional navigation, enabling multiple missiles to arrive simultaneously under centralized or distributed information conditions. Zeng et al.\cite{Zeng2018CJA} combined midcourse Dubins path planning with a terminal cooperative guidance law to realize full-process coordination from trajectory generation to terminal simultaneous attack. To enhance spatiotemporal coordination in saturation penetration, Wang et al.\cite{WangLu2018ISA} studied a distributed guidance law with three-dimensional impact-angle constraints, allowing multiple missiles to form specified incidence angles under local information. Lyu et al.\cite{Lyu2019AST} realized cooperative simultaneous attack of multiple missiles under directed communication topology, reflecting the influence of communication constraints on cooperative-behavior stability. Jiang et al.\cite{Jiang2018AST} used convex optimization to handle cooperative guidance with multiple constraints, integrating path, acceleration, time, and terminal-angle requirements into a receding-horizon optimization framework and improving solvability in complex constrained scenarios. Chen et al.\cite{Chen2021AST} proposed a three-dimensional fixed-time robust cooperative guidance law, constructing consensus variables from range-to-go and radial relative velocity to achieve rapid convergence of attack time and impact angle while avoiding excessive reliance on remaining-flight-time estimation. Wang et al.\cite{Ai2019FOVSalvo} introduced seeker FOV constraints into a two-stage three-dimensional salvo guidance design, coordinating attack time and attack angle while satisfying FOV boundaries.
@@ -532,8 +551,8 @@ Effective penetration depends on both long-range joint detection risk and close-
 \begin{aligned}
 P_i^{\mathrm{pen}}(t)
 ={}&
-\sigma\!\bigl(-\kappa_Z(\widetilde Z_i(t)+M_c)\bigr)\\
-&\cdot
+\sigma\!\bigl(-\kappa_Z(\widetilde Z_i(t)+M_c)\bigr)
+\cdot
 \sigma\!\bigl(\kappa_d(\rho_i^{\mathrm{threat}}(t)-\rho^{\mathrm{kill}})\bigr)\\
 &\cdot
 \sigma\!\bigl(\kappa_E E_i^{\mathrm{esc}}(t)\bigr),
@@ -1021,10 +1040,10 @@ To avoid double counting, individual terms are
 \begin{aligned}
 r_i^{\mathrm{ind}}(t)
 &=
-{r_i^{\mathrm{app}}+r_i^{\mathrm{cls}}+r_i^{\mathrm{ret}}}\\
-&\quad
-+{r_i^{\mathrm{algn}}+r_i^{\mathrm{herr}}}\\
-&\quad
+{r_i^{\mathrm{app}}+r_i^{\mathrm{cls}}+r_i^{\mathrm{ret}}}
+% \quad
++{r_i^{\mathrm{algn}}+r_i^{\mathrm{herr}}}
+% \quad
 +{r_i^{\mathrm{bnd}}+r_i^{\mathrm{grd}}+r_i^{\mathrm{prx}}+r_i^{\mathrm{reg}}}\\
 &\quad
 +r_i^{\mathrm{hit}}+r_i^{\mathrm{kld}}+r_i^{\mathrm{stp}}.
@@ -1807,15 +1826,15 @@ In summary, stable cooperation emerges across scales: decoy-containment disrupts
 \section{Conclusions}
 \label{sec:conclusion}
 
-This paper develops a group-game-based TTA-MAPPO guidance strategy for cooperative penetration by UAV swarms. The principal conclusions are as follows:
+This paper develops a dynamic-task-reconfiguration-based intelligent guidance method for cooperative penetration by UAV swarms under swarm interception. The principal conclusions are as follows:
 
-1) The zero-control prediction-horizon FOV margin and the safety-margin model for joint multi-interceptor detection coverage characterize the detection risk to offensive UAVs in complex engagement geometries.
+1) The zero-control prediction-horizon FOV margin and the joint safety-margin model characterize the detection risk to offensive UAVs under overlapping multi-interceptor FOV coverage in complex engagement geometries.
 
-2) The entropy-regularized potential-game mechanism dynamically reconfigures cooperative tasks without preset assignments. In response to the current engagement geometry, the offensive swarm differentiates into decoy-containment, concealment-evasion, and primary-attack behaviors.
+2) The entropy-regularized potential-game mechanism dynamically reconfigures cooperative tasks without preset assignments. As the engagement geometry evolves, it updates the task preferences of individual UAVs online, enabling the offensive swarm to form decoy-containment, concealment-evasion, and primary-attack behaviors.
 
 3) The TTA-MAPPO method incorporates the dynamic-task-reconfiguration prior into both centralized value estimation and task-conditioned decentralized policy execution, and improves the convergence of guidance-policy training in a high-dimensional continuous action space.
 
-4) Across the tested offensive--defensive scales, the simulations show stable cooperative penetration behavior. Containment maneuvers repeatedly disrupt interceptor--target assignments and preserve the penetration corridor required for the swarm to strike the HVT.
+4) The hardware-in-the-loop simulations show stable cooperative penetration behavior and adaptive task switching in response to the evolving interception geometry. Decoy maneuvers repeatedly disrupt interceptor--target assignments, thereby preserving viable penetration corridors for primary-attack UAVs to strike the HVT.
 
 \begin{thebibliography}{99}
 
