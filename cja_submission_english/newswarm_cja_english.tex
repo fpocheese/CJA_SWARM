@@ -105,7 +105,7 @@ Let $\mathcal{A}=\{A_1,A_2,\dots,A_{N_A}\}$ and $\mathcal{D}=\{D_1,D_2,\dots,D_{
   \label{fig:engagement-geometry}
 \end{figure}
 
-Let $\mathcal{F}_E=\{O;\hat{e}_x,\hat{e}_y,\hat{e}_z\}$ be the ground inertial frame. Both sides use the same three-degree-of-freedom fixed-wing point-mass model. Position is $p=[x,y,z]^\top$ and speed magnitude is $V$. Heading $\psi\in(-\pi,\pi]$ is measured in the horizontal plane from $\hat e_x$ toward $\hat e_y$, and pitch is $\gamma\in[-\pi/2,\pi/2]$:
+Let $\mathcal{F}_E=\{O;\hat{e}_x,\hat{e}_y,\hat{e}_z\}$ be the ground inertial frame. Both sides use the same three-degree-of-freedom fixed-wing point-mass model, with position $p=[x,y,z]^\top$, speed $V$, heading $\psi\in(-\pi,\pi]$, and pitch $\gamma\in[-\pi/2,\pi/2]$. Heading is measured in the horizontal plane from $\hat e_x$ toward $\hat e_y$:
 \begin{equation}
 \dot x = V\cos\gamma\cos\psi,\quad
 \dot y = V\cos\gamma\sin\psi,\quad
@@ -113,16 +113,14 @@ Let $\mathcal{F}_E=\{O;\hat{e}_x,\hat{e}_y,\hat{e}_z\}$ be the ground inertial f
 \label{eq:vel-decomp}
 \end{equation}
 
-The corresponding offensive and defensive states are
-\begin{equation}
-\mathbf s_i^{A}(t)=\bigl[\,p_i^\top(t),\,V_i(t),\,\psi_i(t),\,\gamma_i(t)\,\bigr]^\top\in\mathbb{R}^{6},
-\label{eq:att-state}
-\end{equation}
-\begin{equation}
-\mathbf s_j^{D}(t)=\bigl[\,p_j^\top(t),\,V_j(t),\,\psi_j(t),\,\gamma_j(t)\,\bigr]^\top\in\mathbb{R}^{6}.
+The offensive and defensive states are
+\begin{align}
+\mathbf s_i^{A}(t)&=\bigl[\,p_i^\top(t),\,V_i(t),\,\psi_i(t),\,\gamma_i(t)\,\bigr]^\top\in\mathbb{R}^{6},
+\label{eq:att-state}\\
+\mathbf s_j^{D}(t)&=\bigl[\,p_j^\top(t),\,V_j(t),\,\psi_j(t),\,\gamma_j(t)\,\bigr]^\top\in\mathbb{R}^{6}.
 \label{eq:def-state}
-\end{equation}
-Both vectors use common coordinate and attitude conventions for sensing and guidance.
+\end{align}
+Both states use common coordinate and attitude conventions for sensing and guidance.
 For HVT position $p_H\in\mathbb{R}^3$, define relative position and range
 \begin{equation}
 r_{iH}(t)=p_H-p_i(t),\qquad
@@ -135,20 +133,15 @@ V_{c,iH}(t)=\frac{r_{iH}^{\top}(t)v_i(t)}{\rho_{iH}(t)},\qquad
 \omega_{iH}^{\mathrm{LOS}}(t)=\frac{r_{iH}(t)\times v_i(t)}{\rho_{iH}^2(t)}.
 \label{eq:hvt_kinematics_def}
 \end{equation}
-These quantities describe approach rate and transverse LOS rotation in terminal strike geometry.
-The UAV dynamics are
-\begin{equation}
-\dot V_i=a_{x,i}-g\sin\gamma_i,
-\label{eq:dyn-V}
-\end{equation}
-\begin{equation}
-\dot\psi_i=\frac{a_{n,\psi,i}}{V_i\cos\gamma_i},
-\label{eq:dyn-psi}
-\end{equation}
-\begin{equation}
-\dot\gamma_i=\frac{a_{n,\gamma,i}-g\cos\gamma_i}{V_i},
+These quantities describe terminal approach and transverse LOS rotation. The UAV dynamics are
+\begin{align}
+\dot V_i&=a_{x,i}-g\sin\gamma_i,
+\label{eq:dyn-V}\\
+\dot\psi_i&=\frac{a_{n,\psi,i}}{V_i\cos\gamma_i},
+\label{eq:dyn-psi}\\
+\dot\gamma_i&=\frac{a_{n,\gamma,i}-g\cos\gamma_i}{V_i},
 \label{eq:dyn-gamma}
-\end{equation}
+\end{align}
 where $g$ is gravitational acceleration and $a_{x,i}$, $a_{n,\gamma,i}$, and $a_{n,\psi,i}$ are the axial, pitch-plane normal, and yaw-plane normal controls. Each interceptor obeys the same dynamic structure with corresponding subscript-$j$ controls.
 
 Interceptor $D_j$ has FOV axis $b_j(t)=v_j/\|v_j\|\in\mathbb S^2$ and half-angle $\alpha_j$, with relative geometry
@@ -156,7 +149,7 @@ Interceptor $D_j$ has FOV axis $b_j(t)=v_j/\|v_j\|\in\mathbb S^2$ and half-angle
 r_{ij}(t)=p_i(t)-p_j(t),\qquad
 \rho_{ij}(t)=\left\|r_{ij}(t)\right\|.
 \end{equation}
-Thus, $r_{ij}$ points from $D_j$ to $A_i$, $\rho_{ij}$ is their separation, and their body LOS angle is
+Here $r_{ij}$ points from $D_j$ to $A_i$; their body LOS angle is
 \begin{equation}
 \theta_{ij}^{\mathrm{body}}(t)
 =
@@ -167,7 +160,7 @@ Thus, $r_{ij}$ points from $D_j$ to $A_i$, $\rho_{ij}$ is their separation, and 
 \right).
 \end{equation}
 
-The FOV angular margin is
+The corresponding algebraic FOV margin is
 \begin{equation}
 q_{ij}(t)
 =
@@ -176,7 +169,7 @@ q_{ij}(t)
 -\cos\alpha_j ,
 \label{eq:qij-def}
 \end{equation}
-The signs $q_{ij}>0$, $q_{ij}=0$, and $q_{ij}<0$ indicate inside, boundary, and outside cases. A differentiable $C^1$ occupancy index is
+The signs $q_{ij}>0$, $q_{ij}=0$, and $q_{ij}<0$ indicate inside, boundary, and outside cases. Its differentiable $C^1$ occupancy index is
 \begin{equation}
 s_{ij}(t)
 =
@@ -184,7 +177,7 @@ s_{ij}(t)
 \sigma(x)=\frac{1}{1+e^{-x}},
 \label{eq:sij-def}
 \end{equation}
-where $\sigma(\cdot)$ is the sigmoid function and $\kappa_q$ controls its transition around the FOV boundary. Smoothing-coefficient units make all sigmoid arguments dimensionless.
+where $\kappa_q$ controls the sigmoid transition; smoothing-coefficient units make all sigmoid arguments dimensionless.
 
 Let $D_{\mathrm{radar}}$ denote the maximum onboard detection range. Joint range--FOV satisfaction is indicated by
 \begin{equation}
@@ -197,16 +190,7 @@ q_{ij}(t)>0
 \right\}.
 \label{eq:det-indicator}
 \end{equation}
-Equation~\eqref{eq:det-indicator} combines the range and FOV constraints. When $\delta_{ij}^{\mathrm{det}}=1$, onboard detection takes over and updates target information at $20\,\mathrm{Hz}$; otherwise, the interceptor follows ground-radar indication at $2\,\mathrm{Hz}$:
-\begin{equation}
-f_{ij}^{\mathrm{info}}(t)
-=
-20\,\delta_{ij}^{\mathrm{det}}(t)
-+
-2\left[1-\delta_{ij}^{\mathrm{det}}(t)\right].
-\label{eq:info-update-rate}
-\end{equation}
-Equation~\eqref{eq:info-update-rate} gives the information-update rate available to $D_j$ for $A_i$ under either sensing mode.
+Equation~\eqref{eq:det-indicator} combines range and FOV constraints. Target information is updated at $20\,\mathrm{Hz}$ under onboard detection and at $2\,\mathrm{Hz}$ under ground-radar indication.
 
 The detectable surviving targets of $D_j$ are
 \begin{equation}
@@ -236,7 +220,7 @@ m_j(t)=
 \end{cases}
 \label{eq:fov-lock-rule}
 \end{equation}
-Here, $m_j(t)\in\mathcal A\cup\{\emptyset\}$ is the current attack target and $m_j^0$ is the initial target-indication assignment. Equation~\eqref{eq:fov-lock-rule} covers initial assignment, nearest-target onboard takeover, target-failure reallocation, and retention without a detectable alternative. The defender retains $m_j(t)$ internally; it is unavailable to the offensive policy, task-reconfiguration mechanism, and actor observation.
+Here, $m_j(t)\in\mathcal A\cup\{\emptyset\}$ is the current attack target and $m_j^0$ the initial indication assignment. The defender retains $m_j(t)$ internally; it is unavailable to the offensive policy, task-reconfiguration mechanism, and actor observation.
 
 Assigned targets are pursued by proportional navigation:
 \begin{equation}
@@ -248,7 +232,7 @@ a_{n,\psi,j}^{\mathrm{cmd}}
 \end{aligned}
 \label{eq:def-guid-pn}
 \end{equation}
-Here, $a_{n,\gamma,j}^{\mathrm{cmd}}$ and $a_{n,\psi,j}^{\mathrm{cmd}}$ are pitch- and yaw-normal acceleration commands, $N_{\mathrm{PN}}$ is the proportional-navigation gain, $V_{c,ij}=-r_{ij}^\top(v_i-v_j)/\rho_{ij}$ is closing velocity, and $\dot\lambda_{\mathrm{el},ij}$ and $\dot\lambda_{\mathrm{az},ij}$ are channel LOS angular rates. For relative velocity $v_{ij}=v_i-v_j$,
+Here $a_{n,\gamma,j}^{\mathrm{cmd}}$ and $a_{n,\psi,j}^{\mathrm{cmd}}$ are pitch- and yaw-normal commands, $N_{\mathrm{PN}}$ is the navigation gain, $V_{c,ij}=-r_{ij}^\top(v_i-v_j)/\rho_{ij}$ is closing velocity, and $\dot\lambda_{\mathrm{el},ij}$ and $\dot\lambda_{\mathrm{az},ij}$ are channel LOS angular rates. For $v_{ij}=v_i-v_j$,
 \begin{equation}
 \omega_{ij}^{\mathrm{LOS}} = \frac{r_{ij}\times v_{ij}}{\rho_{ij}^2},
 \label{eq:omega_ij_def}
@@ -259,29 +243,20 @@ Its magnitude is $\|\omega_{ij}^{\mathrm{LOS}}\| = \frac{\|v_{t,ij}\|}{\rho_{ij}
 
 \subsection{Zero-Control Prediction-Horizon FOV Margin and Safety-Margin Evaluation for Joint Detection Coverage}
 
-Future detection risk is evaluated through a zero-control prediction-horizon FOV margin. Near the FOV boundary, relative motion is locally linearized by treating $q_{ij}(t)$ as a boundary-normal coordinate with derivative $\dot q_{ij}(t)$, giving the state
+Future detection risk is evaluated through a zero-control prediction-horizon FOV margin. Near the FOV boundary, $q_{ij}$ and $\dot q_{ij}$ describe the local geometric margin and its trend. Assuming no additional active correction over $[t,t+t_{go,ij}(t)]$, constant-rate local motion is represented by
 \begin{equation}
 \xi_{ij}(t)=
 \begin{bmatrix}
 q_{ij}(t)\\
 \dot q_{ij}(t)
-\end{bmatrix}.
-\end{equation}
-Thus, $q_{ij}$ and $\dot q_{ij}$ describe the local geometric margin and its trend.
-
-Assuming that no additional active maneuver correction is applied over the finite pairwise prediction interval $[t,t+t_{go,ij}(t)]$, the short-time local motion near the FOV boundary can be approximated as
-\begin{equation}
-\dot \xi_{ij}(t)
-=
-A_{c}\,\xi_{ij}(t),
-\end{equation}
-where
-\begin{equation}
-A_{c}
-=
+\end{bmatrix},
+\qquad
+\dot \xi_{ij}(t)=A_c\xi_{ij}(t),
+\qquad
+A_c=
 \begin{bmatrix}
-0 & 1\\
-0 & 0
+0&1\\
+0&0
 \end{bmatrix}.
 \end{equation}
 The instantaneous distance rate is
@@ -305,66 +280,44 @@ T_p
 & V_{c,ij}(t)\le\varepsilon_v.
 \end{cases}
 \end{equation}
-Here, $\varepsilon_v>0$ prevents excessive near-zero-closing estimates, $T_p>0$ bounds the horizon, and $V_{c,ij}\le\varepsilon_v$ gives no positive prediction; thus $t_{go,ij}$ is finite and not remaining mission time. Define the horizon output vector
+Here, $\varepsilon_v>0$ prevents excessive near-zero-closing estimates, $T_p>0$ bounds the horizon, and $V_{c,ij}\le\varepsilon_v$ gives no positive prediction; hence $t_{go,ij}$ is finite and is not remaining mission time. With output vector $c=[1,0]^\top$ and state-transition matrix $\Phi_{ij}$, the prediction chain is
 \begin{equation}
-c=
-\begin{bmatrix}
-1\\
-0
-\end{bmatrix},
+\begin{aligned}
+&q_{ij}(t)=c^\top\xi_{ij}(t),\\
+&\xi_{ij}\!\left(t+t_{go,ij}(t)\right)
+=\Phi_{ij}\!\left(t+t_{go,ij}(t),t\right)\xi_{ij}(t),\\
+&q_{ij}\!\left(t+t_{go,ij}(t)\right)
+=c^\top\Phi_{ij}\!\left(t+t_{go,ij}(t),t\right)\xi_{ij}(t),\\
+&Y_{ij}(t_{go,ij})
+=\Phi_{ij}^{\top}\!\left(t+t_{go,ij}(t),t\right)c,\\
+&Z_{ij}(t)=Y_{ij}^{\top}(t_{go,ij})\xi_{ij}(t).
+\end{aligned}
 \end{equation}
-so that the prediction-horizon FOV angular margin can be written as
+For constant-integrator $A_c$, this gives
 \begin{equation}
-q_{ij}\!\left(t+t_{go,ij}(t)\right)=c^{\top}\xi_{ij}\!\left(t+t_{go,ij}(t)\right).
-\end{equation}
-
-With state-transition matrix $\Phi_{ij}(t+t_{go,ij}(t),t)$,
-\begin{equation}
-\xi_{ij}\!\left(t+t_{go,ij}(t)\right)=\Phi_{ij}\!\left(t+t_{go,ij}(t),t\right)\,\xi_{ij}(t).
-\end{equation}
-the predicted horizon margin satisfies
-\begin{equation}
-q_{ij}\!\left(t+t_{go,ij}(t)\right)=c^{\top}\Phi_{ij}\!\left(t+t_{go,ij}(t),t\right)\,\xi_{ij}(t).
-\end{equation}
-Define
-\begin{equation}
-Y_{ij}(t_{go,ij})=\Phi_{ij}^{\top}\!\left(t+t_{go,ij}(t),t\right)\,c,
-\end{equation}
-to obtain the zero-control prediction-horizon FOV margin
-\begin{equation}
-Z_{ij}(t)=Y_{ij}^{\top}(t_{go,ij})\,\xi_{ij}(t).
-\end{equation}
-Thus, $Z_{ij}(t)$ is the predicted FOV margin at the end of the finite zero-control prediction horizon.
-
-For constant-integrator $A_c$,
-\begin{equation}
+\begin{aligned}
 Y_{ij}(t_{go,ij})
-=
+&=
 \begin{bmatrix}
 1\\
 t_{go,ij}
-\end{bmatrix},
-\end{equation}
-which yields
-\begin{equation}
+\end{bmatrix},&
 Z_{ij}(t)
-=
-q_{ij}(t)+t_{go,ij}(t)\dot q_{ij}(t).
+&=q_{ij}(t)+t_{go,ij}(t)\dot q_{ij}(t).
+\end{aligned}
 \end{equation}
+Thus, $Z_{ij}$ is the predicted FOV margin at the end of the finite zero-control horizon.
 
-Finite onboard detection range is introduced through the smooth radial gate
+Finite onboard range is incorporated through the radial gate and gated single-interceptor margin
 \begin{equation}
+\begin{aligned}
 G_{ij}^{\mathrm{rad}}(t)
-=
-\sigma\!\left[\kappa_R\left(D_{\mathrm{radar}}-\rho_{ij}(t)\right)\right],
-\end{equation}
-where $\kappa_R>0$ is the smoothing coefficient. The gated single-interceptor margin is
-\begin{equation}
+&=\sigma\!\left[\kappa_R\left(D_{\mathrm{radar}}-\rho_{ij}(t)\right)\right],\\
 Z_{ij}^{\mathrm{det}}(t)
-=
-G_{ij}^{\mathrm{rad}}(t)\left[Z_{ij}(t)+M_c\right]-M_c.
+&=G_{ij}^{\mathrm{rad}}(t)\left[Z_{ij}(t)+M_c\right]-M_c,
+\end{aligned}
 \end{equation}
-For $\rho_{ij}\ll D_{\mathrm{radar}}$, $Z_{ij}^{\mathrm{det}}\approx Z_{ij}$; for $\rho_{ij}\gg D_{\mathrm{radar}}$, $Z_{ij}^{\mathrm{det}}\approx-M_c$ and incurs zero risk penalty. Thus, the margin couples range and FOV geometry.
+where $\kappa_R>0$ is the smoothing coefficient. For $\rho_{ij}\ll D_{\mathrm{radar}}$, $Z_{ij}^{\mathrm{det}}\approx Z_{ij}$; for $\rho_{ij}\gg D_{\mathrm{radar}}$, it approaches $-M_c$ and incurs zero risk penalty.
 
 Multiple interceptor constraints are aggregated by the smooth-max joint detection-risk model
 \begin{equation}
@@ -377,42 +330,36 @@ Multiple interceptor constraints are aggregated by the smooth-max joint detectio
 \exp\!\bigl(\beta_Z Z_{ij}^{\mathrm{det}}(t)\bigr)
 \right],
 \end{equation}
-where $\beta_Z>0$ controls smoothing and $1/N_I$ removes the finite-$\beta_Z$ bias with interceptor count. As $\beta_Z\to\infty$, $\widetilde Z_i$ approaches $\max_{j\in\mathcal D}Z_{ij}^{\mathrm{det}}$, while normalization improves comparability among the 6-vs-6, 8-vs-8, and 10-vs-10 cases. Thus, $\widetilde Z_i$ represents joint risk under overlapping FOVs.
+where $\beta_Z>0$ controls smoothing, $1/N_I$ removes finite-$\beta_Z$ interceptor-count bias, and $\widetilde Z_i\to\max_{j\in\mathcal D}Z_{ij}^{\mathrm{det}}$ as $\beta_Z\to\infty$. Normalization improves scale comparability.
 
 The swarm safety-margin model is
 \begin{equation}
+\begin{aligned}
 \Psi_i^{\mathrm{cone}}(t)
-=
-\max\bigl(0,\, \widetilde Z_i(t)+M_c\bigr),
-\end{equation}
-\begin{equation}
+&=\max\bigl(0,\, \widetilde Z_i(t)+M_c\bigr),\\
 c_t^{\mathrm{cone}}
-=
-\sum_{i\in\mathcal{A}}
-\Psi_i^{\mathrm{cone}}(t)
-=
-\sum_{i\in\mathcal{A}}
-\max\bigl(0,\, \widetilde Z_i(t)+M_c\bigr).
+&=\sum_{i\in\mathcal{A}}\Psi_i^{\mathrm{cone}}(t)
+=\sum_{i\in\mathcal{A}}\max\bigl(0,\, \widetilde Z_i(t)+M_c\bigr).
+\end{aligned}
 \end{equation}
-Here, $M_c>0$ is the required margin and $\Psi_i^{\mathrm{cone}}$ the single-UAV risk penalty, which vanishes for $\widetilde Z_i\le-M_c$; $c_t^{\mathrm{cone}}$ aggregates swarm risk.
+Here, $M_c>0$ is the required margin, $\Psi_i^{\mathrm{cone}}$ vanishes for $\widetilde Z_i\le-M_c$, and $c_t^{\mathrm{cone}}$ aggregates swarm risk.
 
 \subsection{Cooperative Dynamic Task Reconfiguration under an Entropy-Regularized Potential Game}
 
-Because the offensive swarm cannot observe the defender's real-time target-allocation scheme, it probabilistically infers interceptor capture intention and represents the unknown discrete allocation by a continuous integrated threat. Define
+Because real-time defender allocation is unobservable, the swarm infers capture intention and represents discrete allocation by continuous threat. The normalized range and closing velocity are
 \begin{equation}
+\begin{aligned}
 \bar\rho_{ij}(t)
-=
-\frac{\rho_{ij}(t)}{D_{\mathrm{radar}}},
-\end{equation}
-\begin{equation}
+&=\frac{\rho_{ij}(t)}{D_{\mathrm{radar}}},&
 \bar V_{c,ij}(t)
-=
-\operatorname{clip}\!\left(
+&=\operatorname{clip}\!\left(
 \frac{V_{c,ij}(t)}{V_{\mathrm{ref}}},
 -1,1
 \right).
+\end{aligned}
 \end{equation}
-Here, $\bar\rho_{ij}$ normalizes relative range by interceptor detection distance, whereas $\bar V_{c,ij}$ normalizes closing velocity by the reference speed and clips it to a bounded interval. The dimensionless capture-intent score is
+Here $\bar\rho_{ij}$ normalizes range by the detection distance, whereas $\bar V_{c,ij}$ normalizes closing velocity by the reference speed and clips it to a bounded interval.
+The dimensionless capture-intent score is
 \begin{equation}
 \eta_{ij}(t)
 =
@@ -422,7 +369,7 @@ w_{\rho}\bar\rho_{ij}(t)
 +
 w_v \bar V_{c,ij}(t),
 \end{equation}
-where $w_s,w_{\rho},w_v>0$ are dimensionless weights, making $\eta_{ij}$ and the Softmax exponent dimensionless. The inferred capture likelihood of interceptor $D_j$ for UAV $A_i$ is
+where $w_s,w_{\rho},w_v>0$ are dimensionless weights, so both $\eta_{ij}$ and the Softmax exponent are dimensionless. The inferred capture likelihood of $D_j$ for $A_i$ is
 \begin{equation}
 p_{ij}^{\mathrm{cap}}(t)
 =
@@ -430,7 +377,7 @@ p_{ij}^{\mathrm{cap}}(t)
 {\sum\limits_{k\in\mathcal{A}}\exp\!\bigl(\beta_L \eta_{kj}(t)\bigr)},
 \label{eq:soft-lock-prob}
 \end{equation}
-where dimensionless inverse temperature $\beta_L>0$ controls the concentration of the smooth approximation to discrete capture intention. The integrated threat to $A_i$ at the current reconfiguration instant is
+where dimensionless $\beta_L>0$ controls the concentration of the smooth approximation to discrete capture intention. The integrated threat at the current reconfiguration instant is
 \begin{equation}
 \lambda_i(t)
 =
@@ -452,25 +399,18 @@ p_{ij}^{\mathrm{cap}}(t)
 \lambda_K K_{ij}(t)
 \right),
 \end{equation}
-where $E_{ij}$, $D_{ij}$, and $K_{ij}$ are the in-FOV engagement intensity, dangerous near-contact cost, and shoot-down risk, respectively. Their positive weights are $\lambda_E^{\mathrm{self}},\lambda_D,\lambda_K$, and each term is modulated by inferred capture likelihood. The engagement intensity is
+where positive $\lambda_E^{\mathrm{self}},\lambda_D,\lambda_K$ weight the capture-likelihood-modulated in-FOV engagement intensity, near-contact cost, and shoot-down risk:
 \begin{equation}
+\begin{aligned}
 E_{ij}(t)
-=
-s_{ij}(t)\,\exp\!\left(-\frac{\rho_{ij}(t)}{\rho_{\mathrm{ref}}}\right),
-\end{equation}
-where $s_{ij}$ is given by \eqref{eq:sij-def} and $\rho_{\mathrm{ref}}$ is the reference distance. The intensity increases as the UAV moves deeper into the FOV and closer to the interceptor. The near-contact cost is
-\begin{equation}
+&=s_{ij}(t)\exp\!\left(-\frac{\rho_{ij}(t)}{\rho_{\mathrm{ref}}}\right),\\
 D_{ij}(t)
-=
-\sigma\!\bigl(\kappa_d(d_s-\rho_{ij}(t))\bigr),
-\end{equation}
-where $d_s$ is the dangerous-distance threshold and $\kappa_d>0$ is the smoothing coefficient; the cost rises rapidly as $\rho_{ij}$ approaches or falls below $d_s$. Shoot-down risk is
-\begin{equation}
+&=\sigma\!\bigl(\kappa_d(d_s-\rho_{ij}(t))\bigr),\\
 K_{ij}(t)
-=
-\sigma\!\bigl(\kappa_k(\rho^{\mathrm{kill}}-\rho_{ij}(t))\bigr),
+&=\sigma\!\bigl(\kappa_k(\rho^{\mathrm{kill}}-\rho_{ij}(t))\bigr).
+\end{aligned}
 \end{equation}
-where $\rho^{\mathrm{kill}}$ is the kill-radius threshold and the relatively large gain $\kappa_k>0$ approximates hard truncation.
+Here $s_{ij}$ is given by \eqref{eq:sij-def}, $\rho_{\mathrm{ref}}$ is the reference distance, $d_s$ is the dangerous-distance threshold, and $\kappa_d,\kappa_k>0$ are smoothing gains. Thus, $E_{ij}$ rises deeper inside the FOV and at shorter range, $D_{ij}$ rises near or below $d_s$, and $K_{ij}$ smoothly approximates the kill-radius threshold.
 
 The attention-transfer benefit when member $i$ draws engagements is
 \begin{equation}
@@ -576,31 +516,22 @@ P_i^{\mathrm{hit}}(t)
 \end{equation}
 where $\kappa_h,\kappa_c,\kappa_{\omega}>0$ smooth the range, closing, and LOS-rate factors; $\kappa_h$ sets the range transition near the strike threshold.
 
-The decoy-task utility is
+The three task utilities are
 \begin{equation}
 U_i^{D}(t)
-=
-B_i^{\mathrm{attn}}(t)
-+
-B_i^{H}(t)
--
-C_i^{\mathrm{self}}(t).
+=B_i^{\mathrm{attn}}(t)+B_i^{H}(t)-C_i^{\mathrm{self}}(t),
 \label{eq:role-utility-decoy}
 \end{equation}
-Positive $U_i^{D}$ favors drawing and containing defensive firepower. Primary-attack and concealment-evasion utilities are
 \begin{equation}
 U_i^{P}(t)
-=
-\lambda_{PH}P_i^{\mathrm{pen}}(t)P_i^{\mathrm{hit}}(t)
--
-\lambda_{PL}\sum_{j\in\mathcal D}p_{ij}^{\mathrm{cap}}(t),
+=\lambda_{PH}P_i^{\mathrm{pen}}(t)P_i^{\mathrm{hit}}(t)
+-\lambda_{PL}\sum_{j\in\mathcal D}p_{ij}^{\mathrm{cap}}(t),
 \label{eq:role-utility-pen}
 \end{equation}
 \begin{equation}
 \begin{aligned}
 U_i^{S}(t)
-={}&
--\lambda_{SZ}\Psi_i^{\mathrm{cone}}(t)
+={}&-\lambda_{SZ}\Psi_i^{\mathrm{cone}}(t)
 -\lambda_{SL}\sum_{j\in\mathcal D}p_{ij}^{\mathrm{cap}}(t)\\
 &-\lambda_{SD}\sigma\!\bigl(\kappa_d(d_s-\rho_i^{\mathrm{threat}}(t))\bigr),
 \end{aligned}
@@ -608,7 +539,7 @@ U_i^{S}(t)
 \end{equation}
 where $\lambda_{PH},\lambda_{PL},\lambda_{SZ},\lambda_{SL},\lambda_{SD}>0$ are weighting coefficients.
 
-Equations~\eqref{eq:role-utility-decoy}--\eqref{eq:role-utility-stealth} associate task $D$ with attracting interception at acceptable cost, task $P$ with favorable penetration and strike conditions, and task $S$ with concealment, evasion, and switching redundancy.
+Equations~\eqref{eq:role-utility-decoy}--\eqref{eq:role-utility-stealth} associate task $D$ with drawing and containing defensive firepower at acceptable cost, task $P$ with favorable penetration and strike conditions, and task $S$ with concealment, evasion, and switching redundancy.
 
 Without preset division, UAV $i$ uses task-probability vector
 \begin{equation}
@@ -655,11 +586,13 @@ The corresponding task potential is
 \noindent\textbf{Proposition 1.} At every task-reconfiguration instant, the mixed-task model is a state-dependent entropy-regularized exact potential game with potential $\Phi_{\mathrm{task}}(\mu;t)$.
 
 \noindent\textit{Proof.} With the current offensive--defensive state fixed, a unilateral change of member $i$'s mixed task strategy does not change the instantaneous payoff terms of members $k\ne i$. Consequently,
-\begin{align}
-&J_i(\mu_i',\mu_{-i};t)-J_i(\mu_i,\mu_{-i};t)\notag\\
-={}&\Phi_{\mathrm{task}}(\mu_i',\mu_{-i};t)
--\Phi_{\mathrm{task}}(\mu_i,\mu_{-i};t),
-\end{align}
+\begin{equation}
+\begin{aligned}
+J_i(\mu_i',\mu_{-i};t)-J_i(\mu_i,\mu_{-i};t)
+={}&\Phi_{\mathrm{task}}(\mu_i',\mu_{-i};t)\\
+&-\Phi_{\mathrm{task}}(\mu_i,\mu_{-i};t),
+\end{aligned}
+\end{equation}
 which is the defining unilateral-deviation identity of an exact potential game. For the constraint $\sum_r\mu_i^r=1$, introduce a Lagrange multiplier $\varrho_i$. Stationarity of
 \begin{equation*}
 J_i+\varrho_i\left(1-\sum_r\mu_i^r\right)
@@ -687,19 +620,15 @@ Because individual and group optima differ, this section balances effective pene
 
 The value model evaluates effective penetration and avoidable loss under multi-interceptor engagement.
 
-Using \eqref{eq:P_pen_def} and \eqref{eq:P_hit_def}, define UAV $i$'s effective penetration contribution as
+Using \eqref{eq:P_pen_def} and \eqref{eq:P_hit_def}, define the individual contribution and continuous effective-UAV count as
 \begin{equation}
+\begin{aligned}
 e_i(t)
-=
-P_i^{\mathrm{pen}}(t)\,P_i^{\mathrm{hit}}(t).
-\end{equation}
-The continuous effective-UAV count is
-\begin{equation}
+&=P_i^{\mathrm{pen}}(t)P_i^{\mathrm{hit}}(t),\\
 N_{\mathrm{eff}}(t)
-=
-\sum_{i\in\mathcal{A}} e_i(t)
-=
-\sum_{i\in\mathcal{A}} P_i^{\mathrm{pen}}(t)\,P_i^{\mathrm{hit}}(t).
+&=\sum_{i\in\mathcal A}e_i(t)
+=\sum_{i\in\mathcal A}P_i^{\mathrm{pen}}(t)P_i^{\mathrm{hit}}(t).
+\end{aligned}
 \end{equation}
 At $T$, $N_{\mathrm{eff}}$ represents surviving, strike-capable penetrators.
 
@@ -744,23 +673,13 @@ N_{\mathrm{waste}}(T)
 \sum_{i\in\mathcal{A}} U_i^{\mathrm{waste}}(T).
 \end{equation}
 
-Simultaneous successful arrivals produce the saturation-strike efficiency
-\begin{equation}
-J_{\mathrm{sat}}(T)
-=
-\lambda_1 N_{\mathrm{eff}}(T)
-+
-\lambda_2 N_{\mathrm{eff}}^2(T),
-\end{equation}
-where the linear term rewards effective penetration and the quadratic term promotes simultaneous terminal entry.
+Simultaneous arrivals produce the saturation-strike efficiency $J_{\mathrm{sat}}(T)=\lambda_1N_{\mathrm{eff}}(T)+\lambda_2N_{\mathrm{eff}}^2(T)$, whose quadratic term promotes coordinated terminal entry.
 
 Let $N_{\mathrm{loss}}(T)=\sum_{i\in\mathcal{A}}\ell_i(T)$ be the total loss number over the complete penetration process. The terminal total value function is defined as
 \begin{equation}
 J_T
 =
-\lambda_1 N_{\mathrm{eff}}(T)
-+
-\lambda_2 N_{\mathrm{eff}}^2(T)
+J_{\mathrm{sat}}(T)
 -
 \lambda_L N_{\mathrm{loss}}(T)
 -
@@ -768,29 +687,31 @@ J_T
 \end{equation}
 where $\lambda_L,\lambda_U>0$ penalize total and ineffective losses; sacrifice is valuable only if it enables other penetrators.
 
-The operation-level utility is
+Define the running utility
 \begin{equation}
 \begin{aligned}
-\mathcal J
+L(t)
 ={}&
-\mathbb E\Biggl[
-\int_0^T
-\Biggl(
 \lambda_P \sum_{i\in\mathcal{A}} P_i^{\mathrm{pen}}(t)
 +
 \lambda_{JH} \sum_{i\in\mathcal{A}} P_i^{\mathrm{hit}}(t)\\
-&\qquad\qquad
+&
 -
 \lambda_C \sum_{i\in\mathcal{A}} \Psi_i^{\mathrm{cone}}(t)
 -
-\lambda_S \sum_{i\in\mathcal{A}} C_i^{\mathrm{self}}(t)
-\Biggr)\,dt
-+
-J_T
-\Biggr],
+\lambda_S \sum_{i\in\mathcal{A}} C_i^{\mathrm{self}}(t).
 \end{aligned}
+\label{eq:running-utility}
 \end{equation}
-where $\Psi_i^{\mathrm{cone}}$ and $C_i^{\mathrm{self}}$ are detection-risk and defensive-threat costs. Positive $\lambda_P,\lambda_{JH},\lambda_C,\lambda_S$ balance them against penetration and strike terms, linking running state to terminal value.
+The operation-level objective is
+\begin{equation}
+\mathcal J
+=
+\mathbb E\!\left[
+\int_0^T L(t)\,dt+J_T
+\right].
+\end{equation}
+Here $\Psi_i^{\mathrm{cone}}$ and $C_i^{\mathrm{self}}$ are detection-risk and defensive-threat costs; positive $\lambda_P,\lambda_{JH},\lambda_C,\lambda_S$ balance them against penetration and strike terms.
 
 \subsection{Markov Decision Modeling Based on Theoretical Priors}
 \label{subsec:rl-design}
@@ -808,20 +729,13 @@ u_i(t)=\bigl[u_i^{(1)}(t),\,u_i^{(2)}(t),\,u_i^{(3)}(t)\bigr]^{\top}\in[-1,1]^3,
 \end{equation}
 whose components command axial, pitch-normal, and yaw-normal maneuvers. A biased affine mapping converts them to the accelerations in \eqref{eq:dyn-V}--\eqref{eq:dyn-gamma}:
 \begin{equation}
-\mathcal{T}:u_i\;\longmapsto\;\bigl(a_{x,i},\,a_{n,\gamma,i},\,a_{n,\psi,i}\bigr).
-\end{equation}
-Let $a_{x,\min},a_{x,\max}$ bound axial acceleration and $a_n^{A,\max}$ bound normal acceleration. The mappings are
-\begin{equation}
-a_{x,i}=
-\begin{cases}
-u_i^{(1)}\,(0-a_{x,\min}), & u_i^{(1)}\le 0,\\[2pt]
-u_i^{(1)}\,(a_{x,\max}-0), & u_i^{(1)}>0,
-\end{cases}
-\label{eq:act-ax}
-\end{equation}
-and
-\begin{equation}
 \begin{aligned}
+a_{x,i}
+&=
+\begin{cases}
+u_i^{(1)}(0-a_{x,\min}), & u_i^{(1)}\le0,\\
+u_i^{(1)}(a_{x,\max}-0), & u_i^{(1)}>0,
+\end{cases}\\
 a_{n,\gamma,i}
 &=
 \begin{cases}
@@ -832,36 +746,23 @@ g+u_i^{(2)}\,\bigl(a_n^{A,\max}+g\bigr), & u_i^{(2)}<0,
 a_{n,\psi,i}
 &=u_i^{(3)}\,a_n^{A,\max}.
 \end{aligned}
-\label{eq:act-an}
+\label{eq:act-map}
 \end{equation}
-The constrained physical inputs in \eqref{eq:act-ax} and \eqref{eq:act-an} satisfy
-\begin{equation}
-a_{x,i}=0,\qquad a_{n,\gamma,i}=g,\qquad a_{n,\psi,i}=0,
-\end{equation}
-for $u_i=\mathbf{0}$. With $\gamma_i=0$, this is level, constant-speed, straight-flight trim, so the policy learns maneuver corrections about that state.
+Here $a_{x,\min},a_{x,\max}$ bound axial acceleration and $a_n^{A,\max}$ bounds normal acceleration. For $u_i=\mathbf0$, \eqref{eq:act-map} gives $a_{x,i}=0$, $a_{n,\gamma,i}=g$, and $a_{n,\psi,i}=0$; with $\gamma_i=0$, this is level, constant-speed, straight-flight trim.
 
-Let the local observation of offensive UAV $i$ be $o_i(t)\in\mathbb{R}^{11+4K}$, which is decomposed into four functional feature groups:
+The local observation $o_i(t)\in\mathbb R^{11+4K}$ and task-enhanced actor input are
 \begin{equation}
-o_i(t)=\bigl[\,o_i^{\mathrm{self}}(t)\;\big|\;o_i^{H}(t)\;\big|\;o_i^{\mathrm{thr}}(t)\;\big|\;o_i^{\mathrm{team}}(t)\,\bigr]^{\top}.
+\begin{aligned}
+o_i(t)
+&=\bigl[\,o_i^{\mathrm{self}}(t)\mid o_i^{H}(t)\mid
+o_i^{\mathrm{thr}}(t)\mid o_i^{\mathrm{team}}(t)\,\bigr]^\top,\\
+\bar o_i(t)
+&=\left[o_i^\top(t),\mu_i^\top(t)\right]^\top
+\in\mathbb R^{14+4K}.
+\end{aligned}
 \label{eq:obs-decomp}
 \end{equation}
-The task-probability vector is appended explicitly to form the actor input
-\begin{equation}
-\bar o_i(t)
-=
-\left[o_i^{\top}(t),\,\mu_i^{\top}(t)\right]^{\top}
-\in\mathbb R^{14+4K}.
-\end{equation}
-Here, online task probabilities $\mu_i=[\mu_i^D,\mu_i^P,\mu_i^S]^{\top}$ augment the actor observation and serve as centralized critic priors during training.
-
-The position-independent $o_i^{\mathrm{self}}\in\mathbb{R}^{5}$ is
-\begin{equation}
-o_i^{\mathrm{self}}(t)=\Bigl[\,V_i/V_{\mathrm{ref}},\;\sin\gamma_i,\;\cos\gamma_i,\;a_{n,\gamma,i}/a^{\mathrm{ref}}_n,\;a_{n,\psi,i}/a^{\mathrm{ref}}_n\,\Bigr],
-\label{eq:obs-self}
-\end{equation}
-where $V_{\mathrm{ref}}$ and $a^{\mathrm{ref}}_n$ normalize its entries.
-
-The HVT feature $o_i^{H}\in\mathbb{R}^{4}$ uses
+The HVT relative-motion components are
 \begin{align}
 \dot\lambda_{\mathrm{az},iH}(t)&=\frac{r_{iH,x}\,\dot r_{iH,y}-r_{iH,y}\,\dot r_{iH,x}}{r_{iH,x}^{2}+r_{iH,y}^{2}},
 \label{eq:los-az}\\
@@ -873,77 +774,69 @@ V_{c,iH}(t)&=\frac{r_{iH}^{\top}v_i}{\rho_{iH}},
 c_{\mathrm{align},iH}(t)&=\frac{v_i^{\top}r_{iH}}{\|v_i\|\,\rho_{iH}},
 \label{eq:cos-align}
 \end{align}
-where $c_{\mathrm{align},iH}$ is distance-independent heading alignment, yielding
+where $c_{\mathrm{align},iH}$ is distance-independent heading alignment. Threat normalization uses
 \begin{equation}
 \begin{aligned}
-o_i^{H}(t)=\Bigl[\,&\dot\lambda_{\mathrm{az},iH}/\omega_{\mathrm{ref}},\;
-\dot\lambda_{\mathrm{el},iH}/\omega_{\mathrm{ref}},\\
-&V_{c,iH}/V_{\mathrm{ref}},\;c_{\mathrm{align},iH}\,\Bigr].
+\widetilde V_{c,ij}(t)
+&=\operatorname{clip}\!\left(\frac{V_{c,ij}(t)}{V_{\mathrm{ref}}},-1,1\right),\\
+\widetilde\Gamma_{ij}(t)
+&=\operatorname{clip}\!\left(\frac{\Gamma_{ij}(t)}{\omega_{\mathrm{ref}}},-1,1\right).
 \end{aligned}
 \end{equation}
-
-Threat normalization uses
-\begin{equation}
-\widetilde V_{c,ij}(t)
-=
-\operatorname{clip}\!\left(
-\frac{V_{c,ij}(t)}{V_{\mathrm{ref}}},
--1,1
-\right),
-\end{equation}
-\begin{equation}
-\widetilde\Gamma_{ij}(t)
-=
-\operatorname{clip}\!\left(
-\frac{\Gamma_{ij}(t)}{\omega_{\mathrm{ref}}},
--1,1
-\right).
-\end{equation}
-Because $\Gamma_{ij}$ has LOS-rate units, $\omega_{\mathrm{ref}}$ normalizes it. The $K=3$ largest-$p_{ij}^{\mathrm{cap}}$ interceptors form $o_i^{\mathrm{thr}}\in\mathbb{R}^{4K}$, with indices
+Because $\Gamma_{ij}$ has LOS-rate units, $\omega_{\mathrm{ref}}$ normalizes it. The $K=3$ largest-$p_{ij}^{\mathrm{cap}}$ interceptors are ordered by
 \begin{equation}
 p_{i j_i^{(1)}}^{\mathrm{cap}}(t)
 \ge p_{i j_i^{(2)}}^{\mathrm{cap}}(t)
 \ge\cdots\ge
 p_{i j_i^{(K)}}^{\mathrm{cap}}(t).
 \end{equation}
-Each contributes
-\begin{equation}
-o_{i,j}^{\mathrm{thr}}(t)=
-\Bigl[\,
-q_{ij}(t),\;
-\widetilde V_{c,ij}(t),\;
-\left\|\omega_{ij}^{\mathrm{LOS}}(t)\right\|,\;
-\widetilde\Gamma_{ij}(t)
-\,\Bigr],
-\label{eq:obs-thr}
-\end{equation}
-and the concatenated threat observation is
-\begin{equation}
-o_i^{\mathrm{thr}}(t)
-=
-\left[
-o_{i,j_i^{(1)}}^{\mathrm{thr}}(t)
-\mid\cdots\mid
-o_{i,j_i^{(K)}}^{\mathrm{thr}}(t)
-\right].
-\end{equation}
-The tuple contains FOV margin, normalized closing velocity, LOS-rate magnitude, and normalized mismatch. Fewer than $K$ valid entries are zero padded; none reveals true defender assignment.
-
-The group-game feature $o_i^{\mathrm{team}}\in\mathbb{R}^{2}$ is
-\begin{equation}
-o_i^{\mathrm{team}}(t)=\Bigl[\,P_i^{\mathrm{pen}}(t),\;P_i^{\mathrm{hit}}(t)\,\Bigr].
-\label{eq:obs-team}
-\end{equation}
+The observation components are summarized compactly below; $V_{\mathrm{ref}}$, $a^{\mathrm{ref}}_n$, and $\omega_{\mathrm{ref}}$ are normalization constants.
+\begin{table}[!htbp]
+\centering
+\caption{Components of the enhanced actor observation}
+\label{tab:actor-observation-components}
+\begin{tabularx}{\linewidth}{@{}l X@{}}
+\toprule
+Group & Components\\
+\midrule
+Self &
+\(\begin{aligned}
+o_i^{\mathrm{self}}(t)=[&V_i/V_{\mathrm{ref}},\sin\gamma_i,\cos\gamma_i,\\
+&a_{n,\gamma,i}/a^{\mathrm{ref}}_n,a_{n,\psi,i}/a^{\mathrm{ref}}_n]
+\end{aligned}\)\\
+HVT &
+\(\begin{aligned}
+o_i^H(t)=[&\dot\lambda_{\mathrm{az},iH}/\omega_{\mathrm{ref}},
+\dot\lambda_{\mathrm{el},iH}/\omega_{\mathrm{ref}},\\
+&V_{c,iH}/V_{\mathrm{ref}},c_{\mathrm{align},iH}]
+\end{aligned}\)\\
+Threat &
+\(\begin{aligned}
+o_{i,j}^{\mathrm{thr}}(t)=[&q_{ij},\widetilde V_{c,ij},
+\|\omega_{ij}^{\mathrm{LOS}}\|,\widetilde\Gamma_{ij}],\\
+o_i^{\mathrm{thr}}(t)=[&o_{i,j_i^{(1)}}^{\mathrm{thr}}\mid\cdots\mid
+o_{i,j_i^{(K)}}^{\mathrm{thr}}]
+\end{aligned}\)\\
+Team & \(o_i^{\mathrm{team}}(t)=[P_i^{\mathrm{pen}},P_i^{\mathrm{hit}}]\)\\
+Task prior & \(\mu_i(t)=[\mu_i^D,\mu_i^P,\mu_i^S]^\top\)\\
+\bottomrule
+\end{tabularx}
+\end{table}
+Fewer than $K$ valid threat entries are zero padded, and none reveals true defender assignment. The online task prior augments the actor input and is also available to the centralized critic during training.
 
 Individual and shared running rewards plus a terminal term begin with range, closing, and retreat shaping:
-\begin{align}
-r_i^{\mathrm{app}}(t)&=\lambda_{\mathrm{app}}\,\frac{\rho_{iH}(t-\Delta t)-\rho_{iH}(t)}{\rho_{\mathrm{ref}}},
-\label{eq:r-approach}\\
-r_i^{\mathrm{cls}}(t)&=\lambda_{c}\,\frac{V_{c,iH}(t)}{V_{\mathrm{ref}}},
-\label{eq:r-closing}\\
-r_i^{\mathrm{ret}}(t)&=-\lambda_r\,\frac{\max\bigl(-V_{c,iH}(t),\,0\bigr)}{V_{\mathrm{ref}}}.
+\begin{equation}
+r_i^{\mathrm{app}}(t)=\lambda_{\mathrm{app}}\,\frac{\rho_{iH}(t-\Delta t)-\rho_{iH}(t)}{\rho_{\mathrm{ref}}},
+\label{eq:r-approach}
+\end{equation}
+\begin{equation}
+r_i^{\mathrm{cls}}(t)=\lambda_{c}\,\frac{V_{c,iH}(t)}{V_{\mathrm{ref}}},
+\label{eq:r-closing}
+\end{equation}
+\begin{equation}
+r_i^{\mathrm{ret}}(t)=-\lambda_r\,\frac{\max\bigl(-V_{c,iH}(t),\,0\bigr)}{V_{\mathrm{ref}}}.
 \label{eq:r-retreat}
-\end{align}
+\end{equation}
 Equations~\eqref{eq:r-approach} and \eqref{eq:r-closing} reward approach; \eqref{eq:r-retreat} penalizes retreat.
 
 LOS pointing uses $c_{\mathrm{align},iH}$ and vertical alignment
@@ -972,35 +865,14 @@ r_t^{\mathrm{tmin}}(t)=\lambda_{\mathrm{tm}}\,\frac{\rho_{\min}(t-\Delta t)-\rho
 \label{eq:r-team}
 \end{equation}
 
-The running integrand of $\mathcal J$ is discretized over $\Delta t$:
+The theoretical utility reward is the forward-Euler discretization of the running term in $\mathcal J$:
 \begin{equation}
-\begin{aligned}
 r_t^{\mathrm{util}}(t)
 =
-\Delta t
-\Biggl[
-&
-\lambda_P
-\sum_{i\in\mathcal A}
-P_i^{\mathrm{pen}}(t)
-+
-\lambda_{JH}
-\sum_{i\in\mathcal A}
-P_i^{\mathrm{hit}}(t)
-\\
-&-
-\lambda_C
-\sum_{i\in\mathcal A}
-\Psi_i^{\mathrm{cone}}(t)
--
-\lambda_S
-\sum_{i\in\mathcal A}
-C_i^{\mathrm{self}}(t)
-\Biggr].
-\end{aligned}
+\Delta t\,L(t).
 \label{eq:r-prior}
 \end{equation}
-Thus, $r_t^{\mathrm{util}}$ is its forward-Euler approximation; $r_t^{\mathrm{tmin}}$, $r_t^{\mathrm{esc}}$, and feasibility terms are auxiliary, while $r^T$ discretizes $J_T$. Escape shaping is
+The progress, escape, and feasibility terms are auxiliary shaping rewards, while $r^T$ is the discrete counterpart of $J_T$. Escape shaping is
 \begin{equation}
 r_t^{\mathrm{esc}}(t)=\lambda_{\mathrm{esc}}\sum_{i\in\mathcal{A}}E_i^{\mathrm{esc}}(t).
 \end{equation}
@@ -1013,16 +885,22 @@ Feasibility uses boundary, terrain, range, and yaw penalties:
 1-
 \exp\!\left(-\frac{\rho_{iH}(t)}{\rho_{\mathrm{ref}}}\right).
 \end{equation}
-\begin{align}
-r_i^{\mathrm{bnd}}(t)&=-\lambda_b\,\mathbb{I}_{\mathrm{out}}(p_i(t)),
-\label{eq:r-bnd}\\
-r_i^{\mathrm{grd}}(t)&=-\lambda_{\mathrm{gr}}\,\bigl(\max(0,\,1-z_i(t)/z^{\mathrm{safe}})\bigr)^{2},
-\label{eq:r-grd}\\
-r_i^{\mathrm{prx}}(t)&=-\lambda_{\mathrm{px}}\,\frac{\rho_{iH}(t)}{\rho_{\mathrm{ref}}},
-\label{eq:r-prx}\\
-r_i^{\mathrm{reg}}(t)&=-\lambda_{\mu}\,\bigl|u_i^{(3)}(t)\bigr|\cdot \widetilde\rho_{iH}(t).
+\begin{equation}
+r_i^{\mathrm{bnd}}(t)=-\lambda_b\,\mathbb{I}_{\mathrm{out}}(p_i(t)),
+\label{eq:r-bnd}
+\end{equation}
+\begin{equation}
+r_i^{\mathrm{grd}}(t)=-\lambda_{\mathrm{gr}}\,\bigl(\max(0,\,1-z_i(t)/z^{\mathrm{safe}})\bigr)^{2},
+\label{eq:r-grd}
+\end{equation}
+\begin{equation}
+r_i^{\mathrm{prx}}(t)=-\lambda_{\mathrm{px}}\,\frac{\rho_{iH}(t)}{\rho_{\mathrm{ref}}},
+\label{eq:r-prx}
+\end{equation}
+\begin{equation}
+r_i^{\mathrm{reg}}(t)=-\lambda_{\mu}\,\bigl|u_i^{(3)}(t)\bigr|\cdot \widetilde\rho_{iH}(t).
 \label{eq:r-reg}
-\end{align}
+\end{equation}
 As $\widetilde\rho_{iH}$ decreases near the HVT, yaw regularization relaxes. Sparse events use
 \begin{equation}
 \begin{aligned}
@@ -1035,44 +913,27 @@ r_i^{\mathrm{kld}}(t)
 \end{equation}
 where $\lambda_{\mathrm{hit}}$ rewards hits, $\lambda_{\mathrm{kl}}$ penalizes losses, and $r_i^{\mathrm{stp}}=-\lambda_s$ promotes completion.
 
-To avoid double counting, individual terms are
-\begin{equation}
-\begin{aligned}
+The individual, team, and total running rewards are
+\begin{align}
 r_i^{\mathrm{ind}}(t)
-&=
-{r_i^{\mathrm{app}}+r_i^{\mathrm{cls}}+r_i^{\mathrm{ret}}}
-% \quad
-+{r_i^{\mathrm{algn}}+r_i^{\mathrm{herr}}}
-% \quad
-+{r_i^{\mathrm{bnd}}+r_i^{\mathrm{grd}}+r_i^{\mathrm{prx}}+r_i^{\mathrm{reg}}}\\
-&\quad
-+r_i^{\mathrm{hit}}+r_i^{\mathrm{kld}}+r_i^{\mathrm{stp}}.
-\end{aligned}
-\label{eq:r-ind}
-\end{equation}
-team terms are
-\begin{equation}
+&=r_i^{\mathrm{app}}+r_i^{\mathrm{cls}}+r_i^{\mathrm{ret}}
++r_i^{\mathrm{algn}}+r_i^{\mathrm{herr}}\notag\\
+&\quad+r_i^{\mathrm{bnd}}+r_i^{\mathrm{grd}}+r_i^{\mathrm{prx}}+r_i^{\mathrm{reg}}
++r_i^{\mathrm{hit}}+r_i^{\mathrm{kld}}+r_i^{\mathrm{stp}},
+\label{eq:r-ind}\\
 r_t^{\mathrm{team}}(t)
-=
-r_t^{\mathrm{tmin}}(t)
-+
-r_t^{\mathrm{util}}(t)
-+
-r_t^{\mathrm{esc}}(t).
-\end{equation}
-and their total is
-\begin{equation}
-R(t)=\sum_{i\in\mathcal{A}}r_i^{\mathrm{ind}}(t)+r_t^{\mathrm{team}}(t).
+&=r_t^{\mathrm{tmin}}(t)+r_t^{\mathrm{util}}(t)+r_t^{\mathrm{esc}}(t),\\
+R(t)
+&=\sum_{i\in\mathcal A}r_i^{\mathrm{ind}}(t)+r_t^{\mathrm{team}}(t).
 \label{eq:r-total}
-\end{equation}
+\end{align}
 
 The terminal reward is
 \begin{equation}
-r^{T}=\lambda_1 N_{\mathrm{eff}}(T)+\lambda_2 N_{\mathrm{eff}}^{2}(T)
--\lambda_L N_{\mathrm{loss}}(T)-\lambda_U N_{\mathrm{waste}}(T),
+r^{T}=J_T,
 \label{eq:r-term}
 \end{equation}
-where $\lambda_2 N_{\mathrm{eff}}^{2}$ promotes simultaneous entry.
+which retains the effective-penetration, simultaneous-entry, total-loss, and ineffective-sacrifice terms defined above.
 
 The training objective is to maximize the discounted cumulative reward under the behavior policy used to collect trajectories:
 \begin{equation}
@@ -1084,8 +945,7 @@ where $\gamma\in(0,1)$ is the discount factor. The CTDE paradigm is adopted in t
 \subsection{Task-Trust Attention Cooperative Penetration Policy Optimization Algorithm}
 \label{subsubsec:rta-mappo}
 
-Based on the Markov decision modeling above, this paper adopts the task-trust attention multi-agent proximal policy optimization (TTA-MAPPO) algorithm to solve the swarm cooperative penetration policy. The method introduces the dynamic task reconfiguration prior, trust-modulated exploration, and attention residual feature-extraction mechanism into MAPPO, realizing cooperative policy learning for multiple UAVs under multi-interceptor FOV constraints. In TTA-MAPPO, ``task'' refers to the dynamically reconfigured task-probability prior, ``trust'' denotes return-adaptive exploration regulation, and ``attention'' refers to the cross-agent attention used by the centralized critic. The algorithm schematic is shown in Fig.~\ref{fig:algorithm-framework}.
-The method uses centralized evaluation and distributed execution. The actor factorization is
+TTA-MAPPO augments MAPPO with dynamic task priors, trust-modulated exploration, and centralized-critic attention for cooperative penetration under multi-interceptor FOV constraints. In TTA-MAPPO, ``task'' refers to the dynamically reconfigured task-probability prior, ``trust'' denotes return-adaptive exploration regulation, and ``attention'' refers to the cross-agent attention used by the centralized critic. Figure~\ref{fig:algorithm-framework} shows its centralized-evaluation, distributed-execution architecture, whose actor factorization is
 \begin{equation}
 \pi_\theta(\mathbf u\mid\bar{\mathbf o})
 =
@@ -1131,24 +991,23 @@ h_i^{A}
 =
 h_i^{A,0}+f_{\mathrm{res}}^{A}\bigl(h_i^{A,0}\bigr).
 \end{equation}
-Cross-agent attention is used only by the centralized critic during training. Let $\chi_i(t)$ be the $i$th agent-specific global feature extracted from $s(t)$ and $\zeta(t)$, and define
+This residual MLP encodes $\bar o_i$ and parameterizes the mean and covariance of the latent Gaussian actor.
+Cross-agent attention is used only by the centralized critic during training. For the $i$th global feature $\chi_i(t)$ extracted from $s(t)$ and $\zeta(t)$,
 \begin{equation}
-g_i^{C,0}=f_{\mathrm{enc}}^{C}\bigl(\chi_i(t)\bigr),
-\end{equation}
-\begin{equation}
+\begin{aligned}
+g_i^{C,0}
+&=f_{\mathrm{enc}}^{C}\bigl(\chi_i(t)\bigr),\\
 \alpha_{ik}^{C}
-=
+&=
 \frac{
 \exp\left[(W_qg_i^{C,0})^{\top}(W_kg_k^{C,0})/\sqrt d\right]
 }{
 \sum_{\ell\in\mathcal A}
 \exp\left[(W_qg_i^{C,0})^{\top}(W_kg_\ell^{C,0})/\sqrt d\right]
-},
-\end{equation}
-\begin{equation}
+},\\
 \bar g_i^{C}
-=
-\sum_{k\in\mathcal A}\alpha_{ik}^{C}W_vg_k^{C,0},
+&=\sum_{k\in\mathcal A}\alpha_{ik}^{C}W_vg_k^{C,0}.
+\end{aligned}
 \end{equation}
 \begin{equation}
 g_i^{C}
@@ -1156,7 +1015,7 @@ g_i^{C}
 g_i^{C,0}
 +f_{\mathrm{res}}^{C}\!\left([g_i^{C,0},\bar g_i^{C}]\right).
 \end{equation}
-Here, $d$ is the key dimension. Cross-agent attention serves only centralized value estimation; actors process $\bar o_i$ during decentralized execution.
+Here, $W_q,W_k,W_v$ generate query, key, and value features, and $d$ is the key dimension. The residual $g_i^C$ serves centralized value estimation only; actors process $\bar o_i$ during decentralized execution.
 
 To address low exploration efficiency, trust-modulated exploration linearly normalizes the moving-average episodic return to $[0,1]$ as $\bar R_i(t)$. The trust factor is
 \begin{equation}
@@ -1178,23 +1037,20 @@ where $R_{\min}=0$ and $R_{\max}=1$ are its bounds. Exploration intensity is
 \bigl(1-\eta_i(t)\bigr).
 \end{equation}
 
-The learned actor and the task-guided Gaussian-mixture policy generate latent actions in an unconstrained space. Let $\widetilde u_i(t)\in\mathbb R^3$ denote the latent maneuver action. The normalized action applied to the UAV dynamics is obtained through the componentwise squashing transformation
+The actor and task-guided mixture generate latent action $\widetilde u_i(t)\in\mathbb R^3$; componentwise squashing gives
 \begin{equation}
 u_i(t)
 =
 \tanh\!\left(\widetilde u_i(t)\right),
 \end{equation}
-which guarantees $u_i(t)\in(-1,1)^3\subset[-1,1]^3$.
-The latent actor policy $\widetilde\pi_{\theta_i}(\widetilde u_i\mid\bar o_i)$ is parameterized as a Gaussian distribution in the unconstrained latent-action space. The corresponding executed actor policy $\pi_{\theta_i}(u_i\mid\bar o_i)$ is induced from $\widetilde\pi_{\theta_i}$ through the same componentwise tanh transformation and change-of-variables rule. Therefore, $\widetilde\pi_{\theta_i}$ denotes the latent-action density, whereas $\pi_{\theta_i}$ denotes the density of the bounded maneuver action $u_i=\tanh(\widetilde u_i)$.
-The actual behavior policy used to sample the latent action of agent $i$ is
+which guarantees $u_i(t)\in(-1,1)^3\subset[-1,1]^3$. The Gaussian $\widetilde\pi_{\theta_i}(\widetilde u_i\mid\bar o_i)$ is the latent density, and the same tanh transformation and change-of-variables rule induce the bounded executed density $\pi_{\theta_i}(u_i\mid\bar o_i)$. The latent behavior policy is
 \begin{equation}
 \widetilde b_{\theta_i}(\widetilde u_i\mid\bar o_i,\mu_i)
 =
 (1-\epsilon_i)\widetilde\pi_{\theta_i}(\widetilde u_i\mid\bar o_i)
 +\epsilon_i\widetilde\pi_i^{\mathrm{exp}}(\widetilde u_i\mid o_i,\mu_i).
 \end{equation}
-This is the latent behavior distribution.
-The corresponding joint executed-action behavior policy is
+The joint executed-action behavior policy is
 \begin{equation}
 b_\theta(\mathbf u\mid\bar{\mathbf o},\mu)
 =
@@ -1246,34 +1102,20 @@ The exploration policy $\widetilde\pi_i^{\mathrm{exp}}$ is a task-weighted laten
 \end{equation}
 where $\Sigma$ is the base exploration covariance matrix. The vectors $u_i^{r,\mathrm{ref}}$, $r\in\{D,P,S\}$, are heuristic reference-action biases for the three tasks.
 
-The three reference actions are deterministic, saturated heuristic guidance mappings. The primary-attack reference is
+The deterministic, saturated reference mappings are
 \begin{equation}
-u_i^{P,\mathrm{ref}}(t)
-=\mathcal G_P\bigl(o_i^H(t)\bigr).
-\end{equation}
-The mapping $\mathcal G_P$ uses the HVT azimuth and elevation LOS angular rates, closing velocity, and directional-alignment error to generate bounded axial, pitch, and yaw references that drive the UAV toward the HVT while reducing terminal pointing error.
-
-The critical interceptor for decoy-containment guidance is inferred from observable relative motion as
-\begin{equation}
+\begin{aligned}
 j^\star
-=
-\arg\max_{j\in\mathcal D}p_{ij}^{\mathrm{cap}}(t),
-\end{equation}
-where $p_{ij}^{\mathrm{cap}}$ is an inferred capture likelihood rather than the defender's true target-assignment label. The corresponding reference is
-\begin{equation}
+&=\arg\max_{j\in\mathcal D}p_{ij}^{\mathrm{cap}}(t),\\
+u_i^{P,\mathrm{ref}}(t)
+&=\mathcal G_P\bigl(o_i^H(t)\bigr),\\
 u_i^{D,\mathrm{ref}}(t)
-=\mathcal G_D\bigl(o_{i,j^\star}^{\mathrm{thr}}(t)\bigr).
-\end{equation}
-The mapping $\mathcal G_D$ uses the critical interceptor's FOV margin, LOS angular rate, and tracking-mismatch margin to generate a saturated normal-maneuver reference along a favorable LOS-rotation direction, thereby increasing the interceptor's tracking burden.
-
-The concealment-evasion reference is
-\begin{equation}
+&=\mathcal G_D\bigl(o_{i,j^\star}^{\mathrm{thr}}(t)\bigr),\\
 u_i^{S,\mathrm{ref}}(t)
-=\mathcal G_S\!\left(\{o_{i,j}^{\mathrm{thr}}(t)\}_{j\in\mathcal D}\right).
+&=\mathcal G_S\!\left(\{o_{i,j}^{\mathrm{thr}}(t)\}_{j\in\mathcal D}\right).
+\end{aligned}
 \end{equation}
-The mapping $\mathcal G_S$ uses the multi-interceptor detection margins to generate a bounded evasion reference directed away from the dominant detection-FOV center and toward lower joint detection risk. The mappings $\mathcal G_D$, $\mathcal G_P$, and $\mathcal G_S$ are deterministic and saturated, and are used only as the means of the exploration Gaussians. No additional nonlinear optimization problem is solved online; the final action is still generated by the learned policy and the task-probability-modulated exploration policy.
-
-This mechanism dynamically weights the three heuristic action biases by task probabilities, reducing blind exploration in the high-dimensional continuous action space.
+Here $j^\star$ is inferred from capture likelihood rather than true assignment. The maps respectively reduce HVT pointing error, increase the critical interceptor's LOS-tracking burden, and move away from dominant joint detection risk. They only set exploration-Gaussian means: no nonlinear optimization is solved online, and the learned, task-modulated policy still generates the final action.
 
 The PPO clipped objective is used for policy update:
 \begin{equation}
@@ -1301,7 +1143,7 @@ b_{\theta_{\mathrm{old}}}\bigl(\mathbf u(t)\mid \bar{\mathbf o}(t),\mu(t)\bigr)
 The denominator is evaluated using the old network parameters and the corresponding exploration intensities stored when the trajectory was sampled. Both the numerator and denominator are executed-action densities after tanh squashing and Jacobian correction.
 The entropy term of the squashed behavior policy is estimated from the sampled action log densities in each mini-batch.
 
-During deterministic evaluation and all reported HIL tests, the exploration branch is disabled by setting $\epsilon_i=0$, and the maneuver command is generated from the squashed mean of the latent Gaussian actor policy $\widetilde\pi_{\theta_i}$. Therefore, the mixed behavior policy is used only for training-data collection, whereas the reported execution performance is produced by the learned actor:
+For deterministic evaluation and all reported HIL tests, exploration is disabled and the latent actor mean is squashed:
 \begin{equation}
 \epsilon_i^{\mathrm{eval}}=0,
 \qquad
@@ -1315,7 +1157,7 @@ u_i^{\mathrm{eval}}(t)
 \right)
 \right],
 \end{equation}
-where $\mu_{\theta_i}(\bar o_i)$ is the mean of the latent Gaussian actor policy $\widetilde\pi_{\theta_i}$, and the tanh transformation maps it to the bounded executed action.
+where $\mu_{\theta_i}(\bar o_i)$ is the mean of $\widetilde\pi_{\theta_i}$; thus the mixed behavior policy collects training data, whereas the learned actor produces reported execution.
 
 The loss function of the centralized critic network is
 \begin{equation}
@@ -1341,7 +1183,7 @@ c_v L_V(\phi)
 -
 c_e\mathcal H(b_{\theta}),
 \end{equation}
-where $c_v$, $c_e$, and $\mathcal H(b_{\theta})$ are the value-loss weight, entropy weight, and behavior entropy. Thus, $b_\theta$ provides task-guided exploration only during training-data collection, the critic is used only during training, and $\pi_\theta$ provides deterministic squashed-mean actions for HIL evaluation and execution; each actor processes $\bar o_i$ to generate its command.
+where $c_v$, $c_e$, and $\mathcal H(b_{\theta})$ are the value-loss weight, entropy weight, and behavior entropy. Hence $b_\theta$ and the critic are training-only, whereas $\pi_\theta$ maps each $\bar o_i$ to deterministic squashed-mean actions for HIL evaluation and execution.
 
 \section{Simulation Results and Analysis}
 \label{subsec:v71-case-study}
@@ -1349,7 +1191,8 @@ where $c_v$, $c_e$, and $\mathcal H(b_{\theta})$ are the value-loss weight, entr
 \subsection{Parameter Settings and Model Training}
 \label{subsec:algo-net-setting}
 
-The distributed HIL platform in Fig.~\ref{fig:HIL} uses an Ubuntu 22.04 server with an Intel Core i9-10900K CPU and NVIDIA GeForce RTX 3080 GPU. This architecture separates environment simulation from embedded policy inference. Five NVIDIA Jetson NX nodes infer assigned offensive-UAV policies, while server nodes execute the remaining policies and environment dynamics. TCP links deliver observations and return commands within one closed loop. Both representative and 1000-run evaluations use this architecture, with $\epsilon_i^{\mathrm{eval}}=0$ and deterministic squashed-mean actor commands.
+The distributed HIL platform in Fig.~\ref{fig:HIL} uses an Ubuntu 22.04 server with an Intel Core i9-10900K CPU and NVIDIA GeForce RTX 3080 GPU. This architecture separates environment simulation from embedded policy inference. Five NVIDIA Jetson NX nodes infer assigned offensive-UAV policies, while server nodes execute the remaining policies and environment dynamics. TCP links deliver observations and return commands within one closed loop. 
+% Both representative and 1000-run evaluations use this architecture, with $\epsilon_i^{\mathrm{eval}}=0$ and deterministic squashed-mean actor commands.
 
 \begin{figure}[!htbp]
   \centering
