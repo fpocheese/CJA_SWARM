@@ -114,12 +114,27 @@ Let $\mathcal{F}_E=\{O;\hat{e}_x,\hat{e}_y,\hat{e}_z\}$ be the ground inertial f
 \end{equation}
 
 The offensive and defensive states are
-\begin{align}
-\mathbf s_i^{A}(t)&=\bigl[\,p_i^\top(t),\,V_i(t),\,\psi_i(t),\,\gamma_i(t)\,\bigr]^\top\in\mathbb{R}^{6},
-\label{eq:att-state}\\
-\mathbf s_j^{D}(t)&=\bigl[\,p_j^\top(t),\,V_j(t),\,\psi_j(t),\,\gamma_j(t)\,\bigr]^\top\in\mathbb{R}^{6}.
+% \begin{align}
+% \mathbf s_i^{A}(t)&=\bigl[\,p_i^\top(t),\,V_i(t),\,\psi_i(t),\,\gamma_i(t)\,\bigr]^\top\in\mathbb{R}^{6},
+% \label{eq:att-state}\\
+% \mathbf s_j^{D}(t)&=\bigl[\,p_j^\top(t),\,V_j(t),\,\psi_j(t),\,\gamma_j(t)\,\bigr]^\top\in\mathbb{R}^{6}.
+% \label{eq:def-state}
+% \end{align}
+\begin{equation}
+\mathbf s_i^{A}(t)
+=
+\bigl[\,p_i^\top(t),\,V_i(t),\,\psi_i(t),\,\gamma_i(t)\,\bigr]^\top
+\in\mathbb{R}^{6},
+\label{eq:att-state}
+\end{equation}
+
+\begin{equation}
+\mathbf s_j^{D}(t)
+=
+\bigl[\,p_j^\top(t),\,V_j(t),\,\psi_j(t),\,\gamma_j(t)\,\bigr]^\top
+\in\mathbb{R}^{6}.
 \label{eq:def-state}
-\end{align}
+\end{equation}
 Both states use common coordinate and attitude conventions for sensing and guidance.
 For HVT position $p_H\in\mathbb{R}^3$, define relative position and range
 \begin{equation}
@@ -134,14 +149,31 @@ V_{c,iH}(t)=\frac{r_{iH}^{\top}(t)v_i(t)}{\rho_{iH}(t)},\qquad
 \label{eq:hvt_kinematics_def}
 \end{equation}
 These quantities describe terminal approach and transverse LOS rotation. The UAV dynamics are
-\begin{align}
-\dot V_i&=a_{x,i}-g\sin\gamma_i,
-\label{eq:dyn-V}\\
-\dot\psi_i&=\frac{a_{n,\psi,i}}{V_i\cos\gamma_i},
-\label{eq:dyn-psi}\\
-\dot\gamma_i&=\frac{a_{n,\gamma,i}-g\cos\gamma_i}{V_i},
+
+% \begin{align}
+% \dot V_i&=a_{x,i}-g\sin\gamma_i,
+% \label{eq:dyn-V}\\
+% \dot\psi_i&=\frac{a_{n,\psi,i}}{V_i\cos\gamma_i},
+% \label{eq:dyn-psi}\\
+% \dot\gamma_i&=\frac{a_{n,\gamma,i}-g\cos\gamma_i}{V_i},
+% \label{eq:dyn-gamma}
+% \end{align}
+
+\begin{equation}
+\dot V_i
+=a_{x,i}-g\sin\gamma_i,
+\label{eq:dyn-V}
+\end{equation}
+\begin{equation}
+\dot\psi_i
+=\frac{a_{n,\psi,i}}{V_i\cos\gamma_i},
+\label{eq:dyn-psi}
+\end{equation}
+\begin{equation}
+\dot\gamma_i
+=\frac{a_{n,\gamma,i}-g\cos\gamma_i}{V_i},
 \label{eq:dyn-gamma}
-\end{align}
+\end{equation}
 where $g$ is gravitational acceleration and $a_{x,i}$, $a_{n,\gamma,i}$, and $a_{n,\psi,i}$ are the axial, pitch-plane normal, and yaw-plane normal controls. Each interceptor obeys the same dynamic structure with corresponding subscript-$j$ controls.
 
 Interceptor $D_j$ has FOV axis $b_j(t)=v_j/\|v_j\|\in\mathbb S^2$ and half-angle $\alpha_j$, with relative geometry
@@ -594,14 +626,17 @@ J_i(\mu_i',\mu_{-i};t)-J_i(\mu_i,\mu_{-i};t)
 \end{aligned}
 \end{equation}
 which is the defining unilateral-deviation identity of an exact potential game. For the constraint $\sum_r\mu_i^r=1$, introduce a Lagrange multiplier $\varrho_i$. Stationarity of
-\begin{equation*}
+\begin{equation}
 J_i+\varrho_i\left(1-\sum_r\mu_i^r\right)
-\end{equation*}
+\label{eq:task-game-lagrangian}
+\end{equation}
 gives
-\begin{equation*}
-U_i^r-\frac{\tau_\mu}{\eta}\left(\ln\mu_i^r+1\right)-\varrho_i=0,
-\end{equation*}
+\begin{equation}
+U_i^r-\frac{\tau_\mu}{\eta}\left(\ln\mu_i^r+1\right)-\varrho_i=0.
+\label{eq:task-game-stationarity}
+\end{equation}
 and hence $\mu_i^r\propto\exp[(\eta/\tau_\mu)U_i^r]$. Normalization recovers \eqref{eq:role-logit}. \hfill$\square$
+
 
 The cooperative penetration problem can therefore be characterized as the following state-dependent entropy-regularized exact potential game:
 \begin{equation}
@@ -1202,108 +1237,102 @@ The distributed HIL platform in Fig.~\ref{fig:HIL} uses an Ubuntu 22.04 server w
 \end{figure}
 
 To simulate observation uncertainty during embedded closed-loop deployment, Gaussian errors are added to the velocity, range, and LOS-angular-rate observations of the offensive UAVs, modeled as $\tilde v=v+\eta_v$, $\tilde\rho=\rho+\eta_\rho$, and $\tilde\omega=\omega+\eta_\omega$, where $\eta_v\sim\mathcal{N}\!\left(0.036\,\mathrm{m/s},(0.18\,\mathrm{m/s})^2\right)$, $\eta_\rho\sim\mathcal{N}\!\left(0.15\,\mathrm{m},(0.75\,\mathrm{m})^2\right)$, and $\eta_\omega\sim\mathcal{N}\!\left(1.5\times10^{-4}\,\mathrm{rad/s},(7.5\times10^{-4}\,\mathrm{rad/s})^2\right)$.
-The simulation, method, training, and network parameters for UAV-swarm cooperative penetration are listed in Table~\ref{tab:v71-setup}.
+The complete simulation and training settings, including the trust-mapping, exploration, PPO, and network configurations, are provided in Appendix~\ref{app:complete-parameters}.
+% The key simulation and training settings are provided in \ref{app:complete-parameters}.
+% The complete trust-mapping, exploration, PPO, and network settings are documented in \ref{app:complete-parameters}.
+% , while the complete simulation, method, training, and network parameters are provided in \ref{app:complete-parameters}.
 
-\begin{table*}[!t]
+% \begin{table}[!t]
+% \centering
+% \small
+% \setlength{\tabcolsep}{3.0pt}
+% \renewcommand{\arraystretch}{1.08}
+% \caption{Key simulation and training settings}
+% \label{tab:v71-setup}
+% \begin{tabularx}{\linewidth}{@{}c >{\centering\arraybackslash}X c >{\centering\arraybackslash}X@{}}
+% \toprule
+% Sym. & Val. & Sym. & Val. \\
+% \midrule
+% $\alpha_j$ & $30^{\circ}$ & $D_{\mathrm{radar}}$ & $500\,\mathrm{m}$ \\
+% $\rho^{\mathrm{kill}}$ & $5\,\mathrm{m}$ & $N_{\mathrm{PN}}$ & $3$ \\
+% $T_p$ & $5\,\mathrm{s}$ & $K$ & $3$ \\
+% $\Delta t$ & $1\,\mathrm{s}$ & $\gamma$ & $0.99$ \\
+% $N_{\mathrm{train}}$ & $3000$ episodes & $T_{\max}$ & $80\,\mathrm{s}$ \\
+% \bottomrule
+% \end{tabularx}
+% \end{table}
+
+An offensive--defensive scenario containing an offensive UAV swarm, the HVT, and an interceptor swarm is established, with the HVT fixed at $p_H=(1200,0,0)^\top\,\mathrm{m}$. 
+% The offensive and defensive UAVs have maximum speeds of $50\,\mathrm{m/s}$ and $60\,\mathrm{m/s}$ and normal-acceleration limits of $3g$ and $5g$, respectively. 
+At the start of each episode, the position, speed, and attitude variables of both sides are sampled uniformly from the intervals listed in Table~\ref{tab:initial-range-capability}.
+Three scale cases, 6-vs-6, 8-vs-8, and 10-vs-10, are used to cover different offensive--defensive scales. The complete initial states of their representative episodes are provided in \ref{app:representative-initial-states}, Tables~\ref{tab:sim-ic-6v6}--\ref{tab:sim-ic-10v10}. In HIL tests, the hardware side is fixed to perform policy inference for offensive UAV $A_0$--$A_4$, while the remaining offensive-UAV policies are deployed on the server side and use the same observation packaging, communication protocol, and action interface.
+
+\begin{table}[!t]
 \centering
-\scriptsize
-\setlength{\tabcolsep}{2.0pt}
-\renewcommand{\arraystretch}{1.05}
-\caption{Simulation and training parameter settings}
-\label{tab:v71-setup}
-\label{tab:training-hyperparameters}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}lc|lc|lc|lc|lc|lc|lc@{}}
+\small
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.08}
+\caption{Initial-state sampling ranges and capability limits}
+\label{tab:initial-range-capability}
+\begin{tabularx}{\linewidth}{@{}X >{\centering\arraybackslash}p{0.24\linewidth} >{\centering\arraybackslash}p{0.24\linewidth}@{}}
 \toprule
-Sym. & Val. & Sym. & Val. & Sym. & Val. & Sym. & Val. & Sym. & Val. & Sym. & Val. & Sym. & Val. \\
+Parameter & \shortstack{Offensive UAVs} & Defensive UAVs \\
 \midrule
-$V_i^{\max}$ & $50\,\mathrm{m/s}$ & $V_j^{\max}$ & $60\,\mathrm{m/s}$ & $a_n^{A,\max}$ & $3g$ & $a_n^{D,\max}$ & $5g$ & $\alpha_j$ & $30^{\circ}$ & $D_{\mathrm{radar}}$ & $500\,\mathrm{m}$ & $\kappa_R$ & $0.02\,\mathrm{m^{-1}}$ \\
-$\rho^{\mathrm{kill}}$ & $5\,\mathrm{m}$ & $N_{\mathrm{PN}}$ & $3$ & $z^{\mathrm{safe}}$ & $100\,\mathrm{m}$ & $\rho_{\mathrm{ref}}$ & $60\,\mathrm{m}$ & $\rho_s$ & $80\,\mathrm{m}$ & $T_p$ & $5\,\mathrm{s}$ & $\varepsilon_v$ & $1\,\mathrm{m/s}$ \\
-$K$ & $3$ & $M_c$ & $0.05$ & $\kappa_q$ & $10.0$ & $\beta_Z$ & $10.0$ & $w_s$ & $1.0$ & $w_{\rho}$ & $0.5$ & $w_v$ & $0.3$ \\
-$\beta_L$ & $5.0$ & $\lambda_E^{\mathrm{self}}$ & $0.4$ & $\lambda_D$ & $0.3$ & $\lambda_K$ & $0.3$ & $\lambda_Z$ & $0.6$ & $\lambda_R$ & $0.4$ & $\rho_0$ & $150\,\mathrm{m}$ \\
-$\kappa_{\rho}$ & $0.1\,\mathrm{m^{-1}}$ & $\kappa_d$ & $0.05\,\mathrm{m^{-1}}$ & $\kappa_k$ & $2.0\,\mathrm{m^{-1}}$ & $\kappa_Z$ & $10.0$ & $\kappa_E$ & $1.0\,\mathrm{s/rad}$ & $\kappa_h$ & $0.6\,\mathrm{m^{-1}}$ & $\kappa_c$ & $1.0\,\mathrm{s/m}$ \\
-$\kappa_{\omega}$ & $2.0\,\mathrm{s/rad}$ & $\lambda_{DH}$ & $1.0$ & $\lambda_{PH}$ & $1.0$ & $\lambda_{PL}$ & $0.5$ & $\lambda_{SZ}$ & $0.5$ & $\lambda_{SL}$ & $0.3$ & $\lambda_{SD}$ & $0.2$ \\
-$\eta$ & $2.0$ & $\tau_{\mu}$ & $1.0$ & $V_{\mathrm{ref}}$ & $60\,\mathrm{m/s}$ & $a_n^{\mathrm{ref}}$ & $3g$ & $\omega_{\mathrm{ref}}$ & $0.6\,\mathrm{rad/s}$ & $\lambda_{\mathrm{app}}$ & $3.0$ & $\lambda_c$ & $0.15$ \\
-$\lambda_r$ & $1.2$ & $\lambda_{\mathrm{tm}}$ & $4.0$ & $\lambda_P$ & $0.4$ & $\lambda_{JH}$ & $1.0$ & $\lambda_C$ & $0.2$ & $\lambda_S$ & $0.2$ & $\lambda_b$ & $2.0$ \\
-$\lambda_{\mathrm{gr}}$ & $1.0$ & $\lambda_{\mathrm{px}}$ & $0.05$ & $\lambda_{\mu}$ & $0.012$ & $\lambda_h$ & $0.05$ & $\lambda_g$ & $0.05$ & $\lambda_e$ & $0.2$ & $\lambda_{\mathrm{esc}}$ & $0.2$ \\
-$\lambda_{\mathrm{hit}}$ & $1500$ & $\lambda_{\mathrm{kl}}$ & $0.5$ & $\lambda_s$ & $0.02$ & $\lambda_1$ & $0.45$ & $\lambda_2$ & $0.3$ & $\lambda_L$ & $0.15$ & $\lambda_U$ & $0.5$ \\
-$\gamma$ & $0.99$ & $\Delta t$ & $1\,\mathrm{s}$ & $d_s$ & $80\,\mathrm{m}$ & $R_{\min}$ & $0$ & $R_{\max}$ & $1$ & $\epsilon_{\min}$ & $0.05$ & $\epsilon_{\max}$ & $0.30$ \\
-$\Sigma$ & $0.15^2 I_3$ & $\varepsilon$ & $0.20$ & $c_v$ & $0.50$ & $c_e$ & $0.01$ & $d$ & $64$ & $\alpha_{\mathrm{actor}}$ & $3{\times}10^{-4}$ & $\alpha_{\mathrm{critic}}$ & $1{\times}10^{-3}$ \\
-$\lambda_{\mathrm{GAE}}$ & $0.95$ & $N_{\mathrm{PPO}}$ & $10$ & $N_{\mathrm{mini}}$ & $256$ & $N_{\mathrm{rollout}}$ & $2048$ & $n_{\mathrm{hidden}}$ & $128$ & $N_{\mathrm{train}}$ & $3000$ episodes & $T_{\max}$ & $80\,\mathrm{s}$ \\
+Initial $x$ position / m & $[-1400,-950]$ & $[370,900]$ \\
+Initial $y$ position / m & $[-230,250]$ & $[-280,260]$ \\
+Initial $z$ position / m & $[280,320]$ & $[320,380]$ \\
+Initial speed / (m/s) & $[45,50]$ & $[55,60]$ \\
+Initial heading deviation / deg & $[-11,11]$ & $[-15,15]$ \\
+Initial flight-path angle / deg & $[-1.5,1.5]$ & $[-5,5]$ \\
+Maximum speed / (m/s) & $50$ & $60$ \\
+Normal-acceleration limit & $3g$ & $5g$ \\
 \bottomrule
-\end{tabular}%
-}
-\end{table*}
-
-Here, $R_{\min},R_{\max}$ define the trust mapping, $\epsilon_{\min},\epsilon_{\max}$ bound exploration, and $\Sigma$ is its base covariance; $\varepsilon$, $c_v$, and $c_e$ are the PPO clipping, value-loss, and entropy coefficients, and $d$ is the attention-key dimension. The actor and critic use learning rates $\alpha_{\mathrm{actor}},\alpha_{\mathrm{critic}}$, GAE parameter $\lambda_{\mathrm{GAE}}$, and two $n_{\mathrm{hidden}}=128$ layers. Each $N_{\mathrm{rollout}}$-transition rollout undergoes $N_{\mathrm{PPO}}$ epochs with $N_{\mathrm{mini}}$-sized mini-batches; training spans $N_{\mathrm{train}}$ episodes of at most $T_{\max}$.
-
-An offensive--defensive simulation scenario containing offensive UAV, the HVT, and interceptors is set up. The HVT is fixed at $p_H=(1200,0,0)^\top\,\mathrm{m}$.
-The initial situation of each episode is randomly sampled from the following distributions. The initial position, speed, and attitude of the offensive swarm are sampled uniformly within $x\in[-1400,-950]\,\mathrm{m}$, $y\in[-230,250]\,\mathrm{m}$, $z\in[280,320]\,\mathrm{m}$, $V_A\in[45,50]\,\mathrm{m/s}$, $\delta\psi_A\sim\mathcal{U}(-11^\circ,11^\circ)$, and $\gamma_A\in[-1.5^\circ,1.5^\circ]$. The corresponding ranges for the interceptor swarm are $x\in[370,900]\,\mathrm{m}$, $y\in[-280,260]\,\mathrm{m}$, $z\in[320,380]\,\mathrm{m}$, $V_D\in[55,60]\,\mathrm{m/s}$, $\delta\psi_D\sim\mathcal{U}(-15^\circ,15^\circ)$, and $\gamma_D\in[-5^\circ,5^\circ]$.
-Three scale cases, 6-vs-6, 8-vs-8, and 10-vs-10, are used to cover different offensive--defensive scales. The representative initial states are listed in Table~\ref{tab:sim-ic}.
-In HIL tests, the hardware side is fixed to perform policy inference for offensive UAV $A_0$--$A_4$, while the remaining offensive-UAV policies are deployed on the server side and use the same observation packaging, communication protocol, and action interface.
-
-\begin{table*}[!t]
-\centering\scriptsize
-\setlength{\tabcolsep}{2.0pt}
-\renewcommand{\arraystretch}{1.05}
-\caption{Initial states of representative episodes in the three cases}
-\label{tab:sim-ic}
-\resizebox{\textwidth}{!}{%
-\begin{tabular}{@{}c rrrrr rrrrr rrrrr cc@{}}
-\toprule
-& \multicolumn{5}{c}{Case 1 (6-vs-6)} & \multicolumn{5}{c}{Case 2 (8-vs-8)} & \multicolumn{5}{c}{Case 3 (10-vs-10)} & \multicolumn{2}{c}{Capability}\\
-\cmidrule(lr){2-6}\cmidrule(lr){7-11}\cmidrule(lr){12-16}\cmidrule(l){17-18}
-& $x$/m & $y$/m & $z$/m & $V$/(m/s) & $\psi/^\circ$
-& $x$/m & $y$/m & $z$/m & $V$/(m/s) & $\psi/^\circ$
-& $x$/m & $y$/m & $z$/m & $V$/(m/s) & $\psi/^\circ$
-& $V^{\max}$/(m/s) & Normal-acceleration limit\\
-\midrule
-$A_0$ & $-1144$ & $5$ & $291$ & 45.0 & $4$ & $-956$ & $40$ & $309$ & 45.0 & $-7$ & $-1040$ & $26$ & $302$ & 45.0 & $-6$ & \multirow{10}{*}{50} & \multirow{10}{*}{$3g$} \\
-$A_1$ & $-1062$ & $91$ & $315$ & 45.0 & $-6$ & $-1057$ & $68$ & $305$ & 45.0 & $-9$ & $-1127$ & $80$ & $305$ & 45.0 & $10$ &&\\
-$A_2$ & $-1352$ & $175$ & $318$ & 45.0 & $-10$ & $-1184$ & $249$ & $316$ & 45.0 & $10$ & $-1231$ & $171$ & $304$ & 45.0 & $0$ &&\\
-$A_3$ & $-1386$ & $-3$ & $300$ & 45.0 & $11$ & $-1331$ & $32$ & $312$ & 45.0 & $-5$ & $-1253$ & $111$ & $286$ & 45.0 & $7$ &&\\
-$A_4$ & $-1233$ & $-97$ & $314$ & 45.0 & $-1$ & $-1291$ & $40$ & $301$ & 45.0 & $7$ & $-1225$ & $130$ & $311$ & 45.0 & $-1$ &&\\
-$A_5$ & $-1177$ & $-64$ & $293$ & 45.0 & $11$ & $-1375$ & $-191$ & $307$ & 45.0 & $4$ & $-1348$ & $-4$ & $313$ & 45.0 & $-1$ &&\\
-$A_6$ & & & & & & $-1278$ & $-112$ & $281$ & 45.0 & $-2$ & $-1227$ & $-13$ & $298$ & 45.0 & $9$ &&\\
-$A_7$ & & & & & & $-1029$ & $-105$ & $297$ & 45.0 & $1$ & $-1203$ & $-67$ & $287$ & 45.0 & $9$ &&\\
-$A_8$ & & & & & & & & & & & $-1240$ & $-221$ & $294$ & 45.0 & $2$ &&\\
-$A_9$ & & & & & & & & & & & $-1016$ & $-4$ & $289$ & 45.0 & $-7$ &&\\
-\midrule
-$D_0$ & $863$ & $-97$ & $360$ & 55.0 & $-175$ & $890$ & $-15$ & $321$ & 55.0 & $-172$ & $851$ & $78$ & $341$ & 55.0 & $175$ & \multirow{10}{*}{60} & \multirow{10}{*}{$5g$} \\
-$D_1$ & $617$ & $115$ & $378$ & 55.0 & $172$ & $793$ & $118$ & $331$ & 55.0 & $173$ & $830$ & $58$ & $358$ & 55.0 & $-174$ &&\\
-$D_2$ & $492$ & $235$ & $349$ & 55.0 & $179$ & $592$ & $255$ & $360$ & 55.0 & $169$ & $622$ & $107$ & $332$ & 55.0 & $-171$ &&\\
-$D_3$ & $491$ & $-63$ & $360$ & 55.0 & $176$ & $493$ & $130$ & $328$ & 55.0 & $174$ & $576$ & $132$ & $371$ & 55.0 & $-172$ &&\\
-$D_4$ & $534$ & $-106$ & $355$ & 55.0 & $-174$ & $436$ & $-19$ & $325$ & 55.0 & $179$ & $412$ & $189$ & $351$ & 55.0 & $176$ &&\\
-$D_5$ & $635$ & $-182$ & $375$ & 55.0 & $-166$ & $443$ & $-52$ & $364$ & 55.0 & $165$ & $374$ & $-9$ & $358$ & 55.0 & $177$ &&\\
-$D_6$ & & & & & & $689$ & $-248$ & $334$ & 55.0 & $-172$ & $517$ & $-34$ & $375$ & 55.0 & $-174$ &&\\
-$D_7$ & & & & & & $770$ & $-44$ & $370$ & 55.0 & $163$ & $462$ & $-279$ & $349$ & 55.0 & $-180$ &&\\
-$D_8$ & & & & & & & & & & & $664$ & $-186$ & $340$ & 55.0 & $170$ &&\\
-$D_9$ & & & & & & & & & & & $861$ & $-99$ & $355$ & 55.0 & $-174$ &&\\
-\bottomrule
-\end{tabular}%
-}
-\end{table*}
+\end{tabularx}
+\end{table}
 
 To assess convergence and value-estimation stability, Figs.~\ref{fig:training-reward} and \ref{fig:training-critic-loss} compare TTA-MAPPO with MAPPO, IPPO, IA2C, and IQL under the same task. Figure~\ref{fig:training-reward} shows that TTA-MAPPO improves rapidly during early and middle training, reaches a relatively high normalized reward after approximately $1000$ episodes, and then stabilizes above the compared methods. MAPPO also converges quickly but to a lower return, whereas IPPO, IA2C, and IQL show slower reward growth and lower final rewards. These histories demonstrate improved policy exploration and convergence efficiency.
 
 Figure~\ref{fig:training-critic-loss} shows that the TTA-MAPPO critic loss decreases rapidly early in training and subsequently remains low with limited fluctuations. Although MAPPO, IPPO, and IA2C also decrease, they converge more slowly and retain higher final errors; IQL remains at a high loss for longer. By representing cooperative benefits and local risks, the analytical priors reduce value-estimation error and provide more stable advantage estimates. Together with Fig.~\ref{fig:training-reward}, the histories show that TTA-MAPPO attains higher returns and lower value-estimation errors.
 
-\begin{figure*}[!t]
+% \begin{figure*}[!t]
+%   \centering
+%   \begin{subfigure}[t]{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{figures/swarm_attack_training/swarm_attack_reward.pdf}
+%     \caption{Swarm reward}
+%     \label{fig:training-reward}
+%   \end{subfigure}\hfill
+%   \begin{subfigure}[t]{0.48\textwidth}
+%     \centering
+%     \includegraphics[width=\linewidth]{figures/swarm_attack_training/swarm_attack_critic_loss.pdf}
+%     \caption{Critic-network loss}
+%     \label{fig:training-critic-loss}
+%   \end{subfigure}
+%   \caption{Algorithm training process}
+% \end{figure*}
+
+\begin{figure}[!t]
   \centering
-  \begin{subfigure}[t]{0.48\textwidth}
+
+  \begin{subfigure}[t]{\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/swarm_attack_training/swarm_attack_reward.pdf}
     \caption{Swarm reward}
     \label{fig:training-reward}
-  \end{subfigure}\hfill
-  \begin{subfigure}[t]{0.48\textwidth}
+  \end{subfigure}
+
+  \vspace{0.5em}
+
+  \begin{subfigure}[t]{\linewidth}
     \centering
     \includegraphics[width=\linewidth]{figures/swarm_attack_training/swarm_attack_critic_loss.pdf}
     \caption{Critic-network loss}
     \label{fig:training-critic-loss}
   \end{subfigure}
+
   \caption{Algorithm training process}
-\end{figure*}
+  \label{fig:algorithm-training}
+\end{figure}
 
 Before interpreting the representative results, define the defensive-resource allocation-failure ratio as
 \begin{equation}
@@ -1321,11 +1350,11 @@ The numerator is the defender's actual total matching distance and $C^{*}(t)$ is
 \subsection{6-vs-6 Simulation Scenario}
 \label{subsec:v71-case-1}
 
-The 6-vs-6 case is used to analyze task differentiation and cooperative penetration under the basic offensive--defensive scale. In this episode, $A_4$ hit the HVT at $49.56\,\mathrm{s}$ with a terminal miss distance of $4.60\,\mathrm{m}$, and $A_3$ and $A_4$ remained alive at the end.
+The 6-vs-6 case is used to analyze dynamic task reconfiguration and cooperative penetration under the basic offensive--defensive scale. In this episode, $A_4$ hit the HVT at $49.56\,\mathrm{s}$ with a terminal miss distance of $4.60\,\mathrm{m}$, and $A_3$ and $A_4$ remained alive at the end.
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=0.82\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig4_traj3d.pdf}
+  \includegraphics[width=1.0\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig4_traj3d.pdf}
   \caption{Three-dimensional offensive--defensive trajectories}
   \label{fig:v71-case1-traj}
 \end{figure}
@@ -1355,7 +1384,7 @@ Figure~\ref{fig:v71-case1-traj} shows that $A_1$, $A_5$, and $A_0$ were intercep
     \caption{Range from the primary-attack UAV to the HVT}
     \label{fig:v71-case1-off-distance}
   \end{subfigure}
-  \caption{Offensive-side kinematic responses}
+  \caption{Offensive UAVs responses}
   \label{fig:v71-case1-offensive}
 \end{figure}
 
@@ -1386,7 +1415,7 @@ Figure~\ref{fig:v71-case1-offensive} presents the offensive-UAV speed, accelerat
     \caption{Interceptor lateral acceleration}
     \label{fig:v71-case1-def-yaw}
   \end{subfigure}
-  \caption{Interceptor responses}
+  \caption{Defensive UAVs responses}
   \label{fig:v71-case1-defensive}
 \end{figure}
 
@@ -1417,11 +1446,11 @@ Figure~\ref{fig:v71-case1-game-role} gives the task probabilities of all members
 \subsection{8-vs-8 Simulation Scenario}
 \label{subsec:v71-case-2}
 
-The 8-vs-8 case further enlarges the offensive--defensive scale and is used to analyze cooperative penetration and task differentiation under dense interception resources. In this case, $A_4$ hit the HVT at $51.28\,\mathrm{s}$ with a terminal miss distance of $4.52\,\mathrm{m}$; $A_2$, $A_3$, $A_4$, $A_6$, and $A_7$ remained alive.
+The 8-vs-8 case further enlarges the offensive--defensive scale and is used to analyze cooperative penetration and dynamic task reconfiguration under dense interception resources. In this case, $A_4$ hit the HVT at $51.28\,\mathrm{s}$ with a terminal miss distance of $4.52\,\mathrm{m}$; $A_2$, $A_3$, $A_4$, $A_6$, and $A_7$ remained alive.
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig4_traj3d.pdf}
+  \includegraphics[width=1.0\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig4_traj3d.pdf}
   \caption{Three-dimensional offensive--defensive trajectories}
   \label{fig:v71-case2-traj}
 \end{figure}
@@ -1451,7 +1480,7 @@ Figure~\ref{fig:v71-case2-traj} shows that $A_0$, $A_1$, and $A_5$ are intercept
     \caption{Range from the primary-attack UAV to the HVT}
     \label{fig:v71-case2-off-distance}
   \end{subfigure}
-  \caption{Offensive-side kinematic responses}
+  \caption{Offensive UAVs responses}
   \label{fig:v71-case2-offensive}
 \end{figure}
 
@@ -1480,7 +1509,7 @@ Figure~\ref{fig:v71-case2-traj} shows that $A_0$, $A_1$, and $A_5$ are intercept
     \caption{Interceptor lateral acceleration}
     \label{fig:v71-case2-def-yaw}
   \end{subfigure}
-  \caption{Interceptor responses}
+  \caption{Defensive UAVs responses}
   \label{fig:v71-case2-defensive}
 \end{figure}
 
@@ -1511,11 +1540,11 @@ Figure~\ref{fig:v71-case2-game-role} separates the engagement into two stages. I
 \subsection{10-vs-10 Simulation Scenario}
 \label{subsec:v71-case-3}
 
-The 10-vs-10 case is used to analyze task persistence, task differentiation, and cooperative penetration at the largest tested scale. In this case, $A_8$ hit the HVT at $49.78\,\mathrm{s}$ with a terminal miss distance of $4.51\,\mathrm{m}$; $A_3$, $A_6$, $A_7$, and $A_8$ remained alive.
+The 10-vs-10 case is used to analyze dynamic task reconfiguration and cooperative penetration at the largest tested scale. In this case, $A_8$ hit the HVT at $49.78\,\mathrm{s}$ with a terminal miss distance of $4.51\,\mathrm{m}$; $A_3$, $A_6$, $A_7$, and $A_8$ remained alive.
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig4_traj3d.pdf}
+  \includegraphics[width=1.0\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig4_traj3d.pdf}
   \caption{Three-dimensional offensive--defensive trajectories}
   \label{fig:v71-case3-traj}
 \end{figure}
@@ -1545,7 +1574,7 @@ Figure~\ref{fig:v71-case3-traj} shows that $A_9$, $A_0$, $A_1$, $A_4$, and $A_5$
     \caption{Range from the primary-attack UAV to the HVT}
     \label{fig:v71-case3-off-distance}
   \end{subfigure}
-  \caption{Offensive-side kinematic responses}
+  \caption{Offensive UAVs responses}
   \label{fig:v71-case3-offensive}
 \end{figure}
 
@@ -1576,7 +1605,7 @@ Figure~\ref{fig:v71-case3-offensive} shows that $A_8$ maintains a speed of $44.9
     \caption{Interceptor lateral acceleration}
     \label{fig:v71-case3-def-yaw}
   \end{subfigure}
-  \caption{Interceptor responses}
+  \caption{Defensive UAVs responses}
   \label{fig:v71-case3-defensive}
 \end{figure}
 
@@ -1605,9 +1634,7 @@ Figures~\ref{fig:v71-case3-game-role} and \ref{fig:v71-case3-game-lock} show the
 Although the mean aggregate interception threat to $A_8$ is approximately $0.989$ and surviving interceptors select it as an engagement target for about $80.7\%$ of the episode, its primary-attack probability increases from $0.84$ to $0.96$. This persistent primary-attack task tendency is supported by the $242.41\,\mathrm{m}$ minimum separation created through decoy relay, concealment-evasion, and repeated defensive reassignment. The 10-vs-10 episode therefore demonstrates an executable cooperative penetration process under sustained threat in the distributed HIL closed loop. Across all three representative episodes, decoy-containment and concealment-evasion support a persistent primary-attack corridor. HIL-based Monte Carlo evaluation assesses robustness to local initial perturbations.
 
 For each 6-vs-6, 8-vs-8, and 10-vs-10 scale, $1000$ HIL episodes use random initial perturbations; Table~\ref{tab:mc-stat} reports success and average terminal miss distance.
-
 TTA-MAPPO achieves success rates of $94.5\%$, $95.7\%$, and $97.1\%$, respectively, with average terminal miss distances of $4.74$--$4.80\,\mathrm{m}$, all below $5\,\mathrm{m}$, confirming consistent terminal accuracy.
-
 Under identical conditions, cooperative game penetration guidance\cite{Chen2024CJA,Chen2024TAES} attains $70.5$--$83.5\%$ success and hierarchical reinforcement learning guidance\cite{Hui2025CJA} $60.0$--$68.1\%$; TTA-MAPPO is higher throughout.
 
 \begin{table}[H]
@@ -1671,13 +1698,16 @@ In summary, stable cooperation emerges across scales: decoy-containment disrupts
 
 This paper develops a dynamic-task-reconfiguration-based intelligent guidance method for cooperative penetration by UAV swarms under swarm interception. The principal conclusions are as follows:
 
-1) The zero-control prediction-horizon FOV margin and the joint safety-margin model characterize the detection risk to offensive UAVs under overlapping multi-interceptor FOV coverage in complex engagement geometries.
 
-2) The entropy-regularized potential-game mechanism dynamically reconfigures cooperative tasks without preset assignments. As the engagement geometry evolves, it updates the task preferences of individual UAVs online, enabling the offensive swarm to form decoy-containment, concealment-evasion, and primary-attack behaviors.
+1) The zero-control prediction-horizon FOV margin and the joint safety-margin model characterize the detection risk to offensive UAVs under overlapping multi-interceptor FOV coverage in complex engagement geometries, providing the risk basis for online task reconfiguration.
 
-3) The TTA-MAPPO method incorporates the dynamic-task-reconfiguration prior into both centralized value estimation and task-conditioned decentralized policy execution, and improves the convergence of guidance-policy training in a high-dimensional continuous action space.
+2) The entropy-regularized potential-game mechanism dynamically reconfigures cooperative tasks without preset assignments. As the engagement geometry evolves, it updates the task-probability distributions of individual UAVs online, enabling the offensive swarm to form decoy-containment, concealment-evasion, and primary-attack behaviors.
+
+3) The TTA-MAPPO method incorporates the dynamic-task-reconfiguration prior into both centralized value estimation and task-conditioned decentralized policy execution, enabling the reconfigured task probabilities to guide cooperative maneuver decisions while improving guidance-policy convergence in a high-dimensional continuous action space.
 
 4) The hardware-in-the-loop simulations show stable cooperative penetration behavior and adaptive task switching in response to the evolving interception geometry. Decoy maneuvers repeatedly disrupt interceptor--target assignments, thereby preserving viable penetration corridors for primary-attack UAVs to strike the HVT.
+
+
 
 \begin{thebibliography}{99}
 
@@ -1751,5 +1781,218 @@ X. Qiu and C. Gao, ``Three-dimensional cooperative guidance with impact angle co
 Y. Wei, S. Wang, and Q. Zhu, ``Multi-missile cooperative guidance with target assignment and attack angle constraints,'' \textit{Chinese J. Aeronaut.}, vol.~35, no.~4, pp.~274--286, 2022, doi: 10.1016/j.cja.2021.07.027.
 
 \end{thebibliography}
+
+
+
+
+\appendix
+% \section{Complete Simulation, Method, and Training Parameters}
+\section{Supplementary material}
+\label{app:complete-parameters}
+
+The complete parameter settings used in the simulations and training are reported in Tables~\ref{tab:complete-simulation-parameters}--\ref{tab:training-hyperparameters}.
+
+\begin{table}[!htbp]
+\centering
+\small
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.05}
+\caption{Complete simulation, guidance, and safety-margin parameters}
+\label{tab:complete-simulation-parameters}
+\begin{tabularx}{\linewidth}{@{}c >{\centering\arraybackslash}X c >{\centering\arraybackslash}X@{}}
+\toprule
+Sym. & Val. & Sym. & Val. \\
+\midrule
+$V_i^{\max}$ & $50\,\mathrm{m/s}$ & $V_j^{\max}$ & $60\,\mathrm{m/s}$ \\
+$a_n^{A,\max}$ & $3g$ & $a_n^{D,\max}$ & $5g$ \\
+$\alpha_j$ & $30^{\circ}$ & $D_{\mathrm{radar}}$ & $500\,\mathrm{m}$ \\
+$\kappa_R$ & $0.02\,\mathrm{m^{-1}}$ & $\rho^{\mathrm{kill}}$ & $5\,\mathrm{m}$ \\
+$N_{\mathrm{PN}}$ & $3$ & $z^{\mathrm{safe}}$ & $100\,\mathrm{m}$ \\
+$\rho_{\mathrm{ref}}$ & $60\,\mathrm{m}$ & $\rho_s$ & $80\,\mathrm{m}$ \\
+$T_p$ & $5\,\mathrm{s}$ & $\varepsilon_v$ & $1\,\mathrm{m/s}$ \\
+$K$ & $3$ & $M_c$ & $0.05$ \\
+$\kappa_q$ & $10.0$ & $\beta_Z$ & $10.0$ \\
+$w_s$ & $1.0$ & $w_{\rho}$ & $0.5$ \\
+$w_v$ & $0.3$ & $\rho_0$ & $150\,\mathrm{m}$ \\
+$\kappa_{\rho}$ & $0.1\,\mathrm{m^{-1}}$ & $\kappa_d$ & $0.05\,\mathrm{m^{-1}}$ \\
+$\kappa_k$ & $2.0\,\mathrm{m^{-1}}$ & $\kappa_Z$ & $10.0$ \\
+$\kappa_E$ & $1.0\,\mathrm{s/rad}$ & $\kappa_h$ & $0.6\,\mathrm{m^{-1}}$ \\
+$\kappa_c$ & $1.0\,\mathrm{s/m}$ & $\kappa_{\omega}$ & $2.0\,\mathrm{s/rad}$ \\
+$d_s$ & $80\,\mathrm{m}$ & & \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\small
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.05}
+\caption{Complete task-reconfiguration, value, and reward parameters}
+\label{tab:complete-task-reward-parameters}
+\begin{tabularx}{\linewidth}{@{}c >{\centering\arraybackslash}X c >{\centering\arraybackslash}X@{}}
+\toprule
+Sym. & Val. & Sym. & Val. \\
+\midrule
+$\beta_L$ & $5.0$ & $\lambda_E^{\mathrm{self}}$ & $0.4$ \\
+$\lambda_D$ & $0.3$ & $\lambda_K$ & $0.3$ \\
+$\lambda_Z$ & $0.6$ & $\lambda_R$ & $0.4$ \\
+$\lambda_{DH}$ & $1.0$ & $\lambda_{PH}$ & $1.0$ \\
+$\lambda_{PL}$ & $0.5$ & $\lambda_{SZ}$ & $0.5$ \\
+$\lambda_{SL}$ & $0.3$ & $\lambda_{SD}$ & $0.2$ \\
+$\eta$ & $2.0$ & $\tau_{\mu}$ & $1.0$ \\
+$V_{\mathrm{ref}}$ & $60\,\mathrm{m/s}$ & $a_n^{\mathrm{ref}}$ & $3g$ \\
+$\omega_{\mathrm{ref}}$ & $0.6\,\mathrm{rad/s}$ & $\lambda_{\mathrm{app}}$ & $3.0$ \\
+$\lambda_c$ & $0.15$ & $\lambda_r$ & $1.2$ \\
+$\lambda_{\mathrm{tm}}$ & $4.0$ & $\lambda_P$ & $0.4$ \\
+$\lambda_{JH}$ & $1.0$ & $\lambda_C$ & $0.2$ \\
+$\lambda_S$ & $0.2$ & $\lambda_b$ & $2.0$ \\
+$\lambda_{\mathrm{gr}}$ & $1.0$ & $\lambda_{\mathrm{px}}$ & $0.05$ \\
+$\lambda_{\mu}$ & $0.012$ & $\lambda_h$ & $0.05$ \\
+$\lambda_g$ & $0.05$ & $\lambda_e$ & $0.2$ \\
+$\lambda_{\mathrm{esc}}$ & $0.2$ & $\lambda_{\mathrm{hit}}$ & $1500$ \\
+$\lambda_{\mathrm{kl}}$ & $0.5$ & $\lambda_s$ & $0.02$ \\
+$\lambda_1$ & $0.45$ & $\lambda_2$ & $0.3$ \\
+$\lambda_L$ & $0.15$ & $\lambda_U$ & $0.5$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\small
+\setlength{\tabcolsep}{2.5pt}
+\renewcommand{\arraystretch}{1.05}
+\caption{Complete training and network parameters}
+\label{tab:training-hyperparameters}
+\begin{tabularx}{\linewidth}{@{}c >{\centering\arraybackslash}X c >{\centering\arraybackslash}X@{}}
+\toprule
+Sym. & Val. & Sym. & Val. \\
+\midrule
+$\gamma$ & $0.99$ & $\Delta t$ & $1\,\mathrm{s}$ \\
+$R_{\min}$ & $0$ & $R_{\max}$ & $1$ \\
+$\epsilon_{\min}$ & $0.05$ & $\epsilon_{\max}$ & $0.30$ \\
+$\Sigma$ & $0.15^2 I_3$ & $\varepsilon$ & $0.20$ \\
+$c_v$ & $0.50$ & $c_e$ & $0.01$ \\
+$d$ & $64$ & $\alpha_{\mathrm{actor}}$ & $3{\times}10^{-4}$ \\
+$\alpha_{\mathrm{critic}}$ & $1{\times}10^{-3}$ & $\lambda_{\mathrm{GAE}}$ & $0.95$ \\
+$N_{\mathrm{PPO}}$ & $10$ & $N_{\mathrm{mini}}$ & $256$ \\
+$N_{\mathrm{rollout}}$ & $2048$ & $n_{\mathrm{hidden}}$ & $128$ \\
+$N_{\mathrm{train}}$ & $3000$ episodes & $T_{\max}$ & $80\,\mathrm{s}$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Here, $R_{\min},R_{\max}$ define the trust mapping, $\epsilon_{\min},\epsilon_{\max}$ bound exploration, and $\Sigma$ is its base covariance; $\varepsilon$, $c_v$, and $c_e$ are the PPO clipping, value-loss, and entropy coefficients, and $d$ is the attention-key dimension. The actor and critic use learning rates $\alpha_{\mathrm{actor}},\alpha_{\mathrm{critic}}$, GAE parameter $\lambda_{\mathrm{GAE}}$, and two $n_{\mathrm{hidden}}=128$ layers. Each $N_{\mathrm{rollout}}$-transition rollout undergoes $N_{\mathrm{PPO}}$ epochs with $N_{\mathrm{mini}}$-sized mini-batches; training spans $N_{\mathrm{train}}$ episodes of at most $T_{\max}$.
+
+\section{Initial States of Representative Episodes}
+\label{app:representative-initial-states}
+
+The following tables report the complete per-UAV initial states used in the three representative episodes.
+
+\begin{table}[!htbp]
+\centering
+\small
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.03}
+\caption{Initial states of the representative 6-vs-6 episode}
+\label{tab:sim-ic-6v6}
+\begin{tabularx}{\linewidth}{@{}c *{5}{>{\centering\arraybackslash}X}@{}}
+\toprule
+UAV & $x$/m & $y$/m & $z$/m & $V$/(m/s) & $\psi/^\circ$ \\
+\midrule
+$A_0$ & $-1144$ & $5$ & $291$ & 45.0 & $4$ \\
+$A_1$ & $-1062$ & $91$ & $315$ & 45.0 & $-6$ \\
+$A_2$ & $-1352$ & $175$ & $318$ & 45.0 & $-10$ \\
+$A_3$ & $-1386$ & $-3$ & $300$ & 45.0 & $11$ \\
+$A_4$ & $-1233$ & $-97$ & $314$ & 45.0 & $-1$ \\
+$A_5$ & $-1177$ & $-64$ & $293$ & 45.0 & $11$ \\
+\midrule
+$D_0$ & $863$ & $-97$ & $360$ & 55.0 & $-175$ \\
+$D_1$ & $617$ & $115$ & $378$ & 55.0 & $172$ \\
+$D_2$ & $492$ & $235$ & $349$ & 55.0 & $179$ \\
+$D_3$ & $491$ & $-63$ & $360$ & 55.0 & $176$ \\
+$D_4$ & $534$ & $-106$ & $355$ & 55.0 & $-174$ \\
+$D_5$ & $635$ & $-182$ & $375$ & 55.0 & $-166$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[!htbp]
+\centering
+\small
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.03}
+\caption{Initial states of the representative 8-vs-8 episode}
+\label{tab:sim-ic-8v8}
+\begin{tabularx}{\linewidth}{@{}c *{5}{>{\centering\arraybackslash}X}@{}}
+\toprule
+UAV & $x$/m & $y$/m & $z$/m & $V$/(m/s) & $\psi/^\circ$ \\
+\midrule
+$A_0$ & $-956$ & $40$ & $309$ & 45.0 & $-7$ \\
+$A_1$ & $-1057$ & $68$ & $305$ & 45.0 & $-9$ \\
+$A_2$ & $-1184$ & $249$ & $316$ & 45.0 & $10$ \\
+$A_3$ & $-1331$ & $32$ & $312$ & 45.0 & $-5$ \\
+$A_4$ & $-1291$ & $40$ & $301$ & 45.0 & $7$ \\
+$A_5$ & $-1375$ & $-191$ & $307$ & 45.0 & $4$ \\
+$A_6$ & $-1278$ & $-112$ & $281$ & 45.0 & $-2$ \\
+$A_7$ & $-1029$ & $-105$ & $297$ & 45.0 & $1$ \\
+\midrule
+$D_0$ & $890$ & $-15$ & $321$ & 55.0 & $-172$ \\
+$D_1$ & $793$ & $118$ & $331$ & 55.0 & $173$ \\
+$D_2$ & $592$ & $255$ & $360$ & 55.0 & $169$ \\
+$D_3$ & $493$ & $130$ & $328$ & 55.0 & $174$ \\
+$D_4$ & $436$ & $-19$ & $325$ & 55.0 & $179$ \\
+$D_5$ & $443$ & $-52$ & $364$ & 55.0 & $165$ \\
+$D_6$ & $689$ & $-248$ & $334$ & 55.0 & $-172$ \\
+$D_7$ & $770$ & $-44$ & $370$ & 55.0 & $163$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\clearpage
+\begin{table}[H]
+\centering
+\small
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.03}
+\caption{Initial states of the representative 10-vs-10 episode}
+\label{tab:sim-ic-10v10}
+\begin{tabularx}{\linewidth}{@{}c *{5}{>{\centering\arraybackslash}X}@{}}
+\toprule
+UAV & $x$/m & $y$/m & $z$/m & $V$/(m/s) & $\psi/^\circ$ \\
+\midrule
+$A_0$ & $-1040$ & $26$ & $302$ & 45.0 & $-6$ \\
+$A_1$ & $-1127$ & $80$ & $305$ & 45.0 & $10$ \\
+$A_2$ & $-1231$ & $171$ & $304$ & 45.0 & $0$ \\
+$A_3$ & $-1253$ & $111$ & $286$ & 45.0 & $7$ \\
+$A_4$ & $-1225$ & $130$ & $311$ & 45.0 & $-1$ \\
+$A_5$ & $-1348$ & $-4$ & $313$ & 45.0 & $-1$ \\
+$A_6$ & $-1227$ & $-13$ & $298$ & 45.0 & $9$ \\
+$A_7$ & $-1203$ & $-67$ & $287$ & 45.0 & $9$ \\
+$A_8$ & $-1240$ & $-221$ & $294$ & 45.0 & $2$ \\
+$A_9$ & $-1016$ & $-4$ & $289$ & 45.0 & $-7$ \\
+\midrule
+$D_0$ & $851$ & $78$ & $341$ & 55.0 & $175$ \\
+$D_1$ & $830$ & $58$ & $358$ & 55.0 & $-174$ \\
+$D_2$ & $622$ & $107$ & $332$ & 55.0 & $-171$ \\
+$D_3$ & $576$ & $132$ & $371$ & 55.0 & $-172$ \\
+$D_4$ & $412$ & $189$ & $351$ & 55.0 & $176$ \\
+$D_5$ & $374$ & $-9$ & $358$ & 55.0 & $177$ \\
+$D_6$ & $517$ & $-34$ & $375$ & 55.0 & $-174$ \\
+$D_7$ & $462$ & $-279$ & $349$ & 55.0 & $-180$ \\
+$D_8$ & $664$ & $-186$ & $340$ & 55.0 & $170$ \\
+$D_9$ & $861$ & $-99$ & $355$ & 55.0 & $-174$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+
+
+
+
+
+
+
 
 \end{document}
