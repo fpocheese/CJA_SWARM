@@ -49,10 +49,9 @@
 \begin{abstract}
 Advances in air-defense interception increasingly threaten the survivability of offensive unmanned aerial vehicles (UAVs), making cooperative swarm penetration important for defeating complex defensive systems.
 To address the low survivability and limited penetration capability of offensive UAV swarms under cooperative interception, this paper proposes an intelligent cooperative maneuvering penetration method that dynamically reconfigures swarm tasks while accounting for interceptor field-of-view (FOV) constraints.
-First, a safety-margin evaluation model is developed from interceptor detection range, FOV geometry, 
-and relative offensive--defensive motion to characterize the detection risk to each offensive UAV under overlapping multi-interceptor coverage. 
-Second, based on the evaluated risk and group penetration benefit, an entropy-regularized potential game updates each UAV's task-probability distribution online among decoy-containment, 
-concealment-evasion, and primary-attack tasks without preset assignments. The reconfigured task probabilities are then incorporated into centralized value estimation and task-conditioned decentralized policy execution through a task-trust attention multi-agent proximal policy optimization method, while trust feedback regulates policy exploration. 
+First, a safety-margin evaluation model is developed from interceptor detection range, FOV geometry, and relative offensive--defensive motion to characterize the detection risk to each offensive UAV under overlapping multi-interceptor coverage. 
+Second, based on the evaluated risk and group penetration benefit, an entropy-regularized potential game updates each UAV's task-probability distribution online among decoy-containment, concealment-evasion, and primary-attack tasks without preset assignments. 
+The reconfigured tasks are incorporated into multi-agent reinforcement learning to guide cooperative maneuvering, while trust feedback suppresses ineffective exploration and stabilizes penetration-policy optimization under complex interception conditions.
 Hardware-in-the-loop simulation results indicate that the proposed method adapts the swarm's cooperative strategy to the evolving interception geometry, disrupts interceptor--target assignments through decoy maneuvers, coordinates multiple UAVs to penetrate the defensive formation, and increases the probability of successful penetration.
 \end{abstract}
 
@@ -100,7 +99,7 @@ Let $\mathcal{A}=\{A_1,A_2,\dots,A_{N_A}\}$ and $\mathcal{D}=\{D_1,D_2,\dots,D_{
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/gao1_V5.jpg}
+  \includegraphics[width=\linewidth]{figures/gao1_V6.png}
   \caption{Schematic of cooperative penetration operations by a UAV swarm}
   \label{fig:engagement-geometry}
 \end{figure}
@@ -649,7 +648,9 @@ This state-driven mechanism reconfigures cooperative tasks online without preset
 
 \section{Cooperative UAV-Swarm Penetration Value Evaluation and Intelligent Guidance Policy Optimization}
 
-Because individual and group optima differ, this section balances effective penetration against losses and embeds the resulting indicators into multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE).
+% Because individual and group optima differ, this section balances effective penetration against losses and embeds the resulting indicators into multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE).
+% Because individual and group optima differ, this section first evaluates effective penetration and avoidable losses, and then embeds the resulting theoretical quantities into multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE). In particular, the dynamically reconfigured task-probability vector $\mu_i(t)$ is appended to each UAV's local observation to condition the decentralized actor and is also used to weight task-specific exploration distributions during training. The actor output is subsequently mapped to the axial, pitch-normal, and yaw-normal acceleration commands, so that task evolution affects physical maneuver commands through the learned policy rather than through hard task selection or direct linear mixing of preset actions.
+Because individual and group optima differ, this section embeds penetration-value indicators into a CTDE-based MARL framework. The reconfigured task-probability vector $\mu_i(t)$ conditions each UAV's actor and guides task-specific exploration during training; the actor output is then mapped to three-axis acceleration commands, allowing task evolution to shape maneuvers through the learned policy rather than preset action mixing.
 
 \subsection{Utility Functional for Cooperative UAV-Swarm Penetration}
 
@@ -1231,7 +1232,7 @@ The distributed HIL platform in Fig.~\ref{fig:HIL} uses an Ubuntu 22.04 server w
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/hil_V2.png}
+  \includegraphics[width=\linewidth]{figures/hil_V3.png}
   \caption{Hardware-in-the-loop simulation platform}
   \label{fig:HIL}
 \end{figure}
@@ -1666,7 +1667,8 @@ Under identical conditions, cooperative game penetration guidance\cite{Chen2024C
   \end{tabularx}
 \end{table}
 
-With trained weights fixed, selected actor inputs are masked only during inference. The first ablation removes the FOV cone margin $q_{ij}$ and tracking-mismatch margin $\widetilde\Gamma_{ij}$ from $o_i^{\mathrm{thr}}$, thereby suppressing the actor's explicit access to threat geometry and interceptor tracking-mismatch information. The second removes the task-probability vector $\mu_i=[\mu_i^D,\mu_i^P,\mu_i^S]^{\top}$, thereby eliminating the dynamic task-reconfiguration prior from the actor input while retaining all other observations. Each configuration uses $1000$ HIL Monte Carlo episodes; Table~\ref{tab:ablation-rta-prior} reports the penetration success rates.
+% With trained weights fixed, selected actor inputs are masked only during inference. 
+The first ablation removes the FOV cone margin $q_{ij}$ and tracking-mismatch margin $\widetilde\Gamma_{ij}$ from $o_i^{\mathrm{thr}}$, thereby suppressing the actor's explicit access to threat geometry and interceptor tracking-mismatch information. The second removes the task-probability vector $\mu_i=[\mu_i^D,\mu_i^P,\mu_i^S]^{\top}$, thereby eliminating the dynamic task-reconfiguration prior from the actor input while retaining all other observations. Each configuration uses $1000$ HIL Monte Carlo episodes; Table~\ref{tab:ablation-rta-prior} reports the penetration success rates.
 
 \begin{table}[H]
   \centering
@@ -1691,7 +1693,7 @@ With trained weights fixed, selected actor inputs are masked only during inferen
 
 Table~\ref{tab:ablation-rta-prior} shows safety-margin removal reduces success to $57.5\%$, $68.0\%$, and $93.5\%$: the 6-vs-6 and 8-vs-8 losses are pronounced, while 10-vs-10 still decreases measurably. These channels support threat-geometry recognition and tracking-mismatch assessment. Masking $\mu_i$ limits every scale to at most $1.3\%$, identifying the explicit task prior as the key channel for online task reconfiguration in actor decisions.
 
-In summary, stable cooperation emerges across scales: decoy-containment disrupts interceptor assignment, while decoy-containment and concealment-evasion protect primary-attack channels. The three tasks form and switch online with the engagement state, demonstrating scale adaptability.
+In summary, the proposed method achieves stable cooperative penetration across the tested scales. Decoy maneuvers divert interceptor attention and induce repeated target reassignment, while concealment-evasion maneuvers preserve surviving members and support the primary-attack UAV in maintaining a viable penetration route to the HVT. Task responsibilities are dynamically redistributed among the swarm as the engagement geometry evolves, demonstrating consistent effectiveness across different engagement scales.
 
 \section{Conclusions}
 \label{sec:conclusion}
