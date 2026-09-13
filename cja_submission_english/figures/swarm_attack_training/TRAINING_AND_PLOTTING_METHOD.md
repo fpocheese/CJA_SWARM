@@ -2,7 +2,7 @@
 
 ## 数据来源
 
-- 原始结果目录: `/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/swarmtex/figures/swarm_attack_training/raw_npy`
+- 原始结果目录: `/home/uav/11gsytset/0A_LYX_CODE/PAPER/swarm/CJA_swarm/cja_submission_english/figures/swarm_attack_training/raw_npy`
 - 训练脚本: `onpolicy/scripts/train_simple_converge_v7.py`
 - 绘图脚本: `onpolicy/scripts/plot_results_swarm_attack.py`
 - 对比算法: Advanced-MAPPO, MAPPO, IPPO, IA2C, IQL
@@ -39,7 +39,7 @@
 
 | Algorithm | Last 200 reward | 1000-1200 | 1800-2000 | Delta | CV last500 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| RTA-MAPPO (Ours) | 493.84 | 480.96 | 493.84 | 0.0268 | 0.0467 |
+| TTA-MAPPO (Ours) | 493.84 | 480.96 | 493.84 | 0.0268 | 0.0467 |
 | MAPPO | 419.53 | 409.12 | 419.53 | 0.0254 | 0.0501 |
 | IPPO | 350.35 | 288.04 | 350.35 | 0.2163 | 0.1024 |
 | IA2C | 393.72 | 261.85 | 393.72 | 0.5036 | 0.0806 |
@@ -65,17 +65,17 @@ conda run -n rlgpu python onpolicy/scripts/plot_results_swarm_attack.py \
 
 | Metric | Algorithm | Final mean | Seeds |
 | --- | --- | ---: | ---: |
-| Reward | RTA-MAPPO (Ours) | 7.595069 | 5 |
+| Reward | TTA-MAPPO (Ours) | 7.595069 | 5 |
 | Reward | MAPPO | 6.435353 | 5 |
 | Reward | IPPO | 5.378157 | 5 |
 | Reward | IA2C | 6.028438 | 5 |
 | Reward | IQL | 5.623275 | 5 |
-| Critic loss | RTA-MAPPO (Ours) | 0.017150 | 5 |
+| Critic loss | TTA-MAPPO (Ours) | 0.017150 | 5 |
 | Critic loss | MAPPO | 0.025765 | 5 |
 | Critic loss | IPPO | 0.030148 | 5 |
 | Critic loss | IA2C | 0.023057 | 5 |
 | Critic loss | IQL | 0.085585 | 5 |
-| Entropy | RTA-MAPPO (Ours) | 1.811894 | 5 |
+| Entropy | TTA-MAPPO (Ours) | 1.811894 | 5 |
 | Entropy | MAPPO | 1.812715 | 5 |
 | Entropy | IPPO | 1.780130 | 5 |
 | Entropy | IA2C | 1.894849 | 5 |

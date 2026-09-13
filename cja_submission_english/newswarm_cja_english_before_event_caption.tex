@@ -40,19 +40,19 @@
 % Advances in air-defense interception increasingly threaten the survivability of offensive unmanned aerial vehicles (UAVs), making cooperative swarm penetration important for defeating complex defensive systems.
 % To address the low survivability and limited penetration capability of offensive UAV swarms under cooperative interception, this paper proposes an intelligent cooperative maneuvering penetration method that dynamically reconfigures swarm tasks while accounting for interceptor field-of-view (FOV) constraints.
 % First, a safety-margin evaluation model is developed from the interceptor detection range and relative offensive--defensive motion. The model characterizes the detection risk to each offensive UAV under overlapping FOV coverage from multiple interceptors.
-% Second, an entropy-regularized potential-game mechanism dynamically reconfigures penetration tasks, enabling the swarm to adaptively differentiate into decoy-diversion and primary-attack behaviors.
+% Second, an entropy-regularized potential-game mechanism dynamically reconfigures penetration tasks, enabling the swarm to adaptively differentiate into decoy-containment and primary-attack behaviors.
 % A trust-exploration-driven multi-agent proximal policy optimization method is then developed. Trust feedback regulates policy exploration, suppresses ineffective exploration, and promotes stable policy optimization in complex interception geometries.
 % Hardware-in-the-loop simulation results indicate that the proposed method adapts the swarm's cooperative strategy to the evolving interception geometry, disrupts interceptor--target assignments through decoy maneuvers, coordinates multiple UAVs to penetrate the defensive formation, and increases the probability of successful penetration.
 % \end{abstract}
 
 
 \begin{abstract}
-% Advances in air-defense interception increasingly threaten the survivability of offensive unmanned aerial vehicles (UAVs), making cooperative swarm penetration important for defeating complex defensive systems.
-Advances in air-defense interception increasingly threaten the survivability of offensive unmanned aerial vehicles (UAVs), therefore, cooperative swarm penetration has become increasingly important for defeating complex defensive systems.
+Advances in air-defense interception increasingly threaten the survivability of offensive unmanned aerial vehicles (UAVs), making cooperative swarm penetration important for defeating complex defensive systems.
 To address the low survivability and limited penetration capability of offensive UAV swarms under cooperative interception, this paper proposes an intelligent cooperative maneuvering penetration method that dynamically reconfigures swarm tasks while accounting for interceptor field-of-view (FOV) constraints.
-First, a safety-margin evaluation model is developed from interceptor detection range, FOV geometry, and relative offensive--defensive motion to characterize the detection risk to each offensive UAV under overlapping multi-interceptor coverage. 
-Second, based on the evaluated risk and group penetration benefit, an entropy-regularized potential game updates each UAV's task-probability distribution online among decoy-diversion, concealment-evasion, and primary-attack tasks without preset assignments.
-The reconfigured tasks are incorporated into multi-agent reinforcement learning to guide cooperative maneuvering, while trust feedback suppresses ineffective exploration and stabilizes penetration-policy optimization under complex interception conditions.
+First, a safety-margin evaluation model is developed from interceptor detection range, FOV geometry, 
+and relative offensive--defensive motion to characterize the detection risk to each offensive UAV under overlapping multi-interceptor coverage. 
+Second, based on the evaluated risk and group penetration benefit, an entropy-regularized potential game updates each UAV's task-probability distribution online among decoy-containment, 
+concealment-evasion, and primary-attack tasks without preset assignments. The reconfigured task probabilities are then incorporated into centralized value estimation and task-conditioned decentralized policy execution through a task-trust attention multi-agent proximal policy optimization method, while trust feedback regulates policy exploration. 
 Hardware-in-the-loop simulation results indicate that the proposed method adapts the swarm's cooperative strategy to the evolving interception geometry, disrupts interceptor--target assignments through decoy maneuvers, coordinates multiple UAVs to penetrate the defensive formation, and increases the probability of successful penetration.
 \end{abstract}
 
@@ -89,7 +89,7 @@ To address the low penetration success rate of offensive UAV swarms under multi-
 
 1) A safety-margin evaluation model combines detection-FOV constraints with relative offensive--defensive motion to characterize the detection risk to offensive UAVs under overlapping FOV coverage from multiple interceptors.
 
-2) An entropy-regularized potential-game mechanism dynamically reconfigures cooperative tasks without preset assignments, enabling the swarm to combine decoy-diversion, concealment-evasion, and primary-attack tasks.
+2) An entropy-regularized potential-game mechanism dynamically reconfigures cooperative tasks without preset assignments, enabling the swarm to combine decoy-containment, concealment-evasion, and primary-attack penetration.
 
 3) A trust-exploration-driven multi-agent proximal policy optimization method incorporates the dynamic-task-reconfiguration prior into both centralized value estimation and task-conditioned decentralized policy execution, improving policy convergence and the stability of online guidance decisions in complex adversarial environments.
 
@@ -100,7 +100,7 @@ Let $\mathcal{A}=\{A_1,A_2,\dots,A_{N_A}\}$ and $\mathcal{D}=\{D_1,D_2,\dots,D_{
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/gao1_V6.png}
+  \includegraphics[width=\linewidth]{figures/gao1_V5.jpg}
   \caption{Schematic of cooperative penetration operations by a UAV swarm}
   \label{fig:engagement-geometry}
 \end{figure}
@@ -417,7 +417,7 @@ where dimensionless $\beta_L>0$ controls the concentration of the smooth approxi
 \label{eq:soft-lock-pressure}
 \end{equation}
 
-The self-risk cost is
+The decoy-containment self-cost is
 \begin{equation}
 C_i^{\mathrm{self}}(t)
 =
@@ -571,7 +571,7 @@ U_i^{S}(t)
 \end{equation}
 where $\lambda_{PH},\lambda_{PL},\lambda_{SZ},\lambda_{SL},\lambda_{SD}>0$ are weighting coefficients.
 
-Equations~\eqref{eq:role-utility-decoy}--\eqref{eq:role-utility-stealth} associate task $D$ with drawing and diverting defensive firepower at acceptable cost, task $P$ with favorable penetration and strike conditions, and task $S$ with concealment, evasion, and switching redundancy.
+Equations~\eqref{eq:role-utility-decoy}--\eqref{eq:role-utility-stealth} associate task $D$ with drawing and containing defensive firepower at acceptable cost, task $P$ with favorable penetration and strike conditions, and task $S$ with concealment, evasion, and switching redundancy.
 
 Without preset division, UAV $i$ uses task-probability vector
 \begin{equation}
@@ -582,7 +582,7 @@ Without preset division, UAV $i$ uses task-probability vector
 \mu_i^{S}(t)
 \right]^{\top},
 \end{equation}
-whose entries are the current decoy-diversion, primary-attack, and concealment-evasion probabilities satisfying
+whose entries are the current decoy-containment, primary-attack, and concealment-evasion probabilities satisfying
 \begin{equation}
 \mu_i^{D}(t)+\mu_i^{P}(t)+\mu_i^{S}(t)=1,\qquad
 \mu_i^{r}(t)\ge 0,\quad r\in\{D,P,S\}.
@@ -649,9 +649,7 @@ This state-driven mechanism reconfigures cooperative tasks online without preset
 
 \section{Cooperative UAV-Swarm Penetration Value Evaluation and Intelligent Guidance Policy Optimization}
 
-% Because individual and group optima differ, this section balances effective penetration against losses and embeds the resulting indicators into multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE).
-% Because individual and group optima differ, this section first evaluates effective penetration and avoidable losses, and then embeds the resulting theoretical quantities into multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE). In particular, the dynamically reconfigured task-probability vector $\mu_i(t)$ is appended to each UAV's local observation to condition the decentralized actor and is also used to weight task-specific exploration distributions during training. The actor output is subsequently mapped to the axial, pitch-normal, and yaw-normal acceleration commands, so that task evolution affects physical maneuver commands through the learned policy rather than through hard task selection or direct linear mixing of preset actions.
-Because individual and group optima differ, this section embeds penetration-value indicators into a CTDE-based MARL framework. The reconfigured task-probability vector $\mu_i(t)$ conditions each UAV's actor and guides task-specific exploration during training; the actor output is then mapped to three-axis acceleration commands, allowing task evolution to shape maneuvers through the learned policy rather than preset action mixing.
+Because individual and group optima differ, this section balances effective penetration against losses and embeds the resulting indicators into multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE).
 
 \subsection{Utility Functional for Cooperative UAV-Swarm Penetration}
 
@@ -913,7 +911,7 @@ The progress, escape, and feasibility terms are auxiliary shaping rewards, while
 \begin{equation}
 r_t^{\mathrm{esc}}(t)=\lambda_{\mathrm{esc}}\sum_{i\in\mathcal{A}}E_i^{\mathrm{esc}}(t).
 \end{equation}
-The reward weights $\lambda_P$, $\lambda_{JH}$, $\lambda_C$, $\lambda_S$, and $\lambda_{\mathrm{esc}}$ are distinct from task-utility and self-risk weights.
+The reward weights $\lambda_P$, $\lambda_{JH}$, $\lambda_C$, $\lambda_S$, and $\lambda_{\mathrm{esc}}$ are distinct from task-utility and self-containment weights.
 
 Feasibility uses boundary, terrain, range, and yaw penalties:
 \begin{equation}
@@ -1225,20 +1223,15 @@ where $c_v$, $c_e$, and $\mathcal H(b_{\theta})$ are the value-loss weight, entr
 \section{Simulation Results and Analysis}
 \label{subsec:v71-case-study}
 
-% \subsection{Parameter Settings and Model Training}
-\subsection{Experimental Environment and Model Training}
+\subsection{Parameter Settings and Model Training}
 \label{subsec:algo-net-setting}
 
-% The distributed HIL platform in Fig.~\ref{fig:HIL} uses an Ubuntu 22.04 server with an Intel Core i9-10900K CPU and NVIDIA GeForce RTX 3080 GPU. This architecture separates environment simulation from embedded policy inference. Five NVIDIA Jetson NX nodes infer assigned offensive-UAV policies, while server nodes execute the remaining policies and environment dynamics. TCP links deliver observations and return commands within one closed loop. 
-
-
-The distributed HIL platform in Fig.~\ref{fig:HIL} uses an Ubuntu 22.04 server with an Intel Core i9-10900K CPU and an NVIDIA GeForce RTX 3080 GPU. The server updates the environment dynamics and distributes the shared engagement state through the physical TCP Ethernet network. The dynamic task-reconfiguration module is replicated on the five Jetson NX nodes assigned to $A_0$--$A_4$. Each node independently computes the task-probability vectors of all surviving offensive UAVs from the shared state. These vectors are shared with all offensive UAVs through the physical TCP Ethernet network. Each UAV then combines its own task-probability vector with its local observation to infer the maneuver command. This replicated deployment allows the surviving hardware nodes to continue online task reconfiguration after offensive-UAV losses.
-
-
+The distributed HIL platform in Fig.~\ref{fig:HIL} uses an Ubuntu 22.04 server with an Intel Core i9-10900K CPU and NVIDIA GeForce RTX 3080 GPU. This architecture separates environment simulation from embedded policy inference. Five NVIDIA Jetson NX nodes infer assigned offensive-UAV policies, while server nodes execute the remaining policies and environment dynamics. TCP links deliver observations and return commands within one closed loop. 
+% Both representative and 1000-run evaluations use this architecture, with $\epsilon_i^{\mathrm{eval}}=0$ and deterministic squashed-mean actor commands.
 
 \begin{figure}[!htbp]
   \centering
-  \includegraphics[width=\linewidth]{figures/hil_V4.png}
+  \includegraphics[width=\linewidth]{figures/hil_V2.png}
   \caption{Hardware-in-the-loop simulation platform}
   \label{fig:HIL}
 \end{figure}
@@ -1359,14 +1352,14 @@ The numerator is the defender's actual total matching distance and $C^{*}(t)$ is
 
 The 6-vs-6 case is used to analyze dynamic task reconfiguration and cooperative penetration under the basic offensive--defensive scale. In this episode, $A_4$ hit the HVT at $49.56\,\mathrm{s}$ with a terminal miss distance of $4.60\,\mathrm{m}$, and $A_3$ and $A_4$ remained alive at the end.
 
-\begin{figure}[!h]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=1.0\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/6v6_seed60015/fig4_traj3d.pdf}
-  \caption{6-vs-6: Three-dimensional offensive--defensive trajectories}
+  \caption{Three-dimensional offensive--defensive trajectories}
   \label{fig:v71-case1-traj}
 \end{figure}
 
-Figure~\ref{fig:v71-case1-traj} shows that $A_1$, $A_5$, and $A_0$ were intercepted successively within the first $18.39\,\mathrm{s}$, forming the initial decoy-diversion phase; $A_2$ continued to attract defensive resources and survived until $41.63\,\mathrm{s}$. During this process, the primary-attack member $A_4$ maintained a continuous approach channel to the HVT and finally completed the hit. This representative episode shows the cooperative differentiation of decoy-diversion, concealment-evasion, and primary-attack tasks in the distributed HIL closed loop.
+Figure~\ref{fig:v71-case1-traj} shows that $A_1$, $A_5$, and $A_0$ were intercepted successively within the first $18.39\,\mathrm{s}$, forming the first forward-containment round; $A_2$ continued to attract defensive resources and survived until $41.63\,\mathrm{s}$. During this containment process, the primary-attack member $A_4$ maintained a continuous approach channel to the HVT and finally completed the hit. This representative episode shows the cooperative differentiation of decoy-containment, concealment-evasion, and primary-attack maintenance in the distributed HIL closed loop.
 
 \begin{figure}[!htbp]
   \centering
@@ -1391,7 +1384,7 @@ Figure~\ref{fig:v71-case1-traj} shows that $A_1$, $A_5$, and $A_0$ were intercep
     \caption{Range from the primary-attack UAV to the HVT}
     \label{fig:v71-case1-off-distance}
   \end{subfigure}
-  \caption{6-vs-6: Offensive-UAV responses (vertical dotted lines mark the destruction of $A_1$, $A_5$, $A_0$, and $A_2$ at $15.45$, $17.87$, $18.39$, and $41.63\,\mathrm{s}$, respectively).}
+  \caption{Offensive UAVs responses}
   \label{fig:v71-case1-offensive}
 \end{figure}
 
@@ -1422,15 +1415,15 @@ Figure~\ref{fig:v71-case1-offensive} presents the offensive-UAV speed, accelerat
     \caption{Interceptor lateral acceleration}
     \label{fig:v71-case1-def-yaw}
   \end{subfigure}
-  \caption{6-vs-6: Defensive-UAV responses (vertical dotted lines mark the destruction of $A_1$, $A_5$, $A_0$, and $A_2$ at $15.45$, $17.87$, $18.39$, and $41.63\,\mathrm{s}$, respectively).}
+  \caption{Defensive UAVs responses}
   \label{fig:v71-case1-defensive}
 \end{figure}
 
-Figure~\ref{fig:v71-case1-defensive} shows how the interceptor--target assignments evolve. The interceptors do not maintain a persistent engagement against the primary-attack UAV; instead, decoy maneuvers and successive UAV losses induce repeated target switching. Interceptor $D_0$ initially engages decoy $A_0$ and switches to $A_4$ only after $A_0$ is destroyed at $18.39\,\mathrm{s}$. Interceptor $D_5$ engages $A_4$ during $0.01$--$12.74\,\mathrm{s}$ but subsequently switches to $A_0$, whereas $D_1$ and $D_4$ switch to $A_5$ and $A_1$ at $12.30\,\mathrm{s}$ and $10.37\,\mathrm{s}$, respectively. These switches distribute defensive resources across the decoy UAVs rather than concentrating them on the primary-attack corridor.
+Figure~\ref{fig:v71-case1-defensive} shows how the interceptor--target assignments evolve. The interceptors do not maintain a persistent engagement against the primary-attack UAV; instead, decoy-containment behavior and successive UAV losses induce repeated target switching. Interceptor $D_0$ initially engages decoy $A_0$ and switches to $A_4$ only after $A_0$ is destroyed at $18.39\,\mathrm{s}$. Interceptor $D_5$ engages $A_4$ during $0.01$--$12.74\,\mathrm{s}$ but subsequently switches to $A_0$, whereas $D_1$ and $D_4$ switch to $A_5$ and $A_1$ at $12.30\,\mathrm{s}$ and $10.37\,\mathrm{s}$, respectively. These switches distribute defensive resources across the decoy UAVs rather than concentrating them on the primary-attack corridor.
 
 Although $D_0$ reselects $A_4$ as its target later in the engagement, the early decoy cover has already allowed $A_4$ to establish sufficient spatial advantage. The interceptor can no longer recover an effective engagement geometry: the minimum separation between $A_4$ and the nearest surviving interceptor is $14.05\,\mathrm{m}$, well above the $5\,\mathrm{m}$ kill radius. Thus, decoy sacrifice and target diversion preserve the terminal penetration corridor for $A_4$.
 
-The allocation-failure ratio in Fig.~\ref{fig:v71-case1-def-ratio} further supports this mechanism. During $0$--$18.39\,\mathrm{s}$, its mean value is $1.14$, and $\nu(t)>1.1$ for $40.8\%$ of this interval, indicating a sustained period of elevated assignment cost. After the decoys are expended, $\nu(t)$ returns to approximately $1.00$, showing that the defender gradually recovers assignment consistency. This recovery occurs too late, however, because $A_4$ has already created the decisive penetration window. The episode therefore attributes successful penetration to decoy maneuvers, target diversion, and transient defensive-resource misallocation rather than to independent evasion by a single UAV.
+The allocation-failure ratio in Fig.~\ref{fig:v71-case1-def-ratio} further supports this mechanism. During $0$--$18.39\,\mathrm{s}$, its mean value is $1.14$, and $\nu(t)>1.1$ for $40.8\%$ of this interval, indicating a sustained period of elevated assignment cost. After the decoys are expended, $\nu(t)$ returns to approximately $1.00$, showing that the defender gradually recovers assignment consistency. This recovery occurs too late, however, because $A_4$ has already created the decisive penetration window. The episode therefore attributes successful penetration to decoy-containment behavior, target diversion, and transient defensive-resource misallocation rather than to independent evasion by a single UAV.
 
 \begin{figure}[!htbp]
   \centering
@@ -1444,7 +1437,7 @@ The allocation-failure ratio in Fig.~\ref{fig:v71-case1-def-ratio} further suppo
     \caption{Aggregate interception threat $\lambda_i(t)$}
     \label{fig:v71-case1-game-lock}
   \end{subfigure}
-  \caption{6-vs-6: Dynamic task-reconfiguration process (vertical dotted lines mark the destruction of $A_1$, $A_5$, $A_0$, and $A_2$ at $15.45$, $17.87$, $18.39$, and $41.63\,\mathrm{s}$, respectively).}
+  \caption{Dynamic task-reconfiguration process}
   \label{fig:v71-case1-game}
 \end{figure}
 
@@ -1455,14 +1448,14 @@ Figure~\ref{fig:v71-case1-game-role} gives the task probabilities of all members
 
 The 8-vs-8 case further enlarges the offensive--defensive scale and is used to analyze cooperative penetration and dynamic task reconfiguration under dense interception resources. In this case, $A_4$ hit the HVT at $51.28\,\mathrm{s}$ with a terminal miss distance of $4.52\,\mathrm{m}$; $A_2$, $A_3$, $A_4$, $A_6$, and $A_7$ remained alive.
 
-\begin{figure}[!h]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=1.0\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/8v8_seed80047/fig4_traj3d.pdf}
-  \caption{8-vs-8: Three-dimensional offensive--defensive trajectories}
+  \caption{Three-dimensional offensive--defensive trajectories}
   \label{fig:v71-case2-traj}
 \end{figure}
 
-Figure~\ref{fig:v71-case2-traj} shows that $A_0$, $A_1$, and $A_5$ are intercepted at $13.49\,\mathrm{s}$, $17.15\,\mathrm{s}$, and $22.26\,\mathrm{s}$, respectively, forming early decoy consumption. $A_2$, $A_3$, $A_6$, and $A_7$ maintain spatial dispersion and continue to draw the attention of surviving interceptors in the middle and late stages, while $A_4$ approaches the HVT along the primary-attack channel and completes the hit. The episode indicates that the distributed HIL swarm forms cooperative division among decoy-diversion, concealment-evasion, and primary-attack tasks rather than merely increasing the number of maneuvering members.
+Figure~\ref{fig:v71-case2-traj} shows that $A_0$, $A_1$, and $A_5$ are intercepted at $13.49\,\mathrm{s}$, $17.15\,\mathrm{s}$, and $22.26\,\mathrm{s}$, respectively, forming early decoy consumption. $A_2$, $A_3$, $A_6$, and $A_7$ maintain spatial dispersion and continue to contain surviving interceptors in the middle and late stages, while $A_4$ approaches the HVT along the primary-attack channel and completes the hit. The episode indicates that the distributed HIL swarm forms cooperative division among decoy-containment, concealment-evasion, and primary-attack maintenance rather than merely increasing the number of maneuvering members.
 
 \begin{figure}[!htbp]
   \centering
@@ -1487,7 +1480,7 @@ Figure~\ref{fig:v71-case2-traj} shows that $A_0$, $A_1$, and $A_5$ are intercept
     \caption{Range from the primary-attack UAV to the HVT}
     \label{fig:v71-case2-off-distance}
   \end{subfigure}
-  \caption{8-vs-8: Offensive-UAV responses (vertical dotted lines mark the destruction of $A_0$, $A_1$, and $A_5$ at $13.49$, $17.15$, and $22.26\,\mathrm{s}$, respectively).}
+  \caption{Offensive UAVs responses}
   \label{fig:v71-case2-offensive}
 \end{figure}
 
@@ -1516,13 +1509,13 @@ Figure~\ref{fig:v71-case2-traj} shows that $A_0$, $A_1$, and $A_5$ are intercept
     \caption{Interceptor lateral acceleration}
     \label{fig:v71-case2-def-yaw}
   \end{subfigure}
-  \caption{8-vs-8: Defensive-UAV responses (vertical dotted lines mark the destruction of $A_0$, $A_1$, and $A_5$ at $13.49$, $17.15$, and $22.26\,\mathrm{s}$, respectively).}
+  \caption{Defensive UAVs responses}
   \label{fig:v71-case2-defensive}
 \end{figure}
 
 Figure~\ref{fig:v71-case2-defensive} shows that the larger interceptor force still fails to concentrate persistently on $A_4$. Interceptors $D_5$ and $D_7$ continuously engage $A_0$ and $A_1$, respectively, so these decoys retain defensive resources during the early phase. Interceptor $D_6$ switches from $A_5$ to $A_1$ at $12.14\,\mathrm{s}$ and returns to $A_5$ after $A_1$ is destroyed, demonstrating that the decoys continue to induce reassignment. Interceptor $D_3$ engages $A_4$ only during $0.01$--$10.45\,\mathrm{s}$ before switching to $A_7$; $A_4$ is not directly pursued thereafter. The remaining interceptors engage $A_6$, $A_3$, $A_2$, and $A_7/A_3$, distributing defensive resources among non-primary UAVs rather than suppressing the primary-attack corridor.
 
-The brief initial engagement by $D_3$ does not develop into an effective interception. Once $D_3$ switches to $A_7$, successive decoy maneuvers by multiple UAVs reduce the direct pursuit pressure on $A_4$, which continues toward the HVT. Its minimum separation from the nearest surviving interceptor is $249.82\,\mathrm{m}$, approximately 50 times the $5\,\mathrm{m}$ kill radius. This large margin is produced by decoy relay and target diversion, not by isolated evasion by $A_4$.
+The brief initial engagement by $D_3$ does not develop into an effective interception. Once $D_3$ switches to $A_7$, relay containment by multiple UAVs reduces the direct pursuit pressure on $A_4$, which continues toward the HVT. Its minimum separation from the nearest surviving interceptor is $249.82\,\mathrm{m}$, approximately 50 times the $5\,\mathrm{m}$ kill radius. This large margin is produced by decoy relay and target diversion, not by isolated evasion by $A_4$.
 
 During the early decoy-loss interval $0$--$22.26\,\mathrm{s}$, the mean allocation-failure ratio is $1.13$. After $A_0$, $A_1$, and $A_5$ are destroyed, the mean rises to $1.42$ over $22.26$--$51.28\,\mathrm{s}$ and remains above $1.1$ throughout. The defender therefore fails to restore effective coverage of the primary-attack UAV during reassignment; instead, its resources remain persistently misallocated. This sustained mismatch maintains a safe and stable terminal penetration corridor for $A_4$ despite the denser interceptor deployment.
 
@@ -1538,25 +1531,25 @@ During the early decoy-loss interval $0$--$22.26\,\mathrm{s}$, the mean allocati
     \caption{Aggregate interception threat $\lambda_i(t)$}
     \label{fig:v71-case2-game-lock}
   \end{subfigure}
-  \caption{8-vs-8: Dynamic task-reconfiguration process (vertical dotted lines mark the destruction of $A_0$, $A_1$, and $A_5$ at $13.49$, $17.15$, and $22.26\,\mathrm{s}$, respectively).}
+  \caption{Dynamic task-reconfiguration process}
   \label{fig:v71-case2-game}
 \end{figure}
 
-Figure~\ref{fig:v71-case2-game-role} separates the engagement into two stages. In stage I ($0$--$22.26\,\mathrm{s}$), $A_0$ and $A_1$ have average decoy probabilities of $0.93$ and $0.90$, while those of $A_7$, $A_5$, and $A_3$ are approximately $0.61$, $0.54$, and $0.48$. The concealment probabilities of $A_6$ and $A_2$ are both approximately $0.52$, and the primary-attack probability of $A_4$ is $0.75$. During this stage, $D_3$ switches from $A_4$ to $A_7$, after which $A_4$ is no longer directly pursued. In stage II ($22.26$--$51.28\,\mathrm{s}$), after the forward decoys are lost, the decoy probabilities of $A_6$, $A_3$, $A_2$, and $A_7$ increase to $0.72$, $0.68$, $0.66$, and $0.65$, respectively, matching the dispersed assignments of the surviving interceptors. The primary-attack probability of $A_4$ rises to $0.97$, and it strikes the HVT under reduced direct-pursuit pressure. Figure~\ref{fig:v71-case2-game-lock} shows a mean aggregate interception threat of approximately $0.970$ for $A_4$, while surviving interceptors select it as an engagement target for only about $20.4\%$ of the episode. The increase in its primary-attack probability from $0.75$ to $0.97$ therefore coincides with successive decoy maneuvers by the other UAVs, and the interceptor assignments do not reconcentrate on the primary-attack corridor before impact.
+Figure~\ref{fig:v71-case2-game-role} separates the engagement into two stages. In stage I ($0$--$22.26\,\mathrm{s}$), $A_0$ and $A_1$ have average decoy probabilities of $0.93$ and $0.90$, while those of $A_7$, $A_5$, and $A_3$ are approximately $0.61$, $0.54$, and $0.48$. The concealment probabilities of $A_6$ and $A_2$ are both approximately $0.52$, and the primary-attack probability of $A_4$ is $0.75$. During this stage, $D_3$ switches from $A_4$ to $A_7$, after which $A_4$ is no longer directly pursued. In stage II ($22.26$--$51.28\,\mathrm{s}$), after the forward decoys are lost, the decoy probabilities of $A_6$, $A_3$, $A_2$, and $A_7$ increase to $0.72$, $0.68$, $0.66$, and $0.65$, respectively, matching the dispersed assignments of the surviving interceptors. The primary-attack probability of $A_4$ rises to $0.97$, and it strikes the HVT under reduced direct-pursuit pressure. Figure~\ref{fig:v71-case2-game-lock} shows a mean aggregate interception threat of approximately $0.970$ for $A_4$, while surviving interceptors select it as an engagement target for only about $20.4\%$ of the episode. The increase in its primary-attack probability from $0.75$ to $0.97$ therefore coincides with relay containment by the other UAVs, and the interceptor assignments do not reconcentrate on the primary-attack corridor before impact.
 
 \subsection{10-vs-10 Simulation Scenario}
 \label{subsec:v71-case-3}
 
 The 10-vs-10 case is used to analyze dynamic task reconfiguration and cooperative penetration at the largest tested scale. In this case, $A_8$ hit the HVT at $49.78\,\mathrm{s}$ with a terminal miss distance of $4.51\,\mathrm{m}$; $A_3$, $A_6$, $A_7$, and $A_8$ remained alive.
 
-\begin{figure}[!h]
+\begin{figure}[!htbp]
   \centering
   \includegraphics[width=1.0\linewidth]{figures/V71_6688-new/hil_outputs/original_success_5nx_restlocal/10v10_seed100015/fig4_traj3d.pdf}
-  \caption{10-vs-10: Three-dimensional offensive--defensive trajectories}
+  \caption{Three-dimensional offensive--defensive trajectories}
   \label{fig:v71-case3-traj}
 \end{figure}
 
-Figure~\ref{fig:v71-case3-traj} shows that $A_9$, $A_0$, $A_1$, $A_4$, and $A_5$ are intercepted at $13.35\,\mathrm{s}$, $15.13\,\mathrm{s}$, $17.16\,\mathrm{s}$, $19.61\,\mathrm{s}$, and $21.99\,\mathrm{s}$, forming the initial decoy wave. $A_2$ then continues to attract defensive resources and survives until $37.33\,\mathrm{s}$. During this multistage decoy-diversion process, $A_8$ approaches the HVT along a relatively direct penetration channel, while $A_3$, $A_6$, and $A_7$ remain spatially dispersed and continue to share defensive resources. The trajectory exhibits temporally ordered decoy relay and spatial division, not simultaneous penetration along similar paths.
+Figure~\ref{fig:v71-case3-traj} shows that $A_9$, $A_0$, $A_1$, $A_4$, and $A_5$ are intercepted at $13.35\,\mathrm{s}$, $15.13\,\mathrm{s}$, $17.16\,\mathrm{s}$, $19.61\,\mathrm{s}$, and $21.99\,\mathrm{s}$, forming a continuous first containment layer. $A_2$ then continues to attract defensive resources and survives until $37.33\,\mathrm{s}$. During this multilevel containment process, $A_8$ approaches the HVT along a relatively direct penetration channel, while $A_3$, $A_6$, and $A_7$ remain spatially dispersed and continue to share defensive resources. The trajectory exhibits temporally ordered decoy relay and spatial division, not simultaneous penetration along similar paths.
 
 \begin{figure}[!htbp]
   \centering
@@ -1581,7 +1574,7 @@ Figure~\ref{fig:v71-case3-traj} shows that $A_9$, $A_0$, $A_1$, $A_4$, and $A_5$
     \caption{Range from the primary-attack UAV to the HVT}
     \label{fig:v71-case3-off-distance}
   \end{subfigure}
-  \caption{10-vs-10: Offensive-UAV responses (vertical dotted lines mark the destruction of $A_9$, $A_0$, $A_1$, $A_4$, $A_5$, and $A_2$ at $13.35$, $15.13$, $17.16$, $19.61$, $21.99$, and $37.33\,\mathrm{s}$, respectively).}
+  \caption{Offensive UAVs responses}
   \label{fig:v71-case3-offensive}
 \end{figure}
 
@@ -1612,11 +1605,11 @@ Figure~\ref{fig:v71-case3-offensive} shows that $A_8$ maintains a speed of $44.9
     \caption{Interceptor lateral acceleration}
     \label{fig:v71-case3-def-yaw}
   \end{subfigure}
-  \caption{10-vs-10: Defensive-UAV responses (vertical dotted lines mark the destruction of $A_9$, $A_0$, $A_1$, $A_4$, $A_5$, and $A_2$ at $13.35$, $15.13$, $17.16$, $19.61$, $21.99$, and $37.33\,\mathrm{s}$, respectively).}
+  \caption{Defensive UAVs responses}
   \label{fig:v71-case3-defensive}
 \end{figure}
 
-Figure~\ref{fig:v71-case3-defensive} shows the successive changes in interceptor--target assignments. Interceptor $D_7$ engages $A_8$ briefly during $0.01$--$9.99\,\mathrm{s}$ and then switches to $A_0$. Interceptor $D_8$ initially engages $A_9$, subsequently switches to $A_0$ and $A_4$, and turns to $A_8$ at $19.61\,\mathrm{s}$. Interceptor $D_9$ switches to $A_8$ only after $A_5$ is destroyed at $21.99\,\mathrm{s}$. Meanwhile, $A_4$, $A_3$, $A_1$, $A_2$, and $A_7$ continue to draw the attention of the other interceptors. Even when as many as two surviving interceptors engage $A_8$ in the middle and late phases, the nearest-interceptor separation remains above $242.41\,\mathrm{m}$. The early sequence of decoy losses has already created a large spatial margin, and later reassignment cannot recover an effective interception geometry.
+Figure~\ref{fig:v71-case3-defensive} shows the successive changes in interceptor--target assignments. Interceptor $D_7$ engages $A_8$ briefly during $0.01$--$9.99\,\mathrm{s}$ and then switches to $A_0$. Interceptor $D_8$ initially engages $A_9$, subsequently switches to $A_0$ and $A_4$, and turns to $A_8$ at $19.61\,\mathrm{s}$. Interceptor $D_9$ switches to $A_8$ only after $A_5$ is destroyed at $21.99\,\mathrm{s}$. Meanwhile, $A_4$, $A_3$, $A_1$, $A_2$, and $A_7$ continue to contain the other interceptors. Even when as many as two surviving interceptors engage $A_8$ in the middle and late phases, the nearest-interceptor separation remains above $242.41\,\mathrm{m}$. The early sequence of decoy losses has already created a large spatial margin, and later reassignment cannot recover an effective interception geometry.
 
 The allocation-failure ratio quantifies this progressive loss of defensive coordination. Its mean is $1.07$ during $0$--$15.13\,\mathrm{s}$, with $\nu(t)>1.1$ for approximately $39.0\%$ of the interval. The mean then increases successively to $1.21$, $1.33$, and $1.62$ over $15.13$--$21.99\,\mathrm{s}$, $21.99$--$37.33\,\mathrm{s}$, and $37.33$--$49.78\,\mathrm{s}$, respectively; it remains above $1.1$ throughout the terminal phase. Thus, as assigned offensive UAVs are destroyed and the interceptors reallocate, the assignment inefficiency grows rather than recovers. The surviving interceptors consequently fail to re-establish an effective encirclement of the primary-attack direction before impact.
 
@@ -1632,13 +1625,13 @@ The allocation-failure ratio quantifies this progressive loss of defensive coord
     \caption{Aggregate interception threat $\lambda_i(t)$}
     \label{fig:v71-case3-game-lock}
   \end{subfigure}
-  \caption{10-vs-10: Dynamic task-reconfiguration process (vertical dotted lines mark the destruction of $A_9$, $A_0$, $A_1$, $A_4$, $A_5$, and $A_2$ at $13.35$, $15.13$, $17.16$, $19.61$, $21.99$, and $37.33\,\mathrm{s}$, respectively).}
+  \caption{Dynamic task-reconfiguration process}
   \label{fig:v71-case3-game}
 \end{figure}
 
 Figures~\ref{fig:v71-case3-game-role} and \ref{fig:v71-case3-game-lock} show the evolution of task probabilities and aggregate interception threats. In stage I ($0$--$15.13\,\mathrm{s}$), the average decoy probabilities of $A_9$, $A_1$, $A_0$, $A_4$, and $A_5$ are $0.93$, $0.85$, $0.84$, $0.75$, and $0.63$, respectively. The concealment probabilities of $A_6$, $A_2$, $A_3$, and $A_7$ are $0.64$, $0.54$, $0.53$, and $0.51$, and the primary-attack probability of $A_8$ is $0.84$. In stage II ($15.13$--$21.99\,\mathrm{s}$), the decoy probabilities of $A_1$ and $A_4$ approach $1.00$, those of $A_5$ and $A_2$ reach $0.96$ and $0.81$, and the primary-attack probability of $A_8$ increases to $0.89$. In stage III ($21.99$--$37.33\,\mathrm{s}$), $A_2$ maintains a decoy probability of $0.91$, the decoy probabilities of $A_3$ and $A_7$ are $0.68$ and $0.61$, the concealment probability of $A_6$ is approximately $0.76$, and the primary-attack probability of $A_8$ increases to $0.92$. In stage IV ($37.33$--$49.78\,\mathrm{s}$), the decoy probability of $A_3$ is approximately $0.71$, the concealment probabilities of $A_6$ and $A_7$ are approximately $0.76$ and $0.73$, and the primary-attack probability of $A_8$ reaches $0.96$ before impact.
 
-Although the mean aggregate interception threat to $A_8$ is approximately $0.989$ and surviving interceptors select it as an engagement target for about $80.7\%$ of the episode, its primary-attack probability increases from $0.84$ to $0.96$. This persistent primary-attack task tendency is supported by the $242.41\,\mathrm{m}$ minimum separation created through decoy relay, concealment-evasion, and repeated defensive reassignment. The 10-vs-10 episode therefore demonstrates an executable cooperative penetration process under sustained threat in the distributed HIL closed loop. Across all three representative episodes, decoy diversion and concealment-evasion support a persistent primary-attack corridor. HIL-based Monte Carlo evaluation assesses robustness to local initial perturbations.
+Although the mean aggregate interception threat to $A_8$ is approximately $0.989$ and surviving interceptors select it as an engagement target for about $80.7\%$ of the episode, its primary-attack probability increases from $0.84$ to $0.96$. This persistent primary-attack task tendency is supported by the $242.41\,\mathrm{m}$ minimum separation created through decoy relay, concealment-evasion, and repeated defensive reassignment. The 10-vs-10 episode therefore demonstrates an executable cooperative penetration process under sustained threat in the distributed HIL closed loop. Across all three representative episodes, decoy-containment and concealment-evasion support a persistent primary-attack corridor. HIL-based Monte Carlo evaluation assesses robustness to local initial perturbations.
 
 For each 6-vs-6, 8-vs-8, and 10-vs-10 scale, $1000$ HIL episodes use random initial perturbations; Table~\ref{tab:mc-stat} reports success and average terminal miss distance.
 TTA-MAPPO achieves success rates of $94.5\%$, $95.7\%$, and $97.1\%$, respectively, with average terminal miss distances of $4.74$--$4.80\,\mathrm{m}$, all below $5\,\mathrm{m}$, confirming consistent terminal accuracy.
@@ -1673,8 +1666,7 @@ Under identical conditions, cooperative game penetration guidance\cite{Chen2024C
   \end{tabularx}
 \end{table}
 
-% With trained weights fixed, selected actor inputs are masked only during inference. 
-The first ablation removes the FOV cone margin $q_{ij}$ and tracking-mismatch margin $\widetilde\Gamma_{ij}$ from $o_i^{\mathrm{thr}}$, thereby suppressing the actor's explicit access to threat geometry and interceptor tracking-mismatch information. The second removes the task-probability vector $\mu_i=[\mu_i^D,\mu_i^P,\mu_i^S]^{\top}$, thereby eliminating the dynamic task-reconfiguration prior from the actor input while retaining all other observations. Each configuration uses $1000$ HIL Monte Carlo episodes; Table~\ref{tab:ablation-rta-prior} reports the penetration success rates.
+With trained weights fixed, selected actor inputs are masked only during inference. The first ablation removes the FOV cone margin $q_{ij}$ and tracking-mismatch margin $\widetilde\Gamma_{ij}$ from $o_i^{\mathrm{thr}}$, thereby suppressing the actor's explicit access to threat geometry and interceptor tracking-mismatch information. The second removes the task-probability vector $\mu_i=[\mu_i^D,\mu_i^P,\mu_i^S]^{\top}$, thereby eliminating the dynamic task-reconfiguration prior from the actor input while retaining all other observations. Each configuration uses $1000$ HIL Monte Carlo episodes; Table~\ref{tab:ablation-rta-prior} reports the penetration success rates.
 
 \begin{table}[H]
   \centering
@@ -1699,7 +1691,7 @@ The first ablation removes the FOV cone margin $q_{ij}$ and tracking-mismatch ma
 
 Table~\ref{tab:ablation-rta-prior} shows safety-margin removal reduces success to $57.5\%$, $68.0\%$, and $93.5\%$: the 6-vs-6 and 8-vs-8 losses are pronounced, while 10-vs-10 still decreases measurably. These channels support threat-geometry recognition and tracking-mismatch assessment. Masking $\mu_i$ limits every scale to at most $1.3\%$, identifying the explicit task prior as the key channel for online task reconfiguration in actor decisions.
 
-In summary, the proposed method achieves stable cooperative penetration across the tested scales. Decoy maneuvers divert interceptor attention and induce repeated target reassignment, while concealment-evasion maneuvers preserve surviving members and support the primary-attack UAV in maintaining a viable penetration route to the HVT. Task responsibilities are dynamically redistributed among the swarm as the engagement geometry evolves, demonstrating consistent effectiveness across different engagement scales.
+In summary, stable cooperation emerges across scales: decoy-containment disrupts interceptor assignment, while decoy-containment and concealment-evasion protect primary-attack channels. The three tasks form and switch online with the engagement state, demonstrating scale adaptability.
 
 \section{Conclusions}
 \label{sec:conclusion}
@@ -1709,7 +1701,7 @@ This paper develops a dynamic-task-reconfiguration-based intelligent guidance me
 
 1) The zero-control prediction-horizon FOV margin and the joint safety-margin model characterize the detection risk to offensive UAVs under overlapping multi-interceptor FOV coverage in complex engagement geometries, providing the risk basis for online task reconfiguration.
 
-2) The entropy-regularized potential-game mechanism dynamically reconfigures cooperative tasks without preset assignments. As the engagement geometry evolves, it updates the task-probability distributions of individual UAVs online, enabling the offensive swarm to form decoy-diversion, concealment-evasion, and primary-attack behaviors.
+2) The entropy-regularized potential-game mechanism dynamically reconfigures cooperative tasks without preset assignments. As the engagement geometry evolves, it updates the task-probability distributions of individual UAVs online, enabling the offensive swarm to form decoy-containment, concealment-evasion, and primary-attack behaviors.
 
 3) The TTA-MAPPO method incorporates the dynamic-task-reconfiguration prior into both centralized value estimation and task-conditioned decentralized policy execution, enabling the reconfigured task probabilities to guide cooperative maneuver decisions while improving guidance-policy convergence in a high-dimensional continuous action space.
 

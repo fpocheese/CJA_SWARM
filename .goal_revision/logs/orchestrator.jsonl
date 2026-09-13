@@ -1,0 +1,2 @@
+{"source":"orchestrator","level":"info","event":"goal_started","detail":"Iteration 1 mapping initiated."}
+{"source":"orchestrator","level":"info","event":"goal_closed","detail":"Iteration 9 final acceptance audit passed."}

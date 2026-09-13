@@ -23,6 +23,7 @@ from matplotlib.lines import Line2D
 from matplotlib.patches import FancyArrowPatch, Patch
 from matplotlib.gridspec import GridSpec
 from matplotlib.legend_handler import HandlerPatch
+from matplotlib.ticker import MultipleLocator
 from scipy.optimize import linear_sum_assignment
 from scipy.signal import savgol_filter
 
@@ -1057,6 +1058,8 @@ def fig4_traj3d(base, d, sm):
     ax.set_xlabel(r"$x$ (m)", labelpad=7)
     ax.set_ylabel(r"$y$ (m)", labelpad=7)
     ax.set_zlabel(r"$z$ (m)", labelpad=7)
+    ax.yaxis.set_major_locator(MultipleLocator(400))
+    fig.subplots_adjust(left=0.035, right=0.985, top=0.98, bottom=0.045)
     ax.view_init(elev=23, azim=-54)
     set_tight_3d_limits(ax, all_x, all_y, all_z)
     handles, labels = ax.get_legend_handles_labels()
@@ -1074,7 +1077,7 @@ def fig4_traj3d(base, d, sm):
               bbox_transform=ax.transAxes, ncol=3, fontsize=7.2,
               handlelength=1.6, columnspacing=0.9, borderaxespad=0.25,
               framealpha=0.92, handler_map={FancyArrowPatch: HandlerDirectionArrow()})
-    fig.savefig(out, bbox_inches="tight")
+    fig.savefig(out, bbox_inches="tight", pad_inches=0.008)
     plt.close(fig)
     print("  fig4_traj3d.pdf")
 

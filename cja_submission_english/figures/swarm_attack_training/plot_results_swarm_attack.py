@@ -36,7 +36,7 @@ DEFAULT_DIR = resolve_default_data_dir()
 
 ALGORITHMS = ["Advanced-MAPPO", "MAPPO", "IPPO", "IA2C", "IQL"]
 DISPLAY_NAMES = {
-    "Advanced-MAPPO": "RTA-MAPPO (Ours)",
+    "Advanced-MAPPO": "TTA-MAPPO (Ours)",
     "MAPPO": "MAPPO",
     "IPPO": "IPPO",
     "IA2C": "IA2C",
