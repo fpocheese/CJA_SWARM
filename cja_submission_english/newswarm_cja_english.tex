@@ -1,7 +1,7 @@
 % !TeX encoding = UTF-8
 % !TeX program = pdflatex
 
-\documentclass{cja}
+\documentclass[unbranded]{cja}
 
 \usepackage{bm}
 \usepackage{booktabs}
@@ -23,6 +23,7 @@
 
 
 \shorttitle{Intelligent Cooperative Penetration}
+\shortauthors{}
 
 % \author[a]{Author information not provided\corref{cor}}
 % \ead{corresponding.author@example.com}
@@ -47,8 +48,7 @@
 
 
 \begin{abstract}
-% Advances in air-defense interception increasingly threaten the survivability of offensive unmanned aerial vehicles (UAVs), making cooperative swarm penetration important for defeating complex defensive systems.
-Advances in air-defense interception increasingly threaten the survivability of offensive unmanned aerial vehicles (UAVs), therefore, cooperative swarm penetration has become increasingly important for defeating complex defensive systems.
+Advances in air-defense interception increasingly threaten the survivability of offensive unmanned aerial vehicles (UAVs); therefore, cooperative swarm penetration has become increasingly important for defeating complex defensive systems.
 To address the low survivability and limited penetration capability of offensive UAV swarms under cooperative interception, this paper proposes an intelligent cooperative maneuvering penetration method that dynamically reconfigures swarm tasks while accounting for interceptor field-of-view (FOV) constraints.
 First, a safety-margin evaluation model is developed from interceptor detection range, FOV geometry, and relative offensive--defensive motion to characterize the detection risk to each offensive UAV under overlapping multi-interceptor coverage. 
 Second, based on the evaluated risk and group penetration benefit, an entropy-regularized potential game updates each UAV's task-probability distribution online among decoy-diversion, concealment-evasion, and primary-attack tasks without preset assignments.
@@ -575,21 +575,21 @@ Equations~\eqref{eq:role-utility-decoy}--\eqref{eq:role-utility-stealth} associa
 
 Without preset division, UAV $i$ uses task-probability vector
 \begin{equation}
-\mu_i(t)=
+\hat{\pi}_i(t)=
 \left[
-\mu_i^{D}(t),\,
-\mu_i^{P}(t),\,
-\mu_i^{S}(t)
+\hat{\pi}_i^{D}(t),\,
+\hat{\pi}_i^{P}(t),\,
+\hat{\pi}_i^{S}(t)
 \right]^{\top},
 \end{equation}
 whose entries are the current decoy-diversion, primary-attack, and concealment-evasion probabilities satisfying
 \begin{equation}
-\mu_i^{D}(t)+\mu_i^{P}(t)+\mu_i^{S}(t)=1,\qquad
-\mu_i^{r}(t)\ge 0,\quad r\in\{D,P,S\}.
+\hat{\pi}_i^{D}(t)+\hat{\pi}_i^{P}(t)+\hat{\pi}_i^{S}(t)=1,\qquad
+\hat{\pi}_i^{r}(t)\ge 0,\quad r\in\{D,P,S\}.
 \end{equation}
 For utilities $U_i^{D},U_i^{P},U_i^{S}$, the Logit response is
 \begin{equation}
-\mu_i^{r}(t)
+\hat{\pi}_i^{r}(t)
 =
 \frac{\exp\!\left(\dfrac{\eta}{\tau_\mu}U_i^{r}(t)\right)}
 {\sum\limits_{s\in\{D,P,S\}}\exp\!\left(\dfrac{\eta}{\tau_\mu}U_i^{s}(t)\right)},
@@ -601,57 +601,57 @@ where $\eta>0$ is rationality and $\tau_\mu>0$ entropy weight. At each reconfigu
 For this fixed state, the entropy-regularized individual payoff of UAV $i$ is
 \begin{equation}
 \begin{aligned}
-J_i(\mu_i,\mu_{-i};t)
+J_i(\hat{\pi}_i,\hat{\pi}_{-i};t)
 ={}&
-\sum_{r\in\{D,P,S\}}\mu_i^r(t)U_i^r(t)\\
+\sum_{r\in\{D,P,S\}}\hat{\pi}_i^r(t)U_i^r(t)\\
 &-\frac{\tau_\mu}{\eta}
-\sum_{r\in\{D,P,S\}}\mu_i^r(t)\ln\mu_i^r(t).
+\sum_{r\in\{D,P,S\}}\hat{\pi}_i^r(t)\ln\hat{\pi}_i^r(t).
 \end{aligned}
 \end{equation}
 The corresponding task potential is
 \begin{equation}
-\Phi_{\mathrm{task}}(\mu;t)
+\Phi_{\mathrm{task}}(\hat{\pi};t)
 =
-\sum_{i\in\mathcal A}J_i(\mu_i,\mu_{-i};t).
+\sum_{i\in\mathcal A}J_i(\hat{\pi}_i,\hat{\pi}_{-i};t).
 \end{equation}
 
-\noindent\textbf{Proposition 1.} At every task-reconfiguration instant, the mixed-task model is a state-dependent entropy-regularized exact potential game with potential $\Phi_{\mathrm{task}}(\mu;t)$.
+At every task-reconfiguration instant, the mixed-task model is a state-dependent entropy-regularized exact potential game with potential $\Phi_{\mathrm{task}}(\hat{\pi};t)$.
 
-\noindent\textit{Proof.} With the current offensive--defensive state fixed, a unilateral change of member $i$'s mixed task strategy does not change the instantaneous payoff terms of members $k\ne i$. Consequently,
+With the current offensive--defensive state fixed, a unilateral change of member $i$'s mixed task strategy does not change the instantaneous payoff terms of members $k\ne i$. Consequently,
 \begin{equation}
 \begin{aligned}
-J_i(\mu_i',\mu_{-i};t)-J_i(\mu_i,\mu_{-i};t)
-={}&\Phi_{\mathrm{task}}(\mu_i',\mu_{-i};t)\\
-&-\Phi_{\mathrm{task}}(\mu_i,\mu_{-i};t),
+J_i(\hat{\pi}_i',\hat{\pi}_{-i};t)-J_i(\hat{\pi}_i,\hat{\pi}_{-i};t)
+={}&\Phi_{\mathrm{task}}(\hat{\pi}_i',\hat{\pi}_{-i};t)\\
+&-\Phi_{\mathrm{task}}(\hat{\pi}_i,\hat{\pi}_{-i};t),
 \end{aligned}
 \end{equation}
-which is the defining unilateral-deviation identity of an exact potential game. For the constraint $\sum_r\mu_i^r=1$, introduce a Lagrange multiplier $\varrho_i$. Stationarity of
+which is the defining unilateral-deviation identity of an exact potential game. For the constraint $\sum_r\hat{\pi}_i^r=1$, introduce a Lagrange multiplier $\varrho_i$. Stationarity of
 \begin{equation}
-J_i+\varrho_i\left(1-\sum_r\mu_i^r\right)
+J_i+\varrho_i\left(1-\sum_r\hat{\pi}_i^r\right)
 \label{eq:task-game-lagrangian}
 \end{equation}
 gives
 \begin{equation}
-U_i^r-\frac{\tau_\mu}{\eta}\left(\ln\mu_i^r+1\right)-\varrho_i=0.
+U_i^r-\frac{\tau_\mu}{\eta}\left(\ln\hat{\pi}_i^r+1\right)-\varrho_i=0,
 \label{eq:task-game-stationarity}
 \end{equation}
-and hence $\mu_i^r\propto\exp[(\eta/\tau_\mu)U_i^r]$. Normalization recovers \eqref{eq:role-logit}. \hfill$\square$
+and hence $\hat{\pi}_i^r\propto\exp[(\eta/\tau_\mu)U_i^r]$. Normalization recovers \eqref{eq:role-logit}.
 
 
 The cooperative penetration problem can therefore be characterized as the following state-dependent entropy-regularized exact potential game:
 \begin{equation}
-\mu^{\star}(t)
+\hat{\pi}^{\star}(t)
 =
-\arg\max_{\{\mu_i\}_{i\in\mathcal{A}}}
-\Phi_{\mathrm{task}}(\mu;t).
+\arg\max_{\{\hat{\pi}_i\}_{i\in\mathcal{A}}}
+\Phi_{\mathrm{task}}(\hat{\pi};t).
 \end{equation}
 This state-driven mechanism reconfigures cooperative tasks online without preset allocation, using local adversarial cost, group penetration benefit, and defensive-attention redirection.
 
 \section{Cooperative UAV-Swarm Penetration Value Evaluation and Intelligent Guidance Policy Optimization}
 
 % Because individual and group optima differ, this section balances effective penetration against losses and embeds the resulting indicators into multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE).
-% Because individual and group optima differ, this section first evaluates effective penetration and avoidable losses, and then embeds the resulting theoretical quantities into multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE). In particular, the dynamically reconfigured task-probability vector $\mu_i(t)$ is appended to each UAV's local observation to condition the decentralized actor and is also used to weight task-specific exploration distributions during training. The actor output is subsequently mapped to the axial, pitch-normal, and yaw-normal acceleration commands, so that task evolution affects physical maneuver commands through the learned policy rather than through hard task selection or direct linear mixing of preset actions.
-Because individual and group optima differ, this section embeds penetration-value indicators into a CTDE-based MARL framework. The reconfigured task-probability vector $\mu_i(t)$ conditions each UAV's actor and guides task-specific exploration during training; the actor output is then mapped to three-axis acceleration commands, allowing task evolution to shape maneuvers through the learned policy rather than preset action mixing.
+% Because individual and group optima differ, this section first evaluates effective penetration and avoidable losses, and then embeds the resulting theoretical quantities into multi-agent reinforcement learning (MARL) under centralized training and decentralized execution (CTDE). In particular, the dynamically reconfigured task-probability vector $\hat{\pi}_i(t)$ is appended to each UAV's local observation to condition the decentralized actor and is also used to weight task-specific exploration distributions during training. The actor output is subsequently mapped to the axial, pitch-normal, and yaw-normal acceleration commands, so that task evolution affects physical maneuver commands through the learned policy rather than through hard task selection or direct linear mixing of preset actions.
+Because individual and group optima differ, this section embeds penetration-value indicators into a CTDE-based MARL framework. The reconfigured task-probability vector $\hat{\pi}_i(t)$ conditions each UAV's actor and guides task-specific exploration during training; the actor output is then mapped to three-axis acceleration commands, allowing task evolution to shape maneuvers through the learned policy rather than preset action mixing.
 
 \subsection{Utility Functional for Cooperative UAV-Swarm Penetration}
 
@@ -794,7 +794,7 @@ o_i(t)
 &=\bigl[\,o_i^{\mathrm{self}}(t)\mid o_i^{H}(t)\mid
 o_i^{\mathrm{thr}}(t)\mid o_i^{\mathrm{team}}(t)\,\bigr]^\top,\\
 \bar o_i(t)
-&=\left[o_i^\top(t),\mu_i^\top(t)\right]^\top
+&=\left[o_i^\top(t),\hat{\pi}_i^\top(t)\right]^\top
 \in\mathbb R^{14+4K}.
 \end{aligned}
 \label{eq:obs-decomp}
@@ -855,7 +855,7 @@ o_i^{\mathrm{thr}}(t)=[&o_{i,j_i^{(1)}}^{\mathrm{thr}}\mid\cdots\mid
 o_{i,j_i^{(K)}}^{\mathrm{thr}}]
 \end{aligned}\)\\
 Team & \(o_i^{\mathrm{team}}(t)=[P_i^{\mathrm{pen}},P_i^{\mathrm{hit}}]\)\\
-Task prior & \(\mu_i(t)=[\mu_i^D,\mu_i^P,\mu_i^S]^\top\)\\
+Task prior & \(\hat{\pi}_i(t)=[\hat{\pi}_i^D,\hat{\pi}_i^P,\hat{\pi}_i^S]^\top\)\\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -1013,11 +1013,11 @@ where $s(t)$ is the centralized global state and $\zeta(t)$ is a structured prio
 \widetilde Z_1,\cdots,\widetilde Z_{N_A},
 P_1^{\mathrm{pen}},\cdots,P_{N_A}^{\mathrm{pen}},\\
 P_1^{\mathrm{hit}},\cdots,P_{N_A}^{\mathrm{hit}},
-\mu_1,\cdots,\mu_{N_A}
+\hat{\pi}_1,\cdots,\hat{\pi}_{N_A}
 \Bigr],
 \end{aligned}
 \end{equation}
-where $\widetilde Z_i$, $P_i^{\mathrm{pen}}$, $P_i^{\mathrm{hit}}$, and $\mu_i$ are aggregate risk, penetration efficiency, strike feasibility, and reconfigured task distribution.
+where $\widetilde Z_i$, $P_i^{\mathrm{pen}}$, $P_i^{\mathrm{hit}}$, and $\hat{\pi}_i$ are aggregate risk, penetration efficiency, strike feasibility, and reconfigured task distribution.
 
 The actor uses a residual encoder to process its enhanced observation:
 \begin{equation}
@@ -1082,18 +1082,18 @@ u_i(t)
 \end{equation}
 which guarantees $u_i(t)\in(-1,1)^3\subset[-1,1]^3$. The Gaussian $\widetilde\pi_{\theta_i}(\widetilde u_i\mid\bar o_i)$ is the latent density, and the same tanh transformation and change-of-variables rule induce the bounded executed density $\pi_{\theta_i}(u_i\mid\bar o_i)$. The latent behavior policy is
 \begin{equation}
-\widetilde b_{\theta_i}(\widetilde u_i\mid\bar o_i,\mu_i)
+\widetilde b_{\theta_i}(\widetilde u_i\mid\bar o_i,\hat{\pi}_i)
 =
 (1-\epsilon_i)\widetilde\pi_{\theta_i}(\widetilde u_i\mid\bar o_i)
-+\epsilon_i\widetilde\pi_i^{\mathrm{exp}}(\widetilde u_i\mid o_i,\mu_i).
++\epsilon_i\widetilde\pi_i^{\mathrm{exp}}(\widetilde u_i\mid o_i,\hat{\pi}_i).
 \end{equation}
 The joint executed-action behavior policy is
 \begin{equation}
-b_\theta(\mathbf u\mid\bar{\mathbf o},\mu)
+b_\theta(\mathbf u\mid\bar{\mathbf o},\hat{\pi})
 =
-\prod_{i\in\mathcal A}b_{\theta_i}(u_i\mid\bar o_i,\mu_i),
+\prod_{i\in\mathcal A}b_{\theta_i}(u_i\mid\bar o_i,\hat{\pi}_i),
 \end{equation}
-where $\mu(t)=\bigl(\mu_1(t),\ldots,\mu_{N_A}(t)\bigr)$ collects the task-probability vectors used when the joint action is sampled. The executed-action density $b_{\theta_i}$ is obtained from the latent density $\widetilde b_{\theta_i}$ through the standard change-of-variables rule:
+where $\hat{\pi}(t)=\bigl(\hat{\pi}_1(t),\ldots,\hat{\pi}_{N_A}(t)\bigr)$ collects the task-probability vectors used when the joint action is sampled. The executed-action density $b_{\theta_i}$ is obtained from the latent density $\widetilde b_{\theta_i}$ through the standard change-of-variables rule:
 \begin{equation}
 \begin{aligned}
 \log b_{\theta_i}(u_i\mid\cdot)
@@ -1117,7 +1117,7 @@ where $\epsilon_{\mathrm{num}}=10^{-6}$ avoids numerical singularities. The same
 \widetilde u_i(t)
 \sim
 \widetilde b_{\theta_i}
-\bigl(\cdot\mid\bar o_i(t),\mu_i(t)\bigr),
+\bigl(\cdot\mid\bar o_i(t),\hat{\pi}_i(t)\bigr),
 \end{equation}
 \begin{equation}
 u_i(t)
@@ -1128,13 +1128,13 @@ u_i(t)
 The exploration policy $\widetilde\pi_i^{\mathrm{exp}}$ is a task-weighted latent Gaussian mixture:
 \begin{equation}
 \begin{aligned}
-\widetilde\pi_i^{\mathrm{exp}}(\widetilde u_i\mid o_i,\mu_i)
+\widetilde\pi_i^{\mathrm{exp}}(\widetilde u_i\mid o_i,\hat{\pi}_i)
 ={}&
-\mu_i^D(t)\,\mathcal{N}\!\left(\widetilde u_i;u_i^{D,\mathrm{ref}},\,\Sigma\right)\\
+\hat{\pi}_i^D(t)\,\mathcal{N}\!\left(\widetilde u_i;u_i^{D,\mathrm{ref}},\,\Sigma\right)\\
 &+
-\mu_i^P(t)\,\mathcal{N}\!\left(\widetilde u_i;u_i^{P,\mathrm{ref}},\,\Sigma\right)\\
+\hat{\pi}_i^P(t)\,\mathcal{N}\!\left(\widetilde u_i;u_i^{P,\mathrm{ref}},\,\Sigma\right)\\
 &+
-\mu_i^S(t)\,\mathcal{N}\!\left(\widetilde u_i;u_i^{S,\mathrm{ref}},\,\Sigma\right)
+\hat{\pi}_i^S(t)\,\mathcal{N}\!\left(\widetilde u_i;u_i^{S,\mathrm{ref}},\,\Sigma\right)
 \end{aligned}
 \end{equation}
 where $\Sigma$ is the base exploration covariance matrix. The vectors $u_i^{r,\mathrm{ref}}$, $r\in\{D,P,S\}$, are heuristic reference-action biases for the three tasks.
@@ -1172,9 +1172,9 @@ The advantage estimate $\hat A_t$ is computed using generalized advantage estima
 r_t(\theta)
 =
 \frac{
-b_{\theta}\bigl(\mathbf u(t)\mid \bar{\mathbf o}(t),\mu(t)\bigr)
+b_{\theta}\bigl(\mathbf u(t)\mid \bar{\mathbf o}(t),\hat{\pi}(t)\bigr)
 }{
-b_{\theta_{\mathrm{old}}}\bigl(\mathbf u(t)\mid \bar{\mathbf o}(t),\mu(t)\bigr)
+b_{\theta_{\mathrm{old}}}\bigl(\mathbf u(t)\mid \bar{\mathbf o}(t),\hat{\pi}(t)\bigr)
 }.
 \end{equation}
 The denominator is evaluated using the old network parameters and the corresponding exploration intensities stored when the trajectory was sampled. Both the numerator and denominator are executed-action densities after tanh squashing and Jacobian correction.
@@ -1244,7 +1244,7 @@ The distributed HIL platform in Fig.~\ref{fig:HIL} uses an Ubuntu 22.04 server w
 \end{figure}
 
 To simulate observation uncertainty during embedded closed-loop deployment, Gaussian errors are added to the velocity, range, and LOS-angular-rate observations of the offensive UAVs, modeled as $\tilde v=v+\eta_v$, $\tilde\rho=\rho+\eta_\rho$, and $\tilde\omega=\omega+\eta_\omega$, where $\eta_v\sim\mathcal{N}\!\left(0.036\,\mathrm{m/s},(0.18\,\mathrm{m/s})^2\right)$, $\eta_\rho\sim\mathcal{N}\!\left(0.15\,\mathrm{m},(0.75\,\mathrm{m})^2\right)$, and $\eta_\omega\sim\mathcal{N}\!\left(1.5\times10^{-4}\,\mathrm{rad/s},(7.5\times10^{-4}\,\mathrm{rad/s})^2\right)$.
-The complete simulation and training settings, including the trust-mapping, exploration, PPO, and network configurations, are provided in Appendix~\ref{app:complete-parameters}.
+The complete simulation and training settings, including the trust-mapping, exploration, PPO, and network configurations, are provided in~\ref{app:complete-parameters}.
 % The key simulation and training settings are provided in \ref{app:complete-parameters}.
 % The complete trust-mapping, exploration, PPO, and network settings are documented in \ref{app:complete-parameters}.
 % , while the complete simulation, method, training, and network parameters are provided in \ref{app:complete-parameters}.
@@ -1270,7 +1270,7 @@ The complete simulation and training settings, including the trust-mapping, expl
 % \end{table}
 
 An offensive--defensive scenario containing an offensive UAV swarm, the HVT, and an interceptor swarm is established, with the HVT fixed at $p_H=(1200,0,0)^\top\,\mathrm{m}$. 
-% The offensive and defensive UAVs have maximum speeds of $50\,\mathrm{m/s}$ and $60\,\mathrm{m/s}$ and normal-acceleration limits of $3g$ and $5g$, respectively. 
+% The offensive and defensive UAVs have maximum speeds of $50\,\mathrm{m/s}$ and $60\,\mathrm{m/s}$ and normal-acceleration limits of $2.5g$ and $5g$, respectively. 
 At the start of each episode, the position, speed, and attitude variables of both sides are sampled uniformly from the intervals listed in Table~\ref{tab:initial-range-capability}.
 Three scale cases, 6-vs-6, 8-vs-8, and 10-vs-10, are used to cover different offensive--defensive scales. The complete initial states of their representative episodes are provided in \ref{app:representative-initial-states}, Tables~\ref{tab:sim-ic-6v6}--\ref{tab:sim-ic-10v10}. In HIL tests, the hardware side is fixed to perform policy inference for offensive UAV $A_0$--$A_4$, while the remaining offensive-UAV policies are deployed on the server side and use the same observation packaging, communication protocol, and action interface.
 
@@ -1292,7 +1292,7 @@ Initial speed / (m/s) & $[45,50]$ & $[55,60]$ \\
 Initial heading deviation / deg & $[-11,11]$ & $[-15,15]$ \\
 Initial flight-path angle / deg & $[-1.5,1.5]$ & $[-5,5]$ \\
 Maximum speed / (m/s) & $50$ & $60$ \\
-Normal-acceleration limit & $3g$ & $5g$ \\
+Normal-acceleration limit & $2.5g$ & $5g$ \\
 \bottomrule
 \end{tabularx}
 \end{table}
@@ -1395,7 +1395,7 @@ Figure~\ref{fig:v71-case1-traj} shows that $A_1$, $A_5$, and $A_0$ were intercep
   \label{fig:v71-case1-offensive}
 \end{figure}
 
-Figure~\ref{fig:v71-case1-offensive} presents the offensive-UAV speed, acceleration, and HVT-range histories. The speed of the primary-attack UAV $A_4$ remains within $44.95$--$50.00\,\mathrm{m/s}$. Its peak absolute pitch-plane and lateral accelerations are $1.90g$ and $0.06g$, respectively, both below the $3g$ maneuver limit. The range from $A_4$ to the HVT decreases continuously during the terminal phase until impact. The absence of oscillatory speed or acceleration responses indicates that closed-loop communication between the embedded policy-inference nodes and the server-side environment preserves an executable primary-attack trajectory.
+Figure~\ref{fig:v71-case1-offensive} presents the offensive-UAV speed, acceleration, and HVT-range histories. The speed of the primary-attack UAV $A_4$ remains within $44.95$--$50.00\,\mathrm{m/s}$. Its peak absolute pitch-plane and lateral accelerations are $1.90g$ and $0.06g$, respectively, both below the $2.5g$ maneuver limit. The range from $A_4$ to the HVT decreases continuously during the terminal phase until impact. The absence of oscillatory speed or acceleration responses indicates that closed-loop communication between the embedded policy-inference nodes and the server-side environment preserves an executable primary-attack trajectory.
 
 \begin{figure}[!htbp]
   \centering
@@ -1585,7 +1585,7 @@ Figure~\ref{fig:v71-case3-traj} shows that $A_9$, $A_0$, $A_1$, $A_4$, and $A_5$
   \label{fig:v71-case3-offensive}
 \end{figure}
 
-Figure~\ref{fig:v71-case3-offensive} shows that $A_8$ maintains a speed of $44.97$--$50.00\,\mathrm{m/s}$. Its peak absolute pitch-plane and lateral accelerations are $1.90g$ and $0.07g$, respectively, both within the $3g$ maneuver limit. The minimum separation from the nearest surviving interceptor is $242.41\,\mathrm{m}$, while the range to the HVT decreases overall until impact. The speed, acceleration, and range histories therefore show that the primary-attack trajectory remains continuous when the hardware policy nodes and homogeneous server-side nodes operate jointly in the HIL loop.
+Figure~\ref{fig:v71-case3-offensive} shows that $A_8$ maintains a speed of $44.97$--$50.00\,\mathrm{m/s}$. Its peak absolute pitch-plane and lateral accelerations are $1.90g$ and $0.07g$, respectively, both within the $2.5g$ maneuver limit. The minimum separation from the nearest surviving interceptor is $242.41\,\mathrm{m}$, while the range to the HVT decreases overall until impact. The speed, acceleration, and range histories therefore show that the primary-attack trajectory remains continuous when the hardware policy nodes and homogeneous server-side nodes operate jointly in the HIL loop.
 
 \begin{figure}[!htbp]
   \centering
@@ -1674,7 +1674,7 @@ Under identical conditions, cooperative game penetration guidance\cite{Chen2024C
 \end{table}
 
 % With trained weights fixed, selected actor inputs are masked only during inference. 
-The first ablation removes the FOV cone margin $q_{ij}$ and tracking-mismatch margin $\widetilde\Gamma_{ij}$ from $o_i^{\mathrm{thr}}$, thereby suppressing the actor's explicit access to threat geometry and interceptor tracking-mismatch information. The second removes the task-probability vector $\mu_i=[\mu_i^D,\mu_i^P,\mu_i^S]^{\top}$, thereby eliminating the dynamic task-reconfiguration prior from the actor input while retaining all other observations. Each configuration uses $1000$ HIL Monte Carlo episodes; Table~\ref{tab:ablation-rta-prior} reports the penetration success rates.
+The first ablation removes the FOV cone margin $q_{ij}$ and tracking-mismatch margin $\widetilde\Gamma_{ij}$ from $o_i^{\mathrm{thr}}$, thereby suppressing the actor's explicit access to threat geometry and interceptor tracking-mismatch information. The second removes the task-probability vector $\hat{\pi}_i=[\hat{\pi}_i^D,\hat{\pi}_i^P,\hat{\pi}_i^S]^{\top}$, thereby eliminating the dynamic task-reconfiguration prior from the actor input while retaining all other observations. Each configuration uses $1000$ HIL Monte Carlo episodes; Table~\ref{tab:ablation-rta-prior} reports the penetration success rates.
 
 \begin{table}[H]
   \centering
@@ -1697,7 +1697,7 @@ The first ablation removes the FOV cone margin $q_{ij}$ and tracking-mismatch ma
   \end{tabularx}
 \end{table}
 
-Table~\ref{tab:ablation-rta-prior} shows safety-margin removal reduces success to $57.5\%$, $68.0\%$, and $93.5\%$: the 6-vs-6 and 8-vs-8 losses are pronounced, while 10-vs-10 still decreases measurably. These channels support threat-geometry recognition and tracking-mismatch assessment. Masking $\mu_i$ limits every scale to at most $1.3\%$, identifying the explicit task prior as the key channel for online task reconfiguration in actor decisions.
+Table~\ref{tab:ablation-rta-prior} shows safety-margin removal reduces success to $57.5\%$, $68.0\%$, and $93.5\%$: the 6-vs-6 and 8-vs-8 losses are pronounced, while 10-vs-10 still decreases measurably. These channels support threat-geometry recognition and tracking-mismatch assessment. Masking $\hat{\pi}_i$ limits every scale to at most $1.3\%$, identifying the explicit task prior as the key channel for online task reconfiguration in actor decisions.
 
 In summary, the proposed method achieves stable cooperative penetration across the tested scales. Decoy maneuvers divert interceptor attention and induce repeated target reassignment, while concealment-evasion maneuvers preserve surviving members and support the primary-attack UAV in maintaining a viable penetration route to the HVT. Task responsibilities are dynamically redistributed among the swarm as the engagement geometry evolves, demonstrating consistent effectiveness across different engagement scales.
 
@@ -1812,7 +1812,7 @@ The complete parameter settings used in the simulations and training are reporte
 Sym. & Val. & Sym. & Val. \\
 \midrule
 $V_i^{\max}$ & $50\,\mathrm{m/s}$ & $V_j^{\max}$ & $60\,\mathrm{m/s}$ \\
-$a_n^{A,\max}$ & $3g$ & $a_n^{D,\max}$ & $5g$ \\
+$a_n^{A,\max}$ & $2.5g$ & $a_n^{D,\max}$ & $5g$ \\
 $\alpha_j$ & $30^{\circ}$ & $D_{\mathrm{radar}}$ & $500\,\mathrm{m}$ \\
 $\kappa_R$ & $0.02\,\mathrm{m^{-1}}$ & $\rho^{\mathrm{kill}}$ & $5\,\mathrm{m}$ \\
 $N_{\mathrm{PN}}$ & $3$ & $z^{\mathrm{safe}}$ & $100\,\mathrm{m}$ \\

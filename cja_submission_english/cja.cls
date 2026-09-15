@@ -42,6 +42,7 @@
 \newif\iflongmktitle \longmktitlefalse
 \newif\ifnopreprintline \nopreprintlinefalse
 \newif\ifdoubleblind \doubleblindfalse
+\newif\ifunbranded \unbrandedfalse
 
 \newif\ifuseexplthreefunctions \useexplthreefunctionsfalse
 
@@ -107,6 +108,7 @@
    {\AtBeginDocument{\def\theaffn{\arabic{affn}}
     \def\thefnote{\alph{fnote}}}}
 \DeclareOption{doubleblind}{\doubleblindtrue}
+\DeclareOption{unbranded}{\unbrandedtrue}
 
 \ExecuteOptions{a4paper,times,10pt,twoside,5p,twocolumn,number,lefttitle,fleqn}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
@@ -899,7 +901,9 @@
 \fi
   \ifx\@fnotes\@empty\else\@fnotes\fi
   \protected@xdef\@thefnmark{}%
+  \ifunbranded\else
   \@footnotetext{Peer review under responsibility of Editorial Committee of CJA.}
+  \fi
   \@footnotetext{%
     \hspace{-1.8em}%
     \fbox{%
@@ -978,6 +982,7 @@
 
 \def\@article@doi{}
 \def\@front@header{Chinese Journal of Aeronautics, (year), \textbf{volum}(number): page--page}
+\ifunbranded\let\@front@header\@empty\fi
 \def\@front@footer{}
 \def\@received{}
 \def\@revised{}
@@ -1006,6 +1011,7 @@
   \vspace*{-0.33cm}%
   \begin{\elsarticletitlealign}%
     \def\baselinestretch{1}%
+    \ifunbranded\else
     \hrule
     \vskip 3pt%
     \includegraphics[height=2.8cm]{csaa.jpg}%
@@ -1043,6 +1049,7 @@
     % \vskip -0.0cm%
     \rule{\textwidth}{1.8mm}%
     \vskip 1.3cm%
+    \fi
     % \Large\@title\par\vskip18pt
     \parbox[t]{15cm}{%
       {\bfseries\fontsize{20}{24}\selectfont\@title\par\vskip22pt}%
