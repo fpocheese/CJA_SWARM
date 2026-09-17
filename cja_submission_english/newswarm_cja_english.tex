@@ -96,7 +96,7 @@ To address the low penetration success rate of offensive UAV swarms under multi-
 \section{Cooperative UAV-Swarm Penetration Modeling under Multi-Interceptor FOV Constraints}
 \label{sec:aircraft-model}
 
-Let $\mathcal{A}=\{A_1,A_2,\dots,A_{N_A}\}$ and $\mathcal{D}=\{D_1,D_2,\dots,D_{N_I}\}$ denote the offensive and interceptor swarms. In the asymmetric HVT engagement of Fig.~\ref{fig:engagement-geometry}, $V_j^{\max}>V_i^{\max}$ and $a_n^{D,\max}>a_n^{A,\max}$ for $A_i\in\mathcal A$ and $D_j\in\mathcal D$.
+Let $\mathcal{A}=\{A_0,A_1,\dots,A_{N_A-1}\}$ and $\mathcal{D}=\{D_0,D_1,\dots,D_{N_I-1}\}$ denote the offensive and interceptor swarms. In the asymmetric HVT engagement of Fig.~\ref{fig:engagement-geometry}, $V_j^{\max}>V_i^{\max}$ and $a_n^{D,\max}>a_n^{A,\max}$ for $A_i\in\mathcal A$ and $D_j\in\mathcal D$.
 
 \begin{figure}[!htbp]
   \centering
@@ -803,8 +803,10 @@ The HVT relative-motion components are
 \begin{align}
 \dot\lambda_{\mathrm{az},iH}(t)&=\frac{r_{iH,x}\,\dot r_{iH,y}-r_{iH,y}\,\dot r_{iH,x}}{r_{iH,x}^{2}+r_{iH,y}^{2}},
 \label{eq:los-az}\\
-\dot\lambda_{\mathrm{el},iH}(t)&=\frac{\dot r_{iH,z}\bigl(r_{iH,x}^{2}+r_{iH,y}^{2}\bigr)
--r_{iH,z}\bigl(r_{iH,x}\dot r_{iH,x}+r_{iH,y}\dot r_{iH,y}\bigr)}{\rho_{iH}^{2}\,\sqrt{r_{iH,x}^{2}+r_{iH,y}^{2}}},
+\dot\lambda_{\mathrm{el},iH}(t)&=\frac{\begin{gathered}
+\dot r_{iH,z}\bigl(r_{iH,x}^{2}+r_{iH,y}^{2}\bigr)\\
+{}-r_{iH,z}\bigl(r_{iH,x}\dot r_{iH,x}+r_{iH,y}\dot r_{iH,y}\bigr)
+\end{gathered}}{\rho_{iH}^{2}\,\sqrt{r_{iH,x}^{2}+r_{iH,y}^{2}}},
 \label{eq:los-el}\\
 V_{c,iH}(t)&=\frac{r_{iH}^{\top}v_i}{\rho_{iH}},
 \label{eq:vc-h}\\
@@ -1010,10 +1012,10 @@ where $s(t)$ is the centralized global state and $\zeta(t)$ is a structured prio
 \zeta(t)
 =
 \Bigl[
-\widetilde Z_1,\cdots,\widetilde Z_{N_A},
-P_1^{\mathrm{pen}},\cdots,P_{N_A}^{\mathrm{pen}},\\
-P_1^{\mathrm{hit}},\cdots,P_{N_A}^{\mathrm{hit}},
-\hat{\pi}_1,\cdots,\hat{\pi}_{N_A}
+\widetilde Z_0,\cdots,\widetilde Z_{N_A-1},
+P_0^{\mathrm{pen}},\cdots,P_{N_A-1}^{\mathrm{pen}},\\
+P_0^{\mathrm{hit}},\cdots,P_{N_A-1}^{\mathrm{hit}},
+\hat{\pi}_0,\cdots,\hat{\pi}_{N_A-1}
 \Bigr],
 \end{aligned}
 \end{equation}
@@ -1093,7 +1095,7 @@ b_\theta(\mathbf u\mid\bar{\mathbf o},\hat{\pi})
 =
 \prod_{i\in\mathcal A}b_{\theta_i}(u_i\mid\bar o_i,\hat{\pi}_i),
 \end{equation}
-where $\hat{\pi}(t)=\bigl(\hat{\pi}_1(t),\ldots,\hat{\pi}_{N_A}(t)\bigr)$ collects the task-probability vectors used when the joint action is sampled. The executed-action density $b_{\theta_i}$ is obtained from the latent density $\widetilde b_{\theta_i}$ through the standard change-of-variables rule:
+where $\hat{\pi}(t)=\bigl(\hat{\pi}_0(t),\ldots,\hat{\pi}_{N_A-1}(t)\bigr)$ collects the task-probability vectors used when the joint action is sampled. The executed-action density $b_{\theta_i}$ is obtained from the latent density $\widetilde b_{\theta_i}$ through the standard change-of-variables rule:
 \begin{equation}
 \begin{aligned}
 \log b_{\theta_i}(u_i\mid\cdot)
