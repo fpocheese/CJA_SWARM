@@ -829,7 +829,7 @@ p_{i j_i^{(1)}}^{\mathrm{cap}}(t)
 \ge\cdots\ge
 p_{i j_i^{(K)}}^{\mathrm{cap}}(t).
 \end{equation}
-The observation components are summarized compactly below; $V_{\mathrm{ref}}$, $a^{\mathrm{ref}}_n$, and $\omega_{\mathrm{ref}}$ are normalization constants.
+The observation components are summarized in Table~\ref{tab:actor-observation-components}; $V_{\mathrm{ref}}$, $a^{\mathrm{ref}}_n$, and $\omega_{\mathrm{ref}}$ are normalization constants.
 \begin{table}[!htbp]
 \centering
 \caption{Components of the enhanced actor observation}
@@ -1466,6 +1466,8 @@ The 8-vs-8 case further enlarges the offensive--defensive scale and is used to a
 
 Figure~\ref{fig:v71-case2-traj} shows that $A_0$, $A_1$, and $A_5$ are intercepted at $13.49\,\mathrm{s}$, $17.15\,\mathrm{s}$, and $22.26\,\mathrm{s}$, respectively, forming early decoy consumption. $A_2$, $A_3$, $A_6$, and $A_7$ maintain spatial dispersion and continue to draw the attention of surviving interceptors in the middle and late stages, while $A_4$ approaches the HVT along the primary-attack channel and completes the hit. The episode indicates that the distributed HIL swarm forms cooperative division among decoy-diversion, concealment-evasion, and primary-attack tasks rather than merely increasing the number of maneuvering members.
 
+Figure~\ref{fig:v71-case2-offensive} presents the offensive-UAV speed, acceleration, and HVT-range histories. The speed of $A_4$ increases from approximately $45$ to $50\,\mathrm{m/s}$ during the initial phase and then remains near $50\,\mathrm{m/s}$. The pitch and yaw acceleration responses remain within the $\pm2.5g$ bounds, while the range from $A_4$ to the HVT decreases throughout the episode.
+
 \begin{figure}[!htbp]
   \centering
   \begin{subfigure}[t]{0.48\textwidth}
@@ -1772,7 +1774,7 @@ P. Sunehag, G. Lever, A. Gruslys, W. M. Czarnecki, V. Zambaldi, M. Jaderberg, M.
 \bibitem{Rashid2020JMLR}
 T. Rashid, M. Samvelyan, C. S. de Witt, G. Farquhar, J. Foerster, and S. Whiteson, ``Monotonic value function factorisation for deep multi-agent reinforcement learning,'' \textit{J. Mach. Learn. Res.}, vol.~21, no.~178, pp.~1--51, 2020.
 \bibitem{Foerster2018COMA}
-J. Foerster, G. Farquhar, T. Afouras, N. Nardelli, and S. Whiteson, ``Counterfactual multi-agent policy gradients,'' \textit{Proc. AAAI Conf. Artif. Intell.}, vol.~32, no.~1, 2018, doi: 10.1609/aaai.v32i1.11794.
+J. N. Foerster, G. Farquhar, T. Afouras, N. Nardelli, and S. Whiteson, ``Counterfactual multi-agent policy gradients,'' \textit{Proc. AAAI Conf. Artif. Intell.}, vol.~32, no.~1, pp.~2974--2982, 2018, doi: 10.1609/aaai.v32i1.11794.
 \bibitem{Iqbal2019MAAC}
 S. Iqbal and F. Sha, ``Actor-attention-critic for multi-agent reinforcement learning,'' in \textit{Proc. 36th Int. Conf. Mach. Learn.}, ser. Proc. Mach. Learn. Res., vol.~97, 2019, pp.~2961--2970.
 \bibitem{Gaudet2020AST}
@@ -1780,15 +1782,13 @@ B. Gaudet, R. Furfaro, and R. Linares, ``Reinforcement learning for angle-only i
 \bibitem{Liu2021AST}
 X. Liu, Y. Liang, H. Wang, and W. Chen, ``Learning prediction-correction guidance for impact time control,'' \textit{Aerosp. Sci. Technol.}, vol.~119, Art.~107187, 2021, doi: 10.1016/j.ast.2021.107187.
 \bibitem{Qiu2022JAE}
-X. Qiu, C. Gao, and W. Jing, ``Maneuvering penetration strategies of ballistic missiles based on deep reinforcement learning,'' \textit{Proc. Inst. Mech. Eng. Part G J. Aerosp. Eng.}, vol.~236, no.~16, 2022, doi: 10.1177/09544100221088361.
+X. Qiu, C. Gao, and W. Jing, ``Maneuvering penetration strategies of ballistic missiles based on deep reinforcement learning,'' \textit{Proc. Inst. Mech. Eng. Part G J. Aerosp. Eng.}, vol.~236, no.~16, pp.~3494--3504, 2022, doi: 10.1177/09544100221088361.
 \bibitem{Yan2022SciRep}
 M. Yan, R. Yang, Y. Zhang, L. Yue, and D. Hu, ``A hierarchical reinforcement learning method for missile evasion and guidance,'' \textit{Sci. Rep.}, vol.~12, Art.~18888, 2022, doi: 10.1038/s41598-022-21756-6.
 \bibitem{Hui2025CJA}
 Y. Hui, X. Li, C. Liang, Z. Zhang, and J. Yan, ``Multi-missile coordinated penetration strategy based on hierarchical reinforcement learning in reduced space,'' \textit{Chinese J. Aeronaut.}, vol.~38, no.~9, Art.~103375, 2025, doi: 10.1016/j.cja.2024.103375.
 \bibitem{Qiu2024AST}
 X. Qiu and C. Gao, ``Three-dimensional cooperative guidance with impact angle constraints via value-policy decomposed multi-agent reinforcement learning,'' \textit{Aerosp. Sci. Technol.}, vol.~155, Art.~109616, 2024, doi: 10.1016/j.ast.2024.109616.
-\bibitem{WeiYang2022CJA}
-Y. Wei, S. Wang, and Q. Zhu, ``Multi-missile cooperative guidance with target assignment and attack angle constraints,'' \textit{Chinese J. Aeronaut.}, vol.~35, no.~4, pp.~274--286, 2022, doi: 10.1016/j.cja.2021.07.027.
 
 \end{thebibliography}
 
@@ -1888,7 +1888,7 @@ $d$ & $64$ & $\alpha_{\mathrm{actor}}$ & $3{\times}10^{-4}$ \\
 $\alpha_{\mathrm{critic}}$ & $1{\times}10^{-3}$ & $\lambda_{\mathrm{GAE}}$ & $0.95$ \\
 $N_{\mathrm{PPO}}$ & $10$ & $N_{\mathrm{mini}}$ & $256$ \\
 $N_{\mathrm{rollout}}$ & $2048$ & $n_{\mathrm{hidden}}$ & $128$ \\
-$N_{\mathrm{train}}$ & $3000$ episodes & $T_{\max}$ & $80\,\mathrm{s}$ \\
+$N_{\mathrm{train}}$ & $2000$ episodes & $T_{\max}$ & $80\,\mathrm{s}$ \\
 \bottomrule
 \end{tabularx}
 \end{table}
